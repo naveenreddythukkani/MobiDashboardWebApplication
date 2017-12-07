@@ -1,0 +1,569 @@
+<div id="locations" class="tab-pane">
+
+    <div id="add_location" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content mdl-margin">
+                <div class="modal-header pb-5">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                    <h2 class="modal-title">Add Location</h2>
+                    <div class="row no-margin-hr">
+                        <div class="col-md-12 no-padding-hr">
+                            <label class="pull-right"><input type="checkbox"  ng-model="props.status" ng-init="props.status=true"><span> Active</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form" name="addLocationForm" id="add_location_from">
+                        <div class="row no-margin-hr">
+                            <div class="col-md-6 form-group no-padding-hr">
+                                <div class="col-md-4 required">
+                                    <label class="mdl_label control-label" autofocus="none">Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type="text" ng-class="{'haserror':field===fields.name}" class="form-control req-field-color" placeholder="Enter the Location name" name="name " required="required " ng-model="props.display_name" ng-change="validations() ">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Mobile<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type=" text" ng-class="{'haserror':field===fields.mobile}" class="form-control req-field-color" placeholder="Enter the mobile number " name="name " required="required " ng-model="props.mobile" ng-change="validations()" mobile-validation maxlength="10">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Addr.1<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type="text " class="form-control " placeholder="Enter the Address line1 " name="name " required="required " ng-model="props.address_line_1 " ng-change="dnsName() ">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Addr.2<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <input type="text " class="form-control " placeholder="Enter the Address line2 " name="name " required="required " ng-model="props.address_line_2 " ng-change="dnsName()">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">City<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type="text " class="form-control " placeholder="Enter the City " name="name " required="required " ng-model="props.city " ng-change="dnsName() ">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">State<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <select name="stateselection" class="form-control" placeholder="Select State " id="stateselection " ng-model="props.state " ng-change="dnsName()">
+                                     <option value="" disabled selected>Select State</option>
+                                     <option ng-repeat=" state in states"  value="{{state.name}}">{{state.name}}</option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Zip<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type="text" ng-class="{'haserror':field===fields.zip}" class="form-control " placeholder="Enter the Zip " name="zip " required="required " ng-model="props.postal_code" ng-change="validations()" maxlength="6" mobile-validation>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Fax<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <input type="text " class="form-control" ng-class="{'haserror':field===fields.fax}" placeholder="Enter the Fax" name="fax" required="required" ng-model="props.fax" ng-change="validations()" maxlength="15" mobile-validation>
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label" autofocus="none ">Email<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type="text " class="form-control" ng-class="{'haserror':field===fields.email}" placeholder="Enter the Email" name="email" required="required" ng-model="props.email" ng-change="validations()">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">WebURL<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <input type="text " class="form-control " placeholder="Enter the Weburl" name="weburl " required="required " ng-model="props.web " ngburl-change="dnsName()">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">GSTIN<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <input type="text " class="form-control" ng-class="{'haserror':field===fields.gstin}" placeholder="Enter the GSTIN " name="gstin" required="required" ng-model="props.gstin" maxlength="15" ng-change="validations()">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">TAN<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <input type="text " class="form-control" ng-class="{'haserror':field===fields.tan}" placeholder="Enter the TAN" name="tan" required="required" ng-model="props.tan" maxlength="10" ng-change="validations()">
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-12 no-padding-hr ">
+                                <label class="devider-line"></label>
+                            </div>
+                            <div class="col-md-12  no-padding-hr">
+                                <label style="font-size: 16px;">Permissions:</label>
+                            </div>
+                            <div class="col-md-12 form-group no-padding-hr">
+                                <div class="col-md-2 required">
+                                    <label class="mdl_label control-label" autofocus="none ">User<span>:</span></label>
+                                </div>
+                                <div class="col-md-10 no-padding-hr">
+                                    <select id="user-multiselctDropDown" multiple="multiple ">
+                                     <option ng-repeat="user in usersList" value="{{user.user_id}}" data-ng-bind-template="{{user.username}} ">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group no-padding-hr ">
+                                <div class="col-md-2 required">
+                                    <label class="mdl_label control-label " autofocus="none ">DayBook<span>:</span></label>
+                                </div>
+                                <div class="col-md-10 no-padding-hr">
+                                    <select id="daybook-multiselctDropDown" multiple="multiple">
+                                     <option ng-repeat="daybook in daybookList" value="{{daybook.id}}" data-ng-bind-template="{{daybook.display_name}} ">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group no-padding-hr no-margin-vr">
+                                <div class="col-md-2 required">
+                                    <label class="mdl_label control-label " autofocus="none ">Ledgers<span>:</span></label>
+                                </div>
+                                <div class="col-md-10 no-padding-hr">
+                                    <select id="ledger-multiselctDropDown" multiple="multiple">
+                                     <option ng-repeat="ledger in ledgerList " value="{{ledger.id}}" data-ng-bind-template="{{ledger.display_name}} ">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div> -->
+                            <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">
+                                <div class="no-padding-hr col-md-12 text-center">
+                                    <span style="color:#EF5F5F">{{errormessage}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer ">
+                    <div class="row no-margin-hr">
+                        <div class="col-md-5 pull-right no-padding-hr">
+                            <button type="button " class="btn background-defalt save-cancel-button " ng-click="cancelForm() ">Cancel</button>
+                            <button type="button " class="btn background-defalt save-cancel-button tabicon" ng-click="addingLocation() ">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="alert  alert-position-success" id="success-alert" style="display:none;">
+        <strong>{{msg}}</strong>
+    </div>
+    <!-- loaction list -->
+    <div class="container table_container table-container-width no-padding-hr">
+        <div class="row ">
+            <div class="col-md-12 ">
+                <h3 class="no-margin pull-left gray-color" style="margin-bottom:5px;"><span>{{selected_company_name}}</span> > Locations</h3>
+                <button type="button " class="btn btn-md pull-right postions-search" ng-click="search() "><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-md-12">
+                <table ng-table="loctionstable " class="table table-bordered" show-filter="searchEnable ">
+                    <tr ng-repeat="user in $data ">
+                        <td title=" 'Name' " filter="{ name: 'text'} " sortable=" 'name' ">
+                            <a class="tbl-link main-field" ng-click="dashboardAction(user)">{{user.display_name}}<span ng-show="user.status=='I'" class="inactiveshow"> (Inactive)</span></a>
+                            <span class="subfield-text ">{{user.address_line_1}} {{user.city}}  {{user.state}}</span>
+                        </td>
+                        <td class="vertical-center" title=" 'Phone' " filter="{ phone_number: 'text'} " sortable=" 'phone_number' ">
+                            {{user.mobile}}</td>
+                        <td class="accType vertical-center" style="text-align:right;">
+                            <div class="dropdown">
+                                <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
+                                <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
+                                    <li class="actionsmenu"><a data-toggle="modal" ng-click="editLocationwithexistingDetails(user)">Edit</a> </li>
+                                    <li class="actionsmenu"><a ng-click="assignUsersToLocation(user)">Users</a></li>
+                                    <li class="actionsmenu"><a ng-click="assignDaybooksToLocation(user)">Day Books</a></li>
+                                    <li class="actionsmenu"><a ng-click="assignLedgersToLocation(user)">Ledgers</a></li>
+                                    <!-- <li class="actionsmenu"><a ng-click="assignvoucherToLocation(user)">Voucher settings</a></li> -->
+                                    <li class="actionsmenu"><a ng-click="locationhistoryshow(user)">History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="loading " class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>
+<div id="deleteModal" class="modal fade " data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content logout_modal_width ">
+            <div class="modal-body text-center delete_modal ">
+                <h2>Are you sure you want to Delete {{props.display_name}} location?</h2>
+            </div>
+            <div class="modal-footer ">
+                <div class="row ">
+                    <div class="col-md-4 ">
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal">No</button>
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="deletelocation(props.id) ">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="edit_location" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdl-margin">
+            <div class="modal-header pb-5">
+                <button type="button" class="close" data-dismiss="modal" ng-click="editcancelForm()">&times;</button>
+                <h2 class="modal-title">Edit Location</h2>
+                <div class="row no-margin-hr">
+                    <div class="col-md-12 no-padding-hr">
+                        <label class="pull-right"><input type="checkbox"  ng-model="props.status"><span> Active</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form" name="addLocationForm" id="edit_location_from">
+                    <div class="row no-margin-hr">
+                        <div class="col-md-6 form-group no-padding-hr">
+                            <div class="col-md-4 required">
+                                <label class="mdl_label control-label" autofocus="none">Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.name}" class="form-control req-field-color" placeholder="Enter the Location name " name="name " required="required " ng-model="props.display_name" ng-change="validations() ">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Mobile<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type=" text " ng-class="{'haserror':field===fields.mobile}" class="form-control req-field-color" placeholder="Enter the mobile number " name="name " required="required " ng-model="props.mobile" ng-change="validations()" mobile-validation maxlength="10">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Addr.1<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text " class="form-control " placeholder="Enter the Address line1 " name="name " required="required " ng-model="props.address_line_1" ng-change="dnsName() ">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Addr.2<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text " class="form-control " placeholder="Enter the Address line2 " name="name " required="required " ng-model="props.address_line_2" ng-change="dnsName()">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">City<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text " class="form-control " placeholder="Enter the City " name="name " required="required " ng-model="props.city" ng-change="dnsName() ">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">State<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <select name="stateselection" class="form-control" placeholder="Select State " id="stateselection" ng-model="props.state" ng-change="dnsName()">
+                                     <option value="" disabled selected>Select State</option>
+                                     <option ng-repeat="state in states" ng-selected="state.name===props.state" value="{{state.name}}">{{state.name}}</option>
+                                     </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Zip<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text " class="form-control" ng-class="{'haserror':field===fields.zip}" placeholder="Enter the Zip" name="zip" required="required" ng-model="props.postal_code" ng-change="validations()" maxlength="6" mobile-validation>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Fax<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text " class="form-control" ng-class="{'haserror':field===fields.fax}" placeholder="Enter the Fax" name="fax" required="required" ng-model="props.fax" ng-change="validations()" maxlength="15" mobile-validation>
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Email<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text " class="form-control " ng-class="{'haserror':field===fields.email}" placeholder="Enter the Email" name="email " required="required " ng-model="props.email" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">WebURL<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text " class="form-control " placeholder="Enter the Weburl " name="weburl " required="required " ng-model="props.web" ngburl-change="dnsName()">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">GSTIN<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text " class="form-control" ng-class="{'haserror':field===fields.gstin}" placeholder="Enter the GSTIN" name="gstin" required="required" ng-model="props.gstin" maxlength="15" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div class="col-md-6 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">TAN<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text " class="form-control" ng-class="{'haserror':field===fields.tan}" placeholder="Enter the TAN" name="tan" required="required" ng-model="props.tan" maxlength="10" ng-change="validation()">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 no-padding-hr ">
+                            <label class="devider-line"></label>
+                        </div>
+                        <div class="col-md-12  no-padding-hr">
+                            <label style="font-size: 16px;">Permissions:</label>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-2 required">
+                                <label class="mdl_label control-label" autofocus="none ">User<span>:</span></label>
+                            </div>
+                            <div class="col-md-10 no-padding-hr">
+                                <select id="edituser-multiselctDropDown" multiple="multiple ">
+                                     <option ng-repeat="user in usersList" value="{{user.user_id}}" data-ng-bind-template="{{user.username}} ">
+                                     </option>
+                                     </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr ">
+                            <div class="col-md-2 required">
+                                <label class="mdl_label control-label " autofocus="none ">DayBook<span>:</span></label>
+                            </div>
+                            <div class="col-md-10 no-padding-hr">
+                                <select id="editdaybook-multiselctDropDown" multiple="multiple">
+                                     <option ng-repeat="daybook in daybookList" value="{{daybook.id}}" data-ng-bind-template="{{daybook.display_name}} ">
+                                     </option>
+                                     </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr no-margin-vr">
+                            <div class="col-md-2 required">
+                                <label class="mdl_label control-label " autofocus="none ">Ledgers<span>:</span></label>
+                            </div>
+                            <div class="col-md-10 no-padding-hr">
+                                <select id="editledger-multiselctDropDown" multiple="multiple">
+                                     <option ng-repeat="ledger in ledgerList " value="{{ledger.id}}" data-ng-bind-template="{{ledger.display_name}} ">
+                                     </option>
+                                     </select>
+                            </div>
+                        </div> -->
+                        <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">
+                            <div class="no-padding-hr col-md-12 text-center">
+                                <span style="color:#EF5F5F">{{errormessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer ">
+                <div class="row no-margin-hr">
+                    <div class="pull-left margin-left">
+                        <button type="button " class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="deletemodelshow()">Delete</button>
+                    </div>
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button " class="btn background-defalt save-cancel-button " ng-click="editcancelForm()">Cancel</button>
+                        <button type="button " class="btn background-defalt save-cancel-button tabicon" ng-click="editLocation()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="userlist" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{location_name}} > Users</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-offset-1 col-md-10 no-padding-hr border">
+                        <div class="col-md-12 no-padding-hr">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input class="form-control" ng-model="search_user.username" type="text" placeholder="Search Users">
+                                <span class="input-group-btn"><button class="btn btn-default" ng-click="clearSearchforuser()" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr padding-line"><label ng-click="checkAllUsers()"><input type="checkbox" ng-model="userSelectAll" class="checkboxspace">Select All</label>
+                            <span class="countshow pull-right">Selected users: {{calculateSeletedItems(selectedUsers)}} of {{selectedUsers.length}}</span>
+                        </div>
+                        <div class="col-md-10 no-padding-hr userscroll padding-line">
+                            <ul class="locationlist" ng-repeat="user in selectedUsers | filter:search_user">
+                                <li><label ng-class="{'disablerow-multiselect': user.user_id.toString()===owner_id}"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="userselectchange(selectedUsers)" ng-disabled="user.user_id.toString()===owner_id">{{user.username}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingUserToLocation()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="daybooks" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{location_name}} > Day Books</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-offset-1 col-md-10 no-padding-hr border">
+                        <div class="col-md-12 no-padding-hr">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input class="form-control" ng-model="search_daybooks.name" type="text" placeholder="Search Daybooks">
+                                <span class="input-group-btn"><button class="btn btn-default" ng-click="clearSearchfordaybooks()" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr padding-line"><label ng-click="checkAllDaybooks()"><input type="checkbox" ng-model="daybookselectAll" class="checkboxspace">Select All</label>
+                            <span class="countshow pull-right">Selected daybooks: {{calculateSeletedItems(selectedDaybooks)}} of {{selectedDaybooks.length}}</span>
+                        </div>
+                        <div class="col-md-10 no-padding-hr userscroll padding-line">
+                            <ul class="locationlist" ng-repeat="user in selectedDaybooks | filter:search_daybooks | orderBy:display_name">
+                                <li><label><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="daybookselectchange(selectedDaybooks)">{{user.display_name}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingDaybookToLocation()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ledgers" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{location_name}} > Ledgers</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-offset-1 col-md-10 no-padding-hr border">
+                        <div class="col-md-12 no-padding-hr">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input class="form-control" ng-model="search_ledgers.name" type="text" placeholder="Search Ledgers">
+                                <span class="input-group-btn"><button class="btn btn-default" ng-click="clearSearchforldgers()" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr padding-line"><label ng-click="checkAllLedgers()"><input type="checkbox" ng-model="ledgerselectall" class="checkboxspace">Select All</label>
+                            <span class="countshow pull-right">Seleted ledgers: {{calculateSeletedItems(selectedLedgers)}} of {{selectedLedgers.length}}</span>
+                        </div>
+                        <div class="col-md-10 no-padding-hr userscroll padding-line">
+                            <ul class="locationlist" ng-repeat="user in selectedLedgers | filter:search_ledgers">
+                                <li><label><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="ledgerselectchange(selectedLedgers)">{{user.display_name}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingLedgerToLocation()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="locationhistory" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{location_name}} > History</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-12">
+                        <table ng-table="loctionshistorytable" class="table table-bordered locationshistorytable">
+                            <tr ng-repeat="user in $data ">
+                                <td class="vertical-center" title=" 'Date' " sortable=" 'date' ">
+                                    {{user.date}}</td>
+                                <td class="vertical-center" title=" 'Name' " sortable=" 'name' ">
+                                    {{user.name}}</td>
+                                <td class="vertical-center" title=" 'Update details' " sortable=" 'comment' ">
+                                    {{user.comment}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

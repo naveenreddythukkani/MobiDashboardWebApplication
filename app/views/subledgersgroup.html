@@ -1,0 +1,24 @@
+<div class="container table_container table-container-width no-padding-hr" style="margin-top:45px;">
+    <div class="row no-margin-hr">
+        <div class="col-md-12 no-padding-hr">
+            <ul class="list-styles no-padding-hr">
+                <li class="custom-content-border listheightvalues">
+                    <span class="text-name">{{props.rootgroupname}} &#58;</span>
+                    <span class="text-value">{{rootgroupamount| INRCurrency}}</span>
+                </li>
+                <li ng-repeat="ledgersubgroup in rsubgroupelements" class="custom-content-border sub-listheightvalues actionsmenu" ng-click="ledgerElements(rootname, rootgroupname, ledgersubgroup.ledgersubgroup_name, ledgersubgroup.amt, ledgersubgroup.ledgersubgroup_id, rootgroup_id)"
+                    on-hold="favouriteSelection(ledgersubgroup.ledgersubgroup_name,ledgersubgroup.ledgersubgroup_id, 'U')">
+                    <span class="sublist-text-name">{{ledgersubgroup.ledgersubgroup_name}}</span>
+                    <span class="sublist-text-value">{{(ledgersubgroup.amt) | INRCurrency}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="alert  alert-position-success" id="success-alert" style="display:none;">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60" height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>

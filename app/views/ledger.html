@@ -1,0 +1,31 @@
+<div class="container table_container table-container-width no-padding-hr" style="margin-top:45px;">
+    <div class="row no-margin-hr">
+        <div class="col-md-12 no-padding-hr">
+            <ul class="list-styles no-padding-hr">
+                <li class="custom-content-border listheightvalues">
+                    <span class="text-name">{{props.subgroup_name}} &#58;</span>
+                    <span class="text-value">{{subgroup_amount| INRCurrency}}</span>
+                </li>
+                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-repeat="ledger in ledgerelements" ng-click="voucherSelection(ledger.ledger, ledger.Amount, ledger.ltype, ledger.ledger_id)" on-hold="favouriteSelection(ledger.ledger,ledger.ledger_id,ledger.ltype)">
+                    <span class="sublist-text-name">{{ledger.ledger}}</span>
+                    <span class="sublist-text-value">{{(ledger.Amount) | INRCurrency}}</span>
+                </li>
+                <li class="custom-content-border listheightvalues" ng-if="showprofitorloss && rootgroupdiff < 0" ng-click="selectReport()">
+                    <span class="text-name">Loss for the year &#58;</span>
+                    <span class="text-value">{{((-1 * rootgroupdiff) | INRCurrency)}}</span>
+                </li>
+                <li class="listheightvalues custom-content-border" ng-if="showprofitorloss && rootgroupdiff >= 0" ng-click="selectReport()">s
+                    <span class="text-name">Profit for the year &#58;</span>
+                    <span class="text-value">{{((rootgroupdiff) | INRCurrency)}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="alert  alert-position-success" id="success-alert" style="display:none;">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60" height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>

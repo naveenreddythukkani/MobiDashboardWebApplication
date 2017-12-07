@@ -1,0 +1,130 @@
+<div class="container table_container table-container-width no-padding-hr" style="margin-top:50px;">
+    <div class="row no-margin-hr">
+        <div class="col-md-12 no-padding-hr">
+            <h4 class="no-margin-hr text-center">{{findingtranstype(props.tx_type)}} VOUCHER</h4>
+            <div class="row no-marign-allsides no-margin-hr voucher-box">
+                <div class='displayrow'>
+                    <div class='displaycell'>
+                        <table class="cashreceipttable">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span style="font-size:30px;max-width:270px;" ng-class="{'red':vocherdetailsdata.isverified == 0}">{{vocherdetailsdata.manualid}}</span>
+                                    </td>
+                                    <td style="padding-left:15px;">
+                                        <span style="font-size:16px;">{{showsnameandglname(vocherdetailsdata)}}</span><br>
+                                        <span class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span><span ng-show="vocherdetailsdata.refno && vocherdetailsdata.refdate"> | </span>
+                                        <span class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='displaycell seqs0howing'>
+                        <span class="pull-left">{{vocherdetailsdata.transdate}}</span>
+                        <span class="pull-right">{{vocherdetailsdata.totalAmount | INRCurrency}}</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="list-styles no-padding-hr" style="margin-bottom:0;" ng-repeat="glinedata in vocherdetailsdata.GLines| orderBy:glinedata.seq">
+                <li style="margin-top:-1px;">
+                    <span class="sublist-text-name" style="padding:3px;">{{showglandsldata(glinedata)}}</span>
+                    <span class="sublist-text-value" style="padding:3px;">{{glinedata.amount | INRCurrency}}</span>
+                    <p style="padding-left: 8px" ng-show="glinedata.narration !== undefined" class="voucher-refname">{{glinedata.narration}}</p>
+                    <ul class="list-styles no-padding-hr text-right" ng-repeat="ccdata in glinedata.ccLines| orderBy:ccdata.seq" style="margin-bottom:0;">
+                        <li class="sub-listheightvalues" style="width:30%;padding-left:25px;">
+                            <span style="color:#d3d3d3;" class="sublist-text-name">{{ccdata.costcentre_name}}</span>
+                            <span style="color:#d3d3d3;" class="sublist-text-value">{{ccdata.amount | INRCurrency}}</span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <footer ng-show="images.length > 0" class="fixed-footer">
+                <div class="bstimeslider">
+                    <div id="rightArrow">
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </div>
+                    <div id="viewContainer">
+                        <div id="tslshow">
+                            <ul class="curousel_item list-styles no-padding-hr" ng-repeat="image in images">
+                                <li ng-click="imagePreview(image.id, image.type, image.name)">
+                                    <img ng-hide="image.type==='file' || image.type==='voice' " class="imageSize" src="{{thumbnaildownloadImages}}{{image.id}}" alt="No Data" />
+                                    <img ng-show="image.type==='file' || image.type==='voice' " class="imageSize" src="{{filetypefinding(image.name)}}" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="leftArrow">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<div id="imagePreview" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title">Image Preview</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <form class="form-horizontal" role="form" name="addroleForm" id="adduserForm">
+                    <div class="row no-margin-hr">
+                        <img class="imagePreviewSize" src="{{downloadurl}}" alt="" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="margin-top:10px;">
+                <div class="row no-margin-hr">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="audioplay" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelaudioForm()">&times;</button>
+                <h1 class="modal-title">Audio Play</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom text-center">
+                <audio controls id="voucheraudio">
+                    <source src="{{downloadurlforaudio}}" type="audio/mp4; codecs=mp4a.40.5">
+                  </audio>
+            </div>
+            <div class="modal-footer" style="margin-top:10px;">
+                <div class="row no-margin-hr">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="fileshow" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title">File Preview</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom text-center">
+                <iframe id="voucheriframe" width="500" height="450" src="{{downloadurl}}">
+                </iframe>
+            </div>
+            <div class=" modal-footer " style="margin-top:10px; ">
+                <div class="row no-margin-hr ">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-position-success " id="success-alert " style="display:none; ">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading " class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>

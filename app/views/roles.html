@@ -1,0 +1,279 @@
+<div class="container table_container table-container-width no-padding-hr">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="no-margin pull-left gray-color" style="margin-bottom:5px;"><span>{{selected_company_name}}</span> > Roles</h3>
+            <button type="button" class="btn btn-md pull-right postions-search" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table ng-table="multiroletbl" class="table table-bordered" show-filter="searchEnable">
+                <tr ng-repeat="user in $data">
+                    <td class="vertical-center" title="'Role'" filter="{ rolename: 'text'}" sortable="'rolename'">
+                        <a class="tbl-link main-field-block">{{user.display_name}}</a>
+                    </td>
+                    <td class="vertical-center" title="'Users'" filter="{ users: 'number'}" sortable="'users'">
+                        {{user.users_count}}
+                    </td>
+                    <td class="accType vertical-center" style="text-align:right;">
+                        <div class="dropdown">
+                            <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-class="{'noevnts-actions': permissions()}">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
+                            <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
+                                <li class="actionsmenu"><a data-toggle="modal" data-target="#editrole" ng-click="editRolewithexistingDetails(user)">Edit</a></li>
+                                <li class="actionsmenu"><a data-toggle="modal" data-target="#userlist" ng-click="getAllUsers(user.display_name,user.id)">Users</a> </li>
+                                <li class="actionsmenu"><a data-toggle="modal" data-target="#privileges" ng-click="getAllPrivileges(user.display_name,user.id)">Privileges</a></li>
+                                <!-- <li class="actionsmenu"><a ng-click="removeRole(user)">Remove</a></li> -->
+                                <li class="actionsmenu"><a ng-click="roleshistoryshow(user)">History</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="addrole" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title">Add Role</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <form class="form-horizontal" role="form" name="addroleForm" id="adduserForm">
+                    <div class="row no-margin-hr">
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-3 required ">
+                                <label class="mdl_label control-label" autofocus="none">Role Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-9  no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.rolename}" class="form-control req-field-color" placeholder="Enter the Role name" name="rolename" required="required" maxlength="50" ng-model="display_name" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group ">
+                            <div class="no-padding-hr col-md-offset-3 col-md-9">
+                                <span style="color:#EF5F5F ">{{errormessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-disabled="permissions()" ng-click="addingRole()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editrole" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="editcancelForm()">&times;</button>
+                <h1 class="modal-title">Edit Role</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <form class="form-horizontal" role="form" name="addroleForm" id="adduserForm">
+                    <div class="row no-margin-hr">
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-3 required ">
+                                <label class="mdl_label control-label" autofocus="none">Role Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-9  no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.rolename}" class="form-control req-field-color" placeholder="Enter the Role name" name="rolename" required="required" maxlength="50" ng-model="display_name" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group ">
+                            <div class="no-padding-hr col-md-offset-3 col-md-9">
+                                <span style="color:#EF5F5F ">{{errormessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left ">
+                    <button type="button " class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="removeRole()">Delete</button>
+                </div>
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="editcancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="editingRole()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="userlist" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title">{{roleName}} Users</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-offset-1 col-md-10 no-padding-hr border">
+                        <div class="col-md-12 no-padding-hr">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+                                <input class="form-control" ng-model="search_role.username" type="text" placeholder="Search Users">
+                                <span class="input-group-btn"><button class="btn btn-default" ng-click="clearSearch()" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr padding-line"><label ng-click="checkAllUserPrivilages()"><input type="checkbox" ng-model="selectAll" class="checkboxspace">Select All</label>
+                            <span class="countshow pull-right">Selected users:{{calculateSeletedItems(selectedUsers)}} of {{selectedUsers.length}}</span>
+                        </div>
+                        <div class="col-md-10 no-padding-hr userscroll padding-line">
+                            <ul class="locationlist" ng-repeat="user in selectedUsers | filter:search_role">
+                                <li><label ng-class="{'disablerow-multiselect': user.user_id.toString()===owner_id}"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="userselectchange(selectedUsers)" ng-disabled="user.user_id.toString()===owner_id">{{user.username}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingUserToRole()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="privileges" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title">{{roleName}} Privileges</h1>
+            </div>
+            <div class="modal-body no-padding-vr-bottom" style="padding-top:0px;">
+                <div class="row no-margin-hr">
+                    <div class="col-md-4 no-padding-hr" style="border-right:1px solid #cccccc;">
+                        <div class="row no-margin-hr">
+                            <div class="col-md-1 no-padding-hr marginh4"><label ng-click="checkAllMasterPrivilages()"><input type="checkbox" ng-model="masterselectall"</label></div>
+                            <div class="col-md-11 no-padding-hr">
+                                <h4 class="text-center left-margin">Masters <span class="countshow">{{calculateSeletedItems(selectedmasters) > 0?'('+calculateSeletedItems(selectedmasters)+')':""}}</span></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr userscroll">
+                            <ul class="locationlist" ng-repeat="user in selectedmasters">
+                                <li> <label ng-show="showunderline(selectedmasters,$index)" class="privilage-underline"></label>
+                                    <label class="vertical-center-checkbox"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="masterselectchange(selectedmasters)">{{user.privilageName}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 no-padding-hr" style="border-right:1px solid #cccccc; padding-left:8px;">
+                        <div class="row no-margin-hr">
+                            <div class="col-md-1 no-padding-hr marginh4"><label ng-click="checkAllAccountPrivilages()"><input type="checkbox" ng-model="accountselectall"></label></div>
+                            <div class="col-md-11 no-padding-hr">
+                                <h4 class="text-center left-margin">Account Transactions <span class="countshow">{{calculateSeletedItems(selectedaccounts)>0?'('+calculateSeletedItems(selectedaccounts)+')':""}}</span></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr userscroll">
+                            <ul class="locationlist" ng-repeat="user in selectedaccounts">
+                                <li> <label ng-show="showunderline(selectedaccounts,$index)" class="privilage-underline"></label>
+                                    <label class="vertical-center-checkbox"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="accountselectchange(selectedaccounts)">{{user.privilageName}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4 no-padding-hr" style="padding-left:8px;">
+                        <div class="row no-margin-hr">
+                            <div class="col-md-1 no-padding-hr marginh4"><label ng-click="checkAllInventoryPrivilages()"><input type="checkbox" ng-model="inventoryselectall"></label></div>
+                            <div class="col-md-11 no-padding-hr">
+                                <h4 class="text-center left-margin">Inventory Transactions <span class="countshow">{{calculateSeletedItems(selectedinventorys)>0?'('+calculateSeletedItems(selectedinventorys)+')':""}}</span></h4>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr userscroll">
+                            <ul class="locationlist" ng-repeat="user in selectedinventorys">
+                                <li> <label ng-show="showunderline(selectedinventorys,$index)" class="privilage-underline"></label>
+                                    <label class="vertical-center-checkbox"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="inventoryselectchange(selectedinventorys)">{{user.privilageName}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingPrivilegesToRole()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert  alert-position-success" id="success-alert" style="display:none;">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60" height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>
+<div id="deleteModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog ">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content logout_modal_width ">
+            <div class="modal-body text-center delete_modal ">
+                <h2 class="h ">Are you sure you want to Delete {{display_name}} role?</h2>
+            </div>
+            <div class="modal-footer ">
+                <div class="row ">
+                    <div class="col-md-4 ">
+                        <button type="button " class="btn background-defalt save-cancel-button" data-dismiss="modal">No</button>
+                        <button type="button " class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="deleteRole()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="rolehistory" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{display_name}} > History</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-12">
+                        <table ng-table="roleshistorytable" class="table table-bordered roleshistorytable">
+                            <tr ng-repeat="user in $data ">
+                                <td class="vertical-center" title=" 'Date' " sortable=" 'date' ">
+                                    {{user.date}}</td>
+                                <td class="vertical-center" title=" 'Name' " sortable=" 'name' ">
+                                    {{user.name}}</td>
+                                <td class="vertical-center" title=" 'Update details' " sortable=" 'comment' ">
+                                    {{user.comment}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

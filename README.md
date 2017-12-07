@@ -1,2 +1,0 @@
-# MobiDashboardWebApplication
-accountant software

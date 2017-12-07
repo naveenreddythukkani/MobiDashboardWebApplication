@@ -1,0 +1,53 @@
+<div id="login" class="container">
+    <div class="row row_center">
+        <div class="col-md-12">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="text-center">
+                    <img style="width:200px" src="images/loginPicture.png" />
+                </div>
+                <h3 class="text-center underline">MobiBooks</h3>
+                <div ng-show="showerror" class="col-md-12 no-padding-hr">
+                    <span style="color:#EF5F5F">{{errormessage}}</span>
+                </div>
+                <form name="loginForm" role="form" ng-submit="loginForm.$valid && false" novalidate class="login_container">
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="mobile" placeholder="Enter Mobile Number" ng-model="user.mobile" required="required" ng-change="editingfields()" minlength="10" maxlength="10" ng-blur="validationsonblur(user.mobile)" mobile-validation>
+                        </div>
+                    </div>
+                    <div ng-show="mobilenumbererror" class="col-md-12 no-padding-hr form-group">
+                        <span style="color:#EF5F5F">{{mobileerrormessage}}</span>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="password" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Enter password" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$/" required="required" minlength="5" ng-change="editingfields()" ng-blur="validationpasswordblur(user.password)">
+                        </div>
+                    </div>
+                    <div ng-show="passworderror" class="col-md-12 no-padding-hr form-group">
+                        <span style="color:#EF5F5F">{{passworderrormessage}}</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <button type="submit" class="btn login-button background-defalt" ng-click="clientLogin()">Login</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p ng-click="raiseotpmethod()"><a class="resetpassword">Reset password</a></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <p ng-click="gotosignup()"><a class="resetpassword">Don't have account?</a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="loading" class="load text-center">
+    <img class="spinner" src="images/ajax-loader.gif" width="60" height="60">
+    <h4 class="loading_msg">Loading Please Wait...</h4>
+</div>
+<message-alert></message-alert>

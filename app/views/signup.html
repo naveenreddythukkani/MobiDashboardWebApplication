@@ -1,0 +1,107 @@
+<div id="signup">
+    <div class="row no-margin-hr">
+        <div class="col-md-6 no-padding-hr">
+            <h3>Registration</h3>
+            <div class="row no-margin-hr">
+                <form>
+                    <div class="col-md-10 no-padding-hr astric-relative">
+                        <div class="form-group">
+                            <span class="astrick glyphicon glyphicon-asterisk"></span>
+                            <input type="text" class="form-control req-field-color" ng-readonly="readonlyaftergenarateOtp" ng-model="props.company_name" placeholder="Company Name" ng-change="validationUptoGenrateOtp()" required>
+                        </div>
+                        <div class="form-group ">
+                            <span class="astrick glyphicon glyphicon-asterisk"></span>
+                            <input type="text" class="form-control req-field-color" ng-readonly="readonlyaftergenarateOtp" ng-model="props.contact_name" placeholder="Contact Name" ng-change="validationUptoGenrateOtp()" required>
+                        </div>
+                        <div class="form-group">
+                            <span class="astrick glyphicon glyphicon-asterisk"></span>
+                            <input type="text" class="form-control req-field-color" ng-readonly="readonlyaftergenarateOtp" ng-change="validationUptoGenrateOtp()" ng-model="props.mobile" placeholder="10 digit mobile number" mobile-validation required maxlength="10">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4 no-padding-hr">
+                                <button type="submit" ng-disabled="validatetoGenrateOtp" ng-click="genarateOtp()" class="btn btn-default btn-block background-defalt color-onbackground">Genrate OTP {{timervalue}}</button>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control req-field-color" id="otpfield" ng-readonly="readonlyafterverify" ng-model="props.otp" placeholder="Enter OTP" minlength="6" maxlength="6" ng-change="validationUptoGenrateOtp()" mobile-validation required>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" ng-disabled="verifyOtp" ng-click="verifyOtps()" class="btn btn-default background-defalt color-onbackground">Verify</button>
+                            </div>
+                            <div>
+                                <span ng-model="errorMesg">{{errorMesg}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div ng-show="showingpassword" class="row" style="margin:15px">
+                <form class="form-horizontal no-margin-hr" name="signupFrom" role="form">
+                    <div ng-show="showerror" class="col-md-10 no-padding-hr">
+                        <span style="color:#EF5F5F">{{errormessage}}</span>
+                    </div>
+                    <div class="col-md-10 no-padding-hr astric-relative">
+                        <div class="form-group">
+                            <span class="astrick glyphicon glyphicon-asterisk"></span>
+                            <input type="password" class="form-control req-field-color" ng-model="props.password" placeholder="Password" name="password" ng-change="validationforStartNow()" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$/" required="required" ng-minlength="5">
+                        </div>
+                        <div class="row" ng-show="signupFrom.password.$dirty && signupFrom.password.$error">
+                            <div class="col-md-12 form-group" ng-show="signupFrom.password.$invalid">
+                                <div class="col-md-12 no-padding-hr">
+                                    <span style="color:#EF5F5F" ng-show="signupFrom.password.$error.required">Please enter password</span>
+                                    <span style="color:#EF5F5F" ng-show="signupFrom.password.$invalid && !signupFrom.password.$error.required">Password should consists of atleast one uppercase letter and one lowercase letter and one number</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="astrick glyphicon glyphicon-asterisk"></span>
+                            <input type="password" class="form-control req-field-color" ng-model="props.confirm_password" name="confirmpassword" placeholder="Confirm Password" ng-change="validationforStartNow()" ng-pattern="/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).*$/" required="required"
+                                ng-minlength="5">
+                        </div>
+                        <div class="row" ng-show="signupFrom.confirmpassword.$dirty && signupFrom.confirmpassword.$error">
+                            <div class="col-md-12 form-group" ng-show="signupFrom.confirmpassword.$invalid">
+                                <div class="col-md-12 no-padding-hr">
+                                    <span style="color:#EF5F5F" ng-show="signupFrom.confirmpassword.$error.required">Please enter confirm password</span>
+                                    <span style="color:#EF5F5F" ng-show="signupFrom.confirmpassword.$invalid && !signupFrom.confirmpassword.$error.required">Password should consists of atleast one uppercase letter and one lowercase letter and one number</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="astrick glyphicon glyphicon-asterisk"></span>
+                            <input type="email" class="form-control req-field-color" ng-model="props.email" name="email" placeholder="Email" ng-change="validationforStartNow()">
+                        </div>
+                        <div class="row" ng-show="signupFrom.email.$dirty && signupFrom.email.$error">
+                            <div class="col-md-12 form-group" ng-show="signupFrom.email.$invalid">
+                                <div class="col-md-12 no-padding-hr">
+                                    <span style="color:#EF5F5F" ng-show="signupFrom.email.$error.required">Please enter email adress</span>
+                                    <span style="color:#EF5F5F" ng-show="signupFrom.email.$invalid && !signupFrom.email.$error.required">Please enter valid email adress</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="accept"><input type="checkbox" ng-model="props.accept_terms" ng-change="validationforStartNow()" name="accept" required><a>I Accept Terms & Conditions</a></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 no-padding-hr text-center">
+                                <button type="button" ng-click="startNow()" ng-disabled="signupFrom.email.$invalid || signupFrom.password.$invalid || signupFrom.confirmpassword.$invalid || !props.accept_terms" class="btn btn-default background-defalt color-onbackground">Start Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="title-image-parent">
+                <div class="text-center image-vertical-center">
+                    <img src="images/mobidash.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-show="loading" class="load text-center">
+    <img class="spinner" src="images/ajax-loader.gif" width="60" height="60">
+    <h4 class="loading_msg">Loading Please Wait...</h4>
+</div>
+<message-alert></message-alert>

@@ -1,0 +1,140 @@
+<div id="backup" class="tab-pane">
+    <div class="container table_container table-container-width no-padding-hr">
+        <div class="row no-margin-hr">
+            <h3 class="no-margin pull-left">Backups <span class="glyphicon glyphicon-refresh refresh-size" aria-hidden="true" ng-click="getallbackupcompanysdata()"></span></h3>
+            <button type="button" class="btn btn-md pull-right postions-search" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table ng-table="multiclientbackup" class="table table-bordered client-table" show-filter="searchEnable">
+                    <tr ng-repeat="user in $data" ng-class="{'disablerow': user.status==='N'}">
+                        <td class="accType" title="'Company Name'" filter="{ tenant_name: 'text'}" sortable="'tenant_name'" class="sort-indicator">
+                            <div class="row">
+                                <div class="col-md-11">
+                                    <a class="tbl-link main-field-block" ng-click="access(user)">{{user.tenant_name}}</a>
+                                    <span class="subfield-text">{{user.backup_on | date:'yyyy-MM-dd HH:mm'}}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="accType vertical-center " title=" 'User' " filter="{ create_date: 'text'} " sortable=" 'package' ">
+                            {{user.backup_by}}</td>
+                        <td class="accType vertical-center" title=" 'Size' " filter="{size: 'number'} ">
+                            {{user.unzip_size}}</td>
+                        <td class="accType vertical-center actions">
+                            <div class="dropdown">
+                                <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
+                                <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
+                                    <li class="actionsmenu"><a ng-click="restorebuttonclick($index, user.tenant_id)">Restore</a></li>
+                                    <li class="actionsmenu"><a data-toggle="modal" data-target="#deleteModal" ng-click="deletemodelshow(user)">Discard</a></li>
+                                </ul>
+                            </div>
+                            <div class="row restoreshow" ng-show="backup_index===$index" outside-click="hideSideMenu($index)">
+                                <div class="col-md-12" style="padding:3px;" id="clientsdata">
+                                    <button class="btn btn-block company-button-show" ng-click="resstoreclick('addcompany',user)"><span class="glyphicon glyphicon-plus " aria-hidden="true "></span> Add New Company</button>
+                                </div>
+                                <div class="col-md-12" style="padding:3px;" ng-repeat="company in tenants" id="clientsdata">
+                                    <button class="btn btn-block company-button-show" ng-click="resstoreclick(company,user)">{{company.tenant_name}}</button>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog ">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content logout_modal_width ">
+            <div class="modal-body text-center delete_modal ">
+                <h2 class="h ">Are you sure you want to Delete {{backupname}} backup?</h2>
+            </div>
+            <div class="modal-footer ">
+                <div class="row ">
+                    <div class="col-md-4 ">
+                        <button type="button " class="btn background-defalt save-cancel-button" data-dismiss="modal">No</button>
+                        <button type="button " class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="deleteclient(props.id)">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert  alert-position-success" id="success-alert" style="display:none;">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60" height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>
+<div id="add_client" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog ">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content mdl-margin ">
+            <div class="modal-header no-padding-vr-bottom ">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title ">Add New Company</h1>
+                <div class="row no-margin-hr">
+                    <div class="col-md-12 no-padding-hr">
+                        <label class="pull-right"><input type="checkbox" ng-model="props.status" ng-init="props.status=true"><span> Active</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body no-padding-vr-bottom ">
+                <form class="form-horizontal " role="form" name="addClientForm" id="addClientForm">
+                    <div class="row no-margin-hr ">
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none ">Company Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.companyname}" class="form-control req-field-color" placeholder="Enter the Company name" name="companyname " required="required " ng-model="props.company_name " ng-change="fieldschangeAction() ">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Contact Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.contactname}" class="form-control req-field-color" placeholder="Enter the Contact Name " name="contactname " required="required " ng-model="props.contact_name" ng-change="fieldschangeAction() ">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Company Phone<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.companyphone}" class="form-control req-field-color" placeholder="10 digit mobile number" name="mobile" required="required" ng-model="props.mobile" ng-change="fieldschangeAction()" mobile-validation
+                                    maxlength="10">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Contact Email<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.companyemail}" class="form-control req-field-color" placeholder="Enter the contact email " name="email" required="required " ng-model="props.email" ng-change="fieldschangeAction() ">
+                            </div>
+                        </div>
+                        <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">
+                            <div class="no-padding-hr col-md-offset-4 col-md-8">
+                                <span style="color:#EF5F5F">{{errormessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer no-margin-hr">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addCompanys()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

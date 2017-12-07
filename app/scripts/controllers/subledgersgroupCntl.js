@@ -1,0 +1,167 @@
+var QTable = angular.module('mobiDashBoardApp');
+QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter) {
+
+    $rootScope.companytab = false;
+    $rootScope.locationtab = false;
+    $rootScope.usertab = false;
+    $rootScope.solutionstab = false;
+    $rootScope.pricingtab = false;
+    $rootScope.supporttab = false;
+    $rootScope.gstsolutionstab = false;
+    $rootScope.showheader = true;
+    $rootScope.usernametab = true;
+    $rootScope.patnerstab = false;
+    $rootScope.logintab = false;
+    $rootScope.backuptab = false;
+    $rootScope.rolestab = false;
+    $rootScope.showCompanyname = true;
+    $rootScope.balancesheetbreadcurmbs = true;
+    $rootScope.addloc = false;
+    $rootScope.addclient = false;
+    $rootScope.contactus = false;
+    $rootScope.adduser = false;
+    $rootScope.addrole = false;
+    $scope.passparameters = {};
+    $rootScope.subgrouplevel = false;
+    $rootScope.lederlevel = false;
+    $rootScope.controlledger = false;
+    $rootScope.voucherstab = false;
+    $rootScope.addvouchertype = false;
+    $rootScope.dateremove = false;
+    $rootScope.voucherControl = false;
+
+    var config = {
+        headers: {
+            "X-CSRFToken": $rootScope.csrftoken,
+            "Cookie": "csrftoken=" + $rootScope.csrftoken + '; ' + "sessionid=" + $rootScope.session_key
+        }
+    };
+    $scope.addremovealert = function() {
+        $("#success-alert").addClass('in');
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-alert").removeClass('in');
+        });
+    }
+    $scope.clearlocalstorage = function() {
+        localStorageService.remove("subgroupData");
+        dataMove.setsubgroupdata({});
+
+        localStorageService.remove("ledger");
+        dataMove.setledgerData({})
+
+        dataMove.getcontrolledgerData({});
+        localStorageService.remove("controlledger");
+
+        dataMove.setvoucherData({});
+        localStorageService.remove("voucherData");
+        $rootScope.getlocalstoredata();
+    }
+    $scope.clearlocalstorage();
+    $scope.subledgerreport = function() {
+        var data = { 'startdate': $rootScope.startdate, 'todate': $rootScope.today, 'ledgergroup_id': $scope.props.ledgergroupid, 'diff': $scope.props.rootgroupdiff };
+        if ($rootScope.location_id === undefined || $rootScope.location_id === "All Locations" || $rootScope.location_name === '') {
+            $rootScope.location_name = "All Locations";
+        } else {
+            data.loc_id = $rootScope.location_id;
+        }
+        $scope.loading = true;
+        console.log("Request Data ==" + JSON.stringify(data));
+        var success = function(result) {
+            $scope.loading = false;
+            var rootsubGroup = result.data;
+            $scope.rsubgroupelements = [];
+            var totalAmt = 0;
+            for (var i = 0; i < rootsubGroup.length; i++) {
+                if (rootsubGroup[i].ledgergroup_id == $scope.props.ledgergroupid) {
+                    $scope.rsubgroupelements.push(rootsubGroup[i]);
+                    totalAmt += rootsubGroup[i].amt;
+                }
+            }
+            console.log("$scope.rsubgroupelements ==" + JSON.stringify($scope.rsubgroupelements));
+            console.log("Total Amount = " + totalAmt.toFixed(2));
+            $rootScope.rootgroupamount = totalAmt.toFixed(2);
+        };
+        var error = function(result) {
+            $scope.loading = false;
+            session.sessionexpried(result.status);
+
+        };
+        $http.post(domain + api + "list/group/report/", data, config).
+        then(success, error);
+    }
+    $scope.getallgroupdate = function() {
+        $scope.props = {};
+        $scope.props = dataMove.getgroupdata();
+        $scope.subledgerreport();
+    }
+    $rootScope.datescalculation = function() {
+        if ($rootScope.today == undefined || $rootScope.today != $rootScope.today1) {
+            $rootScope.today = $filter('date')(new Date(), 'yyyy-MM-dd');
+        }
+        if ($rootScope.today1 != undefined) {
+            $rootScope.today = $rootScope.today1;
+        }
+        if ($rootScope.fromdate == undefined && $rootScope.fromdate1 == undefined && $rootScope.startdate == undefined && $rootScope.startdate1 == undefined) {
+            var completedate = ($rootScope.today).split('-');
+            var year = completedate[0];
+            var month = completedate[1];
+            var day = completedate[2];
+            if (day > 10) {
+                day = '0' + 1;
+            } else {
+                day = '0' + 1;
+                month = month - 1;
+                console.log(month.toString().length);
+                if (month.toString().length == 1) {
+                    month = '0' + month;
+                    if (month == 00) {
+                        month = 12;
+                        year = year - 1;
+                    }
+                }
+            }
+            $rootScope.fromdate = year + '-' + month + '-' + day;
+            $rootScope.startdate = year + '-' + '04' + '-' + '01';
+            console.log("$rootScope.todate = " + $rootScope.today);
+            console.log("$rootScope.fromdate = " + $rootScope.fromdate);
+            console.log("$rootScope.startdate = " + $rootScope.startdate);
+        }
+        if ($rootScope.fromdate1 != undefined) {
+            var completedate1 = ($rootScope.fromdate1).split('-');
+            var year1 = completedate1[0];
+            var month1 = completedate1[1];
+            var day1 = completedate1[2];
+            $rootScope.fromdate = year1 + '-' + month1 + '-' + day1;
+            console.log("$rootScope.fromdate = " + $rootScope.fromdate);
+        }
+        if ($rootScope.startdate1 != undefined) {
+            var completedate2 = ($rootScope.startdate1).split('-');
+            var year2 = completedate2[0];
+            var month2 = completedate2[1];
+            var day2 = completedate2[2];
+            $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
+            console.log("$rootScope.startdate = " + $rootScope.startdate);
+        }
+        $scope.getallgroupdate();
+    }
+    $rootScope.datescalculation();
+    $scope.ledgerElements = function(rootname, rootgroupname, subgroupname, subgroupamount, ledgergroup_id, rootgroupid) {
+        // if ($rootScope.isSearched)
+        //     $rootScope.searchObjs.push({ "id": ledgergroup_id, "name": subgroupname, "screen": "ledger" });
+
+        $scope.passparameters.root_name = rootname;
+        $scope.passparameters.group_name = rootgroupname;
+        $scope.passparameters.subgroup_name = subgroupname;
+        $scope.passparameters.subgroup_amount = subgroupamount;
+        $scope.passparameters.ledgergroup_id = ledgergroup_id;
+        $scope.passparameters.rootgroup_id = rootgroupid;
+        $scope.passparameters.today = $rootScope.today;
+        $scope.passparameters.subgrouplevel = true;
+
+        dataMove.setsubgroupdata($scope.passparameters);
+
+        $state.go("ledger");
+
+    };
+
+});

@@ -1,0 +1,272 @@
+<header ng-controller="headerCntl">
+    <nav class="navbar navbar-fixed-top clr">
+        <div class="container no-padding-hr" style="background:#fff;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            </div>
+            <div class="row no-margin-hr">
+                <div class="header-tabs-login">
+                    <div ng-show="usernametab" class="col-md-12 text-right no-padding-hr">
+                        <label class="loggedinuser">logged in <span>{{name}} {{mobile}}</span></label>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse pull-right">
+                        <ul class="nav nav-tabs tabs no-border-bottom">
+                            <li ng-show="patnerstab" ui-sref="patners">
+                                <a class="smalltabs" data-toggle="tab">Patners</a>
+                            </li>
+                            <li ng-show="logintab" ui-sref="login">
+                                <a class="smalltabs" ng-class="{'active': logintabbottom===true}" data-toggle="tab">Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-margin-hr">
+                <div id="navbar " class="navbar-collapse collapse header-tabs">
+                    <div style="width:70%;margin:0 auto;">
+                        <div class="pull-left" ng-click="gotoCompanyPage()">
+                            <img src="images/mobibooks.png" alt="logo" height="45" />
+                        </div>
+                        <ul class="nav nav-tabs tabs custom-tabs">
+                            <li ng-show="solutionstab" ui-sref="solution" ng-class="{'active': activeTab == 1}">
+                                <a class=" normaltabs " data-toggle="tab ">Solutions</a>
+                            </li>
+                            <li ng-show="pricingtab " ui-sref="pricing" ng-class="{'active': activeTab == 2}">
+                                <a class="normaltabs " data-toggle="tab "></i>Pricing</a>
+                            </li>
+                            <li ng-show="supporttab " ui-sref="support" ng-class="{'active': activeTab == 3}">
+                                <a class="normaltabs " data-toggle="tab ">Support</a>
+                            </li>
+                            <li ng-show="gstsolutionstab " ui-sref="gstsolutions" ng-class="{'active': activeTab == 4}">
+                                <a class="normaltabs " data-toggle="tab ">GST Solutions</a>
+                            </li>
+                            <li ng-show="companytab " ui-sref="company" ng-class="{'active': activeTab == 5}">
+                                <a class="normaltabs " data-toggle="tab ">Companies</a>
+                            </li>
+                            <li ng-show="locationtab " ui-sref="location" ng-class="{'active': activeTab == 6}">
+                                <a class="normaltabs " data-toggle="tab ">Locations</a>
+                            </li>
+                            <li ng-show="usertab " ui-sref="user" ng-class="{'active': activeTab == 7}">
+                                <a class="normaltabs " data-toggle="tab ">Users</a>
+                            </li>
+                            <li ng-show="backuptab" ui-sref="backup" ng-class="{'active': activeTab == 8}">
+                                <a class="normaltabs" data-toggle="tab">Backups</a>
+                            </li>
+                            <li ng-show="rolestab" ui-sref="roles" ng-class="{'active': activeTab == 9}">
+                                <a class="normaltabs" data-toggle="tab">Roles</a>
+                            </li>
+                            <li ng-show="voucherstab" ui-sref="vouchersettings" ng-class="{'active': activeTab == 10}">
+                                <a class="normaltabs" data-toggle="tab">Voucher Settings</a>
+                            </li>
+
+                            <li class="pull-right">
+                                <div ng-show="usernametab" class="profile_block">
+                                    <div class="dropdown">
+                                        <a title="{{name}} {{mobile}}" class="dropdown-toggle profile pull-right" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true
+                                " aria-expanded="true"><span class="glyphicon glyphicon-user user-icons"></span></a>
+                                        <div class="dropdown-menu actions-view1 " aria-labelledby="dropdownMenuhideshow">
+                                            <div class="row no-margin-hr">
+                                                <div class="col-lg-4 col-md-4 no-padding-hr"><span class="glyphicon glyphicon-user user-icon-2x"></span></div>
+                                                <div class="col-lg-8 col-md-8 no-padding-hr">
+                                                    <h4 class="username_txt ">{{name}}</h4>
+                                                    <h4 class="phone_txts ">{{mobile}}</h4>
+                                                </div>
+                                            </div>
+                                            <div class="row no-margin-hr">
+                                                <div class="col-lg-12 col-md-12 text-center">
+                                                    <label class="logout_txt" ng-click="clientLogout()">LogOut</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contactus pull-right ">
+                                <button ng-show="contactus" type="button " ng-class="{'conatct-rightside': signup} " class="btn btn-success btn-sm add-new-btn " data-toggle="modal" data-target="#conatctus">
+                             Contact Us
+                             </button>
+                                <button ng-show="addclient" type="button" class="btn btn-success btn-sm add-new-btn" data-toggle="modal" data-target="#add_client" ng-click="addCompany()">
+                             <span class="glyphicon glyphicon-plus " aria-hidden="true "></span> Add Company
+                             </button>
+                                <button ng-show="addloc" type="button " class="btn btn-success btn-sm add-new-btn " data-toggle="modal" ng-click="addLocation() ">
+                             <span class="glyphicon glyphicon-plus " aria-hidden="true "></span> Add Location
+                             </button>
+                                <button ng-show="adduser" type="button " class="btn btn-success btn-sm add-new-btn " data-toggle="modal" ng-click="addUser() ">
+                             <span class="glyphicon glyphicon-plus " aria-hidden="true "></span> Add User
+                             </button>
+                                <button ng-show="addrole" type="button" class="btn btn-success btn-sm add-new-btn " data-toggle="modal" ng-click="addRole() ">
+                             <span class="glyphicon glyphicon-plus " aria-hidden="true "></span> Add Role
+                             </button>
+                                <button ng-show="addvouchertype" type="button" class="btn btn-success btn-sm add-new-btn " data-toggle="modal" ng-click="addvouchertype() ">
+                             <span class="glyphicon glyphicon-plus " aria-hidden="true "></span> Add voucher Types
+                             </button>
+                            </li>
+                            <li ng-show="showCompanyname" class="text-center gray-color">
+                                <h4>{{selected_company_name}}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="balancesheetbreadcurmbs" class="row no-margin-hr" id="bredcrumbelement">
+                <div style="width:70%;margin:0 auto;">
+                    <ul class="breadcrumb custom-colors-breadcurmbs no-padding-hr">
+                        <li class="breadcrumb-lis">
+                            <div class="dropdown">
+                                <a class="custom-bred-text dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshow" aria-expanded="true" ng-model="balnc ">{{balnc}}</a>
+                                <ul class="dropdown-menu actions-view " aria-labelledby="dropdownMenuhideshow ">
+                                    <li ng-repeat="balnc in balancesheetarry " class="actionsmenu " ng-click="balancesheetValueChange(balnc) "><a>{{balnc}}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="breadcrumb-lis">
+                            <div class="dropdown">
+                                <a class="custom-bred-text dropdown-toggle space-left" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshowloc" aria-expanded="true" ng-model="locat.display_name" ng-init="locat.display_name=location_name">{{locat.display_name}}</a>
+                                <ul class="dropdown-menu actions-view setting-dropdown-height " aria-labelledby="dropdownMenuhideshowloc ">
+                                    <li class="actionsmenu" ng-click="locationValueChangeforall()">
+                                        <a>All Locations</a>
+                                    </li>
+                                    <li ng-repeat="locat in locationsListinheader" class="actionsmenu" ng-click="locationValueChange(locat)"><a>{{locat.display_name}}</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="breadcrumb-lis " ng-show="groupData!==null && groupData.grouplevel " ng-click="subledgerchange()">
+                            <div>
+                                <a class="custom-bred-text space-left ">{{groupData.rootgroupname}}</a>
+                            </div>
+                        </li>
+                        <li class="breadcrumb-lis " ng-show="subgroupData!==null && subgroupData.subgrouplevel " ng-click="subgroupchange()">
+                            <div>
+                                <a class="custom-bred-text space-left ">{{subgroupData.subgroup_name}}</a>
+                            </div>
+                        </li>
+                        <li class="breadcrumb-lis " ng-show="ledgerData!==null && ledgerData.ledgerlevel " ng-click="ledgerchange()">
+                            <div>
+                                <a class=" custom-bred-text space-left ">{{ledgerData.ledger_name}}</a>
+                            </div>
+                        </li>
+                        <li class="breadcrumb-lis " ng-show="controlledgerData!==null && controlledgerData.controlledger " ng-click="vocherchange()">
+                            <div>
+                                <a class="custom-bred-text space-left ">{{controlledgerData.ltype_name}}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove ">
+                <div style="width:70%;margin:0 auto; ">
+                    <label ng-show="!voucherControl " class="dateshow "><span ng-if="pandlreport==true "><span class="colors actionsmenu " ng-click="datemodelshow() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu
+                                    " ng-click="datemodelshow() ">{{today| date : 'dd-MM-yyyy'}}</span></span><span ng-if="pandlreport==false "> as on <span ng-click="datemodelshow() " class="colors actionsmenu ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
+                    <label ng-show="voucherControl " class="dateshow "><span><span class="colors actionsmenu " ng-click="datemodelforfromandtodate()">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
+                    <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch()"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>
+<div id="selectdatedahboard" class="modal fade " data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content mdl-margin ">
+            <div class="modal-header no-padding-vr-bottom ">
+                <button type="button " class="close " data-dismiss="modal " ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title ">Select date</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom ">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-12 form-group no-padding-hr " ng-show="pandlreport ">
+                        <div class="col-md-3 no-padding-hr ">
+                            <label class="align-midle " autofocus="none ">From Date<span>:</span></label>
+                        </div>
+                        <div class="col-md-9 no-padding-hr ">
+                            <div class="input-group date " id="datetimepickerdashboardfrom">
+                                <input type="text " class="form-control " id="fromdatedashboard">
+                                <div class="input-group-addon ">
+                                    <span class="glyphicon glyphicon-calendar "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group no-padding-hr ">
+                        <div class="col-md-3 no-padding-hr ">
+                            <label class="align-midle " autofocus="none ">To Date<span>:</span></label>
+                        </div>
+                        <div class="col-md-9 no-padding-hr ">
+                            <div class="input-group date " id="datetimepickerdashboardto">
+                                <input type="text " class="form-control " id="todatedashboard">
+                                <div class="input-group-addon ">
+                                    <span class="glyphicon glyphicon-calendar "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin-hr no-padding-hr ">
+                    <div class="row no-margin-hr ">
+                        <div class="col-md-5 pull-right no-padding-hr ">
+                            <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                            <button id="savefordashboard " type="button " class="btn background-defalt save-cancel-button tabicon " ng-click="savefordashboard()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="selectdatevoucher" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog ">
+    <div class="modal-dialog ">
+        <div class="modal-content mdl-margin ">
+            <div class="modal-header no-padding-vr-bottom ">
+                <button type="button " class="close " data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title ">Select date</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom ">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-12 form-group no-padding-hr ">
+                        <div class="col-md-3 no-padding-hr ">
+                            <label class="align-midle " autofocus="none ">From Date<span>:</span></label>
+                        </div>
+                        <div class="col-md-9 no-padding-hr ">
+                            <div class="input-group date " id="datetimepickervoucherfrom">
+                                <input type="text " class="form-control " id="fromdateidvoucher">
+                                <div class="input-group-addon ">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 form-group no-padding-hr ">
+                        <div class="col-md-3 no-padding-hr ">
+                            <label class="align-midle " autofocus="none">To Date<span>:</span></label>
+                        </div>
+                        <div class="col-md-9 no-padding-hr ">
+                            <div class="input-group date " id="datetimepickervoucherto">
+                                <input type="text " class="form-control " id="todateidvoucher">
+                                <div class="input-group-addon ">
+                                    <span class="glyphicon glyphicon-calendar "></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer no-margin-hr no-padding-hr ">
+                    <div class="row no-margin-hr ">
+                        <div class="col-md-5 pull-right no-padding-hr ">
+                            <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                            <button type="button " id="saveforvoucher " class="btn background-defalt save-cancel-button tabicon " data-dismiss="modal" ng-click="saveforvoucher()">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

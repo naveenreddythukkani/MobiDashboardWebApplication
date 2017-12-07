@@ -1,0 +1,410 @@
+<div id="users" class="tab-pane">
+    <div class="container table_container table-container-width no-padding-hr">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="no-margin pull-left gray-color" style="margin-bottom:5px;"><span>{{selected_company_name}}</span> > Users</h3>
+                <button type="button" class="btn btn-md pull-right postions-search" ng-click="search()"><span class="glyphicon glyphicon-search"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table ng-table="usertable" class="table table-bordered" show-filter="searchEnable">
+                    <tr ng-repeat="user in $data">
+                        <td class="vertical-center" title="'Name'" filter="{ username: 'text'}" sortable="'username'">
+                            <a class="tbl-link main-field-block">{{user.username}}<span ng-show="!user.is_active" class="inactiveshow"> (Inactive)</span></a>
+                            <span class="subfield-text ">{{user.email}}  {{user.mobile}}</span>
+                        </td>
+                        <td class="vertical-center" title="'Location'" filter="{ locations: 'text'}">
+                            <ul class="locationlist" ng-repeat="locationname in showinglocations(user.locations)">
+                                <li>{{locationname}}</li>
+                            </ul>
+                            <p ng-show="user.locations.length > 3">{{user.locations[2].location_name}}.....{{user.locations.length-3}} more</p>
+                        </td>
+                        <td class="vertical-center" title="'Role'" filter="{ role: 'text'}">
+                            <ul class="locationlist" ng-repeat="rolename in showingroles(user.roles)">
+                                <li>{{rolename}}</li>
+                            </ul>
+                            <p ng-show="user.roles.length > 3">{{user.roles[2].display_name}}.....{{user.roles.length-3}} more</p>
+                        </td>
+                        <td class="accType vertical-center" style="text-align:right;">
+                            <div class="dropdown">
+                                <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
+                                <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
+                                    <li class="actionsmenu"><a data-toggle="modal" ng-click="edituserwithexistingDetails(user)">Edit</a> </li>
+                                    <li class="actionsmenu" ng-class="{'noevntsparent': user.user_id.toString() === owner_id}"><a ng-class="{'noevnts': user.user_id.toString() === owner_id}" ng-click="assignLocationsToUser(user)">Locations</a></li>
+                                    <li class="actionsmenu" ng-class="{'noevntsparent': user.user_id.toString() === owner_id}"> <a ng-class="{'noevnts': user.user_id.toString() === owner_id}" ng-click="assignRolesToUser(user)">Roles</a></li>
+                                    <li class="actionsmenu"><a ng-click="userhistory(user)">History</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="add_user" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h1 class="modal-title">Add User</h1>
+                <div class="row no-margin-hr">
+                    <div class="col-md-12 no-padding-hr">
+                        <label class="pull-right"><input type="checkbox" ng-model="props.is_active" ng-init="props.is_active=true"><span> Active</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <form class="form-horizontal" role="form" name="adduserForm" id="adduserForm">
+                    <div class="row no-margin-hr">
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none">Mobile Number<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8  no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.mobile}" class="form-control req-field-color" placeholder="10 digit mobile number" name="mobile" ng-model="props.mobile" maxlength="10" ng-change="validations()" mobile-validation>
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none">Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.username}" class="form-control req-field-color" placeholder="Enter the user name" name="name" required="required" ng-model="props.username" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none">E-mail<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8  no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.email}" class="form-control req-field-color" placeholder="Enter the E-mail" name="email" required="required" ng-model="props.email" ng-change="validations()">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 form-group no-padding-hr">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label" autofocus="none">Location<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <select id="location-multiselctDropDown" multiple="multiple">
+                                     <option ng-repeat="location in locationsList" value="{{location.id}}" data-ng-bind-template="{{location.name}}">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group no-padding-hr">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label" autofocus="none">Role<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr">
+                                    <select id="roles-multiselctDropDown" multiple="multiple">
+                                     <option ng-repeat="role in genaralroles" value="{{role.user_id}}" data-ng-bind-template="{{role.display_name}}">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div> -->
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <p style="line-height:40px; padding-left:14px;">Can add/ modify vouchers not more than<span class="vocherfield"><input type="text" class="vocherInput form-control" placeholder="Enter Number of days" name="vouchermodifydays" required="required" ng-model="props.vouchermodifydays" ng-change="dnsName()" mobile-validation >days</span></p>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none">Security<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr">
+                                <label class="radio-inline"><input type="radio" value="mac" ng-model="props.security" ng-change="validations()">MAC</label>
+                                <label class="radio-inline"><input type="radio" value="ip"  ng-model="props.security" ng-change="validations()">IP</label>
+                                <label class="radio-inline"><input type="radio" value="both" ng-model="props.security"ng-change="validations()" >Both</label>
+                                <label class="radio-inline"><input type="radio" value="any" ng-model="props.security" ng-change="validations()" ng-checked="true" >Any</label>
+                            </div>
+                        </div>
+                        <div ng-show="props.security==='mac'||props.security=== 'both'" class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-offset-4 col-md-3 required no-padding-hr">
+                                <label class="mdl_label control-label" autofocus="none">MAC<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-5 no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.mac}" class="form-control req-field-color" placeholder="Enter the Mac Adress" name="mac" required="required" ng-model="props.mac_addr" ng-change="dnsName()">
+                            </div>
+                        </div>
+                        <div ng-show="props.security==='ip' ||props.security=== 'both'" class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-offset-4 col-md-3 required no-padding-hr">
+                                <label class="mdl_label control-label" autofocus="none">IP<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-5 no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.ip}" class="form-control req-field-color" placeholder="Enter the Ip Adress" name="ip" required="required" ng-model="props.ip_addr" ng-change="dnsName()">
+                            </div>
+                        </div>
+                        <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">
+                            <div class="no-padding-hr col-md-offset-4 col-md-8">
+                                <span style="color:#EF5F5F">{{errormessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingUser()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- edit user -->
+<div id="edit_user" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="editcancelForm()">&times;</button>
+                <h1 class="modal-title">Edit User</h1>
+                <div class="row no-margin-hr">
+                    <div class="col-md-12 no-padding-hr">
+                        <label class="pull-right"><input type="checkbox" ng-model="props.is_active" ng-disabled="props.user_id.toString() === owner_id"><span> Active</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <form class="form-horizontal" role="form" name="edituserForm" id="edituserForm">
+                    <div class="row no-margin-hr">
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none">Mobile Number<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
+                            </div>
+                            <div class="col-md-8  no-padding-hr">
+                                <input type="text" ng-class="{'haserror':field===fields.mobile}" ng-disabled="props.user_id.toString() === owner_id" class="form-control req-field-color" placeholder="10 digit mobile number" name="mobile" required="required" ng-model="props.mobile" maxlength="10"
+                                    ng-change="validations()" mobile-validation>
+                            </div>
+                        </div>
+                        <div class=" col-md-12 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.username}" class="form-control req-field-color " placeholder="Enter the user name" name="name" required="required " ng-model="props.username " ng-change="validations()">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label" autofocus="none ">E-mail<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.email}" class="form-control req-field-color" placeholder="Enter the E-mail " name="email" required="required" ng-model="props.email " ng-change="validations() ">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-12 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Location<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <select id="editlocation-multiselctDropDown " multiple="multiple ">
+                                     <option ng-repeat="location in locationsList " value="{{location.id}} " data-ng-bind-template="{{location.name}} ">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group no-padding-hr ">
+                                <div class="col-md-4 required ">
+                                    <label class="mdl_label control-label " autofocus="none ">Role<span>:</span></label>
+                                </div>
+                                <div class="col-md-8 no-padding-hr ">
+                                    <select id="editroles-multiselctDropDown " multiple="multiple ">
+                                     <option ng-repeat="role in genaralroles " value="{{role.user_id}} " data-ng-bind-template="{{role.display_name}} ">
+                                     </option>
+                                     </select>
+                                </div>
+                            </div> -->
+                        <div class="col-md-12 form-group no-padding-hr ">
+                            <p style="line-height:40px; padding-left:14px; ">Can add/ modify vouchers not more than<span class="vocherfield "><input type="text " class="vocherInput form-control " placeholder="Enter Number of days" name="vouchermodifydays" required="required " ng-model="props.vouchermodifydays" ng-change="validations()" mobile-validation>days</span></p>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr ">
+                            <div class="col-md-4 required ">
+                                <label class="mdl_label control-label " autofocus="none ">Security<span>:</span></label>
+                            </div>
+                            <div class="col-md-8 no-padding-hr ">
+                                <label class="radio-inline "><input type="radio" value="mac" ng-model="props.security " ng-change="validations() ">MAC</label>
+                                <label class="radio-inline "><input type="radio" value="ip"  ng-model="props.security " ng-change="validations() ">IP</label>
+                                <label class="radio-inline "><input type="radio" value="both" ng-model="props.security " ng-change="validations() " >Both</label>
+                                <label class="radio-inline "><input type="radio" value="any"  ng-model="props.security " ng-change="validations() " ng-checked="true ">Any</label>
+                            </div>
+                        </div>
+                        <div ng-show="props.security==='mac' ||props.security==='both' " class="col-md-12 form-group no-padding-hr ">
+                            <div class="col-md-offset-4 col-md-3 required no-padding-hr ">
+                                <label class="mdl_label control-label " autofocus="none ">MAC<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
+                            </div>
+                            <div class="col-md-5 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.mac}" class="form-control req-field-color " placeholder="Enter the Mac Adress " name="mac" required="required " ng-model="props.mac_addr" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div ng-show="props.security==='ip' ||props.security==='both' " class="col-md-12 form-group no-padding-hr ">
+                            <div class="col-md-offset-4 col-md-3 required no-padding-hr ">
+                                <label class="mdl_label control-label " autofocus="none ">IP<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
+                            </div>
+                            <div class="col-md-5 no-padding-hr ">
+                                <input type="text" ng-class="{'haserror':field===fields.ip}" class="form-control req-field-color " placeholder="Enter the Ip Adress " name="ip" required="required" ng-model="props.ip_addr" ng-change="validations()">
+                            </div>
+                        </div>
+                        <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group ">
+                            <div class="no-padding-hr col-md-offset-4 col-md-8 ">
+                                <span style="color:#EF5F5F ">{{errormessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer ">
+                <div class="row no-margin-hr ">
+                    <div class="pull-left ">
+                        <button type="button " class="btn btn-danger" data-toggle="modal" ng-disabled="props.user_id.toString() === owner_id" data-target="#deleteModal" ng-click="deletemodelshow()">Delete</button>
+                    </div>
+                    <div class="col-md-5 pull-right no-padding-hr ">
+                        <button type="button " class="btn background-defalt save-cancel-button " ng-click="editcancelForm()">Cancel</button>
+                        <button type="button " class="btn background-defalt save-cancel-button tabicon " ng-click="editingUser()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="loading " class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>
+<div class="alert alert-position-success " id="success-alert " style="display:none; ">
+    <strong>{{msg}}</strong>
+</div>
+<div id="deleteModal" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog ">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content logout_modal_width ">
+            <div class="modal-body text-center delete_modal ">
+                <h2 class="h ">Are you sure you want to Delete?</h2>
+            </div>
+            <div class="modal-footer ">
+                <div class="row ">
+                    <div class="col-md-4 ">
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal">No</button>
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="deleteUser(props.userprofile_id) ">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="locations" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog ">
+    <div class="modal-dialog ">
+        <div class="modal-content mdl-margin ">
+            <div class="modal-header no-padding-vr-bottom ">
+                <button type="button " class="close " data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title ">{{username}} > Locations</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom ">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-offset-1 col-md-10 no-padding-hr border ">
+                        <div class="col-md-12 no-padding-hr ">
+                            <div class="input-group ">
+                                <span class="input-group-addon "><i class="glyphicon glyphicon-search "></i></span>
+                                <input class="form-control " ng-model="search_location.name " type="text " placeholder="Search Locations ">
+                                <span class="input-group-btn "><button class="btn btn-default " ng-click="clearSearch() " type="button "><i class="glyphicon glyphicon-remove-circle "></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr padding-line "><label ng-click="checkAllLocations() "><input type="checkbox" ng-model="locationSelectAll " class="checkboxspace ">Select All</label>
+                            <span class="countshow pull-right ">Selected locations:{{calculateSeletedItems(selectedLocations)}} of {{selectedLocations.length}}</span>
+                        </div>
+                        <div class="col-md-10 no-padding-hr userscroll padding-line ">
+                            <ul class="locationlist " ng-repeat="location in selectedLocations | filter:search_location ">
+                                <li><label><input type="checkbox" ng-model="location.select" class="checkboxspace " ng-click="locationselectchange(selectedLocations) ">{{location.display_name}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-5 pull-right no-padding-hr ">
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                        <button type="button " class="btn background-defalt save-cancel-button tabicon " ng-click="addinglocationToUser() ">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="roles" class="modal fade" data-backdrop="static " data-keyboard="false " role="dialog ">
+    <div class="modal-dialog ">
+        <div class="modal-content mdl-margin ">
+            <div class="modal-header no-padding-vr-bottom ">
+                <button type="button " class="close " data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title ">{{username}} > Roles</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom ">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-offset-1 col-md-10 no-padding-hr border ">
+                        <div class="col-md-12 no-padding-hr ">
+                            <div class="input-group ">
+                                <span class="input-group-addon "><i class="glyphicon glyphicon-search "></i></span>
+                                <input class="form-control " ng-model="search_role.display_name " type="text " placeholder="Search Roles ">
+                                <span class="input-group-btn "><button class="btn btn-default " ng-click="clearSearch() " type="button "><i class="glyphicon glyphicon-remove-circle "></i></button></span>
+                            </div>
+                        </div>
+                        <div class="col-md-11 no-padding-hr padding-line "><label ng-click="checkAllRoles() "><input type="checkbox" ng-model="roleSelectAll " class="checkboxspace ">Select All</label>
+                            <span class="countshow pull-right ">Selected roles:{{calculateSeletedItems(selectedRoles)}} of {{selectedRoles.length}}</span>
+                        </div>
+                        <div class="col-md-10 no-padding-hr userscroll padding-line ">
+                            <ul class="locationlist " ng-repeat="role in selectedRoles | filter:search_role ">
+                                <li><label><input type="checkbox" ng-model="role.select" class="checkboxspace " ng-click="roleselectchange(selectedRoles) ">{{role.display_name}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer ">
+                <div class="row no-margin-hr ">
+                    <div class="col-md-5 pull-right no-padding-hr ">
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                        <button type="button " class="btn background-defalt save-cancel-button tabicon " ng-click="addingRoleToUser() ">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="userhistory" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{username}} > History</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-12">
+                        <table ng-table="usershistorytable" class="table table-bordered usershistorytable">
+                            <tr ng-repeat="user in $data ">
+                                <td class="vertical-center" title=" 'Date' " sortable=" 'date' ">
+                                    {{user.date}}</td>
+                                <td class="vertical-center" title=" 'Name' " sortable=" 'name' ">
+                                    {{user.name}}</td>
+                                <td class="vertical-center" title=" 'Update details' " sortable=" 'comment' ">
+                                    {{user.comment}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
