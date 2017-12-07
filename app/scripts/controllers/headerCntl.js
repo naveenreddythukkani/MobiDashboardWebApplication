@@ -41,12 +41,12 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         });
     });
     $(document).ready(function() {
-        $('#datetimepickervoucherstart').datetimepicker({
+        $('#datetimepickervoucherfrom').datetimepicker({
             format: 'DD-mm-YYYY'
         });
     });
     $(document).ready(function() {
-        $('#datetimepickervoucherfrom').datetimepicker({
+        $('#datetimepickervoucherto').datetimepicker({
             format: 'DD-mm-YYYY'
         });
     });
@@ -58,8 +58,8 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $('#selectdatedahboard').modal('hide');
         $rootScope.datescalculation();
     });
-    $('#selectdatevoucher').on('click', function() {
-        $rootScope.fromdate1 = moment($('#fromdatevoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
+    $('#saveforvoucher').on('click', function() {
+        $rootScope.fromdate1 = moment($('#fromdateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.today1 = moment($('#todateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.datescalculation();
         $('#saveforvoucher').modal('hide');

@@ -37,3 +37,42 @@ MobiDash.service('dataMove', function(localStorageService) {
         });
     }
 });
+
+
+
+
+MobiDash.factory('session', function($state) {
+    return {
+        sessionexpried: function(status) {
+            if (status === 403) {
+                swal({
+                    title: "Session Expired!",
+                    text: "Please login again!",
+                    type: 'error',
+                    confirmButtonColor: "red",
+                    confirmButtonText: "Ok",
+                }).then(function() {
+                    $state.go("login")
+                });
+            }
+            if (status === 502 || status === 500) {
+                swal({
+                    title: "Error",
+                    text: "Oops! something went worng",
+                    type: 'error',
+                    confirmButtonColor: "red",
+                    confirmButtonText: "Ok",
+                }).then(function() {});
+            }
+            if (status === 5000) {
+                swal({
+                    title: "Error",
+                    text: "Generic system failure",
+                    type: 'error',
+                    confirmButtonColor: "red",
+                    confirmButtonText: "Ok",
+                }).then(function() {});
+            }
+        }
+    };
+});
