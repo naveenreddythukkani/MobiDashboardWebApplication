@@ -163,7 +163,7 @@
                     <label ng-show="!voucherControl " class="dateshow "><span ng-if="pandlreport==true "><span class="colors actionsmenu " ng-click="datemodelshow() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu
                                     " ng-click="datemodelshow() ">{{today| date : 'dd-MM-yyyy'}}</span></span><span ng-if="pandlreport==false "> as on <span ng-click="datemodelshow() " class="colors actionsmenu ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
                     <label ng-show="voucherControl " class="dateshow "><span><span class="colors actionsmenu " ng-click="datemodelforfromandtodate()">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
-                    <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch()"><span class="glyphicon glyphicon-search"></span></button>
+                    <!-- <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch()"><span class="glyphicon glyphicon-search"></span></button> -->
                 </div>
             </div>
         </div>
@@ -201,7 +201,7 @@
                         </div>
                         <div class="col-md-9 no-padding-hr ">
                             <div class="input-group date " id="datetimepickerdashboardto">
-                                <input type="text " class="form-control " id="todatedashboard">
+                                <input type="text " class="form-control" id="todatedashboard">
                                 <div class="input-group-addon ">
                                     <span class="glyphicon glyphicon-calendar "></span>
                                 </div>

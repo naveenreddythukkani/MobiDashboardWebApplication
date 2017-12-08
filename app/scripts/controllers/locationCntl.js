@@ -251,6 +251,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $timeout(function() {
             $("#add_location").modal('show');
         }, 50);
+        $scope.props.is_Active = true;
     }
     $scope.cancelForm = function() {
         $scope.props = {};
@@ -273,7 +274,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         // $scope.props.user_id = $scope.users;
         // $scope.props.ledger_id = $scope.ledgers;
         // $scope.props.daybook_id = $scope.daybooks;
-        if ($scope.props.status) {
+        if ($scope.props.is_Active) {
             $scope.props.status = 'A';
         } else {
             $scope.props.status = 'I';
@@ -312,7 +313,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         // $scope.props.user_id = $scope.users;
         // $scope.props.ledger_id = $scope.ledgers;
         // $scope.props.daybook_id = $scope.daybooks;
-        if ($scope.props.status) {
+        if ($scope.props.is_Active) {
             $scope.props.status = 'A';
         } else {
             $scope.props.status = 'I';
@@ -365,9 +366,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.props.fax = locationDetais.fax;
         $scope.props.email = locationDetais.email;
         if (locationDetais.status === 'A') {
-            $scope.props.status = true;
+            $scope.props.is_Active = true;
         } else {
-            $scope.props.status = false;
+            $scope.props.is_Active = false;
         }
         $("#edit_location").modal('show');
         // $scope.getselectedusers(locationDetais);
@@ -839,7 +840,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $rootScope.locat.display_name = user.display_name;
         $rootScope.balnc = "Balance sheet";
         localStorageService.set("balnc", $rootScope.balnc);
-
+        $rootScope.findingpndlreport();
         localStorageService.set("location_id", user.id);
         localStorageService.set("location_name", user.display_name);
         $state.go('balancesheet');

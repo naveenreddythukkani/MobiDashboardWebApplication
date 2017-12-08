@@ -187,7 +187,7 @@
                         <div class="col-md-11 no-padding-hr userscroll">
                             <ul class="locationlist" ng-repeat="user in selectedaccounts">
                                 <li> <label ng-show="showunderline(selectedaccounts,$index)" class="privilage-underline"></label>
-                                    <label class="vertical-center-checkbox"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="accountselectchange(selectedaccounts)">{{user.privilageName}}</label>
+                                    <label class="vertical-center-checkbox"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="accountselectchange(selectedaccounts)"><span>{{user.privilageName}}</span></label>
                                 </li>
                             </ul>
                         </div>

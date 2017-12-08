@@ -6,10 +6,16 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     $scope.balancesheetarry = ["Balance sheet", "Profit & Loss"]
     $rootScope.locationsListinheader = [];
     $scope.props = {};
-    $rootScope.pandlreport = false;
     $scope.Object = Object;
-
-
+    $rootScope.findingpndlreport = function() {
+        $rootScope.balnc = localStorageService.get("balnc")
+        if ($rootScope.balnc === "Balance sheet") {
+            $rootScope.pandlreport = false
+        } else {
+            $rootScope.pandlreport = true;
+        }
+    }
+    $rootScope.findingpndlreport();
     $rootScope.getlocalstoredata = function() {
         console.log(dataMove.getgroupdata());
         console.log(dataMove.getsubgroupdata());
@@ -32,22 +38,22 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     $rootScope.headerheight += 25;
     $(document).ready(function() {
         $('#datetimepickerdashboardfrom').datetimepicker({
-            format: 'DD-mm-YYYY'
+            format: 'DD-MM-YYYY'
         });
     });
     $(document).ready(function() {
         $('#datetimepickerdashboardto').datetimepicker({
-            format: 'DD-mm-YYYY'
+            format: 'DD-MM-YYYY'
         });
     });
     $(document).ready(function() {
         $('#datetimepickervoucherfrom').datetimepicker({
-            format: 'DD-mm-YYYY'
+            format: 'DD-MM-YYYY'
         });
     });
     $(document).ready(function() {
         $('#datetimepickervoucherto').datetimepicker({
-            format: 'DD-mm-YYYY'
+            format: 'DD-MM-YYYY'
         });
     });
     $('#savefordashboard').on('click', function() {

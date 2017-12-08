@@ -95,8 +95,8 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $("#success-alert").removeClass('in');
         });
     }
-    $scope.addCompany = function() {
-        $scope.props = {};
+    $rootScope.addCompany = function() {
+        $scope.props.status = true;
     }
     $scope.search = function() {
         if ($scope.searchEnable) {
@@ -174,6 +174,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
                     console.log($rootScope.tenant_id);
                     $rootScope.selected_company_name = result.data.company;
                     localStorageService.set('tenant_name', $rootScope.selected_company_name);
+                    $rootScope.owner_id = data.owner_id;
                     localStorageService.set('owner_id', data.owner_id);
                     $rootScope.privilege = result.data.web_privilege[0];
                     localStorageService.set("privilege", result.data.web_privilege[0]);

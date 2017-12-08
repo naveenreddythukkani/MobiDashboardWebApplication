@@ -76,6 +76,7 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
                 if (ledgerGroup[i].subgroup_id === $scope.props.ledgergroup_id) {
                     $scope.ledgerelements.push(ledgerGroup[i]);
                     totalAmt += ledgerGroup[i].Amount;
+                    console.log("added amount", totalAmt);
                 }
                 if (ledgerGroup[i].subgroup_id === 1999) {
                     $scope.showprofitorloss = true;

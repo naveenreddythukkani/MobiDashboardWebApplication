@@ -37,6 +37,8 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     $scope.selectedRoles = [];
     $scope.selectedLocations = [];
     $scope.histroyList = [];
+    $scope.search_location = {};
+    $scope.search_role = {};
     $scope.user_id = ''
     $scope.username = '';
     $scope.searchEnable = false;
@@ -71,6 +73,8 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     }
     $rootScope.addUser = function() {
         $("#add_user").modal('show');
+        $scope.props.is_active = true;
+        $scope.props.security = "any";
         // $scope.getAllLoations('#location-multiselctDropDown');
         // $scope.getAllroles('#roles-multiselctDropDown');
     }

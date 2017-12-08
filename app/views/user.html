@@ -53,7 +53,7 @@
                 <h1 class="modal-title">Add User</h1>
                 <div class="row no-margin-hr">
                     <div class="col-md-12 no-padding-hr">
-                        <label class="pull-right"><input type="checkbox" ng-model="props.is_active" ng-init="props.is_active=true"><span> Active</span></label>
+                        <label class="pull-right"><input type="checkbox" ng-model="props.is_active" ng-checked="true" ng-init="props.is_active=true"><span> Active</span></label>
                     </div>
                 </div>
             </div>
@@ -107,7 +107,7 @@
                                 </div>
                             </div> -->
                         <div class="col-md-12 form-group no-padding-hr">
-                            <p style="line-height:40px; padding-left:14px;">Can add/ modify vouchers not more than<span class="vocherfield"><input type="text" class="vocherInput form-control" placeholder="Enter Number of days" name="vouchermodifydays" required="required" ng-model="props.vouchermodifydays" ng-change="dnsName()" mobile-validation >days</span></p>
+                            <p style="line-height:40px; padding-left:14px;">Can add/ modify vouchers not more than<span class="vocherfield"><input type="text" maxlength="3" class="vocherInput form-control" placeholder="Enter Number of days" name="vouchermodifydays" required="required" ng-model="props.vouchermodifydays" ng-change="dnsName()" mobile-validation >days</span></p>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
                             <div class="col-md-4 required ">
@@ -125,7 +125,7 @@
                                 <label class="mdl_label control-label" autofocus="none">MAC<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-5 no-padding-hr">
-                                <input type="text" ng-class="{'haserror':field===fields.mac}" class="form-control req-field-color" placeholder="Enter the Mac Adress" name="mac" required="required" ng-model="props.mac_addr" ng-change="dnsName()">
+                                <input type="text" ng-class="{'haserror':field===fields.mac}" class="form-control req-field-color" placeholder="Enter the Mac Adress" name="mac" required="required" ng-model="props.mac_addr" maxlength="20" ng-change="dnsName()">
                             </div>
                         </div>
                         <div ng-show="props.security==='ip' ||props.security=== 'both'" class="col-md-12 form-group no-padding-hr">
@@ -133,7 +133,7 @@
                                 <label class="mdl_label control-label" autofocus="none">IP<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-5 no-padding-hr">
-                                <input type="text" ng-class="{'haserror':field===fields.ip}" class="form-control req-field-color" placeholder="Enter the Ip Adress" name="ip" required="required" ng-model="props.ip_addr" ng-change="dnsName()">
+                                <input type="text" ng-class="{'haserror':field===fields.ip}" class="form-control req-field-color" placeholder="Enter the Ip Adress" name="ip" required="required" ng-model="props.ip_addr" maxlength="20" ng-change="dnsName()">
                             </div>
                         </div>
                         <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">
@@ -221,7 +221,7 @@
                                 </div>
                             </div> -->
                         <div class="col-md-12 form-group no-padding-hr ">
-                            <p style="line-height:40px; padding-left:14px; ">Can add/ modify vouchers not more than<span class="vocherfield "><input type="text " class="vocherInput form-control " placeholder="Enter Number of days" name="vouchermodifydays" required="required " ng-model="props.vouchermodifydays" ng-change="validations()" mobile-validation>days</span></p>
+                            <p style="line-height:40px; padding-left:14px; ">Can add/ modify vouchers not more than<span class="vocherfield "><input type="text " maxlength="3" class="vocherInput form-control " placeholder="Enter Number of days" name="vouchermodifydays" required="required " ng-model="props.vouchermodifydays" ng-change="validations()" mobile-validation>days</span></p>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr ">
                             <div class="col-md-4 required ">
@@ -239,7 +239,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">MAC<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
                             </div>
                             <div class="col-md-5 no-padding-hr ">
-                                <input type="text" ng-class="{'haserror':field===fields.mac}" class="form-control req-field-color " placeholder="Enter the Mac Adress " name="mac" required="required " ng-model="props.mac_addr" ng-change="validations()">
+                                <input type="text" ng-class="{'haserror':field===fields.mac}" class="form-control req-field-color " placeholder="Enter the Mac Adress " name="mac" required="required " ng-model="props.mac_addr" maxlength="20" ng-change="validations()">
                             </div>
                         </div>
                         <div ng-show="props.security==='ip' ||props.security==='both' " class="col-md-12 form-group no-padding-hr ">
@@ -247,7 +247,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">IP<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
                             </div>
                             <div class="col-md-5 no-padding-hr ">
-                                <input type="text" ng-class="{'haserror':field===fields.ip}" class="form-control req-field-color " placeholder="Enter the Ip Adress " name="ip" required="required" ng-model="props.ip_addr" ng-change="validations()">
+                                <input type="text" ng-class="{'haserror':field===fields.ip}" class="form-control req-field-color " placeholder="Enter the Ip Adress " name="ip" required="required" ng-model="props.ip_addr" maxlength="20" ng-change="validations()">
                             </div>
                         </div>
                         <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group ">
