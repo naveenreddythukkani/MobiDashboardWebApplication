@@ -75,7 +75,7 @@
                             </div>
                             <div class="col-md-8 no-padding-hr ">
 
-                                <select name="typeselection" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
+                                <select name="typeselection" ng-class="{'haserror':field[0]===fields.type}" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
                                     <option value="" disabled selected>Select Type</option>
                                     <option ng-repeat="x in selectedTypes" value="{{$index}}">{{x.description+' ('+x.vou_type+')'}}</option>
                                 </select>
@@ -100,7 +100,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="locationselection" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)" >
+                                <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)" >
                                     <option value="" disabled selected>Select Location</option>
                                     <option ng-repeat="x in selectedLocations" value="{{x.id}}">{{x.display_name}}</option>
                                 </select>
@@ -115,7 +115,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="daybookselection" class="form-control req-field-color" placeholder="Select Type" ng-model="voucherSubmit.dayBookId" ng-change="validations()">
+                                <select name="daybookselection" ng-class="{'haserror':field[0]===fields.daybook}" class="form-control req-field-color" placeholder="Select Type" ng-model="voucherSubmit.dayBookId" ng-change="validations()">
                                     <option value="" disabled selected>Select Daybook</option>
                                     <option ng-repeat="x in selectedDaybooks" value="{{x.g_id}}">{{x.g_d_name}}</option>
                                 </select>
@@ -129,7 +129,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="storeselection" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
+                                <select name="storeselection" ng-class="{'haserror':field[0]===fields.store}" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
                                     <option value="" disabled selected>Select Store</option>
                                     <option ng-repeat="x in selectedStores" value="x.id">{{x.display_name}}</option>
                                 </select>
@@ -254,9 +254,9 @@
                             </div>
                             <div class="col-md-8 no-padding-hr ">
 
-                                <select name="typeselection" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
+                                <select name="typeselection"  ng-class="{'haserror':field[0]===fields.type}" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
                                     <option value="" disabled selected>Select Type</option>
-                                    <option ng-repeat="x in selectedTypes" ng-selected="{{typeselectionwhileedit(x)}}" value="{{$index}}">{{x.description+' ('+x.vou_type+')'}}</option>
+                                    <option ng-repeat="x in selectedTypes" ng-selected="{{typeselectionwhileedit(x)}}" value="{{x.description}} ({{x.vou_type}})">{{x.description+' ('+x.vou_type+')'}}</option>
                                 </select>
                             </div>
                         </div>
@@ -279,7 +279,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="locationselection" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)" >
+                                <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)" >
                                     <option value="" disabled selected>Select Location</option>
                                     <option ng-repeat="x in selectedLocations" value="{{x.id}}">{{x.display_name}}</option>
                                 </select>
@@ -294,7 +294,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="daybookselection" class="form-control req-field-color" placeholder="Select Type" ng-model="voucherSubmit.dayBookId" ng-change="validations()">
+                                <select name="daybookselection" ng-class="{'haserror':field[0]===fields.daybook}" class="form-control req-field-color" placeholder="Select Type" ng-model="voucherSubmit.dayBookId" ng-change="validations()">
                                     <option value="" disabled selected>Select Daybook</option>
                                     <option ng-repeat="x in selectedDaybooks" value="{{x.g_id}}">{{x.g_d_name}}</option>
                                 </select>
@@ -308,7 +308,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="storeselection" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
+                                <select name="storeselection" ng-class="{'haserror':field[0]===fields.store}" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
                                     <option value="" disabled selected>Select Store</option>
                                     <option ng-repeat="x in selectedStores" value="x.id">{{x.display_name}}</option>
                                 </select>

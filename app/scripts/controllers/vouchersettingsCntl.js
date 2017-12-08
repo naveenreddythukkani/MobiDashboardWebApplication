@@ -229,7 +229,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     $scope.typeDataSelect = function (data) {
         console.log("typeDataSelect", data);
-        $scope.showerrormessage = false;
+        $scope.validations();
         if ($scope.selectedTypes && data) {
             $scope.voucherSubmit.type = $scope.selectedTypes[data].id;
             for (var j = 0; j < $scope.typeBCArray.length; j++) {
@@ -300,7 +300,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
 
     $scope.showDetails = function (location) {
-        $scope.showerrormessage = false;
+        $scope.validations();
         if (location) {
             $scope.voucherFields.isLocationSelected = true;
             if ($scope.voucherFields.isDayBookAllowed) {
@@ -396,28 +396,14 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             eve.preventDefault();
             return true
         }
-
-        //     var reg = new RegExp('/^[:_\'#\\-]{1}$/');
-        // console.log(eve.target.value, $scope.sep1, reg.test($scope.sep1));
-        // return reg.test($scope.sep1);
-
-        // if(!reg.test($scope.sep1)){
-        //     $scope.sep1="";
-        // }
     }
 
 
 
     $scope.validations = function () {
+        $scope.field[0] = "";
         $scope.showerrormessage = false;
     }
-
-    // $scope.editVoucherSubmit = function () {
-    //     if ($scope.AllVoucherValidations($scope.voucherSubmit)) {
-    //         return "";
-    //     }
-
-    // }
 
 
     $scope.AllVoucherValidations = function () {
@@ -431,11 +417,13 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         }
 
         if (data.type === undefined) {
+            $scope.field[0] = $scope.fields.type;
             $scope.showerrormessage = true;
             $scope.errormessage = "Please select Type.";
             return true;
         }
         if (data.locationData == undefined) {
+            $scope.field[0] = $scope.fields.location;
             $scope.showerrormessage = true;
             $scope.errormessage = "Please select Location";
             return true;
@@ -450,6 +438,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'CR' ||
             $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'CP') {
             if (data.dayBookId === undefined || data.dayBookId === null) {
+                $scope.field[0] = $scope.fields.daybook;
                 $scope.showerrormessage = true;
                 $scope.errormessage = "Please select Daybook";
                 return true;
@@ -466,6 +455,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'TO') {
 
             if (data.storeSelect === undefined || data.storeSelect === null) {
+                $scope.field[0] = $scope.fields.store;
                 $scope.showerrormessage = true;
                 $scope.errormessage = "Please select Store";
                 return true;
@@ -571,17 +561,6 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             $scope.errormessage = "Prefix length is 10";
             switch (rotationLength) {
                 case 5:
-                    // if (prefix.length > 5) {
-                    //     $scope.showerrormessage = true;
-                    //     $scope.field[0] = $scope.fields.prefix;
-                    //     if (sep1.length === 1) {
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //     }
-                    //     if (sep2.length === 1) {
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //     }
-                    // } else if (prefix.length >= 4) {
-
                     if (prefix.length >= 4 && sep1.length === 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
                         $scope.field[0] = $scope.fields.prefix;
@@ -599,7 +578,6 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                         $scope.showerrormessage = true;
                         $scope.field[0] = $scope.fields.prefix;
                     }
-                    // }
                     break;
                 case 7:
 
@@ -620,25 +598,6 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                         $scope.showerrormessage = true;
                         $scope.field[0] = $scope.fields.prefix;
                     }
-                    // if (prefix.length > 3) {
-                    //     $scope.showerrormessage = true;
-                    //     $scope.field[0] = $scope.fields.prefix;
-                    //     if (sep1.length === 1) {
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //     }
-                    //     if (sep2.length === 1) {
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //     }
-                    // } else if (prefix.length >= 2) {
-                    //     $scope.showerrormessage = true;
-                    //     if (sep1.length === 1) {
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //     }
-                    //     if (sep2.length === 1) {
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //     }
-                    // }
-
                     break
                 case 8:
                 if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
@@ -658,24 +617,6 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                     $scope.showerrormessage = true;
                     $scope.field[0] = $scope.fields.prefix;
                 }
-                    // if (prefix.length > 2) {
-                    //     $scope.showerrormessage = true;
-                    //     $scope.field[0] = $scope.fields.prefix;
-                    //     if (sep1.length === 1) {
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //     }
-                    //     if (sep2.length === 1) {
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //     }
-                    // } else if (prefix.length >= 1) {
-                    //     $scope.showerrormessage = true;
-                    //     if (sep1.length === 1) {
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //     }
-                    //     if (sep2.length === 1) {
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //     }
-                    // }
                     break;
                 case 9:
                 if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
@@ -699,25 +640,6 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                     $scope.field[1] = $scope.fields.sep1;
                     $scope.field[3] = $scope.fields.sep2;
                 }
-                    // if (prefix.length > 1) {
-                    //     $scope.showerrormessage = true;
-                    //     $scope.field[0] = $scope.fields.prefix;
-                    //     if (sep1.length === 1) {
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //     }
-                    //     if (sep2.length === 1) {
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //     }
-                    // } else if (prefix.length >= 0) {
-                    //     if (sep1.length === 1 && sep2.length === 1) {
-                    //         $scope.showerrormessage = true;
-                    //         $scope.field[1] = $scope.fields.sep1;
-                    //         $scope.field[3] = $scope.fields.sep2;
-                    //         if (prefix.length >= 1) {
-                    //             $scope.field[0] = $scope.fields.prefix;
-                    //         }
-                    //     }
-                    // }
                     break;
             }
 
