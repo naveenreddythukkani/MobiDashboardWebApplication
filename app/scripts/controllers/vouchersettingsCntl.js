@@ -129,19 +129,16 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         if (saveData.display_name != null) {
             $scope.voucherSubmit.name = saveData.display_name;
         }
-        // $scope.voucherSubmit.typeData=saveData.vou_type;
-        // $scope.showpreifixOptions
-        // if (saveData.separator1 != null) {
+       
         $scope.voucherSubmit.sep1 = saveData.separator1;
-        // }
+     
 
         if (saveData.variable_prefix != null) {
             $scope.voucherSubmit.rotation = saveData.variable_prefix;
         }
 
-        // if (saveData.separator2 != null) {
         $scope.voucherSubmit.sep2 = saveData.separator2;
-        // }
+    
 
         if (saveData.prefix != null) {
             $scope.voucherSubmit.prefix = saveData.prefix;
@@ -151,18 +148,8 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         }
 
         if (saveData.vou_type_id != null) {
-            var p = 0;
-            // console.log($scope.selectedTypes);
-            $scope.selectedTypes.forEach(function (element, index) {
-                // console.log('element', 'index', element, index, saveData.vou_type_id);
-                if (element.id === parseInt(saveData.vou_type_id)) {
-                    // console.log(element);
-                    // p = index;
-                    $scope.voucherSubmit.typeData = element.description + ' (' + element.vou_type + ')';
-                }
-            });
-            // console.log("position", p);
-
+            $scope.voucherSubmit.typeData = saveData.vou_type_id;
+            $scope.typeDataSelect($scope.voucherSubmit.typeData);
         }
 
         if (saveData.location_id != null) {
@@ -231,30 +218,37 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         console.log("typeDataSelect", data);
         $scope.validations();
         if ($scope.selectedTypes && data) {
-            $scope.voucherSubmit.type = $scope.selectedTypes[data].id;
+            var index = 0;
+            for (var i = 0; i < $scope.selectedTypes.length; i++) {
+                if ($scope.selectedTypes[i].id === parseInt(data)) {
+                    index = i;
+                    break;
+                }
+            }
+            $scope.voucherSubmit.type = $scope.selectedTypes[index].id;
             for (var j = 0; j < $scope.typeBCArray.length; j++) {
                 $scope.voucherFields.isTypeselected = true;
-                if ($scope.typeBCArray[j].name === $scope.selectedTypes[data].vou_type) {
-                    if ($scope.selectedTypes[data].vou_type == 'BR' || $scope.selectedTypes[data].vou_type == 'BP') {
+                if ($scope.typeBCArray[j].name === $scope.selectedTypes[index].vou_type) {
+                    if ($scope.selectedTypes[index].vou_type == 'BR' || $scope.selectedTypes[index].vou_type == 'BP') {
                         console.log("BANK", "FIRE");
                         $scope.voucherFields.isBType = true;
                         $scope.voucherFields.isCType = false;
                         $scope.voucherFields.isDayBookAllowed = true;
                         $scope.voucherFields.isStoresAllowed = false;
                         $scope.voucherFields.isStoresShow = false;
-                    } else if ($scope.selectedTypes[data].vou_type == 'CR' || $scope.selectedTypes[data].vou_type == 'CP') {
+                    } else if ($scope.selectedTypes[index].vou_type == 'CR' || $scope.selectedTypes[index].vou_type == 'CP') {
                         console.log("CASH", "FIRE");
                         $scope.voucherFields.isCType = true;
                         $scope.voucherFields.isBType = false;
                         $scope.voucherFields.isDayBookAllowed = true;
                         $scope.voucherFields.isStoresAllowed = false;
                         $scope.voucherFields.isStoresShow = false;
-                    } else if ($scope.selectedTypes[data].vou_type == 'SR' ||
-                        $scope.selectedTypes[data].vou_type == 'SI' ||
-                        $scope.selectedTypes[data].vou_type == 'RR' ||
-                        $scope.selectedTypes[data].vou_type == 'IR' ||
-                        $scope.selectedTypes[data].vou_type == 'TI' ||
-                        $scope.selectedTypes[data].vou_type == 'TO') {
+                    } else if ($scope.selectedTypes[index].vou_type == 'SR' ||
+                        $scope.selectedTypes[index].vou_type == 'SI' ||
+                        $scope.selectedTypes[index].vou_type == 'RR' ||
+                        $scope.selectedTypes[index].vou_type == 'IR' ||
+                        $scope.selectedTypes[index].vou_type == 'TI' ||
+                        $scope.selectedTypes[index].vou_type == 'TO') {
                         console.log("STORE", "FIRE");
                         $scope.voucherFields.isStoresAllowed = true;
                         $scope.voucherFields.isDayBookAllowed = false;
@@ -410,10 +404,11 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
         $scope.showerrormessage = false;
         var data = $scope.voucherSubmit;
-
+        var url="voucherprefix/";
         var submitObj = {};
+
         if (editPosition != -1) {
-            submitObj.id = editPosition;
+           url= "voucherprefix/"+editPosition+"/modify/";
         }
 
         if (data.type === undefined) {
@@ -530,7 +525,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             session.sessionexpried(result.status);
         }
 
-        $http.post(domain + api + "voucherprefix/", submitObj, config)
+        $http.post(domain + api + url, submitObj, config)
             .then(success, error);
     }
 
@@ -600,46 +595,46 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                     }
                     break
                 case 8:
-                if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                    $scope.field[1] = $scope.fields.sep1;
-                    $scope.field[3] = $scope.fields.sep2;
-                } else if (prefix.length >= 2 && sep1.length === 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                    $scope.field[1] = $scope.fields.sep1;
-                } else if (prefix.length >= 2 && sep2.length === 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                    $scope.field[3] = $scope.fields.sep2;
-                } else if (prefix.length >= 2) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                }
+                    if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                        $scope.field[1] = $scope.fields.sep1;
+                        $scope.field[3] = $scope.fields.sep2;
+                    } else if (prefix.length >= 2 && sep1.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                        $scope.field[1] = $scope.fields.sep1;
+                    } else if (prefix.length >= 2 && sep2.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                        $scope.field[3] = $scope.fields.sep2;
+                    } else if (prefix.length >= 2) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                    }
                     break;
                 case 9:
-                if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                    $scope.field[1] = $scope.fields.sep1;
-                    $scope.field[3] = $scope.fields.sep2;
-                } else if (prefix.length >= 1 && sep1.length === 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                    $scope.field[1] = $scope.fields.sep1;
-                } else if (prefix.length >= 1 && sep2.length === 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                    $scope.field[3] = $scope.fields.sep2;
-                } else if (prefix.length > 1) {
-                    $scope.showerrormessage = true;
-                    $scope.field[0] = $scope.fields.prefix;
-                }else if(sep1.length === 1 && sep2.length === 1){
-                    $scope.showerrormessage = true;
-                    $scope.field[1] = $scope.fields.sep1;
-                    $scope.field[3] = $scope.fields.sep2;
-                }
+                    if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                        $scope.field[1] = $scope.fields.sep1;
+                        $scope.field[3] = $scope.fields.sep2;
+                    } else if (prefix.length >= 1 && sep1.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                        $scope.field[1] = $scope.fields.sep1;
+                    } else if (prefix.length >= 1 && sep2.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                        $scope.field[3] = $scope.fields.sep2;
+                    } else if (prefix.length > 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[0] = $scope.fields.prefix;
+                    } else if (sep1.length === 1 && sep2.length === 1) {
+                        $scope.showerrormessage = true;
+                        $scope.field[1] = $scope.fields.sep1;
+                        $scope.field[3] = $scope.fields.sep2;
+                    }
                     break;
             }
 
