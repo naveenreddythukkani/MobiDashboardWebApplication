@@ -39,10 +39,12 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     $scope.voucherSubmit = {};
     var editPosition = 0;
+    var isPrefixValid = true;
+    var typeIndex = 0;
 
 
-    $scope.voucherSubmit.sep1 = '-';
-    $scope.voucherSubmit.sep2 = '-';
+    $scope.voucherSubmit.sep1 = '';
+    $scope.voucherSubmit.sep2 = '';
     console.log("VoucherSetting ctrl", "fire");
     $scope.field = [];
     $scope.fields = {
@@ -129,16 +131,16 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         if (saveData.display_name != null) {
             $scope.voucherSubmit.name = saveData.display_name;
         }
-       
+
         $scope.voucherSubmit.sep1 = saveData.separator1;
-     
+
 
         if (saveData.variable_prefix != null) {
             $scope.voucherSubmit.rotation = saveData.variable_prefix;
         }
 
         $scope.voucherSubmit.sep2 = saveData.separator2;
-    
+
 
         if (saveData.prefix != null) {
             $scope.voucherSubmit.prefix = saveData.prefix;
@@ -166,21 +168,12 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             $scope.voucherSubmit.storeSelect = saveData.store_id;
             $scope.validations();
         }
-
-
         $scope.setActive($scope.showpreifixOptions(saveData.prefix_options));
         $scope.voucherSubmit.allowId = saveData.allow_manual_id;
         $scope.voucherSubmit.reNumber = saveData.renumber;
         $scope.voucherSubmit.printVoucher = saveData.print_voucher;
 
-        $scope.restrictData();
-    }
-    $scope.typeselectionwhileedit = function (x) {
-        var value = x.description + " (" + x.vou_type + ")";
-        // console.log("selected value,normalvalue", $scope.voucherSubmit.typeData, value)
-        if (value === $scope.voucherSubmit.typeData) {
-            return true;
-        }
+        $scope.prefixValidation();
     }
 
     $scope.cancelForm = function () {
@@ -218,37 +211,36 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         console.log("typeDataSelect", data);
         $scope.validations();
         if ($scope.selectedTypes && data) {
-            var index = 0;
             for (var i = 0; i < $scope.selectedTypes.length; i++) {
                 if ($scope.selectedTypes[i].id === parseInt(data)) {
-                    index = i;
+                    typeIndex = i;
                     break;
                 }
             }
-            $scope.voucherSubmit.type = $scope.selectedTypes[index].id;
+            $scope.voucherSubmit.type = $scope.selectedTypes[typeIndex].id;
             for (var j = 0; j < $scope.typeBCArray.length; j++) {
                 $scope.voucherFields.isTypeselected = true;
-                if ($scope.typeBCArray[j].name === $scope.selectedTypes[index].vou_type) {
-                    if ($scope.selectedTypes[index].vou_type == 'BR' || $scope.selectedTypes[index].vou_type == 'BP') {
+                if ($scope.typeBCArray[j].name === $scope.selectedTypes[typeIndex].vou_type) {
+                    if ($scope.selectedTypes[typeIndex].vou_type == 'BR' || $scope.selectedTypes[typeIndex].vou_type == 'BP') {
                         console.log("BANK", "FIRE");
                         $scope.voucherFields.isBType = true;
                         $scope.voucherFields.isCType = false;
                         $scope.voucherFields.isDayBookAllowed = true;
                         $scope.voucherFields.isStoresAllowed = false;
                         $scope.voucherFields.isStoresShow = false;
-                    } else if ($scope.selectedTypes[index].vou_type == 'CR' || $scope.selectedTypes[index].vou_type == 'CP') {
+                    } else if ($scope.selectedTypes[typeIndex].vou_type == 'CR' || $scope.selectedTypes[typeIndex].vou_type == 'CP') {
                         console.log("CASH", "FIRE");
                         $scope.voucherFields.isCType = true;
                         $scope.voucherFields.isBType = false;
                         $scope.voucherFields.isDayBookAllowed = true;
                         $scope.voucherFields.isStoresAllowed = false;
                         $scope.voucherFields.isStoresShow = false;
-                    } else if ($scope.selectedTypes[index].vou_type == 'SR' ||
-                        $scope.selectedTypes[index].vou_type == 'SI' ||
-                        $scope.selectedTypes[index].vou_type == 'RR' ||
-                        $scope.selectedTypes[index].vou_type == 'IR' ||
-                        $scope.selectedTypes[index].vou_type == 'TI' ||
-                        $scope.selectedTypes[index].vou_type == 'TO') {
+                    } else if ($scope.selectedTypes[typeIndex].vou_type == 'SR' ||
+                        $scope.selectedTypes[typeIndex].vou_type == 'SI' ||
+                        $scope.selectedTypes[typeIndex].vou_type == 'RR' ||
+                        $scope.selectedTypes[typeIndex].vou_type == 'IR' ||
+                        $scope.selectedTypes[typeIndex].vou_type == 'TI' ||
+                        $scope.selectedTypes[typeIndex].vou_type == 'TO') {
                         console.log("STORE", "FIRE");
                         $scope.voucherFields.isStoresAllowed = true;
                         $scope.voucherFields.isDayBookAllowed = false;
@@ -404,11 +396,11 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
         $scope.showerrormessage = false;
         var data = $scope.voucherSubmit;
-        var url="voucherprefix/";
+        var url = "voucherprefix/";
         var submitObj = {};
 
         if (editPosition != -1) {
-           url= "voucherprefix/"+editPosition+"/modify/";
+            url = "voucherprefix/" + editPosition + "/modify/";
         }
 
         if (data.type === undefined) {
@@ -428,10 +420,10 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         submitObj.vou_type_id = $scope.voucherSubmit.type;
         submitObj.location_id = $scope.voucherSubmit.locationData;
 
-        if ($scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'BR' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'BP' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'CR' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'CP') {
+        if ($scope.selectedTypes[typeIndex].vou_type === 'BR' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'BP' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'CR' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'CP') {
             if (data.dayBookId === undefined || data.dayBookId === null) {
                 $scope.field[0] = $scope.fields.daybook;
                 $scope.showerrormessage = true;
@@ -442,12 +434,12 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         }
 
 
-        if ($scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'SR' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'SI' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'RR' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'IR' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'TI' ||
-            $scope.selectedTypes[$scope.voucherSubmit.typeData].vou_type === 'TO') {
+        if ($scope.selectedTypes[typeIndex].vou_type === 'SR' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'SI' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'RR' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'IR' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'TI' ||
+            $scope.selectedTypes[typeIndex].vou_type === 'TO') {
 
             if (data.storeSelect === undefined || data.storeSelect === null) {
                 $scope.field[0] = $scope.fields.store;
@@ -458,6 +450,14 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             submitObj.store_id = data.storeSelect;
 
         }
+
+        if (!isPrefixValid) {
+            $scope.showerrormessage = true;
+            $scope.errormessage = "Prefix length is 10";
+            return true;
+        }
+
+
         $scope.loading = true;
 
         if (data.name != undefined) {
@@ -468,21 +468,21 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             submitObj.start_no = data.startNo;
         }
 
-        if ($scope.sep1 != undefined) {
-            submitObj.separator1 = $scope.sep1;
+        if (data.sep1 != undefined) {
+            submitObj.separator1 = data.sep1;
         }
 
 
-        if ($scope.sep2 != undefined) {
-            submitObj.separator2 = $scope.sep2;
+        if (data.sep2 != undefined) {
+            submitObj.separator2 = data.sep2;
         }
 
         if (data.prefix != undefined) {
             submitObj.prefix = data.prefix;
         }
 
-        if ($scope.rotation != undefined) {
-            submitObj.variable_prefix = $scope.rotation;
+        if (data != undefined) {
+            submitObj.variable_prefix = data.rotation;
         }
 
         switch ($scope.active) {
@@ -558,82 +558,107 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 case 5:
                     if (prefix.length >= 4 && sep1.length === 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 5 && sep1.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                     } else if (prefix.length >= 5 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 5) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
+                    } else {
+                        isPrefixValid = true;
                     }
                     break;
                 case 7:
 
                     if (prefix.length >= 2 && sep1.length === 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 3 && sep1.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                     } else if (prefix.length >= 3 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 3) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
+                    } else {
+                        isPrefixValid = true;
                     }
                     break
                 case 8:
                     if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 2 && sep1.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                     } else if (prefix.length >= 2 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 2) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
+                    } else {
+                        isPrefixValid = true;
                     }
                     break;
                 case 9:
                     if (prefix.length >= 1 && sep1.length === 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length >= 1 && sep1.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[1] = $scope.fields.sep1;
                     } else if (prefix.length >= 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                         $scope.field[3] = $scope.fields.sep2;
                     } else if (prefix.length > 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[0] = $scope.fields.prefix;
                     } else if (sep1.length === 1 && sep2.length === 1) {
                         $scope.showerrormessage = true;
+                        isPrefixValid = false;
                         $scope.field[1] = $scope.fields.sep1;
                         $scope.field[3] = $scope.fields.sep2;
+                    } else {
+                        isPrefixValid = true;
                     }
                     break;
             }
@@ -641,24 +666,29 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         } else {
             if (prefix.length >= 10 && sep1.length === 1 && sep2.length === 1) {
                 $scope.showerrormessage = true;
+                isPrefixValid = false;
                 $scope.field[0] = $scope.fields.prefix;
                 $scope.field[1] = $scope.fields.sep1;
                 $scope.field[3] = $scope.fields.sep2;
             } else if (prefix.length > 10 && sep1.length === 1) {
                 $scope.showerrormessage = true;
+                isPrefixValid = false;
                 $scope.field[0] = $scope.fields.prefix;
                 $scope.field[1] = $scope.fields.sep1;
             } else if (prefix.length > 10 && sep2.length === 1) {
                 $scope.showerrormessage = true;
+                isPrefixValid = false;
                 $scope.field[0] = $scope.fields.prefix;
                 $scope.field[3] = $scope.fields.sep2;
+            } else {
+                isPrefixValid = true;
             }
         }
 
     }
 
     $scope.prefixValidation = function () {
-        var mainPrefix = "";
+        var mainPrefix = "Ex: ";
         var prefix = $scope.voucherSubmit.prefix;
         var sep1 = $scope.voucherSubmit.sep1;
         var sep2 = $scope.voucherSubmit.sep2;
@@ -687,13 +717,13 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         switch (rotation) {
             case $scope.rotationPolicy[0].name:
                 //"None"
-                mainPrefix = prefix + sep1 + sep2;
+                mainPrefix = mainPrefix + prefix + sep1 + sep2;
                 break;
             case $scope.rotationPolicy[1].name:
                 // "dd/mm"
                 var selectDate = date + "/" + month;
                 console.log(date + "/" + month);
-                mainPrefix = prefix + sep1 + selectDate + sep2;
+                mainPrefix = mainPrefix + prefix + sep1 + selectDate + sep2;
 
                 break;
             case $scope.rotationPolicy[2].name:
@@ -709,7 +739,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 }
                 var filt = $filter("date")(todayDate, "medium").substr(0, 3);
                 console.log(filt + "/" + by + "-" + ey);
-                mainPrefix = prefix + sep1 + filt + "/" + by + "-" + ey + sep2;
+                mainPrefix = mainPrefix + prefix + sep1 + filt + "/" + by + "-" + ey + sep2;
                 break;
             case $scope.rotationPolicy[3].name:
                 // "mm/by-ey"
@@ -724,19 +754,19 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 }
                 // var filt = $filter("date")(todayDate, "medium").substr(0, 3);
                 console.log(filt + "/" + by + "-" + ey);
-                mainPrefix = prefix + sep1 + month + "/" + by + "-" + ey + sep2;
+                mainPrefix = mainPrefix + prefix + sep1 + month + "/" + by + "-" + ey + sep2;
                 break;
             case $scope.rotationPolicy[4].name:
                 // "name": "mm/yy"
                 console.log(month + "/" + year);
                 var selectDate = month + "/" + year;
-                mainPrefix = prefix + sep1 + selectDate + sep2;
+                mainPrefix = mainPrefix + prefix + sep1 + selectDate + sep2;
                 break;
             case $scope.rotationPolicy[5].name:
                 // "mm/yyyy"
                 console.log(month + "/" + fullYear);
                 var selectDate = month + "/" + fullYear;
-                mainPrefix = prefix + sep1 + selectDate + sep2;
+                mainPrefix = mainPrefix + prefix + sep1 + selectDate + sep2;
                 break;
         }
 
