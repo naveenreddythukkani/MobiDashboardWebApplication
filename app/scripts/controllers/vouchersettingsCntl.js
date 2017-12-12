@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, session, $filter,$timeout) {
+QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, session, $filter, $timeout) {
     $rootScope.companytab = true;
     $rootScope.rolestab = true;
     $rootScope.locationtab = true;
@@ -45,7 +45,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     $scope.voucherSubmit.sep1 = '';
     $scope.voucherSubmit.sep2 = '';
-    $scope.voucherSubmit.startNo=1;
+    $scope.voucherSubmit.startNo = 1;
     console.log("VoucherSetting ctrl", "fire");
     $scope.field = [];
     $scope.fields = {
@@ -130,7 +130,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         var saveData = $scope.vouchersdata[editPosition];
         console.log("SaveData", saveData);
 
-        $scope.voucherSubmit.editVoucherId=saveData.id;
+        $scope.voucherSubmit.editVoucherId = saveData.id;
         if (saveData.display_name != null) {
             $scope.voucherSubmit.name = saveData.display_name;
         }
@@ -542,13 +542,13 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         var sep2 = $scope.voucherSubmit.sep2;
         var rotation = $scope.voucherSubmit.rotation;
 
-        if (prefix === undefined) {
+        if (prefix === undefined || prefix === null) {
             prefix = "";
         }
-        if (sep1 === null) {
+        if (sep1 === null || sep1 === undefined) {
             sep1 = "";
         }
-        if (sep2 === null) {
+        if (sep2 === null || sep2 === undefined) {
             sep2 = "";
         }
 
@@ -709,13 +709,13 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             month = '0' + month;
         }
 
-        if (prefix === undefined) {
+        if (prefix === undefined || prefix === null) {
             prefix = "";
         }
-        if (sep1 === null) {
+        if (sep1 === null || sep1 === undefined) {
             sep1 = "";
         }
-        if (sep2 === null) {
+        if (sep2 === null || sep2 === undefined) {
             sep2 = "";
         }
         switch (rotation) {
@@ -789,7 +789,8 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         $scope.voucherFields = {};
         // $scope.voucherSubmit.sep1 = '';
         // $scope.voucherSubmit.sep2 = '';
-        $scope.voucherSubmit.startNo=1; 
+        $scope.voucherSubmit.startNo = 1;
+        $scope.samplePrefix = false;
 
         $scope.voucherSubmit.rotation = 'None';
     };
