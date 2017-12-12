@@ -128,6 +128,8 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     var editFunction = function () {
         var saveData = $scope.vouchersdata[editPosition];
         console.log("SaveData", saveData);
+
+        $scope.voucherSubmit.editVoucherId=saveData.id;
         if (saveData.display_name != null) {
             $scope.voucherSubmit.name = saveData.display_name;
         }
@@ -400,7 +402,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         var submitObj = {};
 
         if (editPosition != -1) {
-            url = "voucherprefix/" + editPosition + "/modify/";
+            url = "voucherprefix/" + $scope.voucherSubmit.editVoucherId + "/modify/";
         }
 
         if (data.type === undefined) {
@@ -783,8 +785,8 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     $scope.clearScopeData = function () {
         $scope.voucherSubmit = {};//Clearing scope data.
         $scope.voucherFields = {};
-        $scope.voucherSubmit.sep1 = '-';
-        $scope.voucherSubmit.sep2 = '-';
+        // $scope.voucherSubmit.sep1 = '';
+        // $scope.voucherSubmit.sep2 = '';
         $scope.voucherSubmit.rotation = 'None';
     };
 
