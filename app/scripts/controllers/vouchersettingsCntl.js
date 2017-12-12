@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, session, $filter) {
+QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, session, $filter,$timeout) {
     $rootScope.companytab = true;
     $rootScope.rolestab = true;
     $rootScope.locationtab = true;
@@ -45,6 +45,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     $scope.voucherSubmit.sep1 = '';
     $scope.voucherSubmit.sep2 = '';
+    $scope.voucherSubmit.startNo=1;
     console.log("VoucherSetting ctrl", "fire");
     $scope.field = [];
     $scope.fields = {
@@ -170,6 +171,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             $scope.voucherSubmit.storeSelect = saveData.store_id;
             $scope.validations();
         }
+
         $scope.setActive($scope.showpreifixOptions(saveData.prefix_options));
         $scope.voucherSubmit.allowId = saveData.allow_manual_id;
         $scope.voucherSubmit.reNumber = saveData.renumber;
@@ -455,7 +457,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
         if (!isPrefixValid) {
             $scope.showerrormessage = true;
-            $scope.errormessage = "Prefix length is 10";
+            $scope.errormessage = "Voucher prefix should be of maximum 10 characters.";
             return true;
         }
 
@@ -555,7 +557,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             console.log("rotation.length" + rotation.length);
             var rotationLength = rotation.length;
 
-            $scope.errormessage = "Prefix length is 10";
+            $scope.errormessage = "Voucher prefix should be of maximum 10 characters.";
             switch (rotationLength) {
                 case 5:
                     if (prefix.length >= 4 && sep1.length === 1 && sep2.length === 1) {
@@ -690,7 +692,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
     $scope.prefixValidation = function () {
-        var mainPrefix = "Ex: ";
+        var mainPrefix = "Preview   : ";
         var prefix = $scope.voucherSubmit.prefix;
         var sep1 = $scope.voucherSubmit.sep1;
         var sep2 = $scope.voucherSubmit.sep2;
@@ -787,6 +789,8 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         $scope.voucherFields = {};
         // $scope.voucherSubmit.sep1 = '';
         // $scope.voucherSubmit.sep2 = '';
+        $scope.voucherSubmit.startNo=1; 
+
         $scope.voucherSubmit.rotation = 'None';
     };
 

@@ -131,7 +131,7 @@
                             <div class="col-md-8 no-padding-hr ">
                                 <select name="storeselection" ng-class="{'haserror':field[0]===fields.store}" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
                                     <option value="" disabled selected>Select Store</option>
-                                    <option ng-repeat="x in selectedStores" value="x.id">{{x.display_name}}</option>
+                                    <option ng-repeat="x in selectedStores" value="{{x.id}}">{{x.display_name}}</option>
                                 </select>
                             </div>
                         </div>
@@ -310,7 +310,7 @@
                             <div class="col-md-8 no-padding-hr ">
                                 <select name="storeselection" ng-class="{'haserror':field[0]===fields.store}" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
                                     <option value="" disabled selected>Select Store</option>
-                                    <option ng-repeat="x in selectedStores" value="x.id">{{x.display_name}}</option>
+                                    <option ng-repeat="x in selectedStores" value="{{x.id}}">{{x.display_name}}</option>
                                 </select>
                             </div>
                         </div>
