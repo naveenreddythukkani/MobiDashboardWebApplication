@@ -80,6 +80,8 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
                 }
                 if (ledgerGroup[i].subgroup_id === 1999) {
                     $scope.showprofitorloss = true;
+                    $scope.rootgroupdiff = dataMove.getgroupdata().rootgroupdiff;
+                    totalAmt += dataMove.getgroupdata().rootgroupdiff;
                 }
             }
             console.log("$scope.ledgerelements ===" + JSON.stringify($scope.ledgerelements));

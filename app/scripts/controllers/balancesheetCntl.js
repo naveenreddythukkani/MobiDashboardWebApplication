@@ -78,6 +78,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
                 for (var i = 0; i < $scope.rgroupelements.length; i++) {
                     if ($scope.rgroupelements[i].rootgroup_id === 4) {
                         $scope.rgroupelements[i].sum_amt += $scope.rgroupelements[i].diff;
+                        $scope.rgroupelements[i].sum_amt = $scope.rgroupelements[i].sum_amt.toFixed(2);
                     }
                 }
                 console.log("$scope.rgroupelements = " + JSON.stringify($scope.rgroupelements));

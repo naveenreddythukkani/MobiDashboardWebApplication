@@ -173,19 +173,36 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
     $scope.imagePreview = function(imageid, type, name) {
         if (type === "image" || type === "signature") {
             $scope.downloadurl = "";
-            $('#imagePreview').modal('show');
+            $(document).ready(function() {
+                $('#imagePreview').modal('show');
+            });
             $scope.downloadurl = $scope.downloadImages + imageid;
         } else if (type === "voice") {
             $scope.downloadurlforaudio = $scope.downloadaudio + name;
             var test = $('#voucheraudio');
             test[0].load();
-            $('#audioplay').modal('show');
+            $(document).ready(function() {
+                $('#audioplay').modal('show');
+            });
         } else if (type === "file") {
             $scope.downloadurl = "";
-            var iframe = document.getElementById("voucheriframe");
-            // iframe[0].src = "";
-            $('#fileshow').modal('show');
+            var ext = name.split('.');
             $scope.downloadurl = $scope.downloadImages + imageid;
+            if (ext[ext.length - 1] === "xlsx") {
+                $(document).ready(function() {
+                    $('#fileshow').body("");
+                    $('#fileshow').modal({ remote: $scope.downloadurl });
+                });
+            } else if (ext[ext.length - 1] === "docx") {
+                $(document).ready(function() {
+                    $('#fileshow').body("");
+                    $('#fileshow').modal({ remote: $scope.downloadurl });
+                });
+            } else {
+                $(document).ready(function() {
+                    $('#fileshow').modal('show');
+                });
+            }
         }
     };
     $scope.filetypefinding = function(name) {
@@ -202,12 +219,12 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
             return "images/voice.png";
         }
     }
-    $(".modal").on("hidden.bs.modal", function() {
-        $(".modal-body").html("");
+    $('.modalbody').on('hidden.bs.modal', '.modal', function() {
+        $(this).removeData('bs.modal');
     });
     $scope.cancelaudioForm = function() {
         var test = $('#voucheraudio');
         test[0].pause();
     }
 
-})
+});
