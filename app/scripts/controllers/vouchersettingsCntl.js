@@ -186,6 +186,26 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         $("#addvochertype").modal('hide');
     }
 
+    $scope.voucherHistoryShow = function(voucher) {
+        $scope.voucherId = {};
+        $scope.histroyList = [];
+        $scope.voucherId.id = voucher.id
+        $scope.display_name = voucher.display_name;
+        $scope.loading = true;
+        var success = function(result) {
+            $scope.loading = false;
+            $('#voucherhistory').modal('show');
+            $scope.histroyList = result.data;
+            $scope.loctionshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+        }
+        var error = function(result) {
+            $scope.loading = false;
+            session.sessionexpried(result.status);
+        }
+        $http.post(domain + api + "voucherprefix/history/", $scope.voucherId, config)
+            .then(success, error);
+    }
+
     $scope.getVoucherTypes = function (arg) {
         $scope.loading = true;
 

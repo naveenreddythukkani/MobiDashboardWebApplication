@@ -13,19 +13,19 @@
        <div class="col-md-12">
           <table ng-table="multivouchertable" class="table table-bordered" show-filter="searchEnable">
              <tr ng-repeat="user in $data">
-                <td class="vertical-center" title="'Voucher'" filter="{ rolename: 'text'}" sortable="'rolename'">
+                <td class="vertical-center" title="'Voucher'" filter="{ vou_type: 'text'}" sortable="'vou_type'">
                    <a class="tbl-link main-field">{{user.display_name}}</a>
                    <span class="subfield-text">{{user.vou_type}}</span>
                 </td>
-                <td class="vertical-center" title="'Location'" filter="{ users: 'number'}" sortable="'users'">
+                <td class="vertical-center" title="'Location'" filter="{ location_name: 'text'}" sortable="'location_name'">
                    <a class="tbl-link main-field-block">{{user.location_name}}</a>
                    <span class="subfield-text">{{user.daybook_name}}</span>
                 </td>
-                <td class="vertical-center" title="'Prefix'" filter="{ users: 'number'}" sortable="'users'">
+                <td class="vertical-center" title="'Prefix'" filter="{ variable_prefix: 'text'}" sortable="'variable_prefix'">
                    <a class="tbl-link main-field-block">{{user.prefix}}</a>
                    <span class="subfield-text">{{showpreifixOptions(user.variable_prefix)}}</span>
                 </td>
-                <td class="vertical-center" filter="{ users: 'number'}">
+                <td class="vertical-center" title="'Start No'" filter="{ start_no: 'number'}" sortable="'start_no'">
                    <a class="tbl-link main-field-block"><span>Start: {{user.start_no}}</span><span ng-show="user.print_voucher">,Print</span></a>
                    <span class="subfield-text"><span ng-show="user.allow_manual_id">Manual</span><span ng-show="user.renumber">,Re-Number</span></span>
                 </td>
@@ -43,7 +43,7 @@
                             <li class="actionsmenu"><a data-toggle="modal" data-target="#privileges" ng-click="getAllPrivileges(user.display_name,user.id)">Privileges</a></li> -->
                          <!-- <li class="actionsmenu"><a ng-click="removeRole(user)">Remove</a></li> -->
                          <li class="actionsmenu">
-                            <a ng-click="roleshistoryshow(user)">History</a>
+                            <a ng-click="voucherHistoryShow(user)">History</a>
                          </li>
                       </ul>
                    </div>
@@ -408,6 +408,38 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div id="voucherhistory" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button type="button" class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h2 class="modal-title">{{display_name}} > History</h2>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-12">
+                        <table ng-table="loctionshistorytable" class="table table-bordered locationshistorytable">
+                            <tr ng-repeat="user in $data ">
+                                <td class="vertical-center" title=" 'Date' " sortable=" 'date' ">
+                                    {{user.date}}</td>
+                                <td class="vertical-center" title=" 'Name' " sortable=" 'name' ">
+                                    {{user.name}}</td>
+                                <td class="vertical-center" title=" 'Update details' " sortable=" 'comment' ">
+                                    {{user.comment}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row no-margin-hr">
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

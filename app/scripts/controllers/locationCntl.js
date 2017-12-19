@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('locationCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session) {
+QTable.controller('locationCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session) {
 
     $rootScope.companytab = true;
     $rootScope.locationtab = true;
@@ -37,6 +37,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $scope.searchEnable = false;
     $scope.daybookselectAll = false;
     $scope.ledgerselectall = false;
+    $scope.ledgerUnselectAll=false;
     $scope.userSelectAll = false;
     $scope.location_id = "";
     $scope.location_name = "";
@@ -60,149 +61,149 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         "tan": 12
     }
     $scope.states = [{
-            "code": "AN",
-            "name": "Andaman and Nicobar Islands"
-        },
-        {
-            "code": "AP",
-            "name": "Andhra Pradesh"
-        },
-        {
-            "code": "AR",
-            "name": "Arunachal Pradesh"
-        },
-        {
-            "code": "AS",
-            "name": "Assam"
-        },
-        {
-            "code": "BR",
-            "name": "Bihar"
-        },
-        {
-            "code": "CG",
-            "name": "Chandigarh"
-        },
-        {
-            "code": "CH",
-            "name": "Chhattisgarh"
-        },
-        {
-            "code": "DH",
-            "name": "Dadra and Nagar Haveli"
-        },
-        {
-            "code": "DD",
-            "name": "Daman and Diu"
-        },
-        {
-            "code": "DL",
-            "name": "Delhi"
-        },
-        {
-            "code": "GA",
-            "name": "Goa"
-        },
-        {
-            "code": "GJ",
-            "name": "Gujarat"
-        },
-        {
-            "code": "HR",
-            "name": "Haryana"
-        },
-        {
-            "code": "HP",
-            "name": "Himachal Pradesh"
-        },
-        {
-            "code": "JK",
-            "name": "Jammu and Kashmir"
-        },
-        {
-            "code": "JH",
-            "name": "Jharkhand"
-        },
-        {
-            "code": "KA",
-            "name": "Karnataka"
-        },
-        {
-            "code": "KL",
-            "name": "Kerala"
-        },
-        {
-            "code": "LD",
-            "name": "Lakshadweep"
-        },
-        {
-            "code": "MP",
-            "name": "Madhya Pradesh"
-        },
-        {
-            "code": "MH",
-            "name": "Maharashtra"
-        },
-        {
-            "code": "MN",
-            "name": "Manipur"
-        },
-        {
-            "code": "ML",
-            "name": "Meghalaya"
-        },
-        {
-            "code": "MZ",
-            "name": "Mizoram"
-        },
-        {
-            "code": "NL",
-            "name": "Nagaland"
-        },
-        {
-            "code": "OR",
-            "name": "Odisha"
-        },
-        {
-            "code": "PY",
-            "name": "Puducherry"
-        },
-        {
-            "code": "PB",
-            "name": "Punjab"
-        },
-        {
-            "code": "RJ",
-            "name": "Rajasthan"
-        },
-        {
-            "code": "SK",
-            "name": "Sikkim"
-        },
-        {
-            "code": "TN",
-            "name": "Tamil Nadu"
-        },
-        {
-            "code": "TS",
-            "name": "Telangana"
-        },
-        {
-            "code": "TR",
-            "name": "Tripura"
-        },
-        {
-            "code": "UP",
-            "name": "Uttar Pradesh"
-        },
-        {
-            "code": "UK",
-            "name": "Uttarakhand"
-        },
-        {
-            "code": "WB",
-            "name": "West Bengal"
-        }
+        "code": "AN",
+        "name": "Andaman and Nicobar Islands"
+    },
+    {
+        "code": "AP",
+        "name": "Andhra Pradesh"
+    },
+    {
+        "code": "AR",
+        "name": "Arunachal Pradesh"
+    },
+    {
+        "code": "AS",
+        "name": "Assam"
+    },
+    {
+        "code": "BR",
+        "name": "Bihar"
+    },
+    {
+        "code": "CG",
+        "name": "Chandigarh"
+    },
+    {
+        "code": "CH",
+        "name": "Chhattisgarh"
+    },
+    {
+        "code": "DH",
+        "name": "Dadra and Nagar Haveli"
+    },
+    {
+        "code": "DD",
+        "name": "Daman and Diu"
+    },
+    {
+        "code": "DL",
+        "name": "Delhi"
+    },
+    {
+        "code": "GA",
+        "name": "Goa"
+    },
+    {
+        "code": "GJ",
+        "name": "Gujarat"
+    },
+    {
+        "code": "HR",
+        "name": "Haryana"
+    },
+    {
+        "code": "HP",
+        "name": "Himachal Pradesh"
+    },
+    {
+        "code": "JK",
+        "name": "Jammu and Kashmir"
+    },
+    {
+        "code": "JH",
+        "name": "Jharkhand"
+    },
+    {
+        "code": "KA",
+        "name": "Karnataka"
+    },
+    {
+        "code": "KL",
+        "name": "Kerala"
+    },
+    {
+        "code": "LD",
+        "name": "Lakshadweep"
+    },
+    {
+        "code": "MP",
+        "name": "Madhya Pradesh"
+    },
+    {
+        "code": "MH",
+        "name": "Maharashtra"
+    },
+    {
+        "code": "MN",
+        "name": "Manipur"
+    },
+    {
+        "code": "ML",
+        "name": "Meghalaya"
+    },
+    {
+        "code": "MZ",
+        "name": "Mizoram"
+    },
+    {
+        "code": "NL",
+        "name": "Nagaland"
+    },
+    {
+        "code": "OR",
+        "name": "Odisha"
+    },
+    {
+        "code": "PY",
+        "name": "Puducherry"
+    },
+    {
+        "code": "PB",
+        "name": "Punjab"
+    },
+    {
+        "code": "RJ",
+        "name": "Rajasthan"
+    },
+    {
+        "code": "SK",
+        "name": "Sikkim"
+    },
+    {
+        "code": "TN",
+        "name": "Tamil Nadu"
+    },
+    {
+        "code": "TS",
+        "name": "Telangana"
+    },
+    {
+        "code": "TR",
+        "name": "Tripura"
+    },
+    {
+        "code": "UP",
+        "name": "Uttar Pradesh"
+    },
+    {
+        "code": "UK",
+        "name": "Uttarakhand"
+    },
+    {
+        "code": "WB",
+        "name": "West Bengal"
+    }
     ];
     var config = {
         headers: {
@@ -210,32 +211,32 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             "$cookie": "csrftoken=" + $rootScope.csrftoken + '; ' + "sessionid=" + $rootScope.session_key
         }
     };
-    $scope.addremovealert = function() {
+    $scope.addremovealert = function () {
         $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
             $("#success-alert").removeClass('in');
         });
     }
-    $scope.isNumberKey = function($event) {
+    $scope.isNumberKey = function ($event) {
         if (!(($event.keyCode >= 48 && $event.keyCode <= 57) || ($event.keyCode === 8 || $event.keyCode === 46))) {
             $event.preventDefault();
         }
     }
-    $scope.search = function() {
+    $scope.search = function () {
         if ($scope.searchEnable) {
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
         }
     }
-    $scope.getAllLoations = function() {
+    $scope.getAllLoations = function () {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.locationsList = result.data;
             $scope.loctionstable = new NgTableParams({ count: $scope.locationsList.length }, { dataset: $scope.locationsList });
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -244,16 +245,16 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     }
     $scope.getAllLoations();
 
-    $rootScope.addLocation = function() {
+    $rootScope.addLocation = function () {
         // $scope.getAllUsers('#user-multiselctDropDown');
         // $scope.gettingAllDaybooks('#daybook-multiselctDropDown');
         // $scope.gettingAllledgers('#ledger-multiselctDropDown');
-        $timeout(function() {
+        $timeout(function () {
             $("#add_location").modal('show');
         }, 50);
         $scope.props.is_Active = true;
     }
-    $scope.cancelForm = function() {
+    $scope.cancelForm = function () {
         $scope.props = {};
         // $('#user-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         // $('#daybook-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
@@ -263,14 +264,14 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.clearSearchforldgers();
         $scope.clearSearchforuser();
     }
-    $scope.editcancelForm = function() {
+    $scope.editcancelForm = function () {
         $scope.props = {};
         // $('#edituser-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         // $('#editdaybook-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         // $('#editledger-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         $("#edit_location").modal('hide');
     }
-    $scope.addingLocation = function() {
+    $scope.addingLocation = function () {
         // $scope.props.user_id = $scope.users;
         // $scope.props.ledger_id = $scope.ledgers;
         // $scope.props.daybook_id = $scope.daybooks;
@@ -288,7 +289,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         if ($scope.allValidationscheck($scope.props)) {
             return;
         }
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.cancelForm();
             if (result.data.error === undefined) {
@@ -299,7 +300,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.addremovealert();
             $scope.getAllLoations();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             $scope.cancelForm();
             session.sessionexpried(result.status);
@@ -309,7 +310,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $http.post(domain + api + "location/", $scope.props, config)
             .then(success, error);
     }
-    $scope.editLocation = function() {
+    $scope.editLocation = function () {
         // $scope.props.user_id = $scope.users;
         // $scope.props.ledger_id = $scope.ledgers;
         // $scope.props.daybook_id = $scope.daybooks;
@@ -327,7 +328,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         if ($scope.allValidationscheck($scope.props)) {
             return;
         }
-        var success = function(result) {
+        var success = function (result) {
             if (result.status === 200) {
                 $scope.loading = false;
                 if (result.data.error === undefined) {
@@ -341,7 +342,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.getAllLoations();
             $scope.props = {};
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             $scope.editcancelForm();
             session.sessionexpried(result.status);
@@ -351,7 +352,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $http.post(domain + api + "location/" + $scope.props.id + "/modify/", $scope.props, config)
             .then(success, error);
     }
-    $scope.editLocationwithexistingDetails = function(locationDetais) {
+    $scope.editLocationwithexistingDetails = function (locationDetais) {
         $scope.props.display_name = locationDetais.display_name;
         $scope.props.address_line_1 = locationDetais.address_line_1;
         $scope.props.address_line_2 = locationDetais.address_line_2;
@@ -379,9 +380,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         // $scope.gettingAllledgers('#editledger-multiselctDropDown');
 
     }
-    $scope.deletelocation = function(location_id) {
+    $scope.deletelocation = function (location_id) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.getAllLoations();
             $("#deleteModal").modal('hide');
@@ -389,7 +390,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.addremovealert();
 
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -397,23 +398,23 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             .then(success, error);
     }
 
-    $scope.deletemodelshow = function() {
+    $scope.deletemodelshow = function () {
         $("#edit_location").modal('hide');
     }
 
 
     /////////////////////////////////// Users//////////////////////////////
-    $scope.assignUsersToLocation = function(location) {
+    $scope.assignUsersToLocation = function (location) {
         $scope.location_name = location.display_name;
         $scope.getAllUsers(location);
         $("#userlist").modal('show');
     }
-    $scope.getAssinedusers = function(location) {
+    $scope.getAssinedusers = function (location) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedUsers, function(item) {
-                angular.forEach(result.data, function(selectitem) {
+            angular.forEach($scope.selectedUsers, function (item) {
+                angular.forEach(result.data, function (selectitem) {
                     if (item.user_id === selectitem.user_id) {
                         item.select = true;
                     }
@@ -421,7 +422,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             });
             $scope.selectedUsers.length === 0 ? "" : $scope.userselectchange($scope.selectedUsers);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -429,13 +430,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             .then(success, error);
     }
 
-    $scope.getAllUsers = function(location) {
+    $scope.getAllUsers = function (location) {
         $scope.location_id = location.id;
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             var arry = [];
-            angular.forEach(result.data, function(item) {
+            angular.forEach(result.data, function (item) {
                 $scope.props.user_id = item.user_id;
                 $scope.props.username = item.username + ' (' + item.mobile + ')';
                 $scope.props.select = false;
@@ -446,23 +447,23 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             arry = [];
             $scope.getAssinedusers(location);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.get(domain + api + "user/", config)
             .then(success, error);
     }
-    $scope.addingUserToLocation = function() {
+    $scope.addingUserToLocation = function () {
         $scope.loading = true;
         var array = []
-        angular.forEach($scope.selectedUsers, function(item) {
+        angular.forEach($scope.selectedUsers, function (item) {
             if (item.select) {
                 array.push(item.user_id);
             }
         })
         var data = { "user_id": array };
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
                 $scope.msg = "Users assinged to location is successful";
@@ -474,7 +475,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.getAllLoations();
 
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
             $("#userlist").modal('hide');
@@ -484,21 +485,21 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             .then(success, error);
 
     }
-    $scope.checkAllUsers = function() {
+    $scope.checkAllUsers = function () {
         if ($scope.userSelectAll) {
             $scope.userSelectAll = true
         } else {
             $scope.userSelectAll = false;
         }
-        angular.forEach($scope.selectedUsers, function(item) {
+        angular.forEach($scope.selectedUsers, function (item) {
             if (item.user_id.toString() !== $rootScope.owner_id) {
                 item.select = $scope.userSelectAll;
             }
         });
     }
-    $scope.userselectchange = function(array) {
+    $scope.userselectchange = function (array) {
         var count = 0;
-        angular.forEach(array, function(item) {
+        angular.forEach(array, function (item) {
             if (item.select) {
                 count += 1;
             }
@@ -512,19 +513,19 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
 
 
     //////////////////////// daybooks//////////////////////////
-    $scope.assignDaybooksToLocation = function(location) {
+    $scope.assignDaybooksToLocation = function (location) {
         $scope.location_id = location.id
         $scope.location_name = location.display_name;
         $("#daybooks").modal('show');
         $scope.gettingAllDaybooks(location);
     }
-    $scope.gettingAllDaybooks = function(location) {
+    $scope.gettingAllDaybooks = function (location) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.push = {}
             var arry = [];
-            angular.forEach(result.data, function(item) {
+            angular.forEach(result.data, function (item) {
                 $scope.push.id = item.id;
                 $scope.push.select = false;
                 $scope.push.name = item.name
@@ -535,20 +536,20 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.daybooks = arry;
             $scope.getselectdaybooks(location);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.get(domain + api + "generalledger/unassigned_daybook/", config)
             .then(success, error);
     }
-    $scope.getselectdaybooks = function(location) {
+    $scope.getselectdaybooks = function (location) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.push = {}
             var arry = [];
-            angular.forEach(result.data, function(item) {
+            angular.forEach(result.data, function (item) {
                 $scope.push.id = item.g_id;
                 $scope.push.select = true;
                 $scope.push.name = item.g_name
@@ -569,7 +570,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             // });
             $scope.selectedDaybooks.length === 0 ? "" : $scope.daybookselectchange($scope.selectedDaybooks);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -577,16 +578,16 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $http.get(domain + api + "location/" + location.id + "/assigned_daybook/", config)
             .then(success, error);
     }
-    $scope.addingDaybookToLocation = function() {
+    $scope.addingDaybookToLocation = function () {
         $scope.loading = true;
         var array = []
-        angular.forEach($scope.selectedDaybooks, function(item) {
+        angular.forEach($scope.selectedDaybooks, function (item) {
             if (item.select) {
                 array.push(item.id);
             }
         })
         var data = { "gl_id": array };
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $("#daybooks").modal('hide');
             if (result.data.error === undefined) {
@@ -597,7 +598,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.addremovealert();
             $scope.getAllLoations();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
             $("#daybooks").modal('hide');
@@ -607,9 +608,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             .then(success, error);
 
     }
-    $scope.daybookselectchange = function(array) {
+    $scope.daybookselectchange = function (array) {
         var count = 0;
-        angular.forEach(array, function(item) {
+        angular.forEach(array, function (item) {
             if (item.select) {
                 count += 1;
             }
@@ -620,32 +621,32 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.daybookselectAll = false;
         }
     }
-    $scope.checkAllDaybooks = function() {
+    $scope.checkAllDaybooks = function () {
         if ($scope.daybookselectAll) {
             $scope.daybookselectAll = true
         } else {
             $scope.daybookselectAll = false;
         }
-        angular.forEach($scope.selectedDaybooks, function(item) {
+        angular.forEach($scope.selectedDaybooks, function (item) {
             item.select = $scope.daybookselectAll;
         });
     }
 
     /////////////////////////////// ledgers/////////////////////////
 
-    $scope.assignLedgersToLocation = function(location) {
+    $scope.assignLedgersToLocation = function (location) {
         $scope.location_id = location.id;
         $scope.location_name = location.display_name;
         $("#ledgers").modal('show');
         $scope.gettingAllledgers(location);
     }
-    $scope.gettingAllledgers = function(location) {
+    $scope.gettingAllledgers = function (location) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.push = {}
             var arry = [];
-            angular.forEach(result.data, function(item) {
+            angular.forEach(result.data, function (item) {
                 $scope.push.id = item.id;
                 $scope.push.select = false;
                 $scope.push.name = item.name;
@@ -656,7 +657,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.selectedLedgers = arry;
             $scope.getselectedleders(location);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -664,12 +665,12 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             .then(success, error);
     }
 
-    $scope.getselectedleders = function(location) {
+    $scope.getselectedleders = function (location) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedLedgers, function(item) {
-                angular.forEach(result.data, function(selectitem) {
+            angular.forEach($scope.selectedLedgers, function (item) {
+                angular.forEach(result.data, function (selectitem) {
                     if (item.id === selectitem.id) {
                         item.select = true;
                     }
@@ -677,41 +678,116 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             });
             $scope.selectedLedgers.length === 0 ? "" : $scope.ledgerselectchange($scope.selectedLedgers);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.get(domain + api + "location/" + location.id + "/assigned_ledgers/", config)
             .then(success, error);
     }
-    $scope.addingLedgerToLocation = function() {
-        $scope.loading = true;
-        var array = []
-        angular.forEach($scope.selectedLedgers, function(item) {
-            if (item.select) {
-                array.push(item.id);
+
+    $scope.updateEachledgerChange = function (item, selectedLedgerArray) {
+        $scope.ledgerselectchange(selectedLedgerArray);
+        if (item.select) {
+            $scope.loading = true;
+            var array = [];
+            array.push(item.id);
+            var data = { "gl_id": array };
+            var success = function (result) {
+                $scope.loading = false;
+                // $("#ledgers").modal('hide');
+                // $scope.msg = "ledger assinged to location is successful";
+                // $scope.addremovealert();
+                // $scope.getAllLoations();
             }
-        })
-        var data = { "gl_id": array };
-        var success = function(result) {
-            $scope.loading = false;
-            $("#ledgers").modal('hide');
-            $scope.msg = "ledgers assinged to location is successful";
-            $scope.addremovealert();
-            $scope.getAllLoations();
+            var error = function (result) {
+                $scope.loading = false;
+                session.sessionexpried(result.status);
+                $("#ledgers").modal('hide');
+            }
+            $http.post(domain + api + "location/" + $scope.location_id + "/add_ledgers/", data, config)
+                .then(success, error);
+        } else {
+            $scope.deleteLedgerId = item.id;
+            $scope.deleteLedgerData('partialUnCheck');
         }
-        var error = function(result) {
+    }
+
+    $scope.deleteLedgerData = function (checkType) {
+        $scope.loading = true;
+        var array = [];
+        var data = {};
+
+        if (checkType === 'completeUnCheck') {
+            if ($scope.ledgerUnselectAll) {
+                angular.forEach($scope.selectedLedgers, function (item) {
+                        array.push(item.id);
+                })
+            } else {
+                array.push($scope.deleteLedgerId);
+            }
+            data.force = true;
+        } else {
+            array.push($scope.deleteLedgerId);
+            data.force = false;
+        }
+
+        data.gl_id = array;
+
+        var success = function (result) {
+            $scope.loading = false;
+            // console.log(result.data);
+            if (result.data.error.code === 1105) {
+                $scope.errMsg = result.data.error.message;
+                $('#deleteledger').modal('show');
+            }
+        }
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
             $("#ledgers").modal('hide');
         }
-        $http.post(domain + api + "location/" + $scope.location_id + "/add_ledgers/", data, config)
+        $http.post(domain + api + "location/" + $scope.location_id + "/delete_ledgers/", data, config)
             .then(success, error);
     }
 
-    $scope.ledgerselectchange = function(array) {
+    $scope.UpdateAllLedgerToLocation = function () {
+        $scope.loading = true;
+        var array = []
+        angular.forEach($scope.selectedLedgers, function (item) {
+                    array.push(item.id);
+        })
+        var data = { "gl_id": array };
+        var success = function (result) {
+            $scope.loading = false;
+            if (result.data.error.code === 1105) {
+                $scope.errMsg = result.data.error.message;
+                $('#deleteledger').modal('show');
+            }
+            // $("#ledgers").modal('hide');
+            // $scope.msg = "ledgers assinged to location is successful";
+            // $scope.addremovealert();
+            // $scope.getAllLoations();
+        }
+        var error = function (result) {
+            $scope.loading = false;
+            session.sessionexpried(result.status);
+            $("#ledgers").modal('hide');
+        }
+        if($scope.ledgerselectall){
+            $http.post(domain + api + "location/" + $scope.location_id + "/add_ledgers/", data, config)
+            .then(success, error);
+        }else{
+            data.force = false;
+            $http.post(domain + api + "location/" + $scope.location_id + "/delete_ledgers/", data, config)
+            .then(success, error);
+        }
+        
+    }
+
+    $scope.ledgerselectchange = function (array) {
         var count = 0;
-        angular.forEach(array, function(item) {
+        angular.forEach(array, function (item) {
             if (item.select) {
                 count += 1;
             }
@@ -722,41 +798,45 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.ledgerselectall = false;
         }
     }
-    $scope.checkAllLedgers = function() {
-            if ($scope.ledgerselectall) {
-                $scope.ledgerselectall = true
-            } else {
-                $scope.ledgerselectall = false;
-            }
-            angular.forEach($scope.selectedLedgers, function(item) {
-                item.select = $scope.ledgerselectall;
-            });
+    $scope.checkAllLedgers = function () {
+        if ($scope.ledgerselectall) {
+            $scope.ledgerselectall = true;
+            $scope.ledgerUnselectAll=false;
+        } else {
+            $scope.ledgerselectall = false;
+            $scope.ledgerUnselectAll=true;
         }
-        ////////////////// genaral function///////////////////
+        angular.forEach($scope.selectedLedgers, function (item) {
+            item.select = $scope.ledgerselectall;
+        });
 
-    $scope.calculateSeletedItems = function(selectArray) {
+        $scope.UpdateAllLedgerToLocation();
+    }
+    ////////////////// genaral function///////////////////
+
+    $scope.calculateSeletedItems = function (selectArray) {
         var count = 0;
-        angular.forEach(selectArray, function(item) {
+        angular.forEach(selectArray, function (item) {
             if (item.select) {
                 count += 1;
             }
         });
         return count;
     }
-    $scope.clearSearchforuser = function() {
+    $scope.clearSearchforuser = function () {
         $scope.search_user.username = "";
     }
-    $scope.clearSearchfordaybooks = function() {
+    $scope.clearSearchfordaybooks = function () {
         $scope.search_daybooks.name = "";
     }
-    $scope.clearSearchforldgers = function() {
+    $scope.clearSearchforldgers = function () {
         $scope.search_ledgers.name = "";
     }
-    $scope.validations = function() {
+    $scope.validations = function () {
         $scope.showerrormessage = false;
         $scope.field = $scope.fields.none;
     }
-    $scope.allValidationscheck = function(data) {
+    $scope.allValidationscheck = function (data) {
         if (data.display_name === undefined || data.display_name === "") {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.name;
@@ -807,34 +887,34 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         }
         return false;
     }
-    $scope.emailValidation = function(email) {
+    $scope.emailValidation = function (email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
-    $scope.gstinValidations = function(gstinVal) {
+    $scope.gstinValidations = function (gstinVal) {
         var reggst = /^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([0-9]){1}?$/;
         return reggst.test(gstinVal);
     }
-    $scope.locationhistoryshow = function(location) {
+    $scope.locationhistoryshow = function (location) {
         $scope.loctionid = {};
         $scope.histroyList = [];
         $scope.loctionid.id = location.id
         $scope.location_name = location.display_name;
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $('#locationhistory').modal('show');
             $scope.histroyList = result.data;
             $scope.loctionshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.post(domain + api + "location/history/", $scope.loctionid, config)
             .then(success, error);
     }
-    $scope.dashboardAction = function(user) {
+    $scope.dashboardAction = function (user) {
         $rootScope.location_id = user.id;
         $rootScope.location_name = user.display_name;
         $rootScope.locat.display_name = user.display_name;
