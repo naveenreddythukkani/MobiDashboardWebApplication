@@ -32,11 +32,11 @@
                         <span class="sublist-text-value">{{ledgergroup.amt| INRCurrency}}</span>
                     </li>
                 </ul>
-                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-if="rootgroup.rootgroup_id > 3 && rootgroup.diff >= 0">
+                <li class="custom-content-border sub-listheightvalues " ng-if="rootgroup.rootgroup_id > 3 && rootgroup.diff >= 0">
                     <span class="sublist-text">Profit for the year &#58;</span>
                     <span class="sublist-text-value">{{(rootgroup.diff) | INRCurrency}}</span>
                 </li>
-                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-if="rootgroup.rootgroup_id > 3 && rootgroup.diff < 0">
+                <li class="custom-content-border sub-listheightvalues " ng-if="rootgroup.rootgroup_id > 3 && rootgroup.diff < 0">
                     <span class="sublist-text">Loss for the year &#58;</span>
                     <span class="sublist-text-value">{{(-1 * rootgroup.diff) | INRCurrency}}</span>
                 </li>

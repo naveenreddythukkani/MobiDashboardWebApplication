@@ -154,7 +154,7 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
         $scope.passparameters.controlledger = true;
 
         dataMove.setcontrolledgerData($scope.passparameters);
-        $state.go("voucher");
+        $state.go("monthWise");
         localStorageService.set("ledger_ltype", ledger_ltype)
         $rootScope.ledger_ltype = ledger_ltype;
 

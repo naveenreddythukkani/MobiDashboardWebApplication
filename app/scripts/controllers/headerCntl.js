@@ -25,6 +25,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $scope.subgroupData = dataMove.getsubgroupdata();
         $scope.ledgerData = dataMove.getledgerData();
         $scope.controlledgerData = dataMove.getcontrolledgerData();
+        $scope.monthwiseData = dataMove.getmonthwiseData()
         $scope.voucherData = dataMove.getvoucherData();
 
     }
@@ -154,6 +155,10 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             dataMove.getcontrolledgerData({});
             localStorageService.remove("controlledger");
 
+            dataMove.setmonthwiseData({})
+            localStorageService.remove("monthwise");
+
+
             dataMove.setvoucherData({});
             localStorageService.remove("voucherData");
 
@@ -168,8 +173,12 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             dataMove.getcontrolledgerData({});
             localStorageService.remove("controlledger");
 
+            dataMove.setmonthwiseData({})
+            localStorageService.remove("monthwise");
+
             dataMove.setvoucherData({});
             localStorageService.remove("voucherData");
+
 
             $state.go('ledger')
         }
@@ -181,12 +190,28 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
 
             dataMove.setvoucherData({});
             localStorageService.remove("voucherData");
+
+            dataMove.setmonthwiseData({})
+            localStorageService.remove("monthwise");
+
             $state.go('controlledger')
         } else {
             dataMove.setvoucherData({});
             localStorageService.remove("voucherData");
-            $state.go('voucher')
+
+            dataMove.setmonthwiseData({})
+            localStorageService.remove("monthwise");
+
+            $state.go('monthWise')
         }
+    }
+    $scope.monthWisechange = function() {
+        if ($scope.monthwiseData !== null && $scope.monthwiseData.monthwise === true) {
+            dataMove.setmonthwiseData({});
+            localStorageService.remove("monthwise");
+            $state.go('monthWise')
+        }
+
     }
     $scope.vocherchange = function() {
         if ($scope.voucherData !== null && $scope.voucherData.voucher === true) {
@@ -235,6 +260,10 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
 
         dataMove.getcontrolledgerData({});
         localStorageService.remove("controlledger");
+
+        dataMove.setmonthwiseData({})
+        localStorageService.remove("monthwise");
+
 
         dataMove.setvoucherData({});
         localStorageService.remove("voucherData");

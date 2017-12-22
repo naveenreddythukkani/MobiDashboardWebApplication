@@ -165,7 +165,7 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
             ltypeledgerstatus = false;
             // if ($rootScope.isSearched)
             //     $rootScope.searchObjs.push({ "id": ledger_id, "name": ledger_name, "screen": "voucherdetails" });
-            $state.go("voucher");
+            $state.go("monthWise");
         } else {
             ltypeledgerstatus = true;
             // if ($rootScope.isSearched)

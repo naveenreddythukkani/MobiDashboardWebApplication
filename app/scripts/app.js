@@ -1,5 +1,5 @@
 var MobiDash = angular.module('mobiDashBoardApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.router', 'LocalStorageModule', 'ngTable']);
-MobiDash.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $httpProvider, $sceProvider) {
+MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $httpProvider, $sceProvider) {
     $sceProvider.enabled(false);
     $urlRouterProvider.otherwise('/signup');
     $stateProvider
@@ -15,85 +15,91 @@ MobiDash.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $h
             url: '/company',
             templateUrl: 'views/company.html',
             controller: "companyCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('location', {
             url: '/location',
             templateUrl: 'views/location.html',
             controller: "locationCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('user', {
             url: '/user',
             templateUrl: 'views/user.html',
             controller: "userCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('backup', {
             url: '/backup',
             templateUrl: 'views/backup.html',
             controller: "backupCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('resetpassword', {
             url: '/resetpassword',
             templateUrl: 'views/resetpassword.html',
             controller: "resetpasswordCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('roles', {
             url: '/roles',
             templateUrl: 'views/roles.html',
             controller: "rolesCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('vouchersettings', {
             url: '/vouchersettings',
             templateUrl: 'views/vouchersettings.html',
             controller: "vouchersettingsCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('balancesheet', {
             url: '/balancesheet',
             templateUrl: 'views/balancesheet.html',
             controller: "balancesheetCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('subledgersgroup', {
             url: '/subledgersgroup',
             templateUrl: 'views/subledgersgroup.html',
             controller: "subledgersgroupCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('ledger', {
             url: '/ledger',
             templateUrl: 'views/ledger.html',
             controller: "ledgerCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('controlledger', {
             url: '/controlledger',
             templateUrl: 'views/controlledger.html',
             controller: "controlledgerCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('voucher', {
             url: '/voucher',
             templateUrl: 'views/voucher.html',
             controller: "voucherCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('voucherdetails', {
             url: '/voucherdetails',
             templateUrl: 'views/voucherdetails.html',
             controller: "voucherdetailsCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
         })
         .state('search', {
             url: '/search',
             templateUrl: 'views/search.html',
             controller: "searchCntl",
-            onEnter:changeOnEnter
+            onEnter: changeOnEnter
+        })
+        .state('monthWise', {
+            url: '/monthWise',
+            templateUrl: 'views/monthWise.html',
+            controller: "monthWiseCntl",
+            onEnter: changeOnEnter
         })
         .state('login', {
             url: '/login',
@@ -109,7 +115,7 @@ MobiDash.config(function ($routeProvider, $stateProvider, $urlRouterProvider, $h
     $httpProvider.defaults.headers.common['X-Frame-Options'] = "SAMEORIGIN";
 
 });
-MobiDash.run(function (localStorageService, $rootScope, $transitions) {
+MobiDash.run(function(localStorageService, $rootScope, $transitions) {
     $rootScope.session_key = localStorageService.get('session_key');
     $rootScope.csrftoken = localStorageService.get('csrftoken');
     $rootScope.tenant_id = localStorageService.get('tenant_id');
@@ -125,12 +131,12 @@ MobiDash.run(function (localStorageService, $rootScope, $transitions) {
     $rootScope.rootgroup_id = localStorageService.get("rootgroup_id");
     $rootScope.locationsListinheader = localStorageService.get("locations");
 
-    $transitions.onStart({}, function (trans, $state) {
+    $transitions.onStart({}, function(trans, $state) {
         // console.log(trans.router.stateService);
     });
 });
 
-var changeOnEnter = function (localStorageService,$state) {
+var changeOnEnter = function(localStorageService, $state) {
     if (!localStorageService.get('session_key') || !localStorageService.get('csrftoken')) {
         $state.go('login');
     }

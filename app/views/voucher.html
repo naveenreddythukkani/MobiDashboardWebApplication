@@ -44,7 +44,7 @@
                             <td align="right " class="border-left-none " ng-if="rootgroup_id==1 || rootgroup_id > 2" class="td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td>
                             <td align="right" ng-if="rootgroup_id === 2" class="td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td>
                         </tr>
-                        <tr class="border-right-none actionsmenu">
+                        <tr class="border-right-none">
                             <td class="text-bold border-right-none">Total</td>
                             <td colspan="2" align="right" ng-if="rootgroup_id == 1 || rootgroup_id > 2" class="td-padding-right">{{balanceamount >= 0 ? ((balanceamount | INRCurrency) + " Dr") : (((-1 * balanceamount) | INRCurrency) + " Cr")}}</td>
                             <td colspan="2" align="right" ng-if="rootgroup_id === 2" class="td-padding-right">{{balanceamount >= 0 ? ((balanceamount | INRCurrency) + " Dr") : (((-1 * balanceamount) | INRCurrency) + " Cr")}}</td>
@@ -114,7 +114,7 @@
                                 <td align="right" ng-if="rootgroup_id == 1 || rootgroup_id > 2" class="td-padding-right border-left-none">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</td>
                                 <td align="right" ng-if="rootgroup_id === 2" class="td-padding-right">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</td>
                             </tr>
-                            <tr class=" border-right-none actionsmenu">
+                            <tr class=" border-right-none ">
                                 <td class="text-bold border-right-none">Total</td>
                                 <td colspan="2" align="right" ng-if="rootgroup_id == 1 || rootgroup_id > 2" class="td-padding-right">{{voucher.totalAmount >= 0 ? ((voucher.totalAmount | INRCurrency) + " Dr") : (((-1 * voucher.totalAmount) | INRCurrency) + " Cr")}}</td>
                                 <td colspan="2" align="right" ng-if="rootgroup_id === 2" class="td-padding-right">{{voucher.totalAmount >= 0 ? ((voucher.totalAmount | INRCurrency) + " Dr") : (((-1 * voucher.totalAmount) | INRCurrency) + " Cr")}}</td>

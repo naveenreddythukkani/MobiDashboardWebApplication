@@ -150,39 +150,45 @@
                                 <a class=" custom-bred-text space-left ">{{ledgerData.ledger_name}}</a>
                             </div>
                         </li>
-                        <li class="breadcrumb-lis " ng-show="controlledgerData!==null && controlledgerData.controlledger " ng-click="vocherchange()">
+                        <li class="breadcrumb-lis " ng-show="controlledgerData!==null && controlledgerData.controlledger " ng-click="monthWisechange()">
                             <div>
                                 <a class="custom-bred-text space-left ">{{controlledgerData.ltype_name}}</a>
+                            </div>
+                        </li>
+                        <li class="breadcrumb-lis " ng-show="monthwiseData!==null && monthwiseData.monthwise" ng-click="vocherchange()">
+                            <div>
+                                <a class="custom-bred-text space-left" ng-show="controlledgerData">{{monthwiseData.ltype_name}} - MonthWise</a>
+                                <a class="custom-bred-text space-left" ng-hide="controlledgerData">{{monthwiseData.ledger_name}} - MonthWise</a>
                             </div>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove ">
+            <div class=" row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove ">
                 <div style="width:70%;margin:0 auto; ">
                     <label ng-show="!voucherControl " class="dateshow "><span ng-if="pandlreport==true "><span class="colors actionsmenu " ng-click="datemodelshow() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu
                                     " ng-click="datemodelshow() ">{{today| date : 'dd-MM-yyyy'}}</span></span><span ng-if="pandlreport==false "> as on <span ng-click="datemodelshow() " class="colors actionsmenu ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
-                    <label ng-show="voucherControl " class="dateshow "><span><span class="colors actionsmenu " ng-click="datemodelforfromandtodate()">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
-                    <!-- <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch()"><span class="glyphicon glyphicon-search"></span></button> -->
+                    <label ng-show="voucherControl " class="dateshow "><span><span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
+                    <!-- <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch() "><span class="glyphicon glyphicon-search "></span></button> -->
                 </div>
             </div>
         </div>
     </nav>
 </header>
-<div ng-show="loading" class="load text-center ">
+<div ng-show="loading " class="load text-center ">
     <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
     <h4 class="loading_msg ">Loading Please Wait...</h4>
 </div>
-<div id="selectdatedahboard" class="modal fade " data-backdrop="static" data-keyboard="false" role="dialog">
+<div id="selectdatedahboard" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog ">
     <div class="modal-dialog ">
         <div class="modal-content mdl-margin ">
             <div class="modal-header no-padding-vr-bottom ">
-                <button type="button " class="close " data-dismiss="modal " ng-click="cancelForm()">&times;</button>
+                <button type="button " class="close " data-dismiss="modal" ng-click="cancelForm()">&times;</button>
                 <h2 class="modal-title ">Select date</h2>
             </div>
             <div class="modal-body no-padding-vr-bottom ">
                 <div class="row no-margin-hr ">
-                    <div class="col-md-12 form-group no-padding-hr " ng-show="pandlreport ">
+                    <div class="col-md-12 form-group no-padding-hr " ng-show="pandlreport">
                         <div class="col-md-3 no-padding-hr ">
                             <label class="align-midle " autofocus="none ">From Date<span>:</span></label>
                         </div>
@@ -201,7 +207,7 @@
                         </div>
                         <div class="col-md-9 no-padding-hr ">
                             <div class="input-group date " id="datetimepickerdashboardto">
-                                <input type="text " class="form-control" id="todatedashboard">
+                                <input type="text " class="form-control " id="todatedashboard">
                                 <div class="input-group-addon ">
                                     <span class="glyphicon glyphicon-calendar "></span>
                                 </div>
@@ -212,8 +218,8 @@
                 <div class="modal-footer no-margin-hr no-padding-hr ">
                     <div class="row no-margin-hr ">
                         <div class="col-md-5 pull-right no-padding-hr ">
-                            <button type="button " class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                            <button id="savefordashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="savefordashboard()">Save</button>
+                            <button type="button" class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                            <button id="savefordashboard" type="button " class="btn background-defalt save-cancel-button tabicon " ng-click="savefordashboard()">Save</button>
                         </div>
                     </div>
                 </div>
@@ -233,26 +239,26 @@
                 <div class="row no-margin-hr ">
                     <div class="col-md-12 form-group no-padding-hr ">
                         <div class="col-md-3 no-padding-hr ">
-                            <label class="align-midle" autofocus="none">From Date<span>:</span></label>
+                            <label class="align-midle " autofocus="none ">From Date<span>:</span></label>
                         </div>
                         <div class="col-md-9 no-padding-hr ">
-                            <div class="input-group date" id="datetimepickervoucherfrom">
-                                <input type="text " class="form-control" id="fromdateidvoucher">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
+                            <div class="input-group date " id="datetimepickervoucherfrom">
+                                <input type="text " class="form-control " id="fromdateidvoucher">
+                                <div class="input-group-addon ">
+                                    <span class="glyphicon glyphicon-calendar "></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 form-group no-padding-hr">
+                    <div class="col-md-12 form-group no-padding-hr ">
                         <div class="col-md-3 no-padding-hr ">
-                            <label class="align-midle" autofocus="none">To Date<span>:</span></label>
+                            <label class="align-midle " autofocus="none ">To Date<span>:</span></label>
                         </div>
                         <div class="col-md-9 no-padding-hr ">
-                            <div class="input-group date" id="datetimepickervoucherto">
-                                <input type="text" class="form-control" id="todateidvoucher">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
+                            <div class="input-group date " id="datetimepickervoucherto">
+                                <input type="text " class="form-control " id="todateidvoucher">
+                                <div class="input-group-addon ">
+                                    <span class="glyphicon glyphicon-calendar "></span>
                                 </div>
                             </div>
                         </div>
@@ -261,8 +267,8 @@
                 <div class="modal-footer no-margin-hr no-padding-hr ">
                     <div class="row no-margin-hr ">
                         <div class="col-md-5 pull-right no-padding-hr ">
-                            <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                            <button type="button" id="saveforvoucher" class="btn background-defalt save-cancel-button tabicon" data-dismiss="modal" ng-click="saveforvoucher()">Save</button>
+                            <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                            <button type="button " id="saveforvoucher" class="btn background-defalt save-cancel-button tabicon " data-dismiss="modal" ng-click="saveforvoucher()">Save</button>
                         </div>
                     </div>
                 </div>

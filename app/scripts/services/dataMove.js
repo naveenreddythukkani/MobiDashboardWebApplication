@@ -24,6 +24,12 @@ MobiDash.service('dataMove', function(localStorageService) {
     this.getcontrolledgerData = function() {
         return localStorageService.get("controlledger");
     };
+    this.setmonthwiseData = function(myData) {
+        localStorageService.set("monthwise", myData);
+    }
+    this.getmonthwiseData = function() {
+        return localStorageService.get("monthwise");
+    }
     this.setvoucherData = function(myData) {
         localStorageService.set("voucherData", myData);
     };

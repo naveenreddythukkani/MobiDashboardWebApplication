@@ -1,0 +1,20 @@
+<div class="container table_container table-container-width no-padding-hr" style="margin-top:65px;">
+    <div class="row no-margin-hr">
+        <div class="col-md-12 no-padding-hr">
+            <ul class="list-styles no-padding-hr">
+                <li class="custom-content-border listheightvalues">
+                    <span class="text-name">Month &#58;</span>
+                    <span class="text-value">Amount</span>
+                </li>
+                <li class="custom-content-border sub-listheightvalues">
+                    <span class="sublist-text-name">Opening Balance as on {{fromdate| date :  "dd/MM/yyyy"}}</span>
+                    <span class="sublist-text-value">{{obdata[0].amount > 0 ? ((obdata[0].amount | INRCurrency) + " Dr") : (((-1 * obdata[0].amount) | INRCurrency) + " Cr")}}</span>
+                </li>
+                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-repeat="month in mothwisedata" ng-click="monthSelection(month.mth,month.numberofdays,month.monthyear)">
+                    <span class="sublist-text-name">{{month.mth}}</span>
+                    <span class="sublist-text-value">{{(month.amount) | INRCurrency}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
