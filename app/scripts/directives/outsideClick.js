@@ -39,7 +39,7 @@ MobiDash.directive('mobileValidation', function() {
         link: function(scope, el, attr) {
             el.bind("keydown", function(event) {
                 //ignore all characters that are not numbers, except backspace, delete, left arrow and right arrow
-                if ((event.keyCode < 48 || event.keyCode > 57) && event.keyCode != 8 && event.keyCode != 46 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 9) {
+                if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 97 || event.keyCode > 105) && event.keyCode != 8 && event.keyCode != 46 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 9) {
                     event.preventDefault();
                 }
             });

@@ -1081,15 +1081,15 @@ td {
     color: #FFF !important;
 }
 
-.calBtnGrp{
+.calBtnGrp {
     width: 58%
 }
+
 .startNoLabel {
     width: 39%
 }
 
 .startNoInput {
-
     width: 61%
 }
 
@@ -1101,8 +1101,6 @@ td {
     background-color: #f9f9f9;
 }
 
-.prefixPadding{
+.prefixPadding {
     padding: 0 5px 0 0 !important;
 }
-
-
