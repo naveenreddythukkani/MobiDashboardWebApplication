@@ -115,7 +115,9 @@
             </div>
             <div ng-show="balancesheetbreadcurmbs" class="row no-margin-hr" id="bredcrumbelement">
                 <div style="width:70%;margin:0 auto;">
-                    <ul class="breadcrumb custom-colors-breadcurmbs no-padding-hr">
+                    <div class="pull-left"><img src="images/left-arrow.png" class="back-alignment" ng-click="backButtonAction()">
+                    </div>
+                    <ul ng-hide="isSearched" class="breadcrumb custom-colors-breadcurmbs no-padding-hr">
                         <li class="breadcrumb-lis">
                             <div class="dropdown">
                                 <a class="custom-bred-text dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshow" aria-expanded="true" ng-model="balnc ">{{balnc}}</a>
@@ -164,12 +166,12 @@
                     </ul>
                 </div>
             </div>
-            <div class=" row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove ">
+            <div class=" row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove && !isSearched">
                 <div style="width:70%;margin:0 auto; ">
                     <label ng-show="!voucherControl " class="dateshow "><span ng-if="pandlreport==true "><span class="colors actionsmenu " ng-click="datemodelshow() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu
                                     " ng-click="datemodelshow() ">{{today| date : 'dd-MM-yyyy'}}</span></span><span ng-if="pandlreport==false "> as on <span ng-click="datemodelshow() " class="colors actionsmenu ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
                     <label ng-show="voucherControl " class="dateshow "><span><span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu " ng-click="datemodelforfromandtodate() ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>
-                    <!-- <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch() "><span class="glyphicon glyphicon-search "></span></button> -->
+                    <button type="button " style="margin-top: -10px; " class="btn btn-md pull-right globalsearch " ng-click="ledgersearch() "><span class="glyphicon glyphicon-search "></span></button>
                 </div>
             </div>
         </div>

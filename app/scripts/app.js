@@ -130,6 +130,7 @@ MobiDash.run(function(localStorageService, $rootScope, $transitions) {
     $rootScope.ledger_ltype = localStorageService.get("ledger_ltype");
     $rootScope.rootgroup_id = localStorageService.get("rootgroup_id");
     $rootScope.locationsListinheader = localStorageService.get("locations");
+    $rootScope.isSearched = localStorageService.get("isSearched");
 
     $transitions.onStart({}, function(trans, $state) {
         // console.log(trans.router.stateService);

@@ -267,10 +267,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     // voucher type is 'S'
 
     $scope.getallglwisesubledger = function() {
-        if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") {
-            var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'gl_id': $scope.props.ledger_id, 'startdate': $rootScope.startdate, 'sl_id': $scope.props.sl_id };
+        if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") { // 'gl_id': $scope.props.ledger_id,
+            var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'startdate': $rootScope.startdate, 'sl_id': $scope.props.sl_id };
         } else {
-            var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'gl_id': $scope.props.ledger_id, 'loc_id': $rootScope.location_id, 'startdate': $rootScope.startdate, 'sl_id': $scope.props.sl_id };
+            var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'loc_id': $rootScope.location_id, 'startdate': $rootScope.startdate, 'sl_id': $scope.props.sl_id };
         }
         console.log("Data = " + JSON.stringify(data));
         $scope.loading = true;

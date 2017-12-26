@@ -380,7 +380,7 @@ body {
 }
 
 .table_container {
-    margin-top: 15px;
+    margin-top: 19px;
 }
 
 .login-image {
@@ -1103,4 +1103,21 @@ td {
 
 .prefixPadding {
     padding: 0 5px 0 0 !important;
+}
+
+.back-alignment {
+    margin-right: 10px;
+    margin-left: 3px;
+}
+
+.isSearchHeaderSectionHeightInVocherScreen {
+    margin-top: 65px;
+}
+
+.isSearchHeaderSectionHeightInVocherDetails {
+    margin-top: 50px;
+}
+
+.isSearchHeaderSectionHeightInBalanceSheet {
+    margin-top: 45px;
 }

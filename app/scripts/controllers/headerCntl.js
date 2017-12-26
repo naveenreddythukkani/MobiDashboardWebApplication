@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter) {
+QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window) {
 
     $scope.logintabbottom = false;
     $rootScope.locat = {};
@@ -97,6 +97,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             $scope.loading = true;
             $state.go("login");
             localStorageService.clearAll();
+
         }
         var error = function(result) {
             $scope.loading = false;
@@ -271,6 +272,9 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     }
     $scope.ledgersearch = function() {
         $state.go('search');
+    }
+    $scope.backButtonAction = function() {
+        $window.history.back();
     }
 });
 

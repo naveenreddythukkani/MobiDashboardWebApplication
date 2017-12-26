@@ -1,10 +1,13 @@
-<div class="container table_container table-container-width no-padding-hr">
+<div class="container table-container-width no-padding-hr">
     <div class="row no-margin-hr">
+        <div style="margin-left:44px;">Search Results Macthing:"{{globalSearchData}}"</div>
         <div class="row no-margin-hr">
+            <div class="pull-left"><img src="images/left-arrow.png" class="back-alignment" ng-click="backButtonAction()">
+            </div>
             <div class="input-group">
                 <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span> -->
-                <input type="text" class="form-control" ng-model="globalSearchData" placeholder="Search" ng-change="searchtextchange()">
-                <span class=" input-group-btn "><button class="btn btn-default " ng-click="clearSearchinsearch()" type="button "><i class="glyphicon glyphicon-remove-circle"></i></button></span>
+                <input type="text" class="form-control" ng-model="globalSearchData" placeholder="Search" ng-change="searchboxchangeAction()">
+                <span class=" input-group-btn "><button class="btn btn-default " ng-click="searchfunctionality()" type="button "><i class="glyphicon glyphicon glyphicon-search"></i></button></span>
             </div>
         </div>
         <div class="col-md-12 no-padding-hr" style="margin-top:7px;">

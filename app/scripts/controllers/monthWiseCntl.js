@@ -34,6 +34,8 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
 
     $scope.ltype_amt = "";
 
+    $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
     var config = {
         headers: {
             "X-CSRFToken": $rootScope.csrftoken,
@@ -78,6 +80,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
             for (var i = 0; i < result.data.length; i++) {
                 $scope.realdata.push(result.data[i])
                 $scope.realdata[i].mth = $scope.datesplitandconvertmonth($scope.realdata[i].mth, i);
+                $scope.realdata[i].monthName = ($scope.realdata[i].mth).split(' ')[0];
             }
             var moths = _.groupBy($scope.realdata, 'mth');
             $scope.mothwisedata = $scope.calculateMonthsCreditDebit(moths);
@@ -88,6 +91,12 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                     $scope.mothwisedata.splice(i, 1);
                 }
             }
+            sortByMonth($scope.mothwisedata);
+            $scope.mothwisedata[0].amount = parseFloat($scope.mothwisedata[0].amount) + parseFloat($scope.obdata[0].amount);
+            for (var i = 1; i < $scope.mothwisedata.length; i++) {
+                $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+            }
+            $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
         }
         var error = function(result) {
             $scope.loading = false;
@@ -113,13 +122,19 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
             }
             var moths = _.groupBy($scope.realdata, 'mth');
             $scope.mothwisedata = $scope.calculateMonthsCreditDebit(moths);
-            $scope.obdate = [];
+            $scope.obdata = [];
             for (var i = 0; i < $scope.mothwisedata.length; i++) {
                 if ($scope.mothwisedata[i].type === "OB") {
-                    $scope.obdate.push($scope.mothwisedata[i]);
+                    $scope.obdata.push($scope.mothwisedata[i]);
                     $scope.mothwisedata.splice(i, 1);
                 }
             }
+            sortByMonth($scope.mothwisedata);
+            $scope.mothwisedata[0].amount = parseFloat($scope.mothwisedata[0].amount) + parseFloat($scope.obdata[0].amount);
+            for (var i = 1; i < $scope.mothwisedata.length; i++) {
+                $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+            }
+            $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
         }
         var error = function(result) {
             $scope.loading = false;
@@ -234,15 +249,19 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                     } else if (monthsdata[keys[i]].length > 1 && dr === 0) {
                         dr = monthsdata[keys[i]][j].amount;
                     }
-                    amount = dr - (cr);
+                    amount = dr + (cr);
                     obj.mth = monthsdata[keys[i]][j].mth;
                     obj.amount = parseFloat(amount).toFixed(2);
-                    obj.amount = obj.amount > 0 ? obj.amount + " Dr" : obj.amount + " Cr";
+                    obj.amount = obj.amount;
                     obj.numberofdays = monthsdata[keys[i]][j].numberofdays;
                     obj.monthyear = monthsdata[keys[i]][j].monthyear;
+                    obj.monthName = monthsdata[keys[i]][j].monthName;
                     mainarray.push(obj);
                 } else {
-                    mainarray.push(monthsdata[keys[i]][j]);
+                    var obj = {};
+                    obj.type = "OB";
+                    obj.amount = monthsdata[keys[i]][j].amount;
+                    mainarray.push(obj);
                 }
             }
 
@@ -276,6 +295,19 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
 
         $rootScope.fromdate1 = monthyear + '-' + '01';
         $rootScope.today1 = monthyear + '-' + numberofdays;
+
+    }
+    var sortByMonth = function(arr) {
+        var months = ["April", "May", "June",
+            "July", "August", "September", "October", "November", "December", "January", "February", "March"
+        ];
+        arr.sort(function(a, b) {
+            return months.indexOf(a.monthName) -
+                months.indexOf(b.monthName);
+        });
+    }
+    $scope.addPreviousMonthBalncetoCurrent = function() {
+
 
     }
 });

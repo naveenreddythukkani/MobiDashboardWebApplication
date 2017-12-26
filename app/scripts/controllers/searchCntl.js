@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter) {
+QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -30,7 +30,8 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
     $rootScope.voucherstab = false;
     $rootScope.controlledger = true;
     $rootScope.voucherControl = false;
-
+    $rootScope.isSearched = false;
+    localStorageService.set("isSearched", false);
     $scope.searchdetails = [];
     $scope.globalSearchData = "";
 
@@ -69,13 +70,21 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             }
             var error = function(data) {
                 $scope.loading = false;
-                session.sessionexpried(result.status);
+                session.sessionexpried(data.status);
             };
             $http.get(domain + api + 'list/findalldata/?q=' + $scope.globalSearchData + '&sendall=0', config).
             then(success, error);
 
         }
     };
+    $scope.searchboxchangeAction = function() {
+        if ($scope.globalSearchData === '') {
+            $scope.searchdetails = [];
+            return;
+        } else {
+
+        }
+    }
     $scope.showMoreResults = function() {
         $scope.LoadMoreButton = false;
         $scope.loading = true;
@@ -92,59 +101,63 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
         then(success, error);
     };
 
-    $scope.clearSearchinsearch = function() {
-        $scope.globalSearchData = "";
-        $scope.searchdetails = [];
+    $scope.searchfunctionality = function() {
+        $scope.searchtextchange();
     }
 
-    // $scope.itemSearch = function(id, type, name, rootId) {
-    //     console.log(id + "--" + type);
-    //     $rootScope.isSearched = true;
-    //     $rootScope.searchObjs = [];
-    //     $rootScope.searchObjs.push({ "id": id, "type": type, "name": name, "rootId": rootId });
-    //     console.log(JSON.stringify($rootScope.searchObjs));
-    //     if (rootId != 0)
-    //         $rootScope.rootgroup_id = rootId;
-    //     if (type == "G") {
-    //         $rootScope.rootgroupname = name;
-    //         $rootScope.rootgroupamount = 0;
-    //         $rootScope.rootname = "";
-    //         $rootScope.ledgergroupid = id;
-    //         $rootScope.today = $rootScope.today;
-    //         // $rootScope.rootgroupid = rootgroupid;
-    //         // $rootScope.rootgroupdiff = rootgroupdiff;
-    //         $rootScope.searchObjs[0].screen = "subledgersgroup";
-    //         $state.go("subledgersgroup");
-    //     } else if (type == "U") {
-    //         $rootScope.subgroup_name = name;
-    //         $rootScope.ledgergroup_id = id;
-    //         $rootScope.searchObjs[0].screen = "ledger";
-    //         $state.go("ledger");
-    //     } else if (type == "S") {
-    //         ltypeledgerstatus = true;
-    //         $rootScope.ledger_name = name;
-    //         $rootScope.ledger_id = id;
-    //         $rootScope.ledger_ltype = type;
-    //         $rootScope.searchObjs[0].screen = "ltypesscreen";
-    //         $state.go("ltypesscreen");
-    //     } else if (type == "E") {
-    //         ltypeledgerstatus = true;
-    //         $rootScope.ledger_name = name;
-    //         $rootScope.sl_id = id;
-    //         $rootScope.rootgroup_id = 1;
-    //         $rootScope.ledger_ltype = "S";
-    //         $rootScope.searchObjs[0].screen = "voucher";
-    //         console.log("E" + JSON.stringify($rootScope.searchObjs[0]))
-    //         $state.go("voucher");
-    //     } else if (type != "R") {
-    //         ltypeledgerstatus = false;
-    //         $rootScope.ledger_name = name;
-    //         $rootScope.ledger_id = id;
-    //         $rootScope.ledger_ltype = type;
-    //         $rootScope.searchObjs[0].screen = "voucher";
-    //         $state.go("voucher");
-    //     }
-    // };
+    $scope.itemSearch = function(id, type, name, rootId) {
+        console.log(id + "--" + type);
+        $rootScope.isSearched = true;
+        localStorageService.set("isSearched", true);
+        $rootScope.searchObjs = [];
+        $rootScope.searchObjs.push({ "id": id, "type": type, "name": name, "rootId": rootId });
+        console.log(JSON.stringify($rootScope.searchObjs));
+        if (rootId != 0)
+            $rootScope.rootgroup_id = rootId;
+        if (type == "G") {
+            $scope.passparameters.rootgroupname = name;
+            $scope.passparameters.rootgroupamount = 0;
+            $scope.passparameters.rootname = "";
+            $scope.passparameters.ledgergroupid = id;
+            $scope.passparameters.today = $rootScope.today;
+            dataMove.setgroupdata($scope.passparameters)
+            $state.go("subledgersgroup");
+        } else if (type == "U") {
+            $scope.passparameters.subgroup_name = name;
+            $scope.passparameters.ledgergroup_id = id;
+            dataMove.setsubgroupdata($scope.passparameters)
+            $state.go("ledger");
+        } else if (type == "S") {
+            ltypeledgerstatus = true;
+            $scope.passparameters.ledger_name = name;
+            $scope.passparameters.ledger_id = id;
+            $scope.passparameters.ledger_ltype = type;
+            dataMove.setledgerData($scope.passparameters);
+            $state.go("controlledger");
+        } else if (type == "E") {
+            ltypeledgerstatus = true;
+            $scope.passparameters.ltype_name = name;
+            $scope.passparameters.sl_id = id;
+            $scope.passparameters.rootgroup_id = 1;
+            $scope.passparameters.ledger_ltype = "S";
+            $rootScope.ledger_ltype = "S";
+            localStorageService.set("ledger_ltype", $rootScope.ledger_ltype)
+            dataMove.setcontrolledgerData($scope.passparameters)
+            $state.go("voucher");
+        } else if (type != "R") {
+            ltypeledgerstatus = false;
+            $scope.passparameters.ledger_name = name;
+            $scope.passparameters.ledger_id = id;
+            $scope.passparameters.ledger_ltype = type;
+            localStorageService.set("ledger_ltype", type)
+            $rootScope.ledger_ltype = type;
+            dataMove.setcontrolledgerData($scope.passparameters)
+            $state.go("voucher");
+        }
+    };
+    $scope.backButtonAction = function() {
+        $window.history.back();
+    }
 
 
 });
