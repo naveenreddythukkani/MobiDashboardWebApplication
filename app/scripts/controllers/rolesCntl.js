@@ -59,6 +59,7 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
     }
     $rootScope.addRole = function() {
         $("#addrole").modal('show');
+        $scope.display_name = "";
     }
     $scope.addingRole = function() {
 
@@ -271,10 +272,12 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         var success = function(result) {
             $scope.loading = false;
             $scope.getAllroles();
+            $scope.display_name = "";
         }
         var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
+            $scope.display_name = "";
         }
         $http.get(domain + api + "role/" + $scope.role_id + "/delete/", config)
             .then(success, error);

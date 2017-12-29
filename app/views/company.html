@@ -126,15 +126,12 @@
                                 <input type="text" ng-class="{'haserror':field===fields.companyemail}" class="form-control req-field-color" placeholder="Enter the company email" name="email" required="required" ng-model="props.email" ng-change="fieldschangeAction() ">
                             </div>
                         </div>
-                        <!-- <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required ">
-                                <label class="mdl_label control-label " autofocus="none ">Password<span>:</span></label>
-                            </div>
-                            <div class="col-md-8 no-padding-hr ">
-                                <input type="password" class="form-control " placeholder="Enter the password " name="password " required="required " ng-model="props.password" ng-change="dnsName() ">
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-offset-4 required ">
+                                <label class="col-md-12 no-padding-hr"><input type="checkbox" ng-model="props.multicolumn" class="checkboxspace">Multi column voucher</label>
                             </div>
                         </div>
-                        <div class="col-md-12 form-group no-padding-hr">
+                        <!-- <div class="col-md-12 form-group no-padding-hr">
                             <div class="col-md-4 required ">
                                 <label class="mdl_label control-label " autofocus="none ">Confirm Password<span>:</span></label>
                             </div>
@@ -208,6 +205,11 @@
                             </div>
                             <div class="col-md-8 no-padding-hr ">
                                 <input type="text" ng-class="{'haserror':field===fields.companyemail}" class="form-control req-field-color" placeholder="Enter the company email" name="email" required="required" ng-model="props.email" ng-change="fieldschangeAction() ">
+                            </div>
+                        </div>
+                        <div class="col-md-12 form-group no-padding-hr">
+                            <div class="col-md-offset-4">
+                                <label class="col-md-12 no-padding-hr"><input type="checkbox" ng-model="props.multicolumn" class="checkboxspace">Multi column voucher</label>
                             </div>
                         </div>
                         <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">

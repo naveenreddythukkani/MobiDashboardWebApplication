@@ -198,7 +198,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.clientdata.mobile = $scope.props.mobile;
         $scope.clientdata.company_name = $scope.props.company_name;
         $scope.clientdata.contact_name = $scope.props.contact_name;
-        // $scope.clientdata.password = $scope.props.password;
+        $scope.clientdata.multicolumn = $scope.props.multicolumn;
         // $scope.clientdata.confirm_password = $scope.props.confirm_password;
         $scope.clientdata.email = $scope.props.email;
         if ($scope.props.status) {
@@ -244,7 +244,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.clientdata.mobile = $scope.props.mobile;
         $scope.clientdata.company_name = $scope.props.company_name;
         $scope.clientdata.contact_name = $scope.props.contact_name;
-        // $scope.clientdata.password = $scope.props.password;
+        $scope.clientdata.multicolumn = $scope.props.multicolumn;
         // $scope.clientdata.confirm_password = $scope.props.confirm_password;
         $scope.clientdata.email = $scope.props.email;
         if ($scope.props.status) {
