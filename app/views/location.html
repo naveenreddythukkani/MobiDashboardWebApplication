@@ -189,11 +189,11 @@
             <div class="col-md-12">
                 <table ng-table="loctionstable " class="table table-bordered" show-filter="searchEnable ">
                     <tr ng-repeat="user in $data ">
-                        <td title=" 'Name' " filter="{ name: 'text'} " sortable=" 'name' ">
+                        <td title=" 'Name' " filter="{ display_name: 'text'} " sortable=" 'display_name' ">
                             <a class="tbl-link main-field" ng-click="dashboardAction(user)">{{user.display_name}}<span ng-show="user.status=='I'" class="inactiveshow"> (Inactive)</span></a>
                             <span class="subfield-text ">{{user.address_line_1}} {{user.city}}  {{user.state}}</span>
                         </td>
-                        <td class="vertical-center" title=" 'Phone' " filter="{ phone_number: 'text'} " sortable=" 'phone_number' ">
+                        <td class="vertical-center" title=" 'Phone' " filter="{ mobile: 'text'} " sortable=" 'mobile' ">
                             {{user.mobile}}</td>
                         <td class="accType vertical-center" style="text-align:right;">
                             <div class="dropdown">

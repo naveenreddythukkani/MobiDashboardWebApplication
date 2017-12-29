@@ -115,55 +115,59 @@
             </div>
             <div ng-show="balancesheetbreadcurmbs" class="row no-margin-hr" id="bredcrumbelement">
                 <div style="width:70%;margin:0 auto;">
-                    <div class="pull-left"><img src="images/left-arrow.png" class="back-alignment" ng-click="backButtonAction()">
+                    <div class="display-table-header">
+                        <div class="pull-left display-cell-header back-alignment" style="margin-right:10px;"><img src="images/left.png" ng-click="backButtonAction()"></div>
+                        <div class="display-cell-header">
+                            <!-- style="padding-left:8px; border-left: 1px solid #d3d3d3" -->
+                            <ul ng-hide="isSearched" class="breadcrumb custom-colors-breadcurmbs no-padding-hr">
+                                <li class="breadcrumb-lis">
+                                    <div class="dropdown">
+                                        <a class="custom-bred-text dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshow" aria-expanded="true" ng-model="balnc ">{{balnc}}</a>
+                                        <ul class="dropdown-menu actions-view " aria-labelledby="dropdownMenuhideshow ">
+                                            <li ng-repeat="balnc in balancesheetarry " class="actionsmenu " ng-click="balancesheetValueChange(balnc) "><a>{{balnc}}</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="breadcrumb-lis">
+                                    <div class="dropdown">
+                                        <a class="custom-bred-text dropdown-toggle space-left" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshowloc" aria-expanded="true" ng-model="locat.display_name" ng-init="locat.display_name=location_name">{{locat.display_name}}</a>
+                                        <ul class="dropdown-menu actions-view setting-dropdown-height " aria-labelledby="dropdownMenuhideshowloc ">
+                                            <li class="actionsmenu" ng-click="locationValueChangeforall()">
+                                                <a>All Locations</a>
+                                            </li>
+                                            <li ng-repeat="locat in locationsListinheader" class="actionsmenu" ng-click="locationValueChange(locat)"><a>{{locat.display_name}}</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="breadcrumb-lis " ng-show="groupData!==null && groupData.grouplevel " ng-click="subledgerchange()">
+                                    <div>
+                                        <a class="custom-bred-text space-left ">{{groupData.rootgroupname}}</a>
+                                    </div>
+                                </li>
+                                <li class="breadcrumb-lis " ng-show="subgroupData!==null && subgroupData.subgrouplevel " ng-click="subgroupchange()">
+                                    <div>
+                                        <a class="custom-bred-text space-left ">{{subgroupData.subgroup_name}}</a>
+                                    </div>
+                                </li>
+                                <li class="breadcrumb-lis " ng-show="ledgerData!==null && ledgerData.ledgerlevel " ng-click="ledgerchange()">
+                                    <div>
+                                        <a class=" custom-bred-text space-left ">{{ledgerData.ledger_name}}</a>
+                                    </div>
+                                </li>
+                                <li class="breadcrumb-lis " ng-show="controlledgerData!==null && controlledgerData.controlledger " ng-click="monthWisechange()">
+                                    <div>
+                                        <a class="custom-bred-text space-left ">{{controlledgerData.ltype_name}}</a>
+                                    </div>
+                                </li>
+                                <li class="breadcrumb-lis " ng-show="monthwiseData!==null && monthwiseData.monthwise" ng-click="vocherchange()">
+                                    <div>
+                                        <a class="custom-bred-text space-left" ng-show="controlledgerData">{{monthwiseData.ltype_name}} - MonthWise</a>
+                                        <a class="custom-bred-text space-left" ng-hide="controlledgerData">{{monthwiseData.ledger_name}} - MonthWise</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <ul ng-hide="isSearched" class="breadcrumb custom-colors-breadcurmbs no-padding-hr">
-                        <li class="breadcrumb-lis">
-                            <div class="dropdown">
-                                <a class="custom-bred-text dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshow" aria-expanded="true" ng-model="balnc ">{{balnc}}</a>
-                                <ul class="dropdown-menu actions-view " aria-labelledby="dropdownMenuhideshow ">
-                                    <li ng-repeat="balnc in balancesheetarry " class="actionsmenu " ng-click="balancesheetValueChange(balnc) "><a>{{balnc}}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="breadcrumb-lis">
-                            <div class="dropdown">
-                                <a class="custom-bred-text dropdown-toggle space-left" data-toggle="dropdown" aria-haspopup="true" id="dropdownMenuhideshowloc" aria-expanded="true" ng-model="locat.display_name" ng-init="locat.display_name=location_name">{{locat.display_name}}</a>
-                                <ul class="dropdown-menu actions-view setting-dropdown-height " aria-labelledby="dropdownMenuhideshowloc ">
-                                    <li class="actionsmenu" ng-click="locationValueChangeforall()">
-                                        <a>All Locations</a>
-                                    </li>
-                                    <li ng-repeat="locat in locationsListinheader" class="actionsmenu" ng-click="locationValueChange(locat)"><a>{{locat.display_name}}</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="breadcrumb-lis " ng-show="groupData!==null && groupData.grouplevel " ng-click="subledgerchange()">
-                            <div>
-                                <a class="custom-bred-text space-left ">{{groupData.rootgroupname}}</a>
-                            </div>
-                        </li>
-                        <li class="breadcrumb-lis " ng-show="subgroupData!==null && subgroupData.subgrouplevel " ng-click="subgroupchange()">
-                            <div>
-                                <a class="custom-bred-text space-left ">{{subgroupData.subgroup_name}}</a>
-                            </div>
-                        </li>
-                        <li class="breadcrumb-lis " ng-show="ledgerData!==null && ledgerData.ledgerlevel " ng-click="ledgerchange()">
-                            <div>
-                                <a class=" custom-bred-text space-left ">{{ledgerData.ledger_name}}</a>
-                            </div>
-                        </li>
-                        <li class="breadcrumb-lis " ng-show="controlledgerData!==null && controlledgerData.controlledger " ng-click="monthWisechange()">
-                            <div>
-                                <a class="custom-bred-text space-left ">{{controlledgerData.ltype_name}}</a>
-                            </div>
-                        </li>
-                        <li class="breadcrumb-lis " ng-show="monthwiseData!==null && monthwiseData.monthwise" ng-click="vocherchange()">
-                            <div>
-                                <a class="custom-bred-text space-left" ng-show="controlledgerData">{{monthwiseData.ltype_name}} - MonthWise</a>
-                                <a class="custom-bred-text space-left" ng-hide="controlledgerData">{{monthwiseData.ledger_name}} - MonthWise</a>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
             </div>
             <div class=" row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove && !isSearched">

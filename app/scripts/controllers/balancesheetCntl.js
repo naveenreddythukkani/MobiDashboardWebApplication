@@ -50,7 +50,8 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
         dataMove.setsubgroupdata({});
         dataMove.setledgerData({});
         dataMove.setcontrolledgerData({});
-        dataMove.clearAlldata(["groupData", "subgroupData", "ledger", "controlledger", "voucherData"]);
+        dataMove.setmonthwiseData({})
+        dataMove.clearAlldata(["groupData", "subgroupData", "ledger", "controlledger", 'monthwise', "voucherData"]);
         $rootScope.getlocalstoredata();
         $rootScope.getalllocationinheader();
     }

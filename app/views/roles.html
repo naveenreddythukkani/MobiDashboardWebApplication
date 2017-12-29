@@ -9,10 +9,10 @@
         <div class="col-md-12">
             <table ng-table="multiroletbl" class="table table-bordered" show-filter="searchEnable">
                 <tr ng-repeat="user in $data">
-                    <td class="vertical-center" title="'Role'" filter="{ rolename: 'text'}" sortable="'rolename'">
+                    <td class="vertical-center" title="'Role'" filter="{ display_name: 'text'}" sortable="'display_name'">
                         <a class="tbl-link main-field-block">{{user.display_name}}</a>
                     </td>
-                    <td class="vertical-center" title="'Users'" filter="{ users: 'number'}" sortable="'users'">
+                    <td class="vertical-center" title="'Users'" filter="{ users: 'users_count'}" sortable="'users_count'">
                         {{user.users_count}}
                     </td>
                     <td class="accType vertical-center" style="text-align:right;">
