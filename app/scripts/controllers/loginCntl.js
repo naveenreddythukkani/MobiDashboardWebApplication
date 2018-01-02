@@ -59,9 +59,9 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
 
         var success = function(result) {
             $scope.loading = false;
+            $state.go('resetpassword');
             $rootScope.mobile = $scope.user.mobile;
             localStorageService.set('mobile', $rootScope.mobile);
-            $state.go("resetpassword")
         }
         var error = function(result) {
             $scope.loading = false;

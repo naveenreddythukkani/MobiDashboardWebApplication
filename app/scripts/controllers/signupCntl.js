@@ -127,12 +127,17 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
         $scope.verify.otp = $scope.props.otp;
         var success = function(result) {
             $scope.loading = false;
-            for (key in result.data) {
-                if (key === "resp") {
-                    $scope.showingpassword = true;
-                    $scope.readonlyafterverify = true;
-                    $scope.loadmsg = true;
-                    $scope.msg = "Otp verification is successful.";
+            if (result.data.error === undefined) {
+                $scope.loadmsg = true;
+                $scope.msg = "Please enter valid Otp.";
+            } else {
+                for (key in result.data) {
+                    if (key === "resp") {
+                        $scope.showingpassword = true;
+                        $scope.readonlyafterverify = true;
+                        $scope.loadmsg = true;
+                        $scope.msg = "Otp verification is successful.";
+                    }
                 }
             }
 

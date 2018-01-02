@@ -96,7 +96,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         });
     }
     $rootScope.addCompany = function() {
-        $scope.props.status = true;
+        $scope.props.isActive = true;
     }
     $scope.search = function() {
         if ($scope.searchEnable) {
@@ -201,7 +201,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.clientdata.multicolumn = $scope.props.multicolumn;
         // $scope.clientdata.confirm_password = $scope.props.confirm_password;
         $scope.clientdata.email = $scope.props.email;
-        if ($scope.props.status) {
+        if ($scope.props.isActive) {
             $scope.clientdata.status = 'A';
         } else {
             $scope.clientdata.status = 'I';
@@ -235,9 +235,9 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.props = user;
         $scope.props.company_name = user.tenant_name;
         if (user.status === "A") {
-            $scope.props.status = true;
+            $scope.props.isActive = true;
         } else {
-            $scope.props.status = false;
+            $scope.props.isActive = false;
         }
     }
     $scope.editingCompany = function(user) {
@@ -247,7 +247,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.clientdata.multicolumn = $scope.props.multicolumn;
         // $scope.clientdata.confirm_password = $scope.props.confirm_password;
         $scope.clientdata.email = $scope.props.email;
-        if ($scope.props.status) {
+        if ($scope.props.isActive) {
             $scope.clientdata.status = 'A';
         } else {
             $scope.clientdata.status = 'I';

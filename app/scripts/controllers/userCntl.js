@@ -455,9 +455,13 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         var data = { "role_id": array };
         var success = function(result) {
             $scope.loading = false;
-            $("#roles").modal('hide');
-            $scope.msg = "Roles assinged to User is successful";
+            if (result.data.error === undefined) {
+                $scope.msg = "Roles assinged to User is successful";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.addremovealert();
+            $("#roles").modal('hide');
             $scope.getAllUsers();
         }
         var error = function(result) {

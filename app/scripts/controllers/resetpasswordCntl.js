@@ -19,12 +19,19 @@ MobiDash.controller('resetpasswordCntl', function($scope, $state, $rootScope, $s
 
     $scope.user = {};
     $scope.resetdata = {};
+    $scope.addremovealert = function() {
+        $("#success-alert").addClass('in');
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-alert").removeClass('in');
+        });
+    }
     $scope.resetpasswords = function() {
         $scope.loading = true;
-        $scope.resetdata.device_id = "00:37:6D:EA:77:FD";
+        $scope.resetdata.device_id = "00376DEA77FD";
         $scope.resetdata.mobile = $rootScope.mobile;
         $scope.resetdata.pwd = $scope.user.pwd;
         $scope.resetdata.otp = $scope.user.otp;
+        console.log("resetpassword json", $scope.resetdata);
         var succes = function(result) {
             $scope.loading = false;
             // localStorageService.set("mobile", $scope.props.mobile);
@@ -43,8 +50,18 @@ MobiDash.controller('resetpasswordCntl', function($scope, $state, $rootScope, $s
             $state.go("login");
         }
         var error = function(result) {
+            if (result.status === 401) {
+                $scope.msg = "OTP Mismatch";
+                $scope.addremovealert();
+            } else if (result.status === 412) {
+                $scope.msg = "Password not qualified";
+                $scope.addremovealert();
+            } else {
+                $scope.msg = "Reset Password Failed. Please Contact Mobibooks @phone: 709-364-4659";
+                $scope.addremovealert();
+            }
             $scope.loading = false;
-            session.sessionexpried(result.status);
+            // session.sessionexpried(result.status);
         }
         $http.post(domain + api + "resetpassword/", $scope.resetdata)
             .then(succes, error)

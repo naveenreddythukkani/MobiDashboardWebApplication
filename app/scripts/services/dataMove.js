@@ -42,6 +42,13 @@ MobiDash.service('dataMove', function(localStorageService) {
             console.log(localStorageService.get(item));
         });
     }
+    this.setdatesData = function(myData) {
+        localStorageService.set("alldates", myData);
+    }
+    this.getdatesData = function() {
+        return localStorageService.get("alldates");
+    };
+
 });
 
 

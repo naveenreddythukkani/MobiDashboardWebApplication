@@ -135,7 +135,7 @@
                         </div>
                         <div class="col-md-10 no-padding-hr userscroll padding-line">
                             <ul class="locationlist" ng-repeat="user in selectedUsers | filter:search_role">
-                                <li><label ng-class="{'disablerow-multiselect': user.user_id.toString()===owner_id}"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="userselectchange(selectedUsers)" ng-disabled="user.user_id.toString()===owner_id">{{user.username}}</label></li>
+                                <li><label ng-class="{'disablerow-multiselect': user.user_id.toString()===owner_id}"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="userselectchange(selectedUsers)" ng-disabled="user.user_id.toString()===owner_id">{{user.user_id.toString()==owner_id?user.username +" - Superuser":user.username}}</label></li>
                             </ul>
                         </div>
                     </div>

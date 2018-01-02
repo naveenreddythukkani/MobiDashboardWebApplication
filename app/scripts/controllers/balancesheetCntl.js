@@ -153,6 +153,11 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
         $scope.passparameters.today = $rootScope.today;
         $scope.passparameters.rootgroup_id = rootgroupid;
         $scope.passparameters.rootgroupdiff = rootgroupdiff;
+        $scope.datesObj = {};
+        $scope.datesObj.today1 = $rootScope.today1;
+        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
+        $scope.datesObj.startdate1 = $rootScope.startdate1;
+        dataMove.setdatesData($scope.datesObj);
         $scope.passparameters.grouplevel = true;
         dataMove.setgroupdata($scope.passparameters);
 

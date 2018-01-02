@@ -1,58 +1,57 @@
 <div class="container table_container table-container-width no-padding-hr">
     <div class="row">
-       <div class="col-md-12">
-          <h3 class="no-margin pull-left gray-color" style="margin-bottom:5px;">
-             <span>{{selected_company_name}}</span> > Voucher Types
-          </h3>
-          <button type="button" class="btn btn-md pull-right postions-search" ng-click="search()">
+        <div class="col-md-12">
+            <h3 class="no-margin pull-left gray-color" style="margin-bottom:5px;">
+                <span>{{selected_company_name}}</span> > Voucher Types
+            </h3>
+            <button type="button" class="btn btn-md pull-right postions-search" ng-click="search()">
           <span class="glyphicon glyphicon-search"></span>
           </button>
-       </div>
+        </div>
     </div>
     <div class="row">
-       <div class="col-md-12">
-          <table ng-table="multivouchertable" class="table table-bordered" show-filter="searchEnable">
-             <tr ng-repeat="user in $data">
-                <td class="vertical-center" title="'Voucher'" filter="{ vou_type: 'text'}" sortable="'vou_type'">
-                   <a class="tbl-link main-field">{{user.display_name}}</a>
-                   <span class="subfield-text">{{user.vou_type}}</span>
-                </td>
-                <td class="vertical-center" title="'Location'" filter="{ location_name: 'text'}" sortable="'location_name'">
-                   <a class="tbl-link main-field-block">{{user.location_name}}</a>
-                   <span class="subfield-text">{{user.daybook_name}}</span>
-                </td>
-                <td class="vertical-center" title="'Prefix'" filter="{ variable_prefix: 'text'}" sortable="'variable_prefix'">
-                   <a class="tbl-link main-field-block">{{user.prefix}}</a>
-                   <span class="subfield-text">{{showpreifixOptions(user.variable_prefix)}}</span>
-                </td>
-                <td class="vertical-center" title="'Start No'" filter="{ start_no: 'number'}" sortable="'start_no'">
-                   <a class="tbl-link main-field-block"><span>Start: {{user.start_no}}</span><span ng-show="user.print_voucher">,Print</span></a>
-                   <span class="subfield-text"><span ng-show="user.allow_manual_id">Manual</span><span ng-show="user.renumber">,Re-Number</span></span>
-                </td>
-                <td class="accType vertical-center" style="text-align:right;">
-                   <div class="dropdown">
-                      <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown"
-                         aria-haspopup="true" aria-expanded="true" ng-class="{'noevnts-actions': permissions()}">Actions
+        <div class="col-md-12">
+            <table ng-table="multivouchertable" class="table table-bordered" show-filter="searchEnable">
+                <tr ng-repeat="user in $data">
+                    <td class="vertical-center" title="'Voucher'" filter="{ vou_type: 'text'}" sortable="'vou_type'">
+                        <a class="tbl-link main-field-block">{{user.display_name}}</a>
+                        <span class="subfield-text">{{user.vou_type}}</span>
+                    </td>
+                    <td class="vertical-center" title="'Location'" filter="{ location_name: 'text'}" sortable="'location_name'">
+                        <a class="tbl-link main-field-block">{{user.location_name}}</a>
+                        <span class="subfield-text">{{user.daybook_name}}</span>
+                    </td>
+                    <td class="vertical-center" title="'Prefix'" filter="{ variable_prefix: 'text'}" sortable="'variable_prefix'">
+                        <a class="tbl-link main-field-block">{{user.prefix}}</a>
+                        <span class="subfield-text">{{showpreifixOptions(user.variable_prefix)}}</span>
+                    </td>
+                    <td class="vertical-center" title="'Start No'" filter="{ start_no: 'number'}" sortable="'start_no'">
+                        <a class="tbl-link main-field-block"><span>Start: {{user.start_no}}</span><span ng-show="user.print_voucher">,Print</span></a>
+                        <span class="subfield-text"><span ng-show="user.allow_manual_id">Manual</span><span ng-show="user.renumber">,Re-Number</span></span>
+                    </td>
+                    <td class="accType vertical-center" style="text-align:right;">
+                        <div class="dropdown">
+                            <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-class="{'noevnts-actions': permissions()}">Actions
                       <span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span>
                       </a>
-                      <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
-                         <li class="actionsmenu">
-                            <a data-toggle="modal" data-target="#editrole" ng-click="editVoucherModel($index)">Edit</a>
-                         </li>
-                         <!-- <li class="actionsmenu"><a data-toggle="modal" data-target="#userlist" ng-click="getAllUsers(user.display_name,user.id)">Users</a> </li>
+                            <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
+                                <li class="actionsmenu">
+                                    <a data-toggle="modal" data-target="#editrole" ng-click="editVoucherModel($index)">Edit</a>
+                                </li>
+                                <!-- <li class="actionsmenu"><a data-toggle="modal" data-target="#userlist" ng-click="getAllUsers(user.display_name,user.id)">Users</a> </li>
                             <li class="actionsmenu"><a data-toggle="modal" data-target="#privileges" ng-click="getAllPrivileges(user.display_name,user.id)">Privileges</a></li> -->
-                         <!-- <li class="actionsmenu"><a ng-click="removeRole(user)">Remove</a></li> -->
-                         <li class="actionsmenu">
-                            <a ng-click="voucherHistoryShow(user)">History</a>
-                         </li>
-                      </ul>
-                   </div>
-                </td>
-             </tr>
-          </table>
-       </div>
+                                <!-- <li class="actionsmenu"><a ng-click="removeRole(user)">Remove</a></li> -->
+                                <li class="actionsmenu">
+                                    <a ng-click="voucherHistoryShow(user)">History</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
- </div>
+</div>
 
 
 <div id="addvochertype" class="modal fade" data-backdrop="static" data-keyboard="false" role="dialog ">
@@ -88,8 +87,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text" class="form-control" placeholder="Enter voucher name" name="companyname " required="required "
-                                    ng-model="voucherSubmit.name" ng-change="fieldschangeAction()">
+                                <input type="text" class="form-control" placeholder="Enter voucher name" name="companyname " required="required " ng-model="voucherSubmit.name" ng-change="fieldschangeAction()">
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isTypeselected">
@@ -100,14 +98,14 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)" >
+                                <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)">
                                     <option value="" disabled selected>Select Location</option>
                                     <option ng-repeat="x in selectedLocations" value="{{x.id}}">{{x.display_name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isDayBookShow">
-                                
+
                             <div class="col-md-4 required ">
                                 <label class="mdl_label control-label " autofocus="none">Day Book
                                     <span>:</span>
@@ -141,7 +139,7 @@
                         <div class="col-md-12 form-group no-padding-hr">
                             <div class="col-md-4 required ">
                                 <label class="mdl_label control-label " autofocus="none">Prefix :
-                                    
+
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
@@ -157,7 +155,7 @@
                                     <!-- <input type="text" class="form-control no-padding-hr prefixInput" name="email" maxlength="1" ng-change="prefixValidation()" ng-model="voucherSubmit.sep1" ng-keydown="sepratorValid($event)" ng-init="voucherSubmit.sep1='-'">  -->
                                 </div>
                                 <div class="col-md-5 prefixPadding">
-                                    <span>Rotation Policy</span>    
+                                    <span>Rotation Policy</span>
                                     <select name="ploicyselection" ng-class="{'haserror':field[2]===fields.rotation}" class="form-control" placeholder="Select Store" id="policySelection" ng-change="prefixValidation()" ng-model="voucherSubmit.rotation" ng-init="voucherSubmit.rotation='None'">
                                         <option value="" disabled>Select Rotation Policy</option>
                                         <option ng-repeat="x in rotationPolicy" value="{{x.name}}">{{x.name}}</option>
@@ -188,19 +186,19 @@
                                         <button type="button" class="btn colors" ng-class="{'activeSelection':isActive('Yearly')}" ng-click="setActive('Yearly')">Yearly</button>
                                     </div>
                                 </div>
-                                    <div class="col-md-5">
-                                        <div class="row">
-                                            <div class="col-md-5 no-padding-hr startNoLabel">
-                                                <label class="mdl_label control-label" autofocus="none ">Start No
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-5 no-padding-hr startNoLabel">
+                                            <label class="mdl_label control-label" autofocus="none ">Start No
                                                     <span>:</span>
                                                 </label>
-                                            </div>
-                                            <div class="col-md-7 startNoInput no-padding-left">
-                                                    <input type="text" class="form-control" name="Start No." ng-change="prefixValidation()" ng-model="voucherSubmit.startNo" required="required" maxlength="6" mobile-validation>
-                                                <!-- <input type="text" class="form-control" placeholder=" " name="startNo" maxlength="6" min="0" pattern="\d" required="required"> -->
-                                            </div>
+                                        </div>
+                                        <div class="col-md-7 startNoInput no-padding-left">
+                                            <input type="text" class="form-control" name="Start No." ng-change="prefixValidation()" ng-model="voucherSubmit.startNo" required="required" maxlength="6" mobile-validation>
+                                            <!-- <input type="text" class="form-control" placeholder=" " name="startNo" maxlength="6" min="0" pattern="\d" required="required"> -->
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 no-padding-hr" style="margin-top:15px;">
@@ -254,7 +252,7 @@
                             </div>
                             <div class="col-md-8 no-padding-hr ">
 
-                                <select name="typeselection"  ng-class="{'haserror':field[0]===fields.type}" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
+                                <select name="typeselection" ng-class="{'haserror':field[0]===fields.type}" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
                                     <option value="" disabled selected>Select Type</option>
                                     <option ng-repeat="x in selectedTypes" value="{{x.id}}">{{x.description+' ('+x.vou_type+')'}}</option>
                                 </select>
@@ -267,8 +265,7 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text" class="form-control" placeholder="Enter voucher name" name="companyname " required="required "
-                                    ng-model="voucherSubmit.name" ng-change="fieldschangeAction()">
+                                <input type="text" class="form-control" placeholder="Enter voucher name" name="companyname " required="required " ng-model="voucherSubmit.name" ng-change="fieldschangeAction()">
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isTypeselected">
@@ -279,14 +276,14 @@
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)" >
+                                <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)">
                                     <option value="" disabled selected>Select Location</option>
                                     <option ng-repeat="x in selectedLocations" value="{{x.id}}">{{x.display_name}}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isDayBookShow">
-                                
+
                             <div class="col-md-4 required ">
                                 <label class="mdl_label control-label " autofocus="none">Day Book
                                     <span>:</span>
@@ -321,7 +318,7 @@
                         <div class="col-md-12 form-group no-padding-hr">
                             <div class="col-md-4 required ">
                                 <label class="mdl_label control-label " autofocus="none">Prefix :
-                                    
+
                                 </label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
@@ -337,7 +334,7 @@
                                     <!-- <input type="text" class="form-control no-padding-hr prefixInput" name="email" maxlength="1" ng-change="prefixValidation()" ng-model="voucherSubmit.sep1" ng-keydown="sepratorValid($event)" ng-init="voucherSubmit.sep1='-'">  -->
                                 </div>
                                 <div class="col-md-5 prefixPadding">
-                                    <span>Rotation Policy</span>    
+                                    <span>Rotation Policy</span>
                                     <select name="ploicyselection" ng-class="{'haserror':field[2]===fields.rotation}" class="form-control" placeholder="Select Store" id="policySelection" ng-change="prefixValidation()" ng-model="voucherSubmit.rotation" ng-init="voucherSubmit.rotation='None'">
                                         <option value="" disabled>Select Rotation Policy</option>
                                         <option ng-repeat="x in rotationPolicy" value="{{x.name}}">{{x.name}}</option>
@@ -368,19 +365,19 @@
                                         <button type="button" class="btn colors" ng-class="{'activeSelection':isActive('Yearly')}" ng-click="setActive('Yearly')">Yearly</button>
                                     </div>
                                 </div>
-                                    <div class="col-md-5">
-                                        <div class="row">
-                                            <div class="col-md-5 no-padding-hr startNoLabel">
-                                                <label class="mdl_label control-label" autofocus="none ">Start No
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-md-5 no-padding-hr startNoLabel">
+                                            <label class="mdl_label control-label" autofocus="none ">Start No
                                                     <span>:</span>
                                                 </label>
-                                            </div>
-                                            <div class="col-md-7 startNoInput no-padding-left">
-                                                    <input type="text" class="form-control" name="Start No." ng-change="prefixValidation()" ng-model="voucherSubmit.startNo" required="required" maxlength="6" mobile-validation>
-                                                <!-- <input type="text" class="form-control" placeholder=" " name="startNo" maxlength="6" min="0" pattern="\d" required="required"> -->
-                                            </div>
+                                        </div>
+                                        <div class="col-md-7 startNoInput no-padding-left">
+                                            <input type="text" class="form-control" name="Start No." ng-change="prefixValidation()" ng-model="voucherSubmit.startNo" required="required" maxlength="6" mobile-validation>
+                                            <!-- <input type="text" class="form-control" placeholder=" " name="startNo" maxlength="6" min="0" pattern="\d" required="required"> -->
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12 no-padding-hr" style="margin-top:15px;">

@@ -606,9 +606,12 @@ body {
 .main-field-block {
     display: block;
     text-decoration: none !important;
-    cursor: pointer;
     color: #000 !important;
     font-size: 18px;
+}
+
+.transaction-ledgers-align {
+    text-align: justify;
 }
 
 .tabs li.active a,

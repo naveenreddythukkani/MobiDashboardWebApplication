@@ -89,7 +89,13 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
     $scope.getallgroupdate = function() {
         $scope.props = {};
         $scope.props = dataMove.getledgerData();
-        $scope.controlledgerreport();
+        $scope.datesObj = {};
+        $scope.datesObj = dataMove.getdatesData();
+        $rootScope.today1 = $scope.datesObj.today1;
+        $rootScope.fromdate1 = $scope.datesObj.fromdate1;
+        $rootScope.startdate1 = $scope.datesObj.startdate1;
+        $rootScope.datescalculation();
+
     }
     $rootScope.datescalculation = function() {
         if ($rootScope.today == undefined || $rootScope.today != $rootScope.today1) {
@@ -139,9 +145,9 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
             $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
             console.log("$rootScope.startdate = " + $rootScope.startdate);
         }
-        $scope.getallgroupdate();
+        $scope.controlledgerreport();
     }
-    $rootScope.datescalculation();
+    $scope.getallgroupdate();
     $scope.voucherSelection = function(ltype_name, ltype_amt, ledger_ltype, gl_id, sl_id, root_id) {
         // if ($rootScope.isSearched)
         //     $rootScope.searchObjs.push({ "id": sl_id, "name": ltype_name, "screen": "voucherdetails" });
@@ -152,6 +158,11 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
         $scope.passparameters.sl_id = sl_id;
         $scope.passparameters.ledger_id = $scope.props.ledger_id;
         $scope.passparameters.controlledger = true;
+        $scope.datesObj = {};
+        $scope.datesObj.today1 = $rootScope.today1;
+        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
+        $scope.datesObj.startdate1 = $rootScope.startdate1;
+        dataMove.setdatesData($scope.datesObj);
 
         dataMove.setcontrolledgerData($scope.passparameters);
         $state.go("monthWise");

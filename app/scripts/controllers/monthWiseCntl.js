@@ -153,6 +153,17 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         if ($rootScope.fromdate == undefined && $rootScope.fromdate1 == undefined && $rootScope.startdate == undefined && $rootScope.startdate1 == undefined) {
             var completedate = ($rootScope.today).split('-');
             var year = completedate[0];
+            var month = completedate[1];
+            var day = completedate[2];
+            month = month - 1;
+            console.log(month.toString().length);
+            if (month.toString().length == 1) {
+                month = '0' + month;
+                if (month == 00) {
+                    month = 12;
+                    year = year - 1;
+                }
+            }
             $rootScope.fromdate = year + '-' + '04' + '-' + '01';
             $rootScope.startdate = year + '-' + '04' + '-' + '01';
             console.log("$rootScope.todate = " + $rootScope.today);
@@ -181,9 +192,23 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         var date = $filter('date')(new Date(), 'yyyy-MM-dd');
         var completedate = (date).split('-');
         var year = completedate[0];
+        var month = completedate[1];
+        var day = completedate[2];
+        console.log(month.toString().length);
+        month = month - 1;
+        if (month.toString().length == 1) {
+            month = '0' + month;
+            if (month == 00) {
+                month = 12;
+                year = year - 1;
+            }
+        }
         $rootScope.fromdate1 = year + '-' + '04' + '-' + '01';
         $rootScope.startdate1 = year + '-' + '04' + '-' + '01';
         $rootScope.today1 = $filter('date')(new Date(), 'yyyy-MM-dd');
+        var datesfornow = (date).split('-');
+        var numberofdays = new Date(year, datesfornow[1], 0).getDate();
+        $rootScope.today1 = datesfornow[0] + '-' + datesfornow[1] + '-' + numberofdays;
         $rootScope.datescalculation();
     }
     $scope.totalyeardatashow();

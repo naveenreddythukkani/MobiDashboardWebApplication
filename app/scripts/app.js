@@ -38,8 +38,7 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         .state('resetpassword', {
             url: '/resetpassword',
             templateUrl: 'views/resetpassword.html',
-            controller: "resetpasswordCntl",
-            onEnter: changeOnEnter
+            controller: "resetpasswordCntl"
         })
         .state('roles', {
             url: '/roles',
@@ -142,6 +141,6 @@ var changeOnEnter = function(localStorageService, $state) {
         $state.go('login');
     }
 }
-MobiDash.constant("domain", "http://139.59.3.114/");
+MobiDash.constant("domain", "http://139.59.37.207/");
 MobiDash.constant("api", "act/api/");
 MobiDash.constant("core", "act/core/");

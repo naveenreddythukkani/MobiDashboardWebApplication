@@ -212,16 +212,16 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         }
     };
     $scope.addremovealert = function() {
-        $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
-            $("#success-alert").removeClass('in');
-        });
-    }
-    $scope.isNumberKey = function($event) {
-        if (!(($event.keyCode >= 48 && $event.keyCode <= 57) || ($event.keyCode === 8 || $event.keyCode === 46))) {
-            $event.preventDefault();
+            $("#success-alert").addClass('in');
+            $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+                $("#success-alert").removeClass('in');
+            });
         }
-    }
+        // $scope.isNumberKey = function($event) {
+        //     if (!(($event.keyCode >= 48 && $event.keyCode <= 57) || ($event.keyCode === 8 || $event.keyCode === 46))) {
+        //         $event.preventDefault();
+        //     }
+        // }
     $scope.search = function() {
         if ($scope.searchEnable) {
             $scope.searchEnable = false;
@@ -695,10 +695,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             var data = { "gl_id": array };
             var success = function(result) {
                 $scope.loading = false;
-                // $("#ledgers").modal('hide');
-                // $scope.msg = "ledger assinged to location is successful";
-                // $scope.addremovealert();
-                // $scope.getAllLoations();
+                if (result.data.error === undefined) {
+                    $scope.msg = "ledger assinged to location is successful";
+                } else {
+                    item.select = false;
+                    $scope.msg = result.data.error.message;
+                }
+                $scope.addremovealert();
             }
             var error = function(result) {
                 $scope.loading = false;
@@ -717,7 +720,6 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var array = [];
         var data = {};
-
         if (checkType === 'completeUnCheck') {
             if ($scope.ledgerUnselectAll) {
                 angular.forEach($scope.selectedLedgers, function(item) {
@@ -731,16 +733,20 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             array.push($scope.deleteLedgerId);
             data.force = false;
         }
-
         data.gl_id = array;
-
         var success = function(result) {
             $scope.loading = false;
-            // console.log(result.data);
             if (result.data.error.code === 1105) {
-                $scope.errMsg = result.data.error.message;
+                var msgs = "";
+                angular.forEach(result.data.error.ledgers, function(item) {
+                    msgs = item;
+                })
+                $scope.errMsg = msgs + " have transactions for this location. Do you want to unlink ?";
                 $('#deleteledger').modal('show');
+            } else {
+                $scope.msg = "ledger unassinged to location is successful";
             }
+            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -750,7 +756,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $http.post(domain + api + "location/" + $scope.location_id + "/delete_ledgers/", data, config)
             .then(success, error);
     }
+    $scope.deleteNoAction = function() {
 
+    }
     $scope.UpdateAllLedgerToLocation = function() {
         $scope.loading = true;
         var array = []
@@ -761,13 +769,19 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error.code === 1105) {
-                $scope.errMsg = result.data.error.message;
+                var msgs = "";
+                angular.forEach(result.data.error.ledgers, function(item) {
+                    msgs = msgs.length > 0 ? msgs + ',' + item : msgs + item;
+                })
+                $scope.errMsg = msgs + " have transactions for this location. Do you want to unlink ?";
                 $('#deleteledger').modal('show');
+            } else {
+                if ($scope.ledgerselectall) {
+                    $scope.msg = "ledgers assinged to location is successful";
+                } else {
+                    $scope.msg = "ledgers unassinged to location is successful";
+                }
             }
-            // $("#ledgers").modal('hide');
-            // $scope.msg = "ledgers assinged to location is successful";
-            // $scope.addremovealert();
-            // $scope.getAllLoations();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -932,3 +946,4 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     }
 
 });
+XMLDocument

@@ -227,7 +227,7 @@
             </div>
             <div class="modal-footer ">
                 <div class="row ">
-                    <div class="col-md-4 ">
+                    <div class="col-md-4 pull-right">
                         <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal">No</button>
                         <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="deletelocation(props.id) ">Yes</button>
                     </div>
@@ -437,7 +437,7 @@
                         </div>
                         <div class="col-md-10 no-padding-hr userscroll padding-line">
                             <ul class="locationlist" ng-repeat="user in selectedUsers | filter:search_user">
-                                <li><label ng-class="{'disablerow-multiselect': user.user_id.toString()===owner_id}"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="userselectchange(selectedUsers)" ng-disabled="user.user_id.toString()===owner_id">{{user.username}}</label></li>
+                                <li><label ng-class="{'disablerow-multiselect': user.user_id.toString()===owner_id}"><input type="checkbox" ng-model="user.select" class="checkboxspace" ng-click="userselectchange(selectedUsers)" ng-disabled="user.user_id.toString()===owner_id">{{user.user_id.toString()==owner_id?user.username +" - Superuser":user.username}}</label></li>
                             </ul>
                         </div>
                     </div>
@@ -573,12 +573,12 @@
         <!-- Modal content-->
         <div class="modal-content logout_modal_width ">
             <div class="modal-body text-center delete_modal ">
-                <h2 ng-model="errMsg">{{errMsg}}</h2>
+                <h5 class="transaction-ledgers-align" ng-model="errMsg">{{errMsg}}</h5>
             </div>
             <div class="modal-footer ">
                 <div class="row ">
-                    <div class="col-md-4 ">
-                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal">No</button>
+                    <div class="col-md-4 pull-right">
+                        <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="deleteNoAction()">No</button>
                         <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="deleteLedgerData('completeUnCheck') ">Yes</button>
                     </div>
                 </div>
