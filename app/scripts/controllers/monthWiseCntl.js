@@ -58,11 +58,19 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
     $scope.getallcontrolandledgerData = function() {
         if ($rootScope.ledger_ltype === 'S') {
             $scope.props = {};
-            $scope.props = dataMove.getcontrolledgerData();
+            if ($rootScope.isSearched) {
+                $scope.props = dataMove.getsearchcontrolledgerData();
+            } else {
+                $scope.props = dataMove.getcontrolledgerData();
+            }
             $scope.getallglwisesubledger();
         } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B' || $rootScope.ledger_ltype == 'L') {
             $scope.props = {};
-            $scope.props = dataMove.getledgerData();
+            if ($rootScope.isSearched) {
+                $scope.props = dataMove.getsearchledgerData();
+            } else {
+                $scope.props = dataMove.getledgerData();
+            }
             $scope.getallCandBandLtypevoucher();
         }
     }
@@ -76,27 +84,34 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.realdata = [];
-            for (var i = 0; i < result.data.length; i++) {
-                $scope.realdata.push(result.data[i])
-                $scope.realdata[i].mth = $scope.datesplitandconvertmonth($scope.realdata[i].mth, i);
-                $scope.realdata[i].monthName = ($scope.realdata[i].mth).split(' ')[0];
-            }
-            var moths = _.groupBy($scope.realdata, 'mth');
-            $scope.mothwisedata = $scope.calculateMonthsCreditDebit(moths);
-            $scope.obdata = [];
-            for (var i = 0; i < $scope.mothwisedata.length; i++) {
-                if ($scope.mothwisedata[i].type === "OB") {
-                    $scope.obdata.push($scope.mothwisedata[i]);
-                    $scope.mothwisedata.splice(i, 1);
+            if (result.data.error === undefined) {
+                $scope.realdata = [];
+                for (var i = 0; i < result.data.length; i++) {
+                    $scope.realdata.push(result.data[i])
+                    $scope.realdata[i].mth = $scope.datesplitandconvertmonth($scope.realdata[i].mth, i);
+                    $scope.realdata[i].monthName = ($scope.realdata[i].mth).split(' ')[0];
                 }
+                var moths = _.groupBy($scope.realdata, 'mth');
+                $scope.mothwisedata = $scope.calculateMonthsCreditDebit(moths);
+                $scope.obdata = [];
+                for (var i = 0; i < $scope.mothwisedata.length; i++) {
+                    if ($scope.mothwisedata[i].type === "OB") {
+                        $scope.obdata.push($scope.mothwisedata[i]);
+                        $scope.mothwisedata.splice(i, 1);
+                    }
+                }
+                sortByMonth($scope.mothwisedata);
+                var obamount = $scope.obdata[0].amount ? parseFloat($scope.obdata[0].amount) : 0;
+                var firstindexdata = parseFloat($scope.mothwisedata[0].amount);
+                $scope.mothwisedata[0].amount = firstindexdata + obamount;
+                for (var i = 1; i < $scope.mothwisedata.length; i++) {
+                    $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+                }
+                $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            sortByMonth($scope.mothwisedata);
-            $scope.mothwisedata[0].amount = parseFloat($scope.mothwisedata[0].amount) + parseFloat($scope.obdata[0].amount);
-            for (var i = 1; i < $scope.mothwisedata.length; i++) {
-                $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
-            }
-            $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
         }
         var error = function(result) {
             $scope.loading = false;
@@ -115,26 +130,34 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.realdata = [];
-            for (var i = 0; i < result.data.length; i++) {
-                $scope.realdata.push(result.data[i])
-                $scope.realdata[i].mth = $scope.datesplitandconvertmonth($scope.realdata[i].mth, i);
-            }
-            var moths = _.groupBy($scope.realdata, 'mth');
-            $scope.mothwisedata = $scope.calculateMonthsCreditDebit(moths);
-            $scope.obdata = [];
-            for (var i = 0; i < $scope.mothwisedata.length; i++) {
-                if ($scope.mothwisedata[i].type === "OB") {
-                    $scope.obdata.push($scope.mothwisedata[i]);
-                    $scope.mothwisedata.splice(i, 1);
+            if (result.data.error === undefined) {
+                $scope.realdata = [];
+                for (var i = 0; i < result.data.length; i++) {
+                    $scope.realdata.push(result.data[i])
+                    $scope.realdata[i].mth = $scope.datesplitandconvertmonth($scope.realdata[i].mth, i);
+                    $scope.realdata[i].monthName = ($scope.realdata[i].mth).split(' ')[0];
                 }
+                var moths = _.groupBy($scope.realdata, 'mth');
+                $scope.mothwisedata = $scope.calculateMonthsCreditDebit(moths);
+                $scope.obdata = [];
+                for (var i = 0; i < $scope.mothwisedata.length; i++) {
+                    if ($scope.mothwisedata[i].type === "OB") {
+                        $scope.obdata.push($scope.mothwisedata[i]);
+                        $scope.mothwisedata.splice(i, 1);
+                    }
+                }
+                sortByMonth($scope.mothwisedata);
+                var obamount = $scope.obdata[0].amount ? parseFloat($scope.obdata[0].amount) : 0;
+                var firstindexdata = parseFloat($scope.mothwisedata[0].amount);
+                $scope.mothwisedata[0].amount = firstindexdata + obamount;
+                for (var i = 1; i < $scope.mothwisedata.length; i++) {
+                    $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+                }
+                $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            sortByMonth($scope.mothwisedata);
-            $scope.mothwisedata[0].amount = parseFloat($scope.mothwisedata[0].amount) + parseFloat($scope.obdata[0].amount);
-            for (var i = 1; i < $scope.mothwisedata.length; i++) {
-                $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
-            }
-            $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
         }
         var error = function(result) {
             $scope.loading = false;
@@ -297,26 +320,49 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.passparameters.monthName = monthName;
         $scope.passparameters.numberofdays = numberofdays;
         $scope.passparameters.monthyear = monthyear;
-        if ($rootScope.ledger_ltype === 'S') {
-            $scope.props = {};
-            $scope.props = dataMove.getcontrolledgerData();
-        } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B' || $rootScope.ledger_ltype == 'L') {
-            $scope.props = {};
-            $scope.props = dataMove.getledgerData();
-        }
-        $scope.passparameters.ltype_name = $scope.props.ltype_name;
-        $scope.passparameters.ltype_amt = $scope.props.ltype_amt;
-        $scope.passparameters.ledger_ltype = $scope.props.ledger_ltype;
-        $scope.passparameters.ledger_id = $scope.props.gl_id;
-        $scope.passparameters.sl_id = $scope.props.sl_id;
-        $scope.passparameters.ledger_id = $scope.props.ledger_id;
-        $scope.passparameters.ledger_name = $scope.props.ledger_name;
-        $scope.passparameters.monthwise = true;
+        if ($rootScope.isSearched) {
+            if ($rootScope.ledger_ltype === 'S') {
+                $scope.props = {};
+                $scope.props = dataMove.getsearchcontrolledgerData();
+                $scope.passparameters.ltype_name = $scope.props.ltype_name;
+                $scope.passparameters.sl_id = $scope.props.sl_id;
+                $scope.passparameters.ledger_id = $scope.props.gl_id;
+                localStorageService.set("ledger_ltype", $scope.props.ledger_ltype)
+                $rootScope.ledger_ltype = $scope.props.ledger_ltype;
+                $scope.passparameters.controlledger = true;
+                dataMove.setsearchmonthwiseData($scope.passparameters);
+            } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B' || $rootScope.ledger_ltype == 'L') {
+                $scope.props = {};
+                $scope.props = dataMove.getsearchledgerData();
+                $scope.passparameters.ledger_name = $scope.props.ledger_name;
+                $scope.passparameters.ledger_id = $scope.props.ledger_id;
+                localStorageService.set("ledger_ltype", $scope.props.ledger_ltype)
+                $rootScope.ledger_ltype = $scope.props.ledger_ltype;
+                $scope.passparameters.ledgerlevel = true;
+                dataMove.setsearchmonthwiseData($scope.passparameters);
+            }
 
-        dataMove.setmonthwiseData($scope.passparameters);
+        } else {
+            if ($rootScope.ledger_ltype === 'S') {
+                $scope.props = {};
+                $scope.props = dataMove.getcontrolledgerData();
+            } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B' || $rootScope.ledger_ltype == 'L') {
+                $scope.props = {};
+                $scope.props = dataMove.getledgerData();
+            }
+            $scope.passparameters.ltype_name = $scope.props.ltype_name;
+            $scope.passparameters.ltype_amt = $scope.props.ltype_amt;
+            $scope.passparameters.ledger_ltype = $scope.props.ledger_ltype;
+            $scope.passparameters.ledger_id = $scope.props.gl_id;
+            $scope.passparameters.sl_id = $scope.props.sl_id;
+            $scope.passparameters.ledger_id = $scope.props.ledger_id;
+            $scope.passparameters.ledger_name = $scope.props.ledger_name;
+            localStorageService.set("ledger_ltype", $scope.props.ledger_ltype)
+            $rootScope.ledger_ltype = $scope.props.ledger_ltype;
+            dataMove.setmonthwiseData($scope.passparameters);
+        }
+        $scope.passparameters.monthwise = true;
         $state.go("voucher");
-        localStorageService.set("ledger_ltype", $scope.props.ledger_ltype)
-        $rootScope.ledger_ltype = $scope.props.ledger_ltype;
 
         $rootScope.fromdate1 = monthyear + '-' + '01';
         $rootScope.today1 = monthyear + '-' + numberofdays;
@@ -331,8 +377,5 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 months.indexOf(b.monthName);
         });
     }
-    $scope.addPreviousMonthBalncetoCurrent = function() {
-
-
-    }
+    $scope.addPreviousMonthBalncetoCurrent = function() {}
 });

@@ -78,23 +78,29 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
         var data = { "v_id": $scope.props.vocher_id };
         $scope.loading = true;
         var success = function(result) {
+
             console.log("date in obdata" + JSON.stringify(result.data));
             $scope.loading = false;
-            $scope.vocherdetailsdata = result.data;
-            var totalAmt = 0;
-            for (var k = 0; k < $scope.vocherdetailsdata.GLines.length; k++) {
-                totalAmt = totalAmt + $scope.vocherdetailsdata.GLines[k].amount;
-            }
-            $scope.vocherdetailsdata.totalAmount = totalAmt.toFixed(2);
-            $scope.images = [];
-            if (result.data.attachments !== undefined) {
-                for (var i = 0; i < result.data.attachments.length; i++) {
-                    if (result.data.attachments[i].type === "image" || result.data.attachments[i].type === "signature" || result.data.attachments[i].type === "voice" || result.data.attachments[i].type === "file") {
-                        $scope.images.push(result.data.attachments[i]);
+            if (result.data.error === undefined) {
+                $scope.vocherdetailsdata = result.data;
+                var totalAmt = 0;
+                for (var k = 0; k < $scope.vocherdetailsdata.GLines.length; k++) {
+                    totalAmt = totalAmt + $scope.vocherdetailsdata.GLines[k].amount;
+                }
+                $scope.vocherdetailsdata.totalAmount = totalAmt.toFixed(2);
+                $scope.images = [];
+                if (result.data.attachments !== undefined) {
+                    for (var i = 0; i < result.data.attachments.length; i++) {
+                        if (result.data.attachments[i].type === "image" || result.data.attachments[i].type === "signature" || result.data.attachments[i].type === "voice" || result.data.attachments[i].type === "file") {
+                            $scope.images.push(result.data.attachments[i]);
+                        }
                     }
                 }
+                $('#tslshow').width($scope.images.length * 100 + 100);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            $('#tslshow').width($scope.images.length * 100 + 100);
         }
         var error = function(result) {
             $scope.loading = false;
@@ -106,7 +112,11 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
     }
     $scope.getallgroupdate = function() {
         $scope.props = {};
-        $scope.props = dataMove.getvoucherData();
+        if ($rootScope.isSearched) {
+            $scope.props = dataMove.getsearchvoucherData();
+        } else {
+            $scope.props = dataMove.getvoucherData();
+        }
         $scope.getallvoucherdetails();
     }
     $scope.getallgroupdate();

@@ -611,7 +611,7 @@ body {
 }
 
 .transaction-ledgers-align {
-    text-align: justify;
+    text-align: left;
 }
 
 .tabs li.active a,

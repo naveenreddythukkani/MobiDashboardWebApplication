@@ -42,19 +42,30 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
             $("#success-alert").removeClass('in');
         });
     }
+    $scope.savedates = function() {
+        $scope.datesObj = {};
+        $scope.datesObj.today1 = $rootScope.today1;
+        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
+        $scope.datesObj.startdate1 = $rootScope.startdate1;
+        dataMove.setdatesData($scope.datesObj);
+    }
     $scope.clearlocalstorage = function() {
-        localStorageService.remove("subgroupData");
-        dataMove.setsubgroupdata({});
+        if ($rootScope.isSearched) {
+            dataMove.setsearchsubgroupData({});
+        } else {
+            localStorageService.remove("subgroupData");
+            dataMove.setsubgroupdata({});
 
-        localStorageService.remove("ledger");
-        dataMove.setledgerData({})
+            localStorageService.remove("ledger");
+            dataMove.setledgerData({})
 
-        dataMove.getcontrolledgerData({});
-        localStorageService.remove("controlledger");
+            dataMove.getcontrolledgerData({});
+            localStorageService.remove("controlledger");
 
-        dataMove.setvoucherData({});
-        localStorageService.remove("voucherData");
-        $rootScope.getlocalstoredata();
+            dataMove.setvoucherData({});
+            localStorageService.remove("voucherData");
+            $rootScope.getlocalstoredata();
+        }
     }
     $scope.clearlocalstorage();
     $scope.subledgerreport = function() {
@@ -91,7 +102,11 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
     }
     $scope.getallgroupdate = function() {
         $scope.props = {};
-        $scope.props = dataMove.getgroupdata();
+        if ($rootScope.isSearched) {
+            $scope.props = dataMove.getsearchgroupData();
+        } else {
+            $scope.props = dataMove.getgroupdata();
+        }
         $scope.datesObj = {};
         $scope.datesObj = dataMove.getdatesData();
         $rootScope.today1 = $scope.datesObj.today1;
@@ -147,31 +162,29 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
             $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
             console.log("$rootScope.startdate = " + $rootScope.startdate);
         }
+        $scope.savedates();
         $scope.subledgerreport();
     }
     $scope.getallgroupdate();
     $scope.ledgerElements = function(rootname, rootgroupname, subgroupname, subgroupamount, ledgergroup_id, rootgroupid) {
-        // if ($rootScope.isSearched)
-        //     $rootScope.searchObjs.push({ "id": ledgergroup_id, "name": subgroupname, "screen": "ledger" });
-
-        $scope.passparameters.root_name = rootname;
-        $scope.passparameters.group_name = rootgroupname;
-        $scope.passparameters.subgroup_name = subgroupname;
-        $scope.passparameters.subgroup_amount = subgroupamount;
-        $scope.passparameters.ledgergroup_id = ledgergroup_id;
-        $scope.passparameters.rootgroup_id = rootgroupid;
-        $scope.passparameters.today = $rootScope.today;
-        $scope.passparameters.subgrouplevel = true;
-        $scope.datesObj = {};
-        $scope.datesObj.today1 = $rootScope.today1;
-        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
-        $scope.datesObj.startdate1 = $rootScope.startdate1;
-        dataMove.setdatesData($scope.datesObj);
-
-        dataMove.setsubgroupdata($scope.passparameters);
-
+        if ($rootScope.isSearched) {
+            // $rootScope.searchObjs.push({ "id": ledgergroup_id, "name": subgroupname, "screen": "ledger" });
+            $scope.passparameters.ledgergroup_id = ledgergroup_id;
+            $scope.passparameters.subgroup_name = subgroupname;
+            $scope.passparameters.subgrouplevel = true;
+            dataMove.setsearchsubgroupData($scope.passparameters);
+        } else {
+            $scope.passparameters.root_name = rootname;
+            $scope.passparameters.group_name = rootgroupname;
+            $scope.passparameters.subgroup_name = subgroupname;
+            $scope.passparameters.subgroup_amount = subgroupamount;
+            $scope.passparameters.ledgergroup_id = ledgergroup_id;
+            $scope.passparameters.rootgroup_id = rootgroupid;
+            $scope.passparameters.today = $rootScope.today;
+            $scope.passparameters.subgrouplevel = true;
+            dataMove.setsubgroupdata($scope.passparameters);
+        }
+        $scope.savedates();
         $state.go("ledger");
-
     };
-
 });

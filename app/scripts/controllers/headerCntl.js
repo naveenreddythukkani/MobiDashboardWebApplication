@@ -246,7 +246,6 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $('#selectdatevoucher').modal('show');
         $('#fromdateidvoucher').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
         $('#todateidvoucher').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
-
     }
 
     $scope.removealllocalstorage = function() {
@@ -274,7 +273,29 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $state.go('search');
     }
     $scope.backButtonAction = function() {
-        $window.history.back();
+        if (!$rootScope.isSearched) {
+            if ($state.current.name === "balancesheet") {
+                $state.go('location');
+            } else if ($state.current.name === "subledgersgroup") {
+                $state.go('balancesheet');
+            } else if ($state.current.name === "ledger") {
+                $state.go('subledgersgroup');
+            } else if ($state.current.name === "controlledger") {
+                $state.go('ledger');
+            } else if ($state.current.name === "monthWise") {
+                if ($scope.controlledgerData) {
+                    $state.go('controlledger');
+                } else {
+                    $state.go('ledger');
+                }
+            } else if ($state.current.name === "voucher") {
+                $state.go('monthWise');
+            } else if ($state.current.name === "voucherdetails") {
+                $state.go('voucher');
+            }
+        } else {
+            $window.history.back();
+        }
     }
 });
 

@@ -120,19 +120,19 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             $scope.passparameters.rootname = "";
             $scope.passparameters.ledgergroupid = id;
             $scope.passparameters.today = $rootScope.today;
-            dataMove.setgroupdata($scope.passparameters)
+            dataMove.setsearchgroupData($scope.passparameters)
             $state.go("subledgersgroup");
         } else if (type == "U") {
             $scope.passparameters.subgroup_name = name;
             $scope.passparameters.ledgergroup_id = id;
-            dataMove.setsubgroupdata($scope.passparameters)
+            dataMove.setsearchsubgroupData($scope.passparameters)
             $state.go("ledger");
         } else if (type == "S") {
             ltypeledgerstatus = true;
             $scope.passparameters.ledger_name = name;
             $scope.passparameters.ledger_id = id;
             $scope.passparameters.ledger_ltype = type;
-            dataMove.setledgerData($scope.passparameters);
+            dataMove.setsearchledgerData($scope.passparameters);
             $state.go("controlledger");
         } else if (type == "E") {
             ltypeledgerstatus = true;
@@ -142,7 +142,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             $scope.passparameters.ledger_ltype = "S";
             $rootScope.ledger_ltype = "S";
             localStorageService.set("ledger_ltype", $rootScope.ledger_ltype)
-            dataMove.setcontrolledgerData($scope.passparameters)
+            dataMove.setsearchcontrolledgerData($scope.passparameters)
             $state.go("voucher");
         } else if (type != "R") {
             ltypeledgerstatus = false;
@@ -151,13 +151,17 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             $scope.passparameters.ledger_ltype = type;
             localStorageService.set("ledger_ltype", type)
             $rootScope.ledger_ltype = type;
-            dataMove.setcontrolledgerData($scope.passparameters)
+            dataMove.setsearchcontrolledgerData($scope.passparameters)
             $state.go("voucher");
         }
     };
     $scope.backButtonAction = function() {
+        dataMove.setsearchcontrolledgerData({});
+        dataMove.setsearchledgerData({});
+        dataMove.setsearchgroupData({});
+        dataMove.setsearchsubgroupData({});
+        dataMove.setsearchvoucherData({});
+        dataMove.setsearchmonthwiseData({});
         $window.history.back();
     }
-
-
 });

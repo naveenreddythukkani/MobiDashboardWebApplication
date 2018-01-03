@@ -55,7 +55,11 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
         $scope.passparameters.vocher_id = vocherid;
         $scope.passparameters.tx_type = tx_type;
         $scope.passparameters.voucher = true;
-        dataMove.setvoucherData($scope.passparameters);
+        if ($rootScope.isSearched) {
+            dataMove.setsearchvoucherData($scope.passparameters);
+        } else {
+            dataMove.setvoucherData($scope.passparameters);
+        }
         $state.go("voucherdetails");
     };
     /* ltype='L' */
@@ -69,40 +73,45 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                console.log(JSON.stringify(result));
-                $scope.obalance = result.data.obdata;
-                var voucher_data = result.data.obdata;
-                console.log(JSON.stringify(voucher_data));
-                console.log(voucher_data.length);
-                $scope.voucherdetails = [];
-                for (var i = 0; i < voucher_data.length; i++) {
-                    $scope.voucherdetails.push(voucher_data[i]);
-                }
-                console.log(JSON.stringify($scope.voucherdetails));
-                for (var j = 0; j < $scope.voucherdetails.length; j++) {
-                    var dataset = $scope.voucherdetails[j].data;
-                    var totalAmt = 0;
-                    for (var k = 0; k < dataset.length; k++) {
-                        totalAmt = totalAmt + dataset[k].amount;
+                if (result.data.error === undefined) {
+                    console.log(JSON.stringify(result));
+                    $scope.obalance = result.data.obdata;
+                    var voucher_data = result.data.obdata;
+                    console.log(JSON.stringify(voucher_data));
+                    console.log(voucher_data.length);
+                    $scope.voucherdetails = [];
+                    for (var i = 0; i < voucher_data.length; i++) {
+                        $scope.voucherdetails.push(voucher_data[i]);
                     }
-                    if ($scope.voucherdetails[j].ob_amount == null) {
-                        $scope.voucherdetails[j].ob_amount = 0;
+                    console.log(JSON.stringify($scope.voucherdetails));
+                    for (var j = 0; j < $scope.voucherdetails.length; j++) {
+                        var dataset = $scope.voucherdetails[j].data;
+                        var totalAmt = 0;
+                        for (var k = 0; k < dataset.length; k++) {
+                            totalAmt = totalAmt + dataset[k].amount;
+                        }
+                        if ($scope.voucherdetails[j].ob_amount == null) {
+                            $scope.voucherdetails[j].ob_amount = 0;
+                        }
+                        if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
+                            $scope.voucherdetails.splice(j, 1);
+                            j--;
+                            continue;
+                        }
+                        totalAmt += $scope.voucherdetails[j].ob_amount;
+                        $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
+                        console.log('totalAmt == ' + totalAmt);
                     }
-                    if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
-                        $scope.voucherdetails.splice(j, 1);
-                        j--;
-                        continue;
+                    var amount = 0.0;
+                    for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                        amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
                     }
-                    totalAmt += $scope.voucherdetails[j].ob_amount;
-                    $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
-                    console.log('totalAmt == ' + totalAmt);
+                    $scope.ledger_amt = parseFloat(amount).toFixed(2);
+                    console.log(JSON.stringify($scope.voucherdetails));
+                } else {
+                    $scope.msg = result.data.error.message;
+                    $scope.addremovealert();
                 }
-                var amount = 0.0;
-                for (var i = 0; i < $scope.voucherdetails.length; i++) {
-                    amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
-                }
-                $scope.ledger_amt = parseFloat(amount).toFixed(2);
-                console.log(JSON.stringify($scope.voucherdetails));
             }
             var error = function(data) {
                 $scope.loading = false;
@@ -117,38 +126,43 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                $scope.obalance = result.data;
-                var voucher_data = result.data;
-                $scope.voucherdetails = [];
-                for (var i = 0; i < voucher_data.data.length; i++) {
-                    $scope.voucherdetails.push(voucher_data.data[i]);
-                }
-                console.log(JSON.stringify($scope.voucherdetails));
-                Array.prototype.sum = function(prop) {
-                    var total = 0;
-                    for (var i = 0, _len = this.length; i < _len; i++) {
-                        total += this[i][prop];
+                if (result.data.error === undefined) {
+                    $scope.obalance = result.data;
+                    var voucher_data = result.data;
+                    $scope.voucherdetails = [];
+                    for (var i = 0; i < voucher_data.data.length; i++) {
+                        $scope.voucherdetails.push(voucher_data.data[i]);
                     }
-                    return total;
-                };
-                console.log(typeof($scope.voucherdetails.sum("amount")));
-                console.log(JSON.stringify(result.data.ob_amt));
-                if (result.data.ob_amt == null) {
-                    console.log("Called");
-                    result.data.ob_amt = 0;
+                    console.log(JSON.stringify($scope.voucherdetails));
+                    Array.prototype.sum = function(prop) {
+                        var total = 0;
+                        for (var i = 0, _len = this.length; i < _len; i++) {
+                            total += this[i][prop];
+                        }
+                        return total;
+                    };
+                    console.log(typeof($scope.voucherdetails.sum("amount")));
+                    console.log(JSON.stringify(result.data.ob_amt));
+                    if (result.data.ob_amt == null) {
+                        console.log("Called");
+                        result.data.ob_amt = 0;
+                    }
+                    if (result.data.ob_amt == 0) {
+                        $scope.vouchershowindividualstatus = true;
+                    }
+                    if (voucher_data.length == 0 && result.data.ob_amt == 0) {
+                        $cordovaToast.show("No data found", "long", "bottom").then(function(success) {
+                            console.log("The toast was shown");
+                        }, function(error) {
+                            console.log("The toast was not shown due to " + error);
+                        });
+                    }
+                    $scope.balanceamount = (result.data.ob_amt + $scope.voucherdetails.sum("amount")).toFixed(2);
+                    $scope.ledger_amt = $scope.balanceamount;
+                } else {
+                    $scope.msg = result.data.error.message;
+                    $scope.addremovealert();
                 }
-                if (result.data.ob_amt == 0) {
-                    $scope.vouchershowindividualstatus = true;
-                }
-                if (voucher_data.length == 0 && result.data.ob_amt == 0) {
-                    $cordovaToast.show("No data found", "long", "bottom").then(function(success) {
-                        console.log("The toast was shown");
-                    }, function(error) {
-                        console.log("The toast was not shown due to " + error);
-                    });
-                }
-                $scope.balanceamount = (result.data.ob_amt + $scope.voucherdetails.sum("amount")).toFixed(2);
-                $scope.ledger_amt = $scope.balanceamount;
             }
             var error = function(result) {
                 $scope.loading = false;
@@ -170,40 +184,45 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                console.log(JSON.stringify(result.data));
-                $scope.obalance = result.data.obdata;
-                var voucher_data = result.data.obdata;
-                console.log(JSON.stringify(voucher_data));
-                console.log(voucher_data.length);
-                $scope.voucherdetails = [];
-                for (var i = 0; i < voucher_data.length; i++) {
-                    $scope.voucherdetails.push(voucher_data[i]);
-                }
-                console.log(JSON.stringify($scope.voucherdetails));
-                for (var j = 0; j < $scope.voucherdetails.length; j++) {
-                    var dataset = $scope.voucherdetails[j].data;
-                    var totalAmt = 0;
-                    for (var k = 0; k < dataset.length; k++) {
-                        totalAmt = totalAmt + dataset[k].amount;
+                if (result.data.error === undefined) {
+                    console.log(JSON.stringify(result.data));
+                    $scope.obalance = result.data.obdata;
+                    var voucher_data = result.data.obdata;
+                    console.log(JSON.stringify(voucher_data));
+                    console.log(voucher_data.length);
+                    $scope.voucherdetails = [];
+                    for (var i = 0; i < voucher_data.length; i++) {
+                        $scope.voucherdetails.push(voucher_data[i]);
                     }
-                    if ($scope.voucherdetails[j].ob_amount == null) {
-                        $scope.voucherdetails[j].ob_amount = 0;
+                    console.log(JSON.stringify($scope.voucherdetails));
+                    for (var j = 0; j < $scope.voucherdetails.length; j++) {
+                        var dataset = $scope.voucherdetails[j].data;
+                        var totalAmt = 0;
+                        for (var k = 0; k < dataset.length; k++) {
+                            totalAmt = totalAmt + dataset[k].amount;
+                        }
+                        if ($scope.voucherdetails[j].ob_amount == null) {
+                            $scope.voucherdetails[j].ob_amount = 0;
+                        }
+                        if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
+                            $scope.voucherdetails.splice(j, 1);
+                            j--;
+                            continue;
+                        }
+                        totalAmt += $scope.voucherdetails[j].ob_amount;
+                        $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
+                        console.log('totalAmt == ' + totalAmt);
                     }
-                    if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
-                        $scope.voucherdetails.splice(j, 1);
-                        j--;
-                        continue;
+                    var amount = 0.0;
+                    for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                        amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
                     }
-                    totalAmt += $scope.voucherdetails[j].ob_amount;
-                    $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
-                    console.log('totalAmt == ' + totalAmt);
+                    $scope.ledger_amt = parseFloat(amount).toFixed(2);
+                    console.log(JSON.stringify($scope.voucherdetails));
+                } else {
+                    $scope.msg = result.data.error.message;
+                    $scope.addremovealert();
                 }
-                var amount = 0.0;
-                for (var i = 0; i < $scope.voucherdetails.length; i++) {
-                    amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
-                }
-                $scope.ledger_amt = parseFloat(amount).toFixed(2);
-                console.log(JSON.stringify($scope.voucherdetails));
             }
             var error = function(result) {
                 $scope.loading = false;
@@ -220,38 +239,43 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                $scope.obalance = result.data;
-                var voucher_data = result.data;
-                $scope.voucherdetails = [];
-                for (var i = 0; i < voucher_data.data.length; i++) {
-                    $scope.voucherdetails.push(voucher_data.data[i]);
-                }
-                console.log(JSON.stringify($scope.voucherdetails));
-                Array.prototype.sum = function(prop) {
-                    var total = 0;
-                    for (var i = 0, _len = this.length; i < _len; i++) {
-                        total += this[i][prop];
+                if (result.data.error === undefined) {
+                    $scope.obalance = result.data;
+                    var voucher_data = result.data;
+                    $scope.voucherdetails = [];
+                    for (var i = 0; i < voucher_data.data.length; i++) {
+                        $scope.voucherdetails.push(voucher_data.data[i]);
                     }
-                    return total;
-                };
-                console.log(typeof($scope.voucherdetails.sum("amount")));
-                console.log(JSON.stringify(result.data.ob_amt));
-                if (result.data.ob_amt == null) {
-                    console.log("Called");
-                    data.ob_amt = 0;
+                    console.log(JSON.stringify($scope.voucherdetails));
+                    Array.prototype.sum = function(prop) {
+                        var total = 0;
+                        for (var i = 0, _len = this.length; i < _len; i++) {
+                            total += this[i][prop];
+                        }
+                        return total;
+                    };
+                    console.log(typeof($scope.voucherdetails.sum("amount")));
+                    console.log(JSON.stringify(result.data.ob_amt));
+                    if (result.data.ob_amt == null) {
+                        console.log("Called");
+                        data.ob_amt = 0;
+                    }
+                    if (result.data.ob_amt == 0) {
+                        $scope.vouchershowindividualstatus = true;
+                    }
+                    if (voucher_data.data.length == 0 && result.data.ob_amt == 0) {
+                        // $cordovaToast.show("No data found", "long", "bottom").then(function(success) {
+                        //     console.log("The toast was shown");
+                        // }, function(error) {
+                        //     console.log("The toast was not shown due to " + error);
+                        // });
+                    }
+                    $scope.balanceamount = (result.data.ob_amt + $scope.voucherdetails.sum("amount")).toFixed(2);
+                    $scope.ledger_amt = $scope.balanceamount;
+                } else {
+                    $scope.msg = result.data.error.message;
+                    $scope.addremovealert();
                 }
-                if (result.data.ob_amt == 0) {
-                    $scope.vouchershowindividualstatus = true;
-                }
-                if (voucher_data.data.length == 0 && result.data.ob_amt == 0) {
-                    // $cordovaToast.show("No data found", "long", "bottom").then(function(success) {
-                    //     console.log("The toast was shown");
-                    // }, function(error) {
-                    //     console.log("The toast was not shown due to " + error);
-                    // });
-                }
-                $scope.balanceamount = (result.data.ob_amt + $scope.voucherdetails.sum("amount")).toFixed(2);
-                $scope.ledger_amt = $scope.balanceamount;
             }
             var error = function(result) {
                 $scope.loading = false;
@@ -276,35 +300,40 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            console.log("date in obdata" + JSON.stringify(result.data));
-            $scope.obalance = result.data.obdata;
-            var voucher_data = result.data.obdata;
-            $scope.voucherdetails = [];
-            for (var i = 0; i < voucher_data.length; i++) {
-                $scope.voucherdetails.push(voucher_data[i]);
-            }
-            for (var j = 0; j < $scope.voucherdetails.length; j++) {
-                var dataset = $scope.voucherdetails[j].data;
-                var totalAmt = 0;
-                for (var k = 0; k < dataset.length; k++) {
-                    totalAmt = totalAmt + dataset[k].amount;
+            if (result.data.error === undefined) {
+                console.log("date in obdata" + JSON.stringify(result.data));
+                $scope.obalance = result.data.obdata;
+                var voucher_data = result.data.obdata;
+                $scope.voucherdetails = [];
+                for (var i = 0; i < voucher_data.length; i++) {
+                    $scope.voucherdetails.push(voucher_data[i]);
                 }
-                if ($scope.voucherdetails[j].ob_amount == null) {
-                    $scope.voucherdetails[j].ob_amount = 0;
+                for (var j = 0; j < $scope.voucherdetails.length; j++) {
+                    var dataset = $scope.voucherdetails[j].data;
+                    var totalAmt = 0;
+                    for (var k = 0; k < dataset.length; k++) {
+                        totalAmt = totalAmt + dataset[k].amount;
+                    }
+                    if ($scope.voucherdetails[j].ob_amount == null) {
+                        $scope.voucherdetails[j].ob_amount = 0;
+                    }
+                    if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
+                        $scope.voucherdetails.splice(j, 1);
+                        j--;
+                        continue;
+                    }
+                    totalAmt += $scope.voucherdetails[j].ob_amount;
+                    $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
                 }
-                if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
-                    $scope.voucherdetails.splice(j, 1);
-                    j--;
-                    continue;
+                var amount = 0.0;
+                for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                    amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
                 }
-                totalAmt += $scope.voucherdetails[j].ob_amount;
-                $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
+                $scope.ltype_amt = parseFloat(amount).toFixed(2);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            var amount = 0.0;
-            for (var i = 0; i < $scope.voucherdetails.length; i++) {
-                amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
-            }
-            $scope.ltype_amt = parseFloat(amount).toFixed(2);
         }
         var error = function(result) {
             $scope.loading = false;
@@ -315,22 +344,36 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     }
 
     $scope.getallcontrolandledgerData = function() {
-        if ($rootScope.ledger_ltype === 'S') {
-            $scope.props = {};
-            $scope.props = dataMove.getcontrolledgerData();
-            $scope.getallglwisesubledger();
-        } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B') {
-            $scope.props = {};
-            $scope.props = dataMove.getledgerData();
-            $scope.getallCandBtypevoucher();
-        } else if ($rootScope.ledger_ltype == 'L') {
-            $scope.props = {};
-            $scope.props = dataMove.getledgerData();
-            $scope.getallltypevochers();
+        if ($rootScope.isSearched) {
+            if ($rootScope.ledger_ltype === 'S') {
+                $scope.props = {};
+                $scope.props = dataMove.getsearchcontrolledgerData();
+                $scope.getallglwisesubledger();
+            } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B') {
+                $scope.props = {};
+                $scope.props = dataMove.getsearchledgerData();
+                $scope.getallCandBtypevoucher();
+            } else if ($rootScope.ledger_ltype == 'L') {
+                $scope.props = {};
+                $scope.props = dataMove.getsearchledgerData();
+                $scope.getallltypevochers();
+            }
+        } else {
+            if ($rootScope.ledger_ltype === 'S') {
+                $scope.props = {};
+                $scope.props = dataMove.getcontrolledgerData();
+                $scope.getallglwisesubledger();
+            } else if ($rootScope.ledger_ltype == 'C' || $rootScope.ledger_ltype == 'B') {
+                $scope.props = {};
+                $scope.props = dataMove.getledgerData();
+                $scope.getallCandBtypevoucher();
+            } else if ($rootScope.ledger_ltype == 'L') {
+                $scope.props = {};
+                $scope.props = dataMove.getledgerData();
+                $scope.getallltypevochers();
+            }
         }
     }
-
-
     $rootScope.datescalculation = function() {
         if ($rootScope.today == undefined || $rootScope.today != $rootScope.today1) {
             $rootScope.today = $filter('date')(new Date(), 'yyyy-MM-dd');

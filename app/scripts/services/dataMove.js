@@ -48,7 +48,42 @@ MobiDash.service('dataMove', function(localStorageService) {
     this.getdatesData = function() {
         return localStorageService.get("alldates");
     };
-
+    this.setsearchgroupData = function(myData) {
+        localStorageService.set("searchgroupData", myData);
+    }
+    this.getsearchgroupData = function() {
+        return localStorageService.get("searchgroupData");
+    }
+    this.setsearchsubgroupData = function(myData) {
+        localStorageService.set("searchsubgroupData", myData);
+    }
+    this.getsearchsubgroupData = function() {
+        return localStorageService.get("searchsubgroupData");
+    }
+    this.setsearchledgerData = function(myData) {
+        localStorageService.set("searchledgerData", myData);
+    }
+    this.getsearchledgerData = function() {
+        return localStorageService.get("searchledgerData");
+    }
+    this.setsearchcontrolledgerData = function(myData) {
+        localStorageService.set("searchcontrolledgerData", myData);
+    }
+    this.getsearchcontrolledgerData = function() {
+        return localStorageService.get("searchcontrolledgerData");
+    }
+    this.setsearchmonthwiseData = function(myData) {
+        localStorageService.set("searchmonthwise", myData);
+    }
+    this.getsearchmonthwiseData = function() {
+        return localStorageService.get("searchmonthwise");
+    }
+    this.setsearchvoucherData = function(myData) {
+        localStorageService.set("searchvoucherData", myData);
+    };
+    this.getsearchvoucherData = function() {
+        return localStorageService.get("searchvoucherData");
+    };
 });
 
 

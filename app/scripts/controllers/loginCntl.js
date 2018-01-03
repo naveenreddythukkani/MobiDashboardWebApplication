@@ -65,7 +65,11 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
         }
         var error = function(result) {
             $scope.loading = false;
-            session.sessionexpried(result.status);
+            if (result.status === 401) {
+                $scope.errormessage = result.data.error.message;
+            } else {
+                session.sessionexpried(result.status);
+            }
 
         }
         $http.post(domain + api + 'raiseotp/', data)

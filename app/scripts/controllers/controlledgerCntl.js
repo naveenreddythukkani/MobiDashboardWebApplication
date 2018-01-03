@@ -45,6 +45,13 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
             $("#success-alert").removeClass('in');
         });
     }
+    $scope.savedates = function() {
+        $scope.datesObj = {};
+        $scope.datesObj.today1 = $rootScope.today1;
+        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
+        $scope.datesObj.startdate1 = $rootScope.startdate1;
+        dataMove.setdatesData($scope.datesObj);
+    }
     $scope.clearlocalstorage = function() {
         localStorageService.remove("controlledger");
         dataMove.getcontrolledgerData({});
@@ -88,7 +95,11 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
     }
     $scope.getallgroupdate = function() {
         $scope.props = {};
-        $scope.props = dataMove.getledgerData();
+        if ($rootScope.isSearched) {
+            $scope.props = dataMove.getsearchledgerData();
+        } else {
+            $scope.props = dataMove.getledgerData();
+        }
         $scope.datesObj = {};
         $scope.datesObj = dataMove.getdatesData();
         $rootScope.today1 = $scope.datesObj.today1;
@@ -145,26 +156,30 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
             $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
             console.log("$rootScope.startdate = " + $rootScope.startdate);
         }
+        $scope.savedates()
         $scope.controlledgerreport();
     }
     $scope.getallgroupdate();
     $scope.voucherSelection = function(ltype_name, ltype_amt, ledger_ltype, gl_id, sl_id, root_id) {
-        // if ($rootScope.isSearched)
-        //     $rootScope.searchObjs.push({ "id": sl_id, "name": ltype_name, "screen": "voucherdetails" });
-        $scope.passparameters.ltype_name = ltype_name;
-        $scope.passparameters.ltype_amt = ltype_amt;
-        $scope.passparameters.ledger_ltype = ledger_ltype;
-        $scope.passparameters.ledger_id = gl_id;
-        $scope.passparameters.sl_id = sl_id;
-        $scope.passparameters.ledger_id = $scope.props.ledger_id;
-        $scope.passparameters.controlledger = true;
-        $scope.datesObj = {};
-        $scope.datesObj.today1 = $rootScope.today1;
-        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
-        $scope.datesObj.startdate1 = $rootScope.startdate1;
-        dataMove.setdatesData($scope.datesObj);
-
-        dataMove.setcontrolledgerData($scope.passparameters);
+        if ($rootScope.isSearched) {
+            // $rootScope.searchObjs.push({ "id": sl_id, "name": ltype_name, "screen": "voucherdetails" });
+            $scope.passparameters.ltype_name = ltype_name;
+            $scope.passparameters.sl_id = sl_id;
+            $scope.passparameters.ledger_id = gl_id;
+            $scope.passparameters.ledger_ltype = ledger_ltype;
+            $scope.passparameters.controlledger = true;
+            dataMove.setsearchcontrolledgerData($scope.passparameters);
+        } else {
+            $scope.passparameters.ltype_name = ltype_name;
+            $scope.passparameters.ltype_amt = ltype_amt;
+            $scope.passparameters.ledger_ltype = ledger_ltype;
+            $scope.passparameters.ledger_id = gl_id;
+            $scope.passparameters.sl_id = sl_id;
+            $scope.passparameters.ledger_id = $scope.props.ledger_id;
+            $scope.passparameters.controlledger = true;
+            dataMove.setcontrolledgerData($scope.passparameters);
+        }
+        $scope.savedates()
         $state.go("monthWise");
         localStorageService.set("ledger_ltype", ledger_ltype)
         $rootScope.ledger_ltype = ledger_ltype;

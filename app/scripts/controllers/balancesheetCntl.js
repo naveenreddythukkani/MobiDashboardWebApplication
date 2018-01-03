@@ -45,6 +45,13 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
             $("#success-alert").removeClass('in');
         });
     }
+    $scope.savedates = function() {
+        $scope.datesObj = {};
+        $scope.datesObj.today1 = $rootScope.today1;
+        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
+        $scope.datesObj.startdate1 = $rootScope.startdate1;
+        dataMove.setdatesData($scope.datesObj);
+    }
     $scope.clearlocalstorage = function() {
         dataMove.setgroupdata({});
         dataMove.setsubgroupdata({});
@@ -54,6 +61,13 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
         dataMove.clearAlldata(["groupData", "subgroupData", "ledger", "controlledger", 'monthwise', "voucherData"]);
         $rootScope.getlocalstoredata();
         $rootScope.getalllocationinheader();
+        $scope.dateObj = {};
+        $scope.dateObj = dataMove.getdatesData();
+        if ($scope.dateObj) {
+            $rootScope.today1 = $scope.dateObj.today1;
+            $rootScope.fromdate1 = $scope.dateObj.fromdate1;
+            $rootScope.startdate1 = $scope.dateObj.startdate1;
+        }
     }
     $scope.clearlocalstorage();
     $rootScope.dashBoardReport = function() {
@@ -142,6 +156,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
             $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
             console.log("$rootScope.startdate = " + $rootScope.startdate);
         }
+        $scope.savedates();
         $rootScope.dashBoardReport();
     }
     $rootScope.datescalculation();
@@ -153,11 +168,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
         $scope.passparameters.today = $rootScope.today;
         $scope.passparameters.rootgroup_id = rootgroupid;
         $scope.passparameters.rootgroupdiff = rootgroupdiff;
-        $scope.datesObj = {};
-        $scope.datesObj.today1 = $rootScope.today1;
-        $scope.datesObj.fromdate1 = $rootScope.fromdate1;
-        $scope.datesObj.startdate1 = $rootScope.startdate1;
-        dataMove.setdatesData($scope.datesObj);
+        $scope.savedates();
         $scope.passparameters.grouplevel = true;
         dataMove.setgroupdata($scope.passparameters);
 

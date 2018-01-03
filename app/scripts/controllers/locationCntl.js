@@ -32,6 +32,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $scope.selectedUsers = [];
     $scope.selectedDaybooks = [];
     $scope.selectedLedgers = [];
+    $scope.transcationledgers = [];
     $scope.ledgers = [];
     $scope.daybooks = [];
     $scope.searchEnable = false;
@@ -736,17 +737,21 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         data.gl_id = array;
         var success = function(result) {
             $scope.loading = false;
-            if (result.data.error.code === 1105) {
+            if (result.data.error === undefined) {
+                $scope.msg = "ledgers unassigned to location successfull";
+                $scope.addremovealert();
+            } else if (result.data.error.code === 1105) {
                 var msgs = "";
                 angular.forEach(result.data.error.ledgers, function(item) {
-                    msgs = item;
+                    msgs = item.display_name;
                 })
-                $scope.errMsg = msgs + " have transactions for this location. Do you want to unlink ?";
+                $scope.errMsg = msgs;
                 $('#deleteledger').modal('show');
-            } else {
-                $scope.msg = "ledger unassinged to location is successful";
+            } else if (result.data.error.code === 4006) {
+                $scope.msg = result.data.error.message;
+                $scope.deleteNoAction();
+                $scope.addremovealert();
             }
-            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -757,7 +762,21 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             .then(success, error);
     }
     $scope.deleteNoAction = function() {
-
+        if ($scope.ledgerUnselectAll) {
+            angular.forEach($scope.selectedLedgers, function(item) {
+                // angular.forEach($scope.transcationledgers, function(tranc) {
+                //     if (tranc.id === item.id) {
+                item.select = true;
+                //     }
+                // })
+            })
+        } else {
+            angular.forEach($scope.selectedLedgers, function(item) {
+                if ($scope.deleteLedgerId === item.id) {
+                    item.select = true;
+                }
+            })
+        }
     }
     $scope.UpdateAllLedgerToLocation = function() {
         $scope.loading = true;
@@ -768,19 +787,28 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         var data = { "gl_id": array };
         var success = function(result) {
             $scope.loading = false;
-            if (result.data.error.code === 1105) {
-                var msgs = "";
-                angular.forEach(result.data.error.ledgers, function(item) {
-                    msgs = msgs.length > 0 ? msgs + ',' + item : msgs + item;
-                })
-                $scope.errMsg = msgs + " have transactions for this location. Do you want to unlink ?";
-                $('#deleteledger').modal('show');
-            } else {
+            if (result.data.error === undefined) {
                 if ($scope.ledgerselectall) {
-                    $scope.msg = "ledgers assinged to location is successful";
+                    $scope.msg = "ledgers assigned to location successfull";
                 } else {
-                    $scope.msg = "ledgers unassinged to location is successful";
+                    $scope.msg = "ledgers unassigned to location successfull";
                 }
+                $scope.addremovealert();
+            } else if (result.data.error.code === 1105) {
+                var msgs = "";
+                $scope.transcationledgers = result.data.error.ledgers;
+                angular.forEach(result.data.error.ledgers, function(item) {
+                    msgs = msgs.length > 0 ? msgs + ',' + item.display_name : msgs + item.display_name;
+                })
+                $scope.errMsg = msgs;
+                $('#deleteledger').modal('show');
+            } else if (result.data.error.code === 4006) {
+                if ($scope.ledgerselectall) {
+                    $scope.msg = result.data.error.message;
+                } else {
+                    $scope.msg = result.data.error.message;
+                }
+                $scope.addremovealert();
             }
         }
         var error = function(result) {
@@ -887,13 +915,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.errormessage = "Please enter valid email address";
             return true;
         }
-        if (data.gstin !== null && data.gstin !== undefined && (data.gstin.length > 0 && data.tan.length !== 15 && !$scope.gstinValidations(data.gstin))) {
+        if (data.gstin !== null && data.gstin !== undefined && (data.gstin.length > 0 && data.gstin.length === 15 && !$scope.gstinValidations(data.gstin))) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.gstin;
             $scope.errormessage = "Please enter valid gstin";
             return true;
         }
-        if (data.tan !== null && data.tan !== undefined && (data.tan.length > 0 && data.tan.length !== 10)) {
+        if (data.tan !== null && data.tan !== undefined && (data.tan.length > 0 && data.tan.length === 10 && !$scope.tanValidations(data.tan, data.gstin))) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.tan;
             $scope.errormessage = "Please enter valid tan";
@@ -908,6 +936,18 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $scope.gstinValidations = function(gstinVal) {
         var reggst = /^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([0-9]){1}?$/;
         return reggst.test(gstinVal);
+    }
+    $scope.tanValidations = function(tanVal, gstinVal) {
+        var reggst = /^([a-zA-Z]){4}([0-9]){5}([a-zA-Z]){1}?$/;
+        if (gstinVal !== null && gstinVal !== undefined && (gstinVal.length > 0 && gstinVal.length === 15 && !$scope.gstinValidations(gstinVal))) {
+            if (gstinVal.substr(5, 1) === tanVal.substr(3, 1)) {
+                return reggst.test(tanVal);
+            } else {
+                return false;
+            }
+        } else {
+            return reggst.test(tanVal);
+        }
     }
     $scope.locationhistoryshow = function(location) {
         $scope.loctionid = {};
@@ -942,6 +982,12 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $rootScope.findingpndlreport();
         localStorageService.set("location_id", user.id);
         localStorageService.set("location_name", user.display_name);
+        dataMove.setdatesData({})
+        $rootScope.isSearched = false;
+        localStorageService.set("isSearched", false);
+        $rootScope.today1 = undefined;
+        $rootScope.fromdate1 = undefined;
+        $rootScope.startdate1 = undefined;
         $state.go('balancesheet');
     }
 

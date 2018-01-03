@@ -573,9 +573,11 @@
         <!-- Modal content-->
         <div class="modal-content logout_modal_width ">
             <div class="modal-body text-center delete_modal ">
+                <h3>The following ledgers having transactions associated to this location</h3>
                 <h5 class="transaction-ledgers-align" ng-model="errMsg">{{errMsg}}</h5>
+                <h3>Do you want to unlink?</h3>
             </div>
-            <div class="modal-footer ">
+            <div class="modal-footer">
                 <div class="row ">
                     <div class="col-md-4 pull-right">
                         <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="deleteNoAction()">No</button>
