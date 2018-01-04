@@ -1,7 +1,7 @@
 var MobiDash = angular.module('mobiDashBoardApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.router', 'LocalStorageModule', 'ngTable']);
-MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $httpProvider, $sceProvider) {
+MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $httpProvider, $sceProvider, $locationProvider) {
     $sceProvider.enabled(false);
-    $urlRouterProvider.otherwise('/signup');
+    $urlRouterProvider.otherwise('login');
     $stateProvider
         .state('signup', {
             url: '/signup',
@@ -105,6 +105,8 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
             templateUrl: 'views/login.html',
             controller: "loginCntl"
         });
+    // $locationProvider.hashPrefix('')
+    // $locationProvider.html5Mode(true);
     $httpProvider.defaults.withCredentials = true;
     $httpProvider.defaults.headers.common['Accept'] = 'application/json;charset=utf-8';
     $httpProvider.defaults.headers.common['Content-Type'] = 'application/json; charset=utf-8';
@@ -141,6 +143,6 @@ var changeOnEnter = function(localStorageService, $state) {
         $state.go('login');
     }
 }
-MobiDash.constant("domain", "http://139.59.37.207/");
-MobiDash.constant("api", "act/api/");
+MobiDash.constant("domain", "http://api.mobibooks.in/"); //http://139.59.37.207/
+MobiDash.constant("api", "act/api/"); //
 MobiDash.constant("core", "act/core/");

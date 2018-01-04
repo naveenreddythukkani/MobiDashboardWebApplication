@@ -33,6 +33,7 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
     $scope.props = {};
     $scope.selectedUsers = [];
     $scope.createRole = {};
+    $scope.search_role = {};
     $scope.role_id = "";
     $scope.fields = {
         "none": 0,
@@ -70,6 +71,8 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $('#privileges').modal('hide');
         $scope.display_name = "";
         $scope.clearSearch();
+        $scope.field = '';
+        $scope.showerrormessage = false;
     }
     $scope.getAssinedusers = function() {
         $scope.loading = true;
@@ -150,7 +153,7 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
             if (result.data.error === undefined) {
                 $scope.getAllroles();
                 $("#userlist").modal('hide');
-                $scope.msg = "Users added to role successfully";
+                $scope.msg = "Users updated for role";
             } else {
                 $scope.msg = result.data.error.message;
             }
@@ -266,6 +269,8 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
     $scope.editcancelForm = function() {
         $("#editrole").modal('hide');
         $scope.display_name = "";
+        $scope.field = '';
+        $scope.showerrormessage = false;
     }
     $scope.deleteRole = function() {
         $scope.loading = true;

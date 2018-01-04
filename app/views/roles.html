@@ -19,9 +19,9 @@
                         <div class="dropdown">
                             <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-class="{'noevnts-actions': permissions()}">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
                             <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
-                                <li class="actionsmenu"><a data-toggle="modal" data-target="#editrole" ng-click="editRolewithexistingDetails(user)">Edit</a></li>
+                                <li class="actionsmenu" ng-class="{'noevntsparent': user.id===1}"><a ng-class="{'noevnts': user.id === 1}" data-toggle="modal" data-target="#editrole" ng-click="editRolewithexistingDetails(user)">Edit</a></li>
                                 <li class="actionsmenu"><a data-toggle="modal" data-target="#userlist" ng-click="getAllUsers(user.display_name,user.id)">Users</a> </li>
-                                <li class="actionsmenu"><a data-toggle="modal" data-target="#privileges" ng-click="getAllPrivileges(user.display_name,user.id)">Privileges</a></li>
+                                <li class="actionsmenu" ng-class="{'noevntsparent': user.id ===1}"><a ng-class="{'noevnts': user.id ===1}" data-toggle="modal" data-target="#privileges" ng-click="getAllPrivileges(user.display_name,user.id)">Privileges</a></li>
                                 <!-- <li class="actionsmenu"><a ng-click="removeRole(user)">Remove</a></li> -->
                                 <li class="actionsmenu"><a ng-click="roleshistoryshow(user)">History</a></li>
                             </ul>

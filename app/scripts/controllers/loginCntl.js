@@ -19,7 +19,15 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     $rootScope.showCompanyname = false;
     $rootScope.voucherstab = false;
 
+    $scope.passwordtext = "password";
 
+    $scope.showPassword = function() {
+        if ($scope.passwordtext === "password") {
+            $scope.passwordtext = "text";
+        } else {
+            $scope.passwordtext = "password";
+        }
+    };
     $scope.user = {};
     if ($rootScope.fromlogin) {
         $rootScope.fromlogin = false;

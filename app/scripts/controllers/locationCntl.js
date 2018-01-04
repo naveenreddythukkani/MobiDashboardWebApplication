@@ -264,6 +264,8 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.clearSearchfordaybooks();
         $scope.clearSearchforldgers();
         $scope.clearSearchforuser();
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.editcancelForm = function() {
         $scope.props = {};
@@ -271,6 +273,8 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         // $('#editdaybook-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         // $('#editledger-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         $("#edit_location").modal('hide');
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.addingLocation = function() {
         // $scope.props.user_id = $scope.users;
@@ -467,7 +471,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
-                $scope.msg = "Users assinged to location is successful";
+                $scope.msg = "Users updated for location";
             } else {
                 $scope.msg = result.data.error.message;
             }
@@ -592,7 +596,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.loading = false;
             $("#daybooks").modal('hide');
             if (result.data.error === undefined) {
-                $scope.msg = "Daybooks assinged to location is successful";
+                $scope.msg = "Daybooks updated for location";
             } else {
                 $scope.msg = result.data.error.message;
             }

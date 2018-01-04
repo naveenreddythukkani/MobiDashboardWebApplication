@@ -136,12 +136,16 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         // $('#location-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         $scope.resetForm();
         $scope.clearSearch();
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.editcancelForm = function() {
         $("#edit_user").modal('hide');
         // $('#editroles-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         // $('#editlocation-multiselctDropDown').multiselect("deselectAll", false).multiselect("refresh");
         $scope.resetForm();
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.resetForm = function() {
         $scope.props = {};
@@ -354,8 +358,12 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         var data = { "location_id": array };
         var success = function(result) {
             $scope.loading = false;
+            if (result.data.error === undefined) {
+                $scope.msg = "Locations updated for User";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $("#locations").modal('hide');
-            $scope.msg = "Locations assinged to User is successful";
             $scope.addremovealert();
             $scope.getAllUsers();
         }
@@ -456,7 +464,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
-                $scope.msg = "Roles assinged to User is successful";
+                $scope.msg = "Roles updated for User";
             } else {
                 $scope.msg = result.data.error.message;
             }

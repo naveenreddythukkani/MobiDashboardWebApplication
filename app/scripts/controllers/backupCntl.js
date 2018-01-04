@@ -199,6 +199,8 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
     }
     $scope.cancelForm = function() {
         $("#add_client").modal('hide');
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.addCompanys = function() {
         $scope.clientdata.company_name = $scope.props.company_name;

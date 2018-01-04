@@ -215,7 +215,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.cancelForm();
             $scope.loadmsg = true;
             if (result.data.error === undefined) {
-                $scope.msg = "Company created successfully";
+                $scope.msg = "Creating a company , Please click on refresh button after few minutes";
             } else {
                 $scope.msg = result.data.error.message;
             }
@@ -280,10 +280,14 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $scope.cancelForm = function() {
         $scope.resetForm();
         $("#add_client").modal('hide');
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.editcancelForm = function() {
         $scope.resetForm();
         $("#edit_client").modal('hide');
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
     $scope.resetForm = function() {
         $scope.props = {};

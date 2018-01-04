@@ -41,6 +41,11 @@ body {
     background-color: #FFFFCC;
 }
 
+.eye-icon-position-login {
+    margin-top: -24px;
+    margin-right: 12px;
+}
+
 #add_location .modal-dialog,
 #edit_location .modal-dialog {
     width: 55%;

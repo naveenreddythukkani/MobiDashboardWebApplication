@@ -184,6 +184,8 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
         $scope.clearScopeData();
         $("#editvochertype").modal('hide');
         $("#addvochertype").modal('hide');
+        $scope.field = "";
+        $scope.showerrormessage = false;
     }
 
     $scope.voucherHistoryShow = function(voucher) {

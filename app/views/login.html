@@ -20,7 +20,9 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">
-                            <input type="password" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Enter password" required="required" ng-minlength="4" ng-change="editingfields()" ng-blur="validationpasswordblur(user.password)">
+                            <input type="{{passwordtext}}" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Enter password" required="required" ng-minlength="4" ng-change="editingfields()" ng-blur="validationpasswordblur(user.password)">
+                            <span class="glyphicon glyphicon-eye-open pull-right eye-icon-position-login" ng-click="showPassword()" ng-if="passwordtext==='password'"></span>
+                            <span class="glyphicon glyphicon-eye-close pull-right eye-icon-position-login" ng-click="showPassword()" ng-if="passwordtext==='text'"></span>
                         </div>
                     </div>
                     <div ng-show="passworderror" class="col-md-12 no-padding-hr form-group">
