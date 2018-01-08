@@ -41,6 +41,9 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
+            $timeout(function() {
+                $('[name="tenant_name"]').focus();
+            }, 50);
         }
     }
     $scope.fields = {

@@ -103,6 +103,9 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
+            $timeout(function() {
+                $('[name="tenant_name"]').focus();
+            }, 50);
         }
     }
     $scope.hideSideMenu = function(index) {

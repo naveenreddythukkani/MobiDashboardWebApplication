@@ -69,6 +69,10 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
+            $timeout(function() {
+                $('[name="username"]').focus();
+            }, 50);
+
         }
     }
     $rootScope.addUser = function() {

@@ -3,7 +3,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
 
     $scope.logintabbottom = false;
     $rootScope.locat = {};
-    $scope.balancesheetarry = ["Balance sheet", "Profit & Loss"]
+    $scope.balancesheetarry = ["Profit & Loss", "Balance sheet"]
     $rootScope.locationsListinheader = [];
     $scope.props = {};
     $scope.Object = Object;

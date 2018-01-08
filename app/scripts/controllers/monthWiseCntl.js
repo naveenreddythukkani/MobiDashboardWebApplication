@@ -105,7 +105,8 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 var firstindexdata = parseFloat($scope.mothwisedata[0].amount);
                 $scope.mothwisedata[0].amount = firstindexdata + obamount;
                 for (var i = 1; i < $scope.mothwisedata.length; i++) {
-                    $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+                    var amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+                    $scope.mothwisedata[i].amount = parseFloat(amount).toFixed(2);
                 }
                 $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
             } else {
@@ -151,7 +152,8 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 var firstindexdata = parseFloat($scope.mothwisedata[0].amount);
                 $scope.mothwisedata[0].amount = firstindexdata + obamount;
                 for (var i = 1; i < $scope.mothwisedata.length; i++) {
-                    $scope.mothwisedata[i].amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+                    var amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
+                    $scope.mothwisedata[i].amount = parseFloat(amount).toFixed(2);
                 }
                 $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
             } else {

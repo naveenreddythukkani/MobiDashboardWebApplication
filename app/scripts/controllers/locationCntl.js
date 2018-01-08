@@ -228,6 +228,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
+            $timeout(function() {
+                $('[name="display_name"]').focus();
+            }, 50);
         }
     }
     $scope.getAllLoations = function() {
@@ -981,7 +984,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $rootScope.location_id = user.id;
         $rootScope.location_name = user.display_name;
         $rootScope.locat.display_name = user.display_name;
-        $rootScope.balnc = "Balance sheet";
+        $rootScope.balnc = "Profit & Loss";
         localStorageService.set("balnc", $rootScope.balnc);
         $rootScope.findingpndlreport();
         localStorageService.set("location_id", user.id);

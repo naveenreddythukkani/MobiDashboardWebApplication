@@ -67,6 +67,9 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
+            $timeout(function() {
+                $('[name="vou_type"]').focus();
+            }, 50);
         }
     }
 

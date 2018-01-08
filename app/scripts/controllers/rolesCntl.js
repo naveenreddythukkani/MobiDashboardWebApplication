@@ -56,6 +56,9 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
+            $timeout(function() {
+                $('[name="display_name"]').focus();
+            }, 50);
         }
     }
     $rootScope.addRole = function() {
