@@ -1138,3 +1138,98 @@ td {
     display: table-cell;
     vertical-align: middle;
 }
+
+.header-middle-adjust {
+    width: 70% !important;
+    margin: 0 auto;
+}
+
+
+/* media query for mobile Ui */
+
+@media screen and (max-width:416px) {
+    .table-container-width {
+        width: 90% !important;
+    }
+    .down-up-arrows {
+        font-size: 10px;
+        padding-left: 3px;
+        display: inline;
+    }
+    .header-middle-adjust {
+        width: 90% !important;
+        margin: 0 auto !important;
+    }
+    .header-tabs-login {
+        height: 25px;
+        width: 90% !important;
+        margin: 0 auto !important;
+    }
+    .margin-content-top {
+        margin-top: 0px;
+    }
+    .table_container {
+        margin-top: 0px;
+    }
+}
+
+
+/* mobile csss */
+
+.m-font-size-logo {
+    font-size: 34px;
+    margin: 5px !important;
+}
+
+.m-font-size-companyName {
+    font-size: 21px;
+}
+
+.m-list-align-left {
+    margin-left: 10px;
+}
+
+.m-header-background {
+    background-color: #1fa9cc;
+    height: 50px;
+    margin-top: 0px !important;
+    margin-bottom: 15px;
+}
+
+.m-header-text-color {
+    color: #fff;
+}
+
+.m-main-field {
+    display: block;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #1fa9cc !important;
+    font-size: 23px;
+}
+
+.m-custom-content-border {
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.m-sub-field {
+    font-size: 16px;
+}
+
+#m-logo {
+    vertical-align: top;
+}
+
+.m-phoneNumber {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.m-header-fixed {
+    padding: 0px;
+    margin: 0px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}

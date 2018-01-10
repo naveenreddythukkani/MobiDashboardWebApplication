@@ -1,7 +1,7 @@
 <div id="login" class="container">
     <div class="row row_center">
         <div class="col-md-12">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-4 col-xs-12 col-sm-12">
                 <div class="text-center">
                     <img style="width:200px" src="images/loginPicture.png" />
                 </div>
@@ -11,7 +11,7 @@
                 </div>
                 <form name="loginForm" role="form" ng-submit="loginForm.$valid && false" novalidate class="login_container">
                     <div class="row form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
                             <input type="text" class="form-control" name="mobile" placeholder="Enter Mobile Number" autofocus ng-model="user.mobile" required="required" ng-change="editingfields()" minlength="10" maxlength="10" ng-blur="validationsonblur(user.mobile)" mobile-validation>
                         </div>
                     </div>
@@ -19,27 +19,27 @@
                         <span style="color:#EF5F5F">{{mobileerrormessage}}</span>
                     </div>
                     <div class="row form-group">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-xs-12 col-sm-12">
                             <input type="{{passwordtext}}" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Enter password" required="required" ng-minlength="4" ng-change="editingfields()" ng-blur="validationpasswordblur(user.password)">
                             <span class="glyphicon glyphicon-eye-open pull-right eye-icon-position-login" ng-click="showPassword()" ng-if="passwordtext==='password'"></span>
                             <span class="glyphicon glyphicon-eye-close pull-right eye-icon-position-login" ng-click="showPassword()" ng-if="passwordtext==='text'"></span>
                         </div>
                     </div>
-                    <div ng-show="passworderror" class="col-md-12 no-padding-hr form-group">
+                    <div ng-show="passworderror" class="col-md-12 col-xs-12 col-sm-12 no-padding-hr form-group">
                         <span style="color:#EF5F5F">{{passworderrormessage}}</span>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 col-xs-12 col-sm-12 text-center">
                             <button type="submit" class="btn login-button background-defalt" ng-click="clientLogin()">Login</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 col-xs-12 col-sm-12 text-center">
                             <p ng-click="raiseotpmethod()"><a class="resetpassword">Reset password</a></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 col-xs-12 col-sm-12 text-center">
                             <p ng-click="gotosignup()"><a class="resetpassword">Don't have account?</a></p>
                         </div>
                     </div>

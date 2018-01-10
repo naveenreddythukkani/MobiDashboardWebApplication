@@ -11,6 +11,7 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     $rootScope.logintab = false;
     $rootScope.patnerstab = false;
     $rootScope.showheader = false;
+    $rootScope.mobileheader = false;
     $rootScope.rolestab = false;
     $rootScope.showCompanyname = false;
     $scope.showerror = false;

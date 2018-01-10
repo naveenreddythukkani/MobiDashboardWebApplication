@@ -19,6 +19,15 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
 
+    var screenwidth = $(window).width();
+    if (screenwidth > 416) {
+        $rootScope.showheader = true;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = true;
+    }
+
     $rootScope.addloc = false;
     $rootScope.addclient = true;
     $rootScope.contactus = false;

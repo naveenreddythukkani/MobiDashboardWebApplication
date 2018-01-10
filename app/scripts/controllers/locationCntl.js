@@ -26,6 +26,14 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.addrole = false;
     $rootScope.addvouchertype = false;
 
+    var screenwidth = $(window).width();
+    if (screenwidth > 416) {
+        $rootScope.showheader = true;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = true;
+    }
 
     $scope.props = {};
     $scope.userlist = [];
@@ -997,6 +1005,8 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $rootScope.startdate1 = undefined;
         $state.go('balancesheet');
     }
+    $scope.mobilebackButtonAction = function() {
+        $state.go('company');
+    }
 
 });
-XMLDocument

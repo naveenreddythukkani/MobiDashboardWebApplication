@@ -1,6 +1,7 @@
 var MobiDash = angular.module('mobiDashBoardApp', ['ngAnimate', 'ngCookies', 'ngResource', 'ngRoute', 'ngSanitize', 'ngTouch', 'ui.router', 'LocalStorageModule', 'ngTable']);
 MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $httpProvider, $sceProvider, $locationProvider) {
     $sceProvider.enabled(false);
+    var screenwidth = $(window).width();
     $urlRouterProvider.otherwise('login');
     $stateProvider
         .state('signup', {
@@ -13,13 +14,13 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         })
         .state('company', {
             url: '/company',
-            templateUrl: 'views/company.html',
+            templateUrl: screenwidth > 416 ? 'views/company.html' : 'views/m.company.html',
             controller: "companyCntl",
             onEnter: changeOnEnter
         })
         .state('location', {
             url: '/location',
-            templateUrl: 'views/location.html',
+            templateUrl: screenwidth > 416 ? 'views/location.html' : 'views/m.location.html',
             controller: "locationCntl",
             onEnter: changeOnEnter
         })
@@ -142,7 +143,10 @@ var changeOnEnter = function(localStorageService, $state) {
     if (!localStorageService.get('session_key') || !localStorageService.get('csrftoken')) {
         $state.go('login');
     }
-}
-MobiDash.constant("domain", "http://api.mobibooks.in/"); //http://139.59.37.207/
-MobiDash.constant("api", "act/api/"); //
+};
+// Production
+// MobiDash.constant("domain", "https://api.mobibooks.in/");
+//dev
+MobiDash.constant("domain", "http://139.59.3.114/");
+MobiDash.constant("api", "act/api/");
 MobiDash.constant("core", "act/core/");

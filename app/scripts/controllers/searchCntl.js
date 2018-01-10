@@ -47,6 +47,9 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             $("#success-alert").removeClass('in');
         });
     }
+    $timeout(function() {
+        $('[name="balanceSheetSearch"]').focus();
+    }, 50);
 
     $scope.searchtextchange = function() {
         if ($scope.globalSearchData === '') {

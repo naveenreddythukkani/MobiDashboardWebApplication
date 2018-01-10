@@ -1,0 +1,20 @@
+<header class="m-header-fixed">
+    <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background">
+        <div class="pull-left display-cell-header back-alignment" style="margin-right:10px;">
+            <img src="images/left-white.png" ng-click="mobilebackButtonAction()">
+        </div>
+        <span class="m-font-size-companyName m-header-text-color">Locations</span>
+        <span style="display:block;margin-left:30px;" class="m-header-text-color">{{selected_company_name}}</span>
+    </div>
+</header>
+<div class="row no-margin-hr" style="margin-top:55px">
+    <div class="col-sm-12 col-xs-12 no-padding-hr">
+        <ul ng-repeat="location in locationsList" class="list-styles no-padding-hr">
+            <li class="m-custom-content-border m-list-align-left actionsmenu">
+                <span class="m-main-field">{{location.display_name}}</span>
+                <span ng-show="location.mobile" class="glyphicon glyphicon-earphone"></span>
+                <a class="m-sub-fiels m-phoneNumber colors" href="tel:{{location.mobile}}">{{location.mobile}}</a>
+            </li>
+        </ul>
+    </div>
+</div>
