@@ -16,6 +16,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.rolestab = false;
     $rootScope.showCompanyname = false;
     $rootScope.balancesheetbreadcurmbs = false;
+    $rootScope.downloadstab = false;
 
     $rootScope.addloc = false;
     $rootScope.addclient = false;

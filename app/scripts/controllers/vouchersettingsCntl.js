@@ -17,6 +17,7 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
     $rootScope.showCompanyname = false;
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = true;
+    $rootScope.downloadstab = false;
 
     $rootScope.addloc = false;
     $rootScope.addclient = false;

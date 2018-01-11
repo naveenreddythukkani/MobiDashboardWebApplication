@@ -18,6 +18,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $rootScope.showCompanyname = false;
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
+    $rootScope.downloadstab = true;
 
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {

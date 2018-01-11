@@ -18,6 +18,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     $rootScope.showCompanyname = false;
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = true;
+    $rootScope.downloadstab = false;
 
     $rootScope.addloc = false;
     $rootScope.addclient = false;

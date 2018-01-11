@@ -22,6 +22,7 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
     $rootScope.adduser = false;
     $rootScope.addrole = false;
     $rootScope.addvouchertype = false;
+    $rootScope.downloadstab = false;
 
     $scope.passparameters = {};
     $rootScope.grouplevel = true;

@@ -29,6 +29,12 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
             controller: "locationCntl",
             onEnter: changeOnEnter
         })
+        .state('download', {
+            url: '/download',
+            templateUrl: 'views/downloads.html',
+            controller: "downloadsCntl",
+            onEnter: changeOnEnter
+        })
         .state('user', {
             url: '/user',
             templateUrl: 'views/user.html',

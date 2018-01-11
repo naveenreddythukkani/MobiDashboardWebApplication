@@ -29,6 +29,7 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
     $rootScope.addvouchertype = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
+    $rootScope.downloadstab = false;
 
     var config = {
         headers: {
