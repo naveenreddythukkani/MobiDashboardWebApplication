@@ -8,16 +8,18 @@
             <div class="col-md-12">
                 <table ng-table="downloadsTable" class="table table-bordered client-table">
                         <tr ng-repeat="user in downloadsList">
-                            <td class="accType" title="'Name'">
+                            <td class="accType" title="'Icon'">
                                 <div class="row">
                                     <div class="col-md-11">
-                                        <a class="main-field">{{user.name}}</a>
+                                        <!-- <a class="main-field">{{user.name}}</a> -->
+                                        <img src="{{user.icon}}" alt="icon"></img>
                                     </div>
                                 </div>
                             </td>
-                            <td class="accType" title="'URL'">
+                            <td class="accType vertical-center" title="'App Name'">
                                 <div>
-                                    <a style="cursor:pointer" ng-click="openUrl(user.url)">{{user.url}}</a>
+                                    <a class="main-field" ng-click="openUrl(user.url)">{{user.name}}</a>
+                                    <!-- <a style="cursor:pointer" ng-click="openUrl(user.url)">{{user.url}}</a> -->
                                 </div>
                             </td>
                         </tr>

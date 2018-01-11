@@ -1,5 +1,5 @@
 var MobiDash = angular.module('mobiDashBoardApp');
-MobiDash.controller('downloadsCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, $window, core, localStorageService, NgTableParams, dataMove, session) {
+MobiDash.controller('downloadsCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, $window, core, localStorageService, NgTableParams, dataMove, session) {
     $rootScope.activeTab = 11;
     $rootScope.companytab = true;
     $rootScope.locationtab = false;
@@ -19,17 +19,20 @@ MobiDash.controller('downloadsCntl', function($scope, $state, $rootScope, $state
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
 
-    $scope.openUrl = function(url) {
+    $scope.openUrl = function (url) {
         $window.open(url, '_blank');
     }
 
     $scope.downloadsList = [{
-        "name": "Desktop",
+        "icon": "images/desktop_icon.png",
+        "name": "Desktop App(x-86)",
         "url": "https://staging.mobibooks.in/update-mobibooks/"
     }, {
+        "icon": "images/mobi_invoice.png",
         "name": "Mobi Invoice",
         "url": "https://play.google.com/store/apps/details?id=com.mobigesture.invoicing&hl=en"
     }, {
+        "icon": "images/mobi_field.png",
         "name": "Mobi Field",
         "url": "https://play.google.com/store/apps/details?id=com.mobifield&hl=en"
     }];
