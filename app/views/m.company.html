@@ -1,15 +1,9 @@
-<header class="m-header-fixed">
-    <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
-        <img id="m-logo" src="images/logo-white-44.png" alt="logo" height="45" />
-        <span class="m-font-size-logo m-header-text-color">Mobibooks</span>
-    </div>
-</header>
 <div class="row no-margin-hr" style="margin-top:55px">
     <div class="col-sm-12 col-xs-12 no-padding-hr">
         <ul ng-repeat="tenant in tenants" class="list-styles no-padding-hr">
             <li class="m-custom-content-border m-list-align-left actionsmenu" ng-click="access(tenant)">
                 <span class="m-main-field">{{tenant.tenant_name}}</span>
-                <span class="m-sub-field">Locations: {{tenant.locations}}</span>
+                <span ng-show="tenant.locations" class="m-sub-field">{{tenant.locations > 1? (tenant.locations) +" locations": (tenant.locations) + " location"}}</span>
             </li>
         </ul>
     </div>

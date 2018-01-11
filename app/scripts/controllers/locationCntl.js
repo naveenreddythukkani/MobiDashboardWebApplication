@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('locationCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session) {
+QTable.controller('locationCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
 
     $rootScope.companytab = true;
     $rootScope.locationtab = true;
@@ -27,12 +27,12 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.addvouchertype = false;
 
     var screenwidth = $(window).width();
-    if (screenwidth > 416) {
+    if (screenwidth > mobileWidth) {
         $rootScope.showheader = true;
         $rootScope.mobileheader = false;
     } else {
         $rootScope.showheader = false;
-        $rootScope.mobileheader = true;
+        $rootScope.mobileheader = false;
     }
 
     $scope.props = {};

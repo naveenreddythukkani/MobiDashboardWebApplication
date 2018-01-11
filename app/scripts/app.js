@@ -2,7 +2,12 @@ var MobiDash = angular.module('mobiDashBoardApp', ['ngAnimate', 'ngCookies', 'ng
 MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $httpProvider, $sceProvider, $locationProvider) {
     $sceProvider.enabled(false);
     var screenwidth = $(window).width();
-    $urlRouterProvider.otherwise('login');
+    var mobileWidth = 640;
+    if (screenwidth > mobileWidth) {
+        $urlRouterProvider.otherwise('login');
+    } else {
+        $urlRouterProvider.otherwise('login');
+    }
     $stateProvider
         .state('signup', {
             url: '/signup',
@@ -14,13 +19,13 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         })
         .state('company', {
             url: '/company',
-            templateUrl: screenwidth > 416 ? 'views/company.html' : 'views/m.company.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/company.html' : 'views/m.company.html',
             controller: "companyCntl",
             onEnter: changeOnEnter
         })
         .state('location', {
             url: '/location',
-            templateUrl: screenwidth > 416 ? 'views/location.html' : 'views/m.location.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/location.html' : 'views/m.location.html',
             controller: "locationCntl",
             onEnter: changeOnEnter
         })
@@ -103,7 +108,7 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         })
         .state('login', {
             url: '/login',
-            templateUrl: 'views/login.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/login.html' : 'views/m.login.html',
             controller: "loginCntl"
         });
     // $locationProvider.hashPrefix('')
@@ -150,3 +155,4 @@ var changeOnEnter = function(localStorageService, $state) {
 MobiDash.constant("domain", "http://139.59.3.114/");
 MobiDash.constant("api", "act/api/");
 MobiDash.constant("core", "act/core/");
+MobiDash.constant("mobileWidth", 640);

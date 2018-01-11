@@ -92,6 +92,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     }
     $rootScope.getalllocationinheader();
     $scope.clientLogout = function() {
+        $scope.closeNav();
         $scope.loading = false;
         var success = function(result) {
             $scope.loading = true;
@@ -296,6 +297,21 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         } else {
             $window.history.back();
         }
+    }
+
+    $scope.openNav = function() {
+        console.log($(window).width())
+        document.getElementById("transparentView").style.width = '100%';
+        document.getElementById("mySidenav").style.width = "300px";
+    }
+
+    $scope.closeNav = function() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("transparentView").style.width = "0";
+    }
+    $scope.homeAction = function() {
+        $scope.closeNav();
+        $state.go("company");
     }
 });
 

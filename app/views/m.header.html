@@ -1,0 +1,26 @@
+<header class="m-header-fixed" ng-controller="headerCntl">
+    <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
+        <i ng-click="openNav()" class="glyphicon glyphicon-menu-hamburger m-font-size-logo m-header-text-color"></i>
+        <!-- <img id="m-logo" src="images/logo-white-44.png" alt="logo" height="45" /> -->
+        <span class="m-font-size-logo m-header-text-color">Mobibooks</span>
+
+        <div id="transparentView" class="transparentView" ng-click="closeNav()">
+        </div>
+        <div id="mySidenav" class="sidenav">
+            <div class="m.usertabmenu" style="height:150px;background-color:#1fa9cc;">
+                <div style="padding:10px;">
+                    <img id="m-logo" src="images/user-icon.png" height="70px" alt="logo" />
+                </div>
+                <div style="text-align: left;padding-left:15px;">
+                    <span style="font-style: italic;font-weight: 200;font-size: 15px;line-height: 25px;color: white;display: block;" class="m.loggedinuser">{{name}}</span>
+                    <span style="font-style: italic;font-weight: 200;font-size: 15px;line-height: 25px;color: white;display: block;" class="m.loggedinuser">{{mobile}}</span>
+                </div>
+            </div>
+            <a style="font-size:23px;" ng-click="homeAction()">Home</a>
+            <a style="font-size:23px;">Balance Sheet</a>
+            <a style="font-size:23px;">Profit & Loss Statment</a>
+            <a style="font-size:23px;">Directory</a>
+            <a style="font-size:23px;" ng-click="clientLogout()">Logout</a>
+        </div>
+    </div>
+</header>

@@ -1,5 +1,5 @@
 var MobiDash = angular.module('mobiDashBoardApp');
-MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session) {
+MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -20,6 +20,14 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     $rootScope.showCompanyname = false;
     $rootScope.voucherstab = false;
 
+    var screenwidth = $(window).width();
+    if (screenwidth > mobileWidth) {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = false;
+    }
     $scope.passwordtext = "password";
 
     $scope.showPassword = function() {

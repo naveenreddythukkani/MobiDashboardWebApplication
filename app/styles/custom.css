@@ -1171,14 +1171,74 @@ td {
     .table_container {
         margin-top: 0px;
     }
+    /* side menu css */
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #1fa9cc;
+        display: block;
+        transition: 0.3s;
+    }
+    .sidenav a:hover {
+        color: #1fa9cc;
+    }
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+    .sidenav {
+        padding-top: 0;
+    }
+    .sidenav a {
+        font-size: 18px;
+    }
+    .transparentView {
+        background: transparent;
+        width: 10px;
+        z-index: 2;
+        height: 100%;
+        transition: 0.5s;
+        position: fixed;
+        top: 0;
+    }
+    .m.loggedinuser {
+        font-style: italic;
+        font-weight: 200;
+        font-size: 15px;
+        line-height: 25px;
+        color: white;
+        display: block;
+    }
+    .m.usertabmenu {
+        height: 150px;
+        background-color: #1fa9cc;
+    }
 }
 
 
 /* mobile csss */
 
 .m-font-size-logo {
-    font-size: 34px;
-    margin: 5px !important;
+    font-size: 30px;
+    margin: 5px 10px 5px 14px !important;
 }
 
 .m-font-size-companyName {
@@ -1214,6 +1274,7 @@ td {
 
 .m-sub-field {
     font-size: 16px;
+    color: #d3d3d3;
 }
 
 #m-logo {

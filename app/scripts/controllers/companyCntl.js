@@ -1,5 +1,5 @@
 var MobiDash = angular.module('mobiDashBoardApp');
-MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session) {
+MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
 
     $rootScope.companytab = true;
     $rootScope.locationtab = false;
@@ -20,7 +20,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $rootScope.voucherstab = false;
 
     var screenwidth = $(window).width();
-    if (screenwidth > 416) {
+    if (screenwidth > mobileWidth) {
         $rootScope.showheader = true;
         $rootScope.mobileheader = false;
     } else {
