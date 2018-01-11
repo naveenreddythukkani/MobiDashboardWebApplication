@@ -436,4 +436,19 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.field = $scope.fields.none;
         $scope.showerrormessage = false;
     }
+    $scope.clientLogout = function() {
+        $scope.loading = false;
+        var success = function(result) {
+            $scope.loading = true;
+            $state.go("login");
+            localStorageService.clearAll();
+
+        }
+        var error = function(result) {
+            $scope.loading = false;
+            session.sessionexpried(result.status);
+        }
+        $http.get(domain + api + 'logout/')
+            .then(success, error)
+    }
 });

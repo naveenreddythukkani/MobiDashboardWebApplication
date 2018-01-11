@@ -671,4 +671,4 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
 //     }
 //     $http.get(domain + api + "role/", config)
 //         .then(success, error);
-// }
+// }s
