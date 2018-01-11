@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter) {
+QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, mobileWidth) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -31,6 +31,15 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
     $rootScope.voucherControl = false;
     $rootScope.downloadstab = false;
 
+    var screenwidth = $(window).width();
+    if (screenwidth > mobileWidth) {
+        $rootScope.showheader = true;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = true;
+    }
+    $rootScope.screenName = $rootScope.balnc;
 
     $scope.passparameters = {};
 

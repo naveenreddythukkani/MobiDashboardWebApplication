@@ -1147,9 +1147,9 @@ td {
 
 /* media query for mobile Ui */
 
-@media screen and (max-width:416px) {
+@media screen and (max-width:640px) {
     .table-container-width {
-        width: 90% !important;
+        width: 100% !important;
     }
     .down-up-arrows {
         font-size: 10px;
@@ -1166,10 +1166,10 @@ td {
         margin: 0 auto !important;
     }
     .margin-content-top {
-        margin-top: 0px;
+        margin-top: 5px;
     }
     .table_container {
-        margin-top: 0px;
+        margin-top: 50px;
     }
     /* side menu css */
     .sidenav {
@@ -1179,7 +1179,7 @@ td {
         z-index: 100;
         top: 0;
         left: 0;
-        background-color: #fff;
+        background-color: #eeeeee;
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
@@ -1219,7 +1219,7 @@ td {
         position: fixed;
         top: 0;
     }
-    .m.loggedinuser {
+    .m-loggedinuser {
         font-style: italic;
         font-weight: 200;
         font-size: 15px;
@@ -1227,9 +1227,14 @@ td {
         color: white;
         display: block;
     }
-    .m.usertabmenu {
+    .m-usertabmenu {
         height: 150px;
         background-color: #1fa9cc;
+    }
+    .m-logout-button {
+        font-size: 25px;
+        right: 15px;
+        margin-top: 11px;
     }
 }
 
@@ -1237,6 +1242,11 @@ td {
 /* mobile csss */
 
 .m-font-size-logo {
+    font-size: 30px;
+    margin: 7px 10px 5px 14px !important;
+}
+
+.m-font-size-logo-name {
     font-size: 30px;
     margin: 5px 10px 5px 14px !important;
 }
@@ -1279,11 +1289,20 @@ td {
 
 #m-logo {
     vertical-align: top;
+    margin-left: 10px;
 }
 
 .m-phoneNumber {
-    text-decoration: none !important;
-    cursor: pointer;
+    color: green;
+    right: 22px;
+    font-size: 25px;
+    margin-top: -22px;
+    text-decoration: none;
+}
+
+.m-phoneNumber:hover {
+    color: green;
+    text-decoration: none;
 }
 
 .m-header-fixed {
@@ -1293,4 +1312,8 @@ td {
     top: 0;
     width: 100%;
     z-index: 100;
+}
+
+.m.header-menu-icon {
+    display: inline !important;
 }

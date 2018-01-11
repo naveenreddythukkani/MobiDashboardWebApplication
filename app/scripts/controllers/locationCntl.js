@@ -27,13 +27,16 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.addrole = false;
     $rootScope.addvouchertype = false;
 
+    $rootScope.screenName = "Locations";
+
+
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
         $rootScope.showheader = true;
         $rootScope.mobileheader = false;
     } else {
         $rootScope.showheader = false;
-        $rootScope.mobileheader = false;
+        $rootScope.mobileheader = true;
     }
 
     $scope.props = {};

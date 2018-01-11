@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter) {
+QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, mobileWidth) {
 
     $rootScope.companytab = true;
     $rootScope.locationtab = true;
@@ -44,6 +44,16 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     $scope.username = '';
     $scope.searchEnable = false;
     $scope.showerrormessage = false;
+    $rootScope.screenName = "Users";
+
+    var screenwidth = $(window).width();
+    if (screenwidth > mobileWidth) {
+        $rootScope.showheader = true;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = true;
+    }
     $scope.fields = {
         "none": 0,
         "mobile": 1,

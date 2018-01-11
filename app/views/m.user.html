@@ -3,17 +3,17 @@
         <div class="pull-left display-cell-header back-alignment" style="margin-right:10px;">
             <img src="images/left-white.png" ng-click="mobilebackButtonAction()">
         </div>
-        <span class="m-font-size-companyName m-header-text-color">Locations</span>
+        <span class="m-font-size-companyName m-header-text-color">Users</span>
         <span style="display:block;margin-left:30px;" class="m-header-text-color">{{selected_company_name}}</span>
     </div>
 </header> -->
 <div class="row no-margin-hr" style="margin-top:55px">
     <div class="col-sm-12 col-xs-12 no-padding-hr">
-        <ul ng-repeat="location in locationsList" class="list-styles no-padding-hr">
+        <ul ng-repeat="user in users" class="list-styles no-padding-hr">
             <li class="m-custom-content-border m-list-align-left">
-                <span class="m-main-field" ng-click="dashboardAction(location)">{{location.display_name}}</span>
-                <a ng-show="location.mobile" href="tel:location.mobile" class="glyphicon glyphicon-earphone pull-right m-phoneNumber"></a>
-                <span class="m-sub-field">{{location.mobile}}</span>
+                <span class="m-main-field">{{user.username}}</span>
+                <a ng-show="user.mobile" href="tel:user.mobile" class="glyphicon glyphicon-earphone pull-right m-phoneNumber"></a>
+                <span class="m-sub-field">{{user.email}}{{user.mobile}}</span>
             </li>
         </ul>
     </div>

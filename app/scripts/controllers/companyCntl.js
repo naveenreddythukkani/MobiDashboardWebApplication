@@ -26,7 +26,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $rootScope.mobileheader = false;
     } else {
         $rootScope.showheader = false;
-        $rootScope.mobileheader = true;
+        $rootScope.mobileheader = false;
     }
 
     $rootScope.addloc = false;

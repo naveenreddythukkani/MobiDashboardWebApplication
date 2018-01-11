@@ -313,6 +313,28 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $scope.closeNav();
         $state.go("company");
     }
+    $scope.usersPageAction = function() {
+        $scope.closeNav();
+        $state.go("user");
+    }
+    $scope.locationsPageAction = function() {
+        $scope.closeNav();
+        $state.go("location");
+    }
+    $scope.balanceSheetAction = function() {
+        $scope.closeNav();
+        $rootScope.balnc = "Balance sheet";
+        localStorageService.set("balnc", $rootScope.balnc);
+        $rootScope.findingpndlreport();
+        $state.go("balancesheet");
+    }
+    $scope.profitAndLossAction = function() {
+        $scope.closeNav();
+        $rootScope.balnc = "Profit & Loss";
+        localStorageService.set("balnc", $rootScope.balnc);
+        $rootScope.findingpndlreport();
+        $state.go("balancesheet");
+    }
 });
 
 

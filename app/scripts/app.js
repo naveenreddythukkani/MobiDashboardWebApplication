@@ -37,7 +37,7 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         })
         .state('user', {
             url: '/user',
-            templateUrl: 'views/user.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/user.html' : 'views/m.user.html',
             controller: "userCntl",
             onEnter: changeOnEnter
         })
