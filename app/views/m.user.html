@@ -12,9 +12,13 @@
         <ul ng-repeat="user in users" class="list-styles no-padding-hr">
             <li class="m-custom-content-border m-list-align-left">
                 <span class="m-main-field">{{user.username}}</span>
-                <a ng-show="user.mobile" href="tel:user.mobile" class="glyphicon glyphicon-earphone pull-right m-phoneNumber"></a>
+                <a ng-show="user.mobile" href="tel:{{user.mobile}}" class="glyphicon glyphicon-earphone pull-right m-phoneNumber"></a>
                 <span class="m-sub-field">{{user.email}}{{user.mobile}}</span>
             </li>
         </ul>
     </div>
+</div>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60" height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
 </div>
