@@ -1,0 +1,28 @@
+<div id="downloads">
+    <div class="container table_container table-container-width no-padding-hr">
+        <div class="row no-margin-hr">
+            <h3 class="no-margin pull-left">Downloads</h3>
+            <button type="button" class="btn btn-md pull-right postions-search"></button>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table ng-table="downloadsTable" class="table table-bordered client-table">
+                        <tr ng-repeat="user in downloadsList">
+                            <td class="accType" title="'Name'">
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <a class="main-field">{{user.name}}</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="accType" title="'URL'">
+                                <div>
+                                    <a style="cursor:pointer" ng-click="openUrl(user.url)">{{user.url}}</a>
+                                </div>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
