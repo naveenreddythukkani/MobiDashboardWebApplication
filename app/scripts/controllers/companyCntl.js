@@ -1,5 +1,5 @@
 var MobiDash = angular.module('mobiDashBoardApp');
-MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
+MobiDash.controller('companyCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
 
     $rootScope.companytab = true;
     $rootScope.locationtab = false;
@@ -43,22 +43,22 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $scope.company_id = '';
 
     $scope.fields = {
-            "none": 0,
-            "companyname": 1,
-            "contactname": 2,
-            "companyphone": 3,
-            "companyemail": 4
-        }
-        // $scope.pricings = [{
-        //         "name": "Basic",
-        //     },
-        //     {
-        //         "name": "Standard",
-        //     },
-        //     {
-        //         "name": "Premium",
-        //     }
-        // ]
+        "none": 0,
+        "companyname": 1,
+        "contactname": 2,
+        "companyphone": 3,
+        "companyemail": 4
+    }
+    // $scope.pricings = [{
+    //         "name": "Basic",
+    //     },
+    //     {
+    //         "name": "Standard",
+    //     },
+    //     {
+    //         "name": "Premium",
+    //     }
+    // ]
     var config = {
         headers: {
             "X-CSRFToken": $rootScope.csrftoken,
@@ -66,23 +66,23 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         }
     };
     $scope.smssettings = [{
-            "name": "Send SMS for new/modified receipts"
-        },
+        "name": "Send SMS for new/modified receipts"
+    },
 
-        {
-            "name": "Send SMS for new/modified payment"
+    {
+        "name": "Send SMS for new/modified payment"
 
-        },
-        {
-            "name": "Send SMS for new/modified receipts"
+    },
+    {
+        "name": "Send SMS for new/modified receipts"
 
-        },
-        {
-            "name": "Send SMS for new/modified payment"
+    },
+    {
+        "name": "Send SMS for new/modified payment"
 
-        }
+    }
     ];
-    $scope.permissions = function(user) {
+    $scope.permissions = function (user) {
         var canmanagecompany = user.privilege[0];
         var a = dcodeIO.Long.fromString(canmanagecompany, true);
         var b = dcodeIO.Long.fromString("8796093022208", true);
@@ -99,48 +99,48 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         }
         return true;
     }
-    $scope.addremovealert = function() {
+    $scope.addremovealert = function () {
         $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
             $("#success-alert").removeClass('in');
         });
     }
-    $rootScope.addCompany = function() {
+    $rootScope.addCompany = function () {
         $scope.props.isActive = true;
     }
-    $scope.search = function() {
+    $scope.search = function () {
         if ($scope.searchEnable) {
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
-            $timeout(function() {
+            $timeout(function () {
                 $('[name="tenant_name"]').focus();
             }, 50);
         }
     }
-    $scope.hideSideMenu = function(index) {
+    $scope.hideSideMenu = function (index) {
         $scope.pricing_index = "";
     }
-    $scope.upgradeClick = function(user, index) {
+    $scope.upgradeClick = function (user, index) {
         $scope.company_id = user.id;
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.pricing_index = index;
             $scope.pricings = result.data;
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.get(domain + core + 'package/', config)
             .then(success, error)
     }
-    $scope.priceingclick = function(priceid) {
+    $scope.priceingclick = function (priceid) {
         $scope.pricing_index = "";
         $scope.price = {};
         $scope.price.package_id = priceid
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.loadmsg = true;
             if (result.data.error === undefined) {
@@ -152,7 +152,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.getallcompanysdata();
             $scope.cancelForm();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             $scope.cancelForm();
             session.sessionexpried(result.status);
@@ -160,14 +160,14 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $http.post(domain + core + 'tenant/' + $scope.company_id + '/upgrade/', $scope.price, config)
             .then(success, error)
     }
-    $scope.getallcompanysdata = function() {
+    $scope.getallcompanysdata = function () {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.tenants = result.data;
             $scope.multiclient = new NgTableParams({ count: $scope.tenants.length }, { dataset: $scope.tenants });
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -176,9 +176,9 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
 
     }
     $scope.getallcompanysdata();
-    $scope.access = function(data) {
+    $scope.access = function (data) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
                 if (result.status === 200) {
@@ -198,16 +198,16 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
                 $scope.addremovealert();
             }
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         var datas = { "tenant_name": data.name, "device_id": '00:37:6D:EA:77:FD', "tenant_id": data.id };
         $http.post(domain + api + "second_lg/", datas, config).
-        then(success, error)
+            then(success, error)
 
     }
-    $scope.addCompanys = function() {
+    $scope.addCompanys = function () {
         $scope.clientdata.mobile = $scope.props.mobile;
         $scope.clientdata.company_name = $scope.props.company_name;
         $scope.clientdata.contact_name = $scope.props.contact_name;
@@ -222,7 +222,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         if ($scope.allValidationscheck($scope.clientdata)) {
             return;
         }
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.getallcompanysdata();
             $scope.cancelForm();
@@ -234,7 +234,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             }
             $scope.addremovealert();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             $scope.cancelForm();
             session.sessionexpried(result.status);
@@ -244,7 +244,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             .then(success, error)
     }
 
-    $scope.editClient = function(user) {
+    $scope.editClient = function (user) {
         $scope.props = user;
         $scope.props.company_name = user.tenant_name;
         if (user.status === "A") {
@@ -253,7 +253,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.props.isActive = false;
         }
     }
-    $scope.editingCompany = function(user) {
+    $scope.editingCompany = function (user) {
         $scope.clientdata.mobile = $scope.props.mobile;
         $scope.clientdata.company_name = $scope.props.company_name;
         $scope.clientdata.contact_name = $scope.props.contact_name;
@@ -268,7 +268,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         if ($scope.allValidationscheck($scope.clientdata)) {
             return;
         }
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.loadmsg = true;
             if (result.data.error === undefined) {
@@ -280,7 +280,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.getallcompanysdata();
             $scope.editcancelForm();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             $scope.editcancelForm();
             session.sessionexpried(result.status);
@@ -290,27 +290,27 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $http.post(domain + core + 'tenant/' + $scope.props.id + "/modify/", $scope.clientdata, config)
             .then(success, error)
     }
-    $scope.cancelForm = function() {
+    $scope.cancelForm = function () {
         $scope.resetForm();
         $("#add_client").modal('hide');
         $scope.field = "";
         $scope.showerrormessage = false;
     }
-    $scope.editcancelForm = function() {
+    $scope.editcancelForm = function () {
         $scope.resetForm();
         $("#edit_client").modal('hide');
         $scope.field = "";
         $scope.showerrormessage = false;
     }
-    $scope.resetForm = function() {
+    $scope.resetForm = function () {
         $scope.props = {};
     }
-    $scope.deletemodelshow = function(props) {
+    $scope.deletemodelshow = function (props) {
         $("#edit_client").modal('hide');
     }
-    $scope.deleteclient = function(ids) {
+    $scope.deleteclient = function (ids) {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $("#deleteModal").modal('hide');
             $scope.getallcompanysdata();
             $scope.loading = false;
@@ -319,7 +319,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.msg = "Company deleted successfully";
             $scope.addremovealert();
         }
-        var error = function(result) {
+        var error = function (result) {
             $("#deleteModal").modal('hide');
             $scope.loading = false;
             session.sessionexpried(result.status);
@@ -331,28 +331,28 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
 
 
     }
-    $scope.backup = function(user) {
+    $scope.backup = function (user) {
         $scope.loading = true;
         $scope.clientdata.tenant_id = user.id
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $scope.loadmsg = true;
             $scope.msg = "Backup created successfully";
             $scope.addremovealert();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.post(domain + core + 'backup/', $scope.clientdata, config)
             .then(success, error)
     }
-    $scope.isNumberKey = function($event) {
+    $scope.isNumberKey = function ($event) {
         if (!(($event.keyCode >= 48 && $event.keyCode <= 57) || ($event.keyCode === 8 || $event.keyCode === 46 || $event.keyCode == 9) || ($event.keyCode >= 96 && $event.keyCode <= 105))) {
             $event.preventDefault();
         }
     }
-    $scope.smssettingsclick = function(user) {
+    $scope.smssettingsclick = function (user) {
         $scope.company_id = user.id;
         $scope.smsfor_mobile_payment = user.smsfor_mobile_payment;
         $scope.smsfor_mobile_receipt = user.smsfor_mobile_receipt;
@@ -361,14 +361,14 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $('#smsModal').modal('show');
 
     }
-    $scope.saveSmsSettingtoSever = function() {
+    $scope.saveSmsSettingtoSever = function () {
         $scope.smssetting = {};
         $scope.smssetting.smsfor_mobile_payment = $scope.smsfor_mobile_payment;
         $scope.smssetting.smsfor_mobile_receipt = $scope.smsfor_mobile_receipt;
         $scope.smssetting.smsfor_payment = $scope.smsfor_payment;
         $scope.smssetting.smsfor_receipt = $scope.smsfor_receipt;
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
                 $scope.msg = "Sms settings saved successfully."
@@ -379,16 +379,37 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.addremovealert();
             $scope.getallcompanysdata();
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
             $('#smsModal').modal('hide');
         }
         $http.post(domain + core + 'tenant/' + $scope.company_id + "/modify/", $scope.smssetting, config)
-            .then(success, error)
+            .then(success, error);
     }
 
-    $scope.allValidationscheck = function(data) {
+    $scope.historyDetails=function(){
+        console.log("historyDetails","fire");
+        $scope.smsHistory = {};
+        var smsHistoryList=[];
+        $scope.smsHistory.id=$scope.company_id;
+        $scope.loading = true;
+        var success = function (result) {
+            $scope.loading = false;
+            $scope.smsHistoryList = result.data;
+            $scope.smshistorytable = new NgTableParams({ count: $scope.smsHistoryList.length }, { dataset: $scope.smsHistoryList });
+            $('#smshistory').modal('show');
+        }
+        var error = function (result) {
+            $scope.loading = false;
+            session.sessionexpried(result.status);
+            $('#smshistory').modal('hide');
+        }
+        $http.post(domain + api + 'companydetailhistory/history/', $scope.smsHistory, config)
+            .then(success, error);
+    }
+
+    $scope.allValidationscheck = function (data) {
         if (data.company_name === undefined || data.company_name === "") {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.companyname;
@@ -428,23 +449,23 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         return false;
 
     }
-    $scope.emailValidation = function(email) {
+    $scope.emailValidation = function (email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
-    $scope.fieldschangeAction = function() {
+    $scope.fieldschangeAction = function () {
         $scope.field = $scope.fields.none;
         $scope.showerrormessage = false;
     }
-    $scope.clientLogout = function() {
+    $scope.clientLogout = function () {
         $scope.loading = false;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = true;
             $state.go("login");
             localStorageService.clearAll();
 
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }

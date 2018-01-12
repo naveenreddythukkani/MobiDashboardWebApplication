@@ -20,20 +20,23 @@ body {
 #locationhistory .modal-dialog,
 #userhistory .modal-dialog,
 #ledgers .modal-dialog,
-#rolehistory .modal-dialog {
+#rolehistory .modal-dialog,
+#smshistory .modal-dialog {
     width: 70%;
 }
 
 #locationhistory .modal-body,
 #userhistory .modal-body,
-#rolehistory .modal-body {
+#rolehistory .modal-body,
+#smshistory .modal-body {
     max-height: 350px;
     overflow-y: auto;
 }
 
 .usershistorytable tbody tr td:first-child,
 .roleshistorytable tbody tr td:first-child,
-.locationshistorytable tbody tr td:first-child {
+.locationshistorytable tbody tr td:first-child, 
+.smshistorytable tbody tr td:first-child{
     white-space: nowrap;
 }
 
