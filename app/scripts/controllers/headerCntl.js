@@ -326,12 +326,20 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $rootScope.balnc = "Balance sheet";
         localStorageService.set("balnc", $rootScope.balnc);
         $rootScope.findingpndlreport();
+        $rootScope.location_name = "All Locations";
+        $rootScope.location_id = "All Locations";
+        localStorageService.set("location_id", "All Locations");
+        localStorageService.set("location_name", "All Locations");
         $state.go("balancesheet");
     }
     $scope.profitAndLossAction = function() {
         $scope.closeNav();
         $rootScope.balnc = "Profit & Loss";
         localStorageService.set("balnc", $rootScope.balnc);
+        $rootScope.location_name = "All Locations";
+        $rootScope.location_id = "All Locations";
+        localStorageService.set("location_id", "All Locations");
+        localStorageService.set("location_name", "All Locations");
         $rootScope.findingpndlreport();
         $state.go("balancesheet");
     }

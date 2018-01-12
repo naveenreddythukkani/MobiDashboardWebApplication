@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter) {
+QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, mobileWidth) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -42,6 +42,14 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
         $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
             $("#success-alert").removeClass('in');
         });
+    }
+    var screenwidth = $(window).width();
+    if (screenwidth > mobileWidth) {
+        $rootScope.showheader = true;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = true;
     }
     $scope.savedates = function() {
         $scope.datesObj = {};
