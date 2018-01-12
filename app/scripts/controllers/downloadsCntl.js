@@ -26,7 +26,7 @@ MobiDash.controller('downloadsCntl', function ($scope, $state, $rootScope, $stat
     $scope.downloadsList = [{
         "icon": "images/desktop_icon.png",
         "name": "Desktop App(x-86)",
-        "url": "https://staging.mobibooks.in/update-mobibooks/"
+        "url": "https://api.mobibooks.in/act/api/download_exe"
     }, {
         "icon": "images/mobi_invoice.png",
         "name": "Mobi Invoice",
