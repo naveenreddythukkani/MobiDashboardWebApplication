@@ -1,13 +1,14 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window) {
+QTable.controller('headerCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window) {
 
     $scope.logintabbottom = false;
+    $scope.isPopOver = false;
     $rootScope.locat = {};
     $scope.balancesheetarry = ["Profit & Loss", "Balance sheet"]
     $rootScope.locationsListinheader = [];
     $scope.props = {};
     $scope.Object = Object;
-    $rootScope.findingpndlreport = function() {
+    $rootScope.findingpndlreport = function () {
         $rootScope.balnc = localStorageService.get("balnc")
         if ($rootScope.balnc === "Balance sheet") {
             $rootScope.pandlreport = false
@@ -16,7 +17,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         }
     }
     $rootScope.findingpndlreport();
-    $rootScope.getlocalstoredata = function() {
+    $rootScope.getlocalstoredata = function () {
         console.log(dataMove.getgroupdata());
         console.log(dataMove.getsubgroupdata());
         console.log(dataMove.getledgerData());
@@ -37,27 +38,27 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     };
     $rootScope.headerheight = $('#bredcrumbelement').height();
     $rootScope.headerheight += 25;
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#datetimepickerdashboardfrom').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#datetimepickerdashboardto').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#datetimepickervoucherfrom').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#datetimepickervoucherto').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $('#savefordashboard').on('click', function() {
+    $('#savefordashboard').on('click', function () {
         $rootScope.today1 = moment($('#todatedashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         if ($rootScope.pandlreport === true) {
             $rootScope.startdate1 = moment($('#fromdatedashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
@@ -65,58 +66,58 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $('#selectdatedahboard').modal('hide');
         $rootScope.datescalculation();
     });
-    $('#saveforvoucher').on('click', function() {
+    $('#saveforvoucher').on('click', function () {
         $rootScope.fromdate1 = moment($('#fromdateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.today1 = moment($('#todateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.datescalculation();
         $('#saveforvoucher').modal('hide');
     });
-    $scope.addremovealert = function() {
+    $scope.addremovealert = function () {
         $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
             $("#success-alert").removeClass('in');
         });
     }
-    $rootScope.getalllocationinheader = function() {
+    $rootScope.getalllocationinheader = function () {
         $scope.loading = true;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = false;
             $rootScope.locationsListinheader = result.data;
             localStorageService.set("locations", $rootScope.locationsListinheader);
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
         }
         $http.get(domain + api + "location/compact/", config)
             .then(success, error);
     }
     $rootScope.getalllocationinheader();
-    $scope.clientLogout = function() {
+    $scope.clientLogout = function () {
         $scope.closeNav();
         $scope.loading = false;
-        var success = function(result) {
+        var success = function (result) {
             $scope.loading = true;
             $state.go("login");
             localStorageService.clearAll();
 
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.get(domain + api + 'logout/')
             .then(success, error)
     }
-    $scope.profilemouseover = function() {
+    $scope.profilemouseover = function () {
         $scope.showuserdata = true;
     }
-    $scope.profilemouseleave = function() {
+    $scope.profilemouseleave = function () {
         $scope.showuserdata = false;
     }
-    $scope.gotoCompanyPage = function() {
+    $scope.gotoCompanyPage = function () {
         $state.go("company");
     }
-    $rootScope.balancesheetValueChange = function(balnc) {
+    $rootScope.balancesheetValueChange = function (balnc) {
         localStorageService.set("balnc", balnc);
         if (balnc === "Profit & Loss") {
             $rootScope.pandlreport = true;
@@ -132,7 +133,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         }
         $rootScope.getlocalstoredata();
     }
-    $scope.locationValueChange = function(locat) {
+    $scope.locationValueChange = function (locat) {
         $rootScope.locat.display_name = locat.display_name;
         $rootScope.location_name = locat.display_name;
         $rootScope.location_id = locat.id;
@@ -146,7 +147,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         }
         $rootScope.getlocalstoredata();
     }
-    $scope.subledgerchange = function() {
+    $scope.subledgerchange = function () {
         if ($scope.subgroupData !== null && $scope.subgroupData.subgrouplevel === true) {
             localStorageService.remove("subgroupData");
             dataMove.setsubgroupdata({});
@@ -167,7 +168,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             $state.go('subledgersgroup')
         }
     }
-    $scope.subgroupchange = function() {
+    $scope.subgroupchange = function () {
         if ($scope.ledgerData !== null && $scope.ledgerData.ledgerlevel === true) {
             localStorageService.remove("ledger");
             dataMove.setledgerData({})
@@ -185,7 +186,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             $state.go('ledger')
         }
     }
-    $scope.ledgerchange = function() {
+    $scope.ledgerchange = function () {
         if ($scope.controlledgerData !== null && $scope.controlledgerData.controlledger === true) {
             localStorageService.remove("controlledger");
             dataMove.getcontrolledgerData({});
@@ -207,7 +208,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             $state.go('monthWise')
         }
     }
-    $scope.monthWisechange = function() {
+    $scope.monthWisechange = function () {
         if ($scope.monthwiseData !== null && $scope.monthwiseData.monthwise === true) {
             dataMove.setmonthwiseData({});
             localStorageService.remove("monthwise");
@@ -215,14 +216,14 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         }
 
     }
-    $scope.vocherchange = function() {
+    $scope.vocherchange = function () {
         if ($scope.voucherData !== null && $scope.voucherData.voucher === true) {
             dataMove.setvoucherData({});
             localStorageService.remove("voucherData");
             $state.go('voucher')
         }
     }
-    $scope.locationValueChangeforall = function() {
+    $scope.locationValueChangeforall = function () {
         $rootScope.locat.display_name = "All Locations";
         $rootScope.location_name = "All Locations";
         $rootScope.location_id = "All Locations";
@@ -236,20 +237,20 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         }
         $rootScope.getlocalstoredata();
     }
-    $scope.datemodelshow = function() {
+    $scope.datemodelshow = function () {
         $('#selectdatedahboard').modal('show');
         $('#todatedashboard').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
         if ($rootScope.pandlreport === true) {
             $('#fromdatedashboard').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
         }
     }
-    $scope.datemodelforfromandtodate = function() {
+    $scope.datemodelforfromandtodate = function () {
         $('#selectdatevoucher').modal('show');
         $('#fromdateidvoucher').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
         $('#todateidvoucher').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
     }
 
-    $scope.removealllocalstorage = function() {
+    $scope.removealllocalstorage = function () {
         localStorageService.remove("groupData");
         dataMove.setgroupdata({});
 
@@ -270,10 +271,10 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         localStorageService.remove("voucherData");
 
     }
-    $scope.ledgersearch = function() {
+    $scope.ledgersearch = function () {
         $state.go('search');
     }
-    $scope.backButtonAction = function() {
+    $scope.backButtonAction = function () {
         if (!$rootScope.isSearched) {
             if ($state.current.name === "balancesheet") {
                 $state.go('location');
@@ -299,29 +300,45 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         }
     }
 
-    $scope.openNav = function() {
+    $scope.openNav = function () {
         console.log($(window).width())
         document.getElementById("transparentView").style.width = '100%';
         document.getElementById("mySidenav").style.width = "300px";
     }
 
-    $scope.closeNav = function() {
+    $scope.closeNav = function () {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("transparentView").style.width = "0";
     }
-    $scope.homeAction = function() {
+
+    $scope.popOver = function () {
+            $('#popover-content').addClass("popover-cont");
+            $('[data-toggle="popover"]').popover({
+                html: true,
+                content: function () {
+                    return $('#popover-content').html();
+                }
+            }).click(function(e){
+                e.preventDefault();
+                $('.popover').css({"top": "40px","left": "initial", "right":"8px"});
+                $('.popover> .arrow').css("left","88%");
+                $('.popover-content').css("padding","0px");
+            });
+    }
+
+    $scope.homeAction = function () {
         $scope.closeNav();
         $state.go("company");
     }
-    $scope.usersPageAction = function() {
+    $scope.usersPageAction = function () {
         $scope.closeNav();
         $state.go("user");
     }
-    $scope.locationsPageAction = function() {
+    $scope.locationsPageAction = function () {
         $scope.closeNav();
         $state.go("location");
     }
-    $scope.balanceSheetAction = function() {
+    $scope.balanceSheetAction = function () {
         $scope.closeNav();
         $rootScope.balnc = "Balance sheet";
         localStorageService.set("balnc", $rootScope.balnc);
@@ -332,7 +349,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         localStorageService.set("location_name", "All Locations");
         $state.go("balancesheet");
     }
-    $scope.profitAndLossAction = function() {
+    $scope.profitAndLossAction = function () {
         $scope.closeNav();
         $rootScope.balnc = "Profit & Loss";
         localStorageService.set("balnc", $rootScope.balnc);

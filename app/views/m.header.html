@@ -1,6 +1,7 @@
 <header class="m-header-fixed" ng-controller="headerCntl">
     <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
         <img ng-click="openNav()" src="images/menu.png" alt="logo" height="45" />
+        <a data-toggle="popover" data-placement="bottom"><img style="float:right" id="more-logo" src="images/ic_more_vert.png" alt="more" height="45" ng-click="popOver()" /></a>
         <span class="m-font-size-companyName m-header-text-color">{{screenName}}</span>
         <span style="margin-left:50px;display:block;margin-top:-15px;" class="m-header-text-color">{{selected_company_name}}</span>
         <div id="transparentView" class="transparentView" ng-click="closeNav()">
@@ -21,6 +22,13 @@
             <a style="font-size:23px;" ng-click="usersPageAction()">Directory</a>
             <a style="font-size:23px;" ng-click="locationsPageAction()">Locations</a>
             <a style="font-size:23px;" ng-click="clientLogout()">Logout</a>
+        </div> 
+
+        <div id="popover-content" class="popover-cont-hide">
+            <ul class="list-group custom-popover">
+                <li class="list-group-item">Select Date</li>
+                <li class="list-group-item">Search</li>
+            </ul>
         </div>
     </div>
 </header>
