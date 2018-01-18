@@ -102,7 +102,7 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         })
         .state('search', {
             url: '/search',
-            templateUrl: 'views/search.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/search.html' : 'views/m.search.html',
             controller: "searchCntl",
             onEnter: changeOnEnter
         })
