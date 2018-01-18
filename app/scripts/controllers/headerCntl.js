@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('headerCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window) {
+QTable.controller('headerCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window,mobileWidth) {
 
     $scope.logintabbottom = false;
     $scope.isPopOver = false;
@@ -360,6 +360,39 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
          if ($rootScope.pandlreport === true) {
             $('#fromdatemobiledashboard').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
           }
+     }
+$(document).ready(function () {
+$('#datetimepickermobiledashboardfrom').datetimepicker({
+format: 'DD-MM-YYYY'
+});
+});
+$(document).ready(function () {
+$('#datetimepickermobiledashboardto').datetimepicker({
+format: 'DD-MM-YYYY'
+});
+});
+
+$('#saveformobiledashboard').on('click', function () {
+$rootScope.today1 = moment($('#todatemobiledashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
+if ($rootScope.pandlreport === true) {
+$rootScope.startdate1 = moment($('#fromdatemobiledashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
+}
+$('#selectmobiledatedahboard').modal('hide');
+$rootScope.datescalculation();
+});
+     $rootScope.getalllocationinmobileheader = function () {
+         $scope.loading = true;
+         $scope.popoverhide();
+         var success = function (result) {
+             $scope.loading = false;
+             $rootScope.locationsMobileListInHeader = result.data;
+               $("#locationListInHeader").modal('show');
+         }
+         var error = function (result) {
+             $scope.loading = false;
+         }
+         $http.get(domain + api + "location/compact/", config)
+             .then(success, error);
      }
 });
 

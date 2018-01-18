@@ -1,6 +1,7 @@
 <header class="m-header-fixed" ng-controller="headerCntl">
     <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
-        <img ng-click="openNav()" style="margin:13px;float:left;"src="images/menu_mobile.png" alt="logo" />
+        <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:13px;float:left;"src="images/menu_mobile.png" alt="logo" />
+        <img ng-click="backButtonAction()" ng-show="moreIconShow"  style="margin:13px;float:left;"src="images/back_arrow_mobile.png" alt="logo" />
         <div class="m-header-text">
           <span style="display:block;"class="m-font-size-companyName m-header-text-color">{{screenName}}</span>
           <span class="m-header-text-color">{{selected_company_name}}</span>
@@ -35,8 +36,9 @@
         </div>
         <div id="popOverView" class="m-popOverView">
           <a style="font-size:15px;" ng-click="datemodelmobileshow()">Dates</a>
-          <a style="font-size:15px;" ng-click="locationsPagePopOverAction()">Locations</a>
-          <a style="font-size:15px;" ng-click="balancesheetPopOverAction()">Balance sheet</a>
+          <a style="font-size:15px;" ng-click="getalllocationinmobileheader()">Locations</a>
+          <a style="font-size:15px;" ng-show="pandlreport" ng-click="balancesheetPopOverAction()">Balance Sheet</a>
+          <a style="font-size:15px;" ng-show="!pandlreport" ng-click="balancesheetPopOverAction()">Profit & Loss</a>
         </div>
     </div>
 </header>
@@ -81,11 +83,32 @@
                             <div class="row no-margin-hr">
                                 <div class="col-md-5 pull-right no-padding-hr">
                                     <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                                    <button id="savefordashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="savefordashboard()">Save</button>
-                                </div>
+                                    <button id="savefordashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="savefordashboard()">Save</button>                                </div>
+                            </div>
+                      </div>
+                </div>
+          </div>
+    </div>
+</div>
+<div id="locationListInHeader" class="modal fade" data-keyboard="false" role="dialog" data-backdrop="static">
+            <div class="modal-dialog mobile-modal-dailoglocation">
+                <div class="modal-content mdl-margin">
+                    <div class="modal-header no-padding-vr-bottom">
+                        <button type="button " class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                        <h2 class="modal-title ">Select Location</h2>
+                    </div>
+                    <div class="modal-body no-padding-vr-bottom">
+                        <div class="row no-margin-hr">
+                            <div class="col-md-12 form-group no-padding-hr">
+                            <ul class="locationlist">
+                              <li class="actionsmenu"><a class="main-field">All Locations</a></li>
+                              <li ng-repeat="location in locationsMobileListInHeader" class="actionsmenu">
+                                <a class="main-field">{{location.display_name}}</a>
+                              </li>
+                            </ul>
                             </div>
                         </div>
-                    </div>
+                   </div>
                 </div>
-            </div>
-        </div>
+          </div>
+    </div>

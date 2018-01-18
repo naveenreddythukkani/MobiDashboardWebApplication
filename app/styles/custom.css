@@ -1369,3 +1369,7 @@ z-index: 100;
 #selectmobiledatedahboard .mobile-modal-dailog{
       margin-top: 25% !important;
 }
+#locationListInHeader .mobile-modal-dailoglocation{
+  height: : 50% !important;
+  margin-top: 15% !important;
+}
