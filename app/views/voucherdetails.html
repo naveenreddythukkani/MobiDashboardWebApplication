@@ -30,7 +30,7 @@
                 <li style="margin-top:-1px;">
                     <span class="sublist-text-name" style="padding:3px;">{{showglandsldata(glinedata)}}</span>
                     <span class="sublist-text-value" style="padding:3px;">{{glinedata.amount | INRCurrency}}</span>
-                    <p style="padding-left: 8px" ng-show="glinedata.narration !== undefined" class="voucher-refname">{{glinedata.narration}}</p>
+                    <p style="padding-left:8px;" ng-show="glinedata.narration !== undefined" class="voucher-refname">{{glinedata.narration}}</p>
                     <ul class="list-styles no-padding-hr text-right" ng-repeat="ccdata in glinedata.ccLines| orderBy:ccdata.seq" style="margin-bottom:0;">
                         <li class="sub-listheightvalues" style="width:30%;padding-left:25px;">
                             <span style="color:#d3d3d3;" class="sublist-text-name">{{ccdata.costcentre_name}}</span>

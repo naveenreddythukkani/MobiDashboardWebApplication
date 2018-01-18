@@ -479,12 +479,13 @@ body {
 }
 
 .listheightvalues {
-    height: 30px;
+    height: auto;
     background-color: #f9f9f9;
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 5px;
     margin-top: -1px;
+    overflow: hidden;
 }
 
 .custom-content-border {
@@ -492,11 +493,12 @@ body {
 }
 
 .sub-listheightvalues {
-    height: 25px;
+    height: auto;
     padding-top: 4px;
     padding-left: 5px;
     margin-top: -1px;
     padding-right: 5px;
+    overflow: hidden;
 }
 
 .text-value {
@@ -1050,7 +1052,7 @@ td {
 .location-text-vocher {
     border-left: 1px solid #d3d3d3;
     border-right: 1px solid #d3d3d3;
-    height: 25px;
+    height: auto;
 }
 
 .table-border-voucher,
@@ -1273,6 +1275,9 @@ td {
 
 .m-font-size-companyName {
     font-size: 21px;
+    display: block;
+    line-height: 16px;
+    margin-top: 10px;
 }
 
 .m-list-align-left {
@@ -1333,27 +1338,34 @@ td {
     width: 100%;
     z-index: 100;
 }
+.m-header-text{
+  float:left;
+}
 
 .m.header-menu-icon {
     display: inline !important;
 }
 /*Pop Over*/
-.popover-title {
-text-align: center;
+.m-popOverView{
+  background: #eeeeee;
+position: fixed;
+height: auto;
+right: 4px;
+top: 3px;
+transition: right 0.7s ease-in;
+width: 0;
+user-select: none;
+-webkit-user-select: none;
+z-index: 100;
 }
-.custom-popover li {
-border: none!important;
-text-align: left;
+.m-popOverView a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #1fa9cc;
+    display: block;
+    transition: 0.3s;
 }
-.custom-popover li:nth-child(2) {
-border-top: 1px solid #ccc!important;
-}
-.custom-popover li:last-child {
-border-top: 1px solid #ccc!important;
-}
-.popover-cont-hide{
-display: none !important;
-}
-.custom-popover{
-margin-bottom: 0px
+#selectmobiledatedahboard .mobile-modal-dailog{
+      margin-top: 25% !important;
 }

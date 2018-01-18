@@ -30,6 +30,8 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
     $rootScope.downloadstab = false;
+    $rootScope.moreIconShow= true;
+
 
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {

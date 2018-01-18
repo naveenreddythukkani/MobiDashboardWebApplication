@@ -19,6 +19,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.showCompanyname = false;
     $rootScope.voucherstab = true;
     $rootScope.downloadstab = false;
+    $rootScope.moreIconShow= false;
 
     $rootScope.addloc = true;
     $rootScope.addclient = false;

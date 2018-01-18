@@ -303,29 +303,13 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     $scope.openNav = function () {
         console.log($(window).width())
         document.getElementById("transparentView").style.width = '100%';
-        document.getElementById("mySidenav").style.width = "300px";
+        document.getElementById("mySidenav").style.width = "75%";
     }
 
     $scope.closeNav = function () {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("transparentView").style.width = "0";
     }
-
-    $scope.popOver = function () {
-            $('#popover-content').addClass("popover-cont");
-            $('[data-toggle="popover"]').popover({
-                html: true,
-                content: function () {
-                    return $('#popover-content').html();
-                }
-            }).click(function(e){
-                e.preventDefault();
-                $('.popover').css({"top": "40px","left": "initial", "right":"8px"});
-                $('.popover> .arrow').css("left","88%");
-                $('.popover-content').css("padding","0px");
-            });
-    }
-
     $scope.homeAction = function () {
         $scope.closeNav();
         $state.go("company");
@@ -360,6 +344,23 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $rootScope.findingpndlreport();
         $state.go("balancesheet");
     }
+    // popover hide and showerror
+    $scope.popovershow= function(){
+      document.getElementById("popOverTransparentView").style.width = '100%';
+      document.getElementById("popOverView").style.width = "40%";
+    }
+    $scope.popoverhide= function(){
+      document.getElementById("popOverTransparentView").style.width = '0';
+      document.getElementById("popOverView").style.width = "0";
+    }
+    $scope.datemodelmobileshow=function(){
+          $scope.popoverhide();
+          $('#selectmobiledatedahboard').modal('show');
+          $('#todatemobiledashboard').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
+         if ($rootScope.pandlreport === true) {
+            $('#fromdatemobiledashboard').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
+          }
+     }
 });
 
 
