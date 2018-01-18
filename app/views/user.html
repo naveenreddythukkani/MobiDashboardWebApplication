@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <table ng-table="usertable" class="table table-bordered" show-filter="searchEnable">
                     <tr ng-repeat="user in $data">
-                        <td class="vertical-center" title="'Name'" filter="{ username: 'text'}" sortable="'username'">
+                        <td class="vertical-center" title="'Name'" filter="{ phonewithNameSearch: 'text'}" sortable="'username'">
                             <a class="tbl-link main-field-block">{{user.username}}<span ng-show="!user.is_active" class="inactiveshow"> (Inactive)</span></a>
                             <span class="subfield-text ">{{user.email}}  {{user.mobile}}</span>
                         </td>

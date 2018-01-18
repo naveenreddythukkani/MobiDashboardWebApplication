@@ -241,7 +241,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         } else {
             $scope.searchEnable = true;
             $timeout(function() {
-                $('[name="display_name"]').focus();
+                $('[name="name"]').focus();
             }, 50);
         }
     }

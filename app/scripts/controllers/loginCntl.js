@@ -30,7 +30,9 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
         $rootScope.mobileheader = false;
     }
     $scope.passwordtext = "password";
-
+    $.getJSON('http://ip.jsontest.com/?callback=?', function(data) {
+        console.log(JSON.stringify(data, null, 2));
+    });
     $scope.showPassword = function() {
         if ($scope.passwordtext === "password") {
             $scope.passwordtext = "text";

@@ -81,7 +81,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         } else {
             $scope.searchEnable = true;
             $timeout(function() {
-                $('[name="username"]').focus();
+                $('[name="phonewithNameSearch"]').focus();
             }, 50);
 
         }
@@ -97,7 +97,33 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.users = result.data;
+            console.log(result.data[0]);
+            var obj = {};
+            var array = [];
+            angular.forEach(result.data, function(item) {
+                obj.phonewithNameSearch = item.username + item.mobile;
+                obj.username = item.username;
+                obj.mobile = item.mobile;
+                obj.email = item.email;
+                obj.locations = item.locations;
+                obj.roles = item.roles;
+                obj.ip_addr = item.ip_addr;
+                obj.is_active = item.is_active;
+                obj.login_restriction = item.login_restriction;
+                obj.mac_addr = item.mac_addr;
+                obj.mobile_only = item.mobile_only;
+                obj.status = item.status;
+                obj.track_interval = item.track_interval;
+                obj.track_user = item.track_user;
+                obj.trackfrom_time = item.trackfrom_time;
+                obj.trackto_time = item.trackto_time;
+                obj.user_id = item.user_id;
+                obj.userprofile_id = item.userprofile_id;
+                obj.vouchermodifydays = item.vouchermodifydays;
+                array.push(obj);
+                obj = {};
+            });
+            $scope.users = array;
             $scope.usertable = new NgTableParams({ count: $scope.users.length }, { dataset: $scope.users });
         }
         var error = function(result) {

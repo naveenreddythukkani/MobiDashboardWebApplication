@@ -35,8 +35,8 @@ body {
 
 .usershistorytable tbody tr td:first-child,
 .roleshistorytable tbody tr td:first-child,
-.locationshistorytable tbody tr td:first-child, 
-.smshistorytable tbody tr td:first-child{
+.locationshistorytable tbody tr td:first-child,
+.smshistorytable tbody tr td:first-child {
     white-space: nowrap;
 }
 
@@ -1147,6 +1147,23 @@ td {
     margin: 0 auto;
 }
 
+.fixedsearch {
+    position: fixed;
+    z-index: 7;
+    width: 64% !important;
+    height: 60px;
+    background: white;
+    margin-top: -40px;
+    padding-top: 30px;
+}
+
+#scrollable-area {
+    margin: auto;
+    height: 150px;
+    overflow-y: scroll;
+    /* <-- here is what is important*/
+}
+
 
 /* media query for mobile Ui */
 
@@ -1319,4 +1336,24 @@ td {
 
 .m.header-menu-icon {
     display: inline !important;
+}
+/*Pop Over*/
+.popover-title {
+text-align: center;
+}
+.custom-popover li {
+border: none!important;
+text-align: left;
+}
+.custom-popover li:nth-child(2) {
+border-top: 1px solid #ccc!important;
+}
+.custom-popover li:last-child {
+border-top: 1px solid #ccc!important;
+}
+.popover-cont-hide{
+display: none !important;
+}
+.custom-popover{
+margin-bottom: 0px
 }
