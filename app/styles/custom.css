@@ -1234,12 +1234,15 @@ td {
     }
     .transparentView {
         background: transparent;
-        width: 10px;
-        z-index: 2;
+        width: 0;
+        z-index: 10;
         height: 100%;
         transition: 0.5s;
         position: fixed;
         top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
     }
     .m-loggedinuser {
         font-style: italic;
@@ -1269,8 +1272,9 @@ td {
 }
 
 .m-font-size-logo-name {
-    font-size: 30px;
-    margin: 5px 10px 5px 14px !important;
+  font-size: 25px;
+  margin: 13px !important;
+  line-height: 50px;
 }
 
 .m-font-size-companyName {
@@ -1340,23 +1344,25 @@ td {
 }
 .m-header-text{
   float:left;
+  width: 55%;
 }
-
 .m.header-menu-icon {
     display: inline !important;
 }
 /*Pop Over*/
 .m-popOverView{
-  background: #eeeeee;
-position: fixed;
-height: auto;
-right: 4px;
-top: 3px;
-transition: right 0.7s ease-in;
-width: 0;
-user-select: none;
--webkit-user-select: none;
-z-index: 100;
+  background: #fff;
+  position: fixed;
+  height: auto;
+  right: 4px;
+  top: 3px;
+  transition: right 0.7s ease-in;
+  width: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 100;
+  border-radius: 2px;
+  box-shadow: 3px 3px 3px #eeeeee;
 }
 .m-popOverView a {
     padding: 8px 8px 8px 32px;
@@ -1366,10 +1372,69 @@ z-index: 100;
     display: block;
     transition: 0.3s;
 }
+.m-popOverText-Align{
+  font-size: 15px !important;
+  padding-left: 15px !important;
+  padding-top: 7px !important;
+}
 #selectmobiledatedahboard .mobile-modal-dailog{
       margin-top: 25% !important;
 }
-#locationListInHeader .mobile-modal-dailoglocation{
-  height: : 50% !important;
-  margin-top: 15% !important;
+#locationListInHeader .location-modal-size{
+  max-height: 60% !important;
+  margin-top: 20% !important;
+  overflow-x: auto;
 }
+.m-location-list-text-dispaly{
+  display: block;
+  text-decoration: none !important;
+  cursor: pointer;
+  color: #1fa9cc !important;
+  font-size: 18px;
+  padding: 5px;
+  border-bottom: 1px solid #d3d3d3;
+}
+.m-search-header-show{
+  height:50px;
+  background-color:#1fa9cc;
+  margin-top:-5px;
+  box-shadow: 5px #eeeeee
+}
+.m-back-button-show{
+  margin: 13px 10px 0 5px
+}
+.m-search-input-show{
+  height: 50px;
+  margin: 0px 3px 0px 3px;
+  outline: none;
+  background: #1fa9cc;
+  width: 30%;
+  border: none;
+  color: white;
+  font-size: 17px;
+}
+.m-search-seachbutton-show{
+    margin: 13px;
+}
+input[type="text"].m-search-input-show::-webkit-input-placeholder {
+  color: #d3d3d3;
+}
+.m-text-overflow-header {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#selectmobiledatedahboard .tab-content {
+    color : black;
+    background-color: #fff;
+    padding : 5px 15px;
+  }
+  /* remove border radius for the tab */
+
+  #selectmobiledatedahboard .nav-pills > li > a {
+    border-radius: 0;
+  }
+  .mFromDateTab, .mToDateTab{
+      width: 49.5%;
+      text-align: center;
+  }

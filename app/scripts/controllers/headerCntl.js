@@ -139,11 +139,21 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $rootScope.location_id = locat.id;
         localStorageService.set("location_id", locat.id);
         localStorageService.set("location_name", locat.display_name);
-        if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
-            $scope.removealllocalstorage();
-            $state.go('balancesheet')
-        } else {
-            $rootScope.datescalculation()
+        var screenwidth = $(window).width();
+          if(screenwidth < mobileWidth){
+                  $("#locationListInHeader").modal('hide');
+                  if($state.current.name === "balancesheet"){
+                    $rootScope.datescalculation()
+                  }else{
+                    $state.go('balancesheet')
+                  }
+                  $scope.removealllocalstorage();          }else{
+            if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
+                $scope.removealllocalstorage();
+                $state.go('balancesheet')
+            } else {
+                $rootScope.datescalculation()
+            }
         }
         $rootScope.getlocalstoredata();
     }
@@ -229,12 +239,23 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $rootScope.location_id = "All Locations";
         localStorageService.set("location_id", "All Locations");
         localStorageService.set("location_name", "All Locations");
-        if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
+        var screenwidth = $(window).width();
+          if(screenwidth < mobileWidth){
+              $("#locationListInHeader").modal('hide');
+              if($state.current.name === "balancesheet"){
+                $rootScope.datescalculation()
+              }else{
+                $state.go('balancesheet')
+              }
+              $scope.removealllocalstorage();
+          }else{
+          if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
             $scope.removealllocalstorage();
             $state.go('balancesheet')
         } else {
             $rootScope.datescalculation()
         }
+      }
         $rootScope.getlocalstoredata();
     }
     $scope.datemodelshow = function () {
@@ -311,17 +332,41 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         document.getElementById("transparentView").style.width = "0";
     }
     $scope.homeAction = function () {
-        $scope.closeNav();
-        $state.go("company");
+      $scope.closeNav();
+      if($state.current.name==="company"){
+            $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+          });
+        }else{
+          $state.go("company");
+        }
     }
     $scope.usersPageAction = function () {
-        $scope.closeNav();
-        $state.go("user");
+      $scope.closeNav();
+      if($state.current.name==="user"){
+            $state.transitionTo($state.current, $stateParams, {
+          reload: true,
+          inherit: false,
+          notify: true
+          });
+        }else{
+          $state.go("user");
+        }
     }
     $scope.locationsPageAction = function () {
         $scope.closeNav();
-        $state.go("location");
-    }
+        if($state.current.name==="location"){
+            $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+            });
+          }else{
+            $state.go("location");
+          }
+        }
     $scope.balanceSheetAction = function () {
         $scope.closeNav();
         $rootScope.balnc = "Balance sheet";
@@ -331,7 +376,15 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $rootScope.location_id = "All Locations";
         localStorageService.set("location_id", "All Locations");
         localStorageService.set("location_name", "All Locations");
-        $state.go("balancesheet");
+        if($state.current.name==="balancesheet"){
+            $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+            });
+          }else{
+            $state.go("balancesheet");
+          }
     }
     $scope.profitAndLossAction = function () {
         $scope.closeNav();
@@ -342,8 +395,16 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         localStorageService.set("location_id", "All Locations");
         localStorageService.set("location_name", "All Locations");
         $rootScope.findingpndlreport();
-        $state.go("balancesheet");
-    }
+        if($state.current.name==="balancesheet"){
+            $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+            });
+          }else{
+            $state.go("balancesheet");
+          }
+      }
     // popover hide and showerror
     $scope.popovershow= function(){
       document.getElementById("popOverTransparentView").style.width = '100%';
@@ -354,31 +415,46 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
       document.getElementById("popOverView").style.width = "0";
     }
     $scope.datemodelmobileshow=function(){
-          $scope.popoverhide();
-          $('#selectmobiledatedahboard').modal('show');
-          $('#todatemobiledashboard').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
-         if ($rootScope.pandlreport === true) {
-            $('#fromdatemobiledashboard').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
-          }
+      $scope.popoverhide();
+      $(".mFromDateTab").addClass("active");
+      $(".mToDateTab").removeClass("active");
+      $("#fromDateCal").show();
+      $("#toDateCal").hide();
+      $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
+      $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
+      $('#selectmobiledatedahboard').modal('show');
      }
+
+     $(".mFromDateTab").on('click',function(){
+        $("#fromDateCal").show();
+        $("#toDateCal").hide();
+        $('#datetimepickermobiledashboardfrom').datepicker();
+        //  $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
+
+     });
+
+     $(".mToDateTab").on('click',function(){
+        $("#toDateCal").show();
+        $("#fromDateCal").hide();
+        $('#datetimepickermobiledashboardto').datepicker();
+        //  $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
+
+     });
+
+      $(document).ready(function () {
+          $('#datetimepickermobiledashboardfrom').datepicker();
+          $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
+      });
 $(document).ready(function () {
-$('#datetimepickermobiledashboardfrom').datetimepicker({
-format: 'DD-MM-YYYY'
-});
-});
-$(document).ready(function () {
-$('#datetimepickermobiledashboardto').datetimepicker({
-format: 'DD-MM-YYYY'
-});
+  $('#datetimepickermobiledashboardto').datepicker();
+  $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
 });
 
 $('#saveformobiledashboard').on('click', function () {
-$rootScope.today1 = moment($('#todatemobiledashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
-if ($rootScope.pandlreport === true) {
-$rootScope.startdate1 = moment($('#fromdatemobiledashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
-}
-$('#selectmobiledatedahboard').modal('hide');
-$rootScope.datescalculation();
+         $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
+         $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datepicker("getDate")).format("YYYY-MM-DD");
+         $('#selectmobiledatedahboard').modal('hide');
+         $rootScope.datescalculation();
 });
      $rootScope.getalllocationinmobileheader = function () {
          $scope.loading = true;
@@ -393,6 +469,29 @@ $rootScope.datescalculation();
          }
          $http.get(domain + api + "location/compact/", config)
              .then(success, error);
+     }
+     $scope.searchAction= function() {
+       $state.go('search');
+     }
+     $scope.balancesheetPopOverAction= function(text) {
+         $scope.popoverhide();
+         if(text==="balance"){
+           $rootScope.pandlreport = false;
+           $rootScope.balnc = "Balance sheet";
+         }else{
+           $rootScope.pandlreport = true;
+           $rootScope.balnc = "Profit & Loss";
+         }
+         localStorageService.set("balnc", $rootScope.balnc);
+         if($state.current.name==="balancesheet"){
+             $state.transitionTo($state.current, $stateParams, {
+             reload: true,
+             inherit: false,
+             notify: true
+             });
+           }else{
+             $state.go("balancesheet");
+           }
      }
 });
 

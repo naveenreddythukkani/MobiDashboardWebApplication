@@ -1,14 +1,9 @@
 <div class="container table-container-width no-padding-hr">
     <div class="row no-margin-hr">
-        <div style="margin-left:44px;">Search Results Macthing:"{{globalSearchData}}"</div>
-        <div class="row no-margin-hr">
-            <div class="pull-left back-alignment" style="margin-right: 10px;"><img src="images/left.png" ng-click="backButtonAction()">
-            </div>
-            <div class="input-group">
-                <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span> -->
-                <input type="text" name="balanceSheetSearch" class="form-control" ng-model="globalSearchData" placeholder="Search" ng-change="searchboxchangeAction()" autofocus>
-                <span class=" input-group-btn "><button class="btn btn-default " ng-click="searchfunctionality()" type="button "><i class="glyphicon glyphicon glyphicon-search"></i></button></span>
-            </div>
+        <div class="row no-margin-hr m-search-header-show">
+                <img class="pull-left m-back-button-show" src="images/back_arrow_mobile.png" ng-click="backButtonAction()">
+                <input  class="m-search-input-show" type="text" name="balanceSheetSearch" ng-model="globalSearchData" placeholder="Search" ng-change="searchboxchangeAction()" autofocus>
+                <img class="pull-right m-search-seachbutton-show" ng-click="searchfunctionality()" src="images/search_mobile.png" alt="search"/>
         </div>
         <div class="col-md-12 no-padding-hr" style="margin-top:7px;">
             <ul class="custom-content list-styles no-padding-hr">

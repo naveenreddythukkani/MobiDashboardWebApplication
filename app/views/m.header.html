@@ -2,14 +2,14 @@
     <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
         <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:13px;float:left;"src="images/menu_mobile.png" alt="logo" />
         <img ng-click="backButtonAction()" ng-show="moreIconShow"  style="margin:13px;float:left;"src="images/back_arrow_mobile.png" alt="logo" />
-        <div class="m-header-text">
-          <span style="display:block;"class="m-font-size-companyName m-header-text-color">{{screenName}}</span>
-          <span class="m-header-text-color">{{selected_company_name}}</span>
+        <div id="headerTitleTextSize" class="m-header-text">
+          <span style="display:block;" class="m-font-size-companyName m-header-text-color m-text-overflow-header">{{screenName}}</span>
+          <span style="display:block;" class="m-header-text-color m-text-overflow-header">{{selected_company_name}}</span>
         </div>
-        <div class="pull-right" style="height:50px;" ng-show="moreIconShow">
+        <div class="pull-right" style="margin-top:13px; margin-right:6px;" ng-show="moreIconShow">
           <a><img id="more-logo" src="images/ic_more_vert.png" alt="more" ng-click="popovershow()" /></a>
         </div>
-        <div class="pull-right" style="height:37px;margin-top:13px;">
+        <div class="pull-right" style="margin:11px;">
         <a><img id="more-logo" src="images/search_mobile.png" alt="more" ng-click="searchAction()" /></a>
         </div>
         <div id="transparentView" class="transparentView" ng-click="closeNav()">
@@ -18,7 +18,7 @@
             <div class="m-usertabmenu">
                 <div style="padding:10px;">
                     <img id="m-logo" src="images/user-icon.png" height="70px" alt="logo" />
-                    <button type="button" class="close" style="color:white; font-size:50px;" ng-click="closeNav()">&times;</button>
+                    <img class="pull-right" ng-click="closeNav()" src="images/ic_close_white.png"/>
                 </div>
                 <div style="text-align:left;padding-left:15px;">
                     <span class="m-loggedinuser">{{name}}</span>
@@ -35,80 +35,65 @@
         <div id="popOverTransparentView" class="transparentView" ng-click="popoverhide()">
         </div>
         <div id="popOverView" class="m-popOverView">
-          <a style="font-size:15px;" ng-click="datemodelmobileshow()">Dates</a>
-          <a style="font-size:15px;" ng-click="getalllocationinmobileheader()">Locations</a>
-          <a style="font-size:15px;" ng-show="pandlreport" ng-click="balancesheetPopOverAction()">Balance Sheet</a>
-          <a style="font-size:15px;" ng-show="!pandlreport" ng-click="balancesheetPopOverAction()">Profit & Loss</a>
+          <a class="m-popOverText-Align" ng-click="datemodelmobileshow()">Dates</a>
+          <a class="m-popOverText-Align" ng-click="getalllocationinmobileheader()">Locations</a>
+          <a class="m-popOverText-Align" ng-show="pandlreport" ng-click="balancesheetPopOverAction('balance')">Balance Sheet</a>
+          <a class="m-popOverText-Align" ng-show="!pandlreport" ng-click="balancesheetPopOverAction('profit')">Profit & Loss</a>
         </div>
     </div>
 </header>
-
-<div id="selectmobiledatedahboard" class="modal fade" data-keyboard="false" role="dialog" data-backdrop="static">
-            <div class="modal-dialog mobile-modal-dailog">
-                <div class="modal-content mdl-margin">
-                    <div class="modal-header no-padding-vr-bottom">
-                        <button type="button " class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
-                        <h2 class="modal-title ">Select date</h2>
-                    </div>
-                    <div class="modal-body no-padding-vr-bottom">
-                        <div class="row no-margin-hr">
-                            <div class="col-md-12 form-group no-padding-hr" ng-show="pandlreport">
-                                <div class="col-md-3 no-padding-hr">
-                                    <label class="align-midle" autofocus="none">From Date<span>:</span></label>
-                                </div>
-                                <div class="col-md-9 no-padding-hr">
-                                    <div class="input-group date" id="datetimepickermobiledashboardfrom">
-                                        <input type="text " class="form-control" id="fromdatemobiledashboard">
-                                        <div class="input-group-addon ">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 form-group no-padding-hr">
-                                <div class="col-md-3 no-padding-hr">
-                                    <label class="align-midle " autofocus="none">To Date<span>:</span></label>
-                                </div>
-                                <div class="col-md-9 no-padding-hr">
-                                    <div class="input-group date" id="datetimepickermobiledashboardto">
-                                        <input type="text " class="form-control " id="todatemobiledashboard">
-                                        <div class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer no-margin-hr no-padding-hr">
-                            <div class="row no-margin-hr">
-                                <div class="col-md-5 pull-right no-padding-hr">
-                                    <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                                    <button id="savefordashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="savefordashboard()">Save</button>                                </div>
-                            </div>
-                      </div>
-                </div>
-          </div>
-    </div>
-</div>
-<div id="locationListInHeader" class="modal fade" data-keyboard="false" role="dialog" data-backdrop="static">
-            <div class="modal-dialog mobile-modal-dailoglocation">
-                <div class="modal-content mdl-margin">
-                    <div class="modal-header no-padding-vr-bottom">
-                        <button type="button " class="close" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
-                        <h2 class="modal-title ">Select Location</h2>
-                    </div>
-                    <div class="modal-body no-padding-vr-bottom">
-                        <div class="row no-margin-hr">
-                            <div class="col-md-12 form-group no-padding-hr">
-                            <ul class="locationlist">
-                              <li class="actionsmenu"><a class="main-field">All Locations</a></li>
-                              <li ng-repeat="location in locationsMobileListInHeader" class="actionsmenu">
-                                <a class="main-field">{{location.display_name}}</a>
-                              </li>
-                            </ul>
-                            </div>
-                        </div>
+<div class="modal fade col-xs-12" id="selectmobiledatedahboard" role="dialog">
+   <div class="modal-dialog">
+       <div class="modal-content">
+           <div class="modal-header no-padding">
+             <ul  class="nav nav-pills">
+                   <li class="mFromDateTab" >
+                       <a  data-target="#fromDateCal" data-toggle="tab">from</a>
+                   </li>
+                   <li class="mToDateTab">
+                       <a data-target="#toDateCal" data-toggle="tab">to</a>
+                   </li>
+               </ul>
+           </div>
+           <div class="modal-body">
+               <div class="tab-content clearfix">
+                   <div class="tab-pane active" id="fromDateCal">
+                       <div class="col-sm-12 col-xs-12" id="datetimepickermobiledashboardfrom">
+                       </div>
                    </div>
-                </div>
+                   <div class="tab-pane" id="toDateCal">
+                       <div class="col-sm-12 col-xs-12" id="datetimepickermobiledashboardto">
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <div class="modal-footer">
+                   <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                   <button id="saveformobiledashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
+           </div>
+       </div>
+
+   </div>
+</div>
+<div id="locationListInHeader" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog" ng-controller="headerCntl">
+      <div class="modal-dialog location-modal-size">
+                  <div class="modal-content mdl-margin">
+                        <div class="modal-header no-padding-vr-bottom" >
+                            <button style="margin-top:0;" type="button" class="close pull-right" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                            <h3 style="margin:-5px 0 8px;" class="modal-title pull-left">Select Location</h3>
+                        </div>
+                        <div class="modal-body no-padding-vr-bottom">
+                            <div class="row no-margin-hr">
+                                <div class="col-md-12 form-group no-padding-hr">
+                                <ul class="locationlist">
+                                  <li class="actionsmenu" ng-click="locationValueChangeforall()"><a class="m-location-list-text-dispaly">All Locations</a></li>
+                                  <li ng-repeat="location in locationsMobileListInHeader" class="actionsmenu" ng-click="locationValueChange(location)">
+                                    <a class="m-location-list-text-dispaly">{{location.display_name}}</a>
+                                  </li>
+                                </ul>
+                                </div>
+                            </div>
+                       </div>
+                  </div>
           </div>
-    </div>
+  </div>

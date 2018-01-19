@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window) {
+QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window,mobileWidth) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -35,6 +35,15 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
     localStorageService.set("isSearched", false);
     $scope.searchdetails = [];
     $scope.globalSearchData = "";
+
+    var screenwidth = $(window).width();
+    if (screenwidth > mobileWidth) {
+        $rootScope.showheader = true;
+        $rootScope.mobileheader = false;
+    } else {
+        $rootScope.showheader = false;
+        $rootScope.mobileheader = false;
+    }
 
     var config = {
         headers: {
