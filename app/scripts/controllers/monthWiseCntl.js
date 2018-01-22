@@ -188,6 +188,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
+            if(month==="01" || month==="02"||month==="03"){
+              year = year - 1;
+            }
             month = month - 1;
             console.log(month.toString().length);
             if (month.toString().length == 1) {
@@ -376,6 +379,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
 
         $rootScope.fromdate1 = monthyear + '-' + '01';
         $rootScope.today1 = monthyear + '-' + numberofdays;
+        if($rootScope.pandlreport=== true){
+          $rootScope.startdate1 = monthyear + '-' + '01';
+        }
 
     }
     var sortByMonth = function(arr) {

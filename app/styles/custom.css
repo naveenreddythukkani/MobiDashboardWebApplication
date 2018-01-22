@@ -1382,7 +1382,7 @@ td {
 }
 #locationListInHeader .location-modal-size{
   max-height: 60% !important;
-  margin-top: 20% !important;
+  top: 20% !important;
   overflow-x: auto;
 }
 .m-location-list-text-dispaly{
@@ -1427,7 +1427,7 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 #selectmobiledatedahboard .tab-content {
     color : black;
     background-color: #fff;
-    padding : 5px 15px;
+    /* padding : 5px 15px; */
   }
   /* remove border radius for the tab */
 
@@ -1435,6 +1435,14 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
     border-radius: 0;
   }
   .mFromDateTab, .mToDateTab{
-      width: 49.5%;
+      width: 49.6%;
       text-align: center;
   }
+  #selectmobiledatedahboard ul>li.active a{
+background-color:#1fa9cc !important;
+}
+
+#selectmobiledatedahboard .datepicker table tr td.active,
+#selectmobiledatedahboard .datepicker table tr td.active.highlighted{
+   background-color:#1fa9cc !important;
+}

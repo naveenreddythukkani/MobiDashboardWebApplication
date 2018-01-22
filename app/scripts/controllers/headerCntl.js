@@ -94,6 +94,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     $rootScope.getalllocationinheader();
     $scope.clientLogout = function () {
         $scope.closeNav();
+        $scope.popoverhide();
         $scope.loading = false;
         var success = function (result) {
             $scope.loading = true;
@@ -416,13 +417,22 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     }
     $scope.datemodelmobileshow=function(){
       $scope.popoverhide();
-      $(".mFromDateTab").addClass("active");
-      $(".mToDateTab").removeClass("active");
-      $("#fromDateCal").show();
-      $("#toDateCal").hide();
-      $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
-      $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
-      $('#selectmobiledatedahboard').modal('show');
+     $(".mFromDateTab").addClass("active");
+     $(".mToDateTab").removeClass("active");
+     $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
+     $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
+     if ($rootScope.pandlreport === true) {
+       $("#fromDateCal").show();
+       $("#toDateCal").hide();
+       $(".mpandldate").show();
+       $(".mbaldate").hide();
+     }else{
+       $("#fromDateCal").hide();
+       $("#toDateCal").show();
+       $(".mpandldate").hide();
+       $(".mbaldate").show();
+     }
+     $('#selectmobiledatedahboard').modal('show');
      }
 
      $(".mFromDateTab").on('click',function(){
@@ -451,10 +461,12 @@ $(document).ready(function () {
 });
 
 $('#saveformobiledashboard').on('click', function () {
-         $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
-         $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datepicker("getDate")).format("YYYY-MM-DD");
-         $('#selectmobiledatedahboard').modal('hide');
-         $rootScope.datescalculation();
+  $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
+  if ($rootScope.pandlreport === true) {
+  $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datepicker("getDate")).format("YYYY-MM-DD");
+  }
+  $('#selectmobiledatedahboard').modal('hide');
+  $rootScope.datescalculation();
 });
      $rootScope.getalllocationinmobileheader = function () {
          $scope.loading = true;

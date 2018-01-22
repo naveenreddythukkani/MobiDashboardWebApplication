@@ -39,42 +39,46 @@
           <a class="m-popOverText-Align" ng-click="getalllocationinmobileheader()">Locations</a>
           <a class="m-popOverText-Align" ng-show="pandlreport" ng-click="balancesheetPopOverAction('balance')">Balance Sheet</a>
           <a class="m-popOverText-Align" ng-show="!pandlreport" ng-click="balancesheetPopOverAction('profit')">Profit & Loss</a>
+          <a class="m-popOverText-Align" ng-click="clientLogout()">Logout</a>
         </div>
     </div>
 </header>
 <div class="modal fade col-xs-12" id="selectmobiledatedahboard" role="dialog">
-   <div class="modal-dialog">
-       <div class="modal-content">
-           <div class="modal-header no-padding">
-             <ul  class="nav nav-pills">
-                   <li class="mFromDateTab" >
-                       <a  data-target="#fromDateCal" data-toggle="tab">from</a>
-                   </li>
-                   <li class="mToDateTab">
-                       <a data-target="#toDateCal" data-toggle="tab">to</a>
-                   </li>
-               </ul>
-           </div>
-           <div class="modal-body">
-               <div class="tab-content clearfix">
-                   <div class="tab-pane active" id="fromDateCal">
-                       <div class="col-sm-12 col-xs-12" id="datetimepickermobiledashboardfrom">
-                       </div>
-                   </div>
-                   <div class="tab-pane" id="toDateCal">
-                       <div class="col-sm-12 col-xs-12" id="datetimepickermobiledashboardto">
-                       </div>
-                   </div>
-               </div>
-           </div>
-           <div class="modal-footer">
-                   <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                   <button id="saveformobiledashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
-           </div>
-       </div>
+    <div class="modal-dialog" style="width:270px; margin:auto; top:20%">
+        <div class="modal-content">
+            <div class="modal-header mbaldate">
+                <span class="asOnDate">As on date ?</span>
+            </div>
+            <div class="modal-header no-padding mpandldate">
+              <ul  class="nav nav-pills">
+                    <li class="mFromDateTab" >
+                        <a  data-target="#fromDateCal" data-toggle="tab">from</a>
+                    </li>
+                    <li class="mToDateTab">
+                        <a data-target="#toDateCal" data-toggle="tab">to</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div class="tab-content clearfix" style="width:250px">
+                    <div class="tab-pane active" id="fromDateCal">
+                        <div class="col-sm-12 col-xs-12" id="datetimepickermobiledashboardfrom">
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="toDateCal">
+                        <div class="col-sm-12 col-xs-12" id="datetimepickermobiledashboardto">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                    <button id="saveformobiledashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
+            </div>
+        </div>
 
-   </div>
-</div>
+    </div>
+ </div>
 <div id="locationListInHeader" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog" ng-controller="headerCntl">
       <div class="modal-dialog location-modal-size">
                   <div class="modal-content mdl-margin">

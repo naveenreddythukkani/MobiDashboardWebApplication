@@ -1008,6 +1008,10 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $rootScope.today1 = undefined;
         $rootScope.fromdate1 = undefined;
         $rootScope.startdate1 = undefined;
+        $rootScope.startdate = undefined;
+        $rootScope.today = undefined;
+        $rootScope.fromdate = undefined;
+
         $state.go('balancesheet');
     }
     $scope.mobilebackButtonAction = function() {
