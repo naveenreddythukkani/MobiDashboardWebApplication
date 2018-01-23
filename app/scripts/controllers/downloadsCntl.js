@@ -18,6 +18,7 @@ MobiDash.controller('downloadsCntl', function ($scope, $state, $rootScope, $stat
     $rootScope.showCompanyname = false;
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
+    $rootScope.mobilebreadcurmbs = false;
 
     $scope.openUrl = function (url) {
         $window.open(url, '_blank');

@@ -37,6 +37,7 @@
                                     <li class="actionsmenu "><a ng-click="backup(user)">Backup</a></li>
                                     <li class="actionsmenu "><a ng-click="smssettingsclick(user)">SMS Settings</a></li>
                                     <li class="actionsmenu "><a ng-click="upgradeClick(user, $index)">Upgrade</a></li>
+                                    <li class="actionsmenu "><a ng-click="historyDetails(user, $index)">History</a></li>
                                 </ul>
                             </div>
                             <div class="row restoreshow " ng-show="pricing_index===$index " outside-click="hideSideMenu($index) ">
@@ -51,7 +52,7 @@
         </div>
     </div>
 </div>
-<div class="alert alert-position-success " id="success-alert " style="display:none; ">
+<div class="alert alert-position-success" id="success-alert" style="display:none;">
     <strong>{{msg}}</strong>
 </div>
 <div ng-show="loading" class="load text-center ">
@@ -284,7 +285,7 @@
             <div class="modal-footer ">
                 <div class="row no-margin-hr ">
                     <div class="col-md-5 pull-right no-padding-hr ">
-                        <button type="button" class="btn background-defalt save-cancel-button" ng-click="historyDetails()" data-dismiss="modal">History</button>
+                        <!-- <button type="button" class="btn background-defalt save-cancel-button" ng-click="historyDetails()" data-dismiss="modal">History</button> -->
                         <button type="button" class="btn background-defalt save-cancel-button " data-dismiss="modal">Cancel</button>
                         <button type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveSmsSettingtoSever()">Save</button>
                     </div>
@@ -298,8 +299,8 @@
     <div class="modal-dialog ">
         <div class="modal-content mdl-margin ">
             <div class="modal-header no-padding-vr-bottom ">
-                <button type="button " class="close " data-dismiss="modal ">&times;</button>
-                <h2 class="modal-title ">Sms History</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title ">Company History</h2>
             </div>
             <div class="modal-body no-padding-vr-bottom ">
                 <div class="row no-margin-hr ">

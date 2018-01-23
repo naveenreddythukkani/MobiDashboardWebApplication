@@ -27,6 +27,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.adduser = false;
     $rootScope.addrole = false;
     $rootScope.addvouchertype = false;
+    $rootScope.mobilebreadcurmbs = false;
 
     $rootScope.screenName = "Locations";
 

@@ -33,6 +33,8 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
 
     $rootScope.dateremove = true;
     $rootScope.voucherControl = false;
+    $rootScope.moreIconShow= true;
+    $rootScope.mobilebreadcurmbs = true;
 
 
     $scope.thumbnaildownloadImages = domain + api + "thumbdownload/";
@@ -46,7 +48,13 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
         $rootScope.showheader = false;
         $rootScope.mobileheader = true;
     }
-
+    $rootScope.screenName = $rootScope.balnc;
+    if($rootScope.isSearched){
+       $('#mainpageContollerStart').addClass('balancesheetheader');
+       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    }else{
+      $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    }
     var config = {
         headers: {
             "X-CSRFToken": $rootScope.csrftoken,

@@ -32,6 +32,8 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
     $rootScope.voucherstab = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
+    $rootScope.moreIconShow= true;
+    $rootScope.mobilebreadcurmbs = true;
 
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
@@ -41,7 +43,13 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
         $rootScope.showheader = false;
         $rootScope.mobileheader = true;
     }
-
+    $rootScope.screenName = $rootScope.balnc;
+    if($rootScope.isSearched){
+       $('#mainpageContollerStart').addClass('balancesheetheader');
+       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    }else{
+      $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    }
     var config = {
         headers: {
             "X-CSRFToken": $rootScope.csrftoken,

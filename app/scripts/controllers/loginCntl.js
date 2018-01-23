@@ -20,6 +20,7 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     $rootScope.showCompanyname = false;
     $rootScope.voucherstab = false;
     $rootScope.downloadstab = false;
+    $rootScope.mobilebreadcurmbs = false;
 
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
@@ -73,6 +74,13 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
                 session.sessionexpried(data.status);
             });
     }
+    if(localStorageService.get("isRememberMe")){
+        $('#login').addClass('ng-table-pager')
+        $scope.user.mobile=localStorageService.get("mobile");
+        $scope.user.password=localStorageService.get("password");
+        $scope.user.rememberCheck=localStorageService.get("isRememberMe");
+        $scope.logoutrequest("login");
+    }
     $scope.otprequest = function() {
         $scope.loading = true;
         var data = { "mobile": $scope.user.mobile, "device_id": '00:37:6D:EA:77:FD', "is_browser": true, "reset_password": true };
@@ -97,7 +105,8 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     }
     $scope.loginrequest = function() {
         $scope.loading = true;
-        var data = { "mobile": $scope.user.mobile, "password": $scope.user.password, "device_id": '00:37:6D:EA:77:FD' };
+        var data = { "mobile": $scope.user.mobile, "password": $scope.user.password, "device_id": '00:37:6D:EA:77:FD',
+        "remember_me":$scope.user.rememberCheck };
         $http.post(domain + api + "login/", data)
             .then(function mysuccess(result) {
                     // dataMove.setMyData(result.data.tenant);
@@ -112,7 +121,8 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
                     localStorageService.set('session_key', $rootScope.session_key);
                     localStorageService.set('csrftoken', $rootScope.csrftoken);
                     localStorageService.set('tenant_id', $rootScope.tenant_id);
-                    // console.log(dataMove.getMyData());
+                    localStorageService.set('password',$scope.user.password);
+                    localStorageService.set("isRememberMe",$scope.user.rememberCheck)
                     $state.go("company")
                     $scope.loadmsg = true;
                     $scope.msg = "logged in user successfully done";

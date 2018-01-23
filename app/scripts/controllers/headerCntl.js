@@ -22,12 +22,22 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         console.log(dataMove.getsubgroupdata());
         console.log(dataMove.getledgerData());
         console.log(dataMove.getcontrolledgerData());
+        console.log(dataMove.getmonthwiseData());
+        console.log(dataMove.getvoucherData());
+
         $scope.groupData = dataMove.getgroupdata();
         $scope.subgroupData = dataMove.getsubgroupdata();
         $scope.ledgerData = dataMove.getledgerData();
         $scope.controlledgerData = dataMove.getcontrolledgerData();
         $scope.monthwiseData = dataMove.getmonthwiseData()
         $scope.voucherData = dataMove.getvoucherData();
+
+        $rootScope.groupData = dataMove.getgroupdata();
+        $rootScope.subgroupData = dataMove.getsubgroupdata();
+        $rootScope.ledgerData = dataMove.getledgerData();
+        $rootScope.controlledgerData = dataMove.getcontrolledgerData();
+        $rootScope.monthwiseData = dataMove.getmonthwiseData()
+        $rootScope.voucherData = dataMove.getvoucherData();
 
     }
     var config = {
@@ -321,7 +331,6 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $window.history.back();
         }
     }
-
     $scope.openNav = function () {
         console.log($(window).width())
         document.getElementById("transparentView").style.width = '100%';
@@ -415,25 +424,35 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
       document.getElementById("popOverTransparentView").style.width = '0';
       document.getElementById("popOverView").style.width = "0";
     }
-    $scope.datemodelmobileshow=function(){
-      $scope.popoverhide();
-     $(".mFromDateTab").addClass("active");
-     $(".mToDateTab").removeClass("active");
-     $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
-     $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
-     if ($rootScope.pandlreport === true) {
-       $("#fromDateCal").show();
-       $("#toDateCal").hide();
-       $(".mpandldate").show();
-       $(".mbaldate").hide();
-     }else{
-       $("#fromDateCal").hide();
-       $("#toDateCal").show();
-       $(".mpandldate").hide();
-       $(".mbaldate").show();
-     }
-     $('#selectmobiledatedahboard').modal('show');
-     }
+    $scope.datemodelmobileshow = function () {
+        $scope.popoverhide();
+        $(".mFromDateTab").addClass("active");
+        $(".mToDateTab").removeClass("active");
+        $(".mFromDateTabVou").addClass("active");
+        $(".mToDateTabVou").removeClass("active");
+        if ($rootScope.pandlreport === true) {
+            $("#fromDateCal").show();
+            $("#toDateCal").hide();
+            $("#fromDateCalVou").show();
+            $("#toDateCalVou").hide();
+        } else {
+            $("#fromDateCal").hide();
+            $("#toDateCal").show();
+            $("#fromDateCalVou").hide();
+            $("#toDateCalVou").show();
+        }
+        if ($rootScope.voucherControl) {
+            // $('#date').datepicker('option', 'minDate', new Date(startDate));
+            // $('#date').datepicker('option', 'maxDate', new Date(endDate));
+            $('#datetimepickermobilevoucherto').datepicker("setDate", new Date());
+            $('#datetimepickermobilevoucherfrom').datepicker("setDate", new Date(new Date().getFullYear() - 1, 03, 01));
+            $('#selectmobiledatevoucher').modal('show');
+        } else {
+            $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
+            $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear() - 1, 03, 01));
+            $('#selectmobiledatedahboard').modal('show');
+        }
+    }
 
      $(".mFromDateTab").on('click',function(){
         $("#fromDateCal").show();
@@ -451,6 +470,18 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
 
      });
 
+     $(".mFromDateTabVou").on('click', function () {
+        $("#fromDateCalVou").show();
+        $("#toDateCalVou").hide();
+        $('#datetimepickermobilevoucherfrom').datepicker();
+    });
+
+    $(".mToDateTabVou").on('click', function () {
+        $("#toDateCalVou").show();
+        $("#fromDateCalVou").hide();
+        $('#datetimepickermobilevoucherto').datepicker();
+    });
+
       $(document).ready(function () {
           $('#datetimepickermobiledashboardfrom').datepicker();
           $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
@@ -461,13 +492,23 @@ $(document).ready(function () {
 });
 
 $('#saveformobiledashboard').on('click', function () {
-  $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
-  if ($rootScope.pandlreport === true) {
-  $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datepicker("getDate")).format("YYYY-MM-DD");
-  }
+        $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
+        if ($rootScope.pandlreport === true) {
+        $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datepicker("getDate")).format("YYYY-MM-DD");
+        }
   $('#selectmobiledatedahboard').modal('hide');
   $rootScope.datescalculation();
 });
+
+$('#saveformobilevoucher').on('click', function () {
+    $rootScope.today1 = moment($('#datetimepickermobilevoucherto').datepicker("getDate")).format("YYYY-MM-DD");
+    if ($rootScope.pandlreport === true) {
+    $rootScope.startdate1 =moment($('#datetimepickermobilevoucherfrom').datepicker("getDate")).format("YYYY-MM-DD");
+    }
+    $('#selectmobiledatevoucher').modal('hide');
+    $rootScope.datescalculation();
+});
+
      $rootScope.getalllocationinmobileheader = function () {
          $scope.loading = true;
          $scope.popoverhide();
@@ -505,8 +546,10 @@ $('#saveformobiledashboard').on('click', function () {
              $state.go("balancesheet");
            }
      }
-});
+     $scope.naveen=function(){
 
+     }
+});
 
 
 /// locationCntl code

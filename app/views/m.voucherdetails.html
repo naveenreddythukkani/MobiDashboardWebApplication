@@ -1,38 +1,40 @@
-<div class="container table_container  table-container-width no-padding-hr" ng-class="{'isSearchHeaderSectionHeightInVocherDetails':!isSearched}">
+<div id="mainpageContollerStart" class="container table_container balancesheetheadermove table-container-width no-padding-hr" ng-class="{'isSearchHeaderSectionHeightInVocherDetails':!isSearched}">
     <div class="row no-margin-hr">
         <div class="col-md-12 no-padding-hr">
             <h4 class="no-margin-hr text-center">{{findingtranstype(props.tx_type)}} VOUCHER</h4>
             <div class="row no-marign-allsides no-margin-hr voucher-box">
-                <div class='displayrow'>
-                    <div class='displaycell'>
-                        <table class="cashreceipttable">
+                <div class='m-displayrow'>
+                    <div class='m-displaycell'>
+                        <table class="m-cashreceipttable">
                             <tbody>
                                 <tr>
                                     <td>
-                                        <span style="font-size:30px;max-width:270px;" ng-class="{'red':vocherdetailsdata.isverified == 0}">{{vocherdetailsdata.manualid}}</span>
+                                        <span style="font-size:30px;display: block;" ng-class="{'red':vocherdetailsdata.isverified == 0}">{{vocherdetailsdata.manualid}}</span>
+                                        <span class="pull-left">{{vocherdetailsdata.transdate}}</span>
                                     </td>
                                     <td style="padding-left:15px;">
                                         <span style="font-size:16px;">{{showsnameandglname(vocherdetailsdata)}}</span><br>
-                                        <span class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span><span ng-show="vocherdetailsdata.refno && vocherdetailsdata.refdate"> | </span>
-                                        <span class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate}}</span>
+                                        <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span>
+                                        <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate}}</span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div class='displaycell seqs0howing'>
-                        <span class="pull-left">{{vocherdetailsdata.transdate}}</span>
+                    <div class='m-displaycell m-seqs0howing'>
                         <span class="pull-right">{{vocherdetailsdata.totalAmount | INRCurrency}}</span>
                     </div>
                 </div>
             </div>
             <ul class="list-styles no-padding-hr" style="margin-bottom:0;" ng-repeat="glinedata in vocherdetailsdata.GLines| orderBy:glinedata.seq">
                 <li style="margin-top:-1px;">
+                 <div style="display: block;clear:both;">
                     <span class="sublist-text-name" style="padding:3px;">{{showglandsldata(glinedata)}}</span>
                     <span class="sublist-text-value" style="padding:3px;">{{glinedata.amount | INRCurrency}}</span>
-                    <p style="padding-left:8px;" ng-show="glinedata.narration !== undefined" class="voucher-refname">{{glinedata.narration}}</p>
+                  </div>
+                    <p style="padding-left:8px;clear:both !important;" ng-show="glinedata.narration !== undefined" class="voucher-refname">{{glinedata.narration}}</p>
                     <ul class="list-styles no-padding-hr text-right" ng-repeat="ccdata in glinedata.ccLines| orderBy:ccdata.seq" style="margin-bottom:0;">
-                        <li class="sub-listheightvalues" style="width:30%;padding-left:25px;">
+                        <li class="sub-listheightvalues" style="width:70%;padding-left:25px;">
                             <span style="color:#d3d3d3;" class="sublist-text-name">{{ccdata.costcentre_name}}</span>
                             <span style="color:#d3d3d3;" class="sublist-text-value">{{ccdata.amount | INRCurrency}}</span>
                         </li>

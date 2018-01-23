@@ -19,6 +19,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
     $rootScope.downloadstab = true;
+    $rootScope.mobilebreadcurmbs = false;
 
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
@@ -388,11 +389,11 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             .then(success, error);
     }
 
-    $scope.historyDetails = function() {
+    $scope.historyDetails = function(company, index) {
         console.log("historyDetails", "fire");
         $scope.smsHistory = {};
         var smsHistoryList = [];
-        $scope.smsHistory.id = $scope.company_id;
+        $scope.smsHistory.id = company.id;
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;

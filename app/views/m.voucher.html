@@ -1,4 +1,4 @@
-<div class="container table_container  table-container-width no-padding-hr" ng-class="{'isSearchHeaderSectionHeightInVocherScreen':!isSearched}">
+<div id="mainpageContollerStart" class="container table_container balancesheetheadermove table-container-width no-padding-hr" ng-class="{'isSearchHeaderSectionHeightInVocherScreen':!isSearched}">
     <div class="row no-margin-hr">
         <div class="col-md-12 no-padding-hr">
 
@@ -27,7 +27,7 @@
                         </tr>
                         <tr>
                             <td class="border-right-none"></td>
-                            <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yyyy"}}</td>
+                            <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</td>
                             <td align="right" class="td-padding-right">{{obalance.ob_amt >= 0 ? ((obalance.ob_amt | INRCurrency) + " Dr") : (((-1 * obalance.ob_amt) | INRCurrency) + " Cr")}}</td>
                             <!-- <td align="right" class="td-padding-right">{{obalance.ob_amt >= 0 ? ((obalance.ob_amt | INRCurrency) + " Dr") : (((-1 * obalance.ob_amt) | INRCurrency) + " Cr")}}</td> -->
                         </tr>
@@ -55,9 +55,11 @@
 
             <div ng-if="ledger_ltype == 'S' || (ledger_ltype == 'L' && ledgerAllLocationsStatus == true) || (ledger_ltype == 'C' && corbltypeAllLocationsStatus == true) || (ledger_ltype == 'B' && corbltypeAllLocationsStatus == true)">
                 <ul ng-if="ledger_ltype == 'S'" class="list-styles no-padding-hr">
-                    <li class="listheightvalues-voucher">
-                        <span class="text-name">{{props.ltype_name}} &#58;</span>
+                    <li class="listheightvalues-voucher" style="background:#d3d3d3;">
+                      <div>
+                        <span class="text-name" style="width:100% !important;">{{props.ltype_name}} &#58;</span>
                         <span class="text-name-small">(From {{fromdate| date :  "dd/MM/yyyy"}} To {{today| date :  "dd/MM/yyyy"}})</span>
+                      </div>
                         <span class="text-value">{{ltype_amt >= 0 ? ((ltype_amt | INRCurrency) + " Dr") : (((-1 * ltype_amt) | INRCurrency) + " Cr")}}</span>
                         <!-- <span class="text-value">{{ltype_amt >= 0 ? ((ltype_amt | INRCurrency) + " Dr") : (((-1 * ltype_amt) | INRCurrency) + " Cr")}}</span> -->
                     </li>
@@ -97,7 +99,7 @@
                             </tr>
                             <tr>
                                 <td class="border-right-none"></td>
-                                <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yyyy"}}</td>
+                                <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</td>
                                 <td align="right" class="td-padding-right">{{voucher.ob_amount >= 0 ? ((voucher.ob_amount | INRCurrency) + " Dr") : (((-1 * voucher.ob_amount) | INRCurrency) + " Cr")}}</td>
                                 <!-- <td align="right"  class="td-padding-right">{{voucher.ob_amount >= 0 ? ((voucher.ob_amount | INRCurrency) + " Dr") : (((-1 * voucher.ob_amount) | INRCurrency) + " Cr")}}</td> -->
                             </tr>

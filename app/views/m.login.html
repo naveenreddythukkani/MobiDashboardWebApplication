@@ -27,6 +27,9 @@
                     <div ng-show="passworderror" class="col-md-12 col-xs-12 col-sm-12 no-padding-hr form-group">
                         <span style="color:#EF5F5F">{{passworderrormessage}}</span>
                     </div>
+                    <div class="row form-group col-md-12 col-xs-12 col-sm-12">
+                        <input type="checkbox" name="remember" ng-model="user.rememberCheck" ng-checked="user.rememberCheck"> Remember Me<br>
+                    </div>
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12 text-center">
                             <button type="submit" class="btn login-button background-defalt" ng-click="clientLogin()">Login</button>

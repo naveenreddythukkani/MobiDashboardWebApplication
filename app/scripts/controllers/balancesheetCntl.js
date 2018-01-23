@@ -31,6 +31,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
     $rootScope.voucherControl = false;
     $rootScope.downloadstab = false;
     $rootScope.moreIconShow= true;
+    $rootScope.mobilebreadcurmbs = false;
 
 
     var screenwidth = $(window).width();

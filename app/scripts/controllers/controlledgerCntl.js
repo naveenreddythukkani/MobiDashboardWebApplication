@@ -31,6 +31,9 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
     $rootScope.voucherstab = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
+    $rootScope.moreIconShow= true;
+    $rootScope.mobilebreadcurmbs = true;
+
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
         $rootScope.showheader = true;
@@ -39,7 +42,13 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
         $rootScope.showheader = false;
         $rootScope.mobileheader = true;
     }
-
+    $rootScope.screenName = $rootScope.balnc;
+    if($rootScope.isSearched){
+       $('#mainpageContollerStart').addClass('balancesheetheader');
+       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    }else{
+      $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    }
     var config = {
         headers: {
             "X-CSRFToken": $rootScope.csrftoken,

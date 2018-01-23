@@ -2,7 +2,7 @@
     <div class="row no-margin-hr">
         <div class="row no-margin-hr m-search-header-show">
                 <img class="pull-left m-back-button-show" src="images/back_arrow_mobile.png" ng-click="backButtonAction()">
-                <input  class="m-search-input-show" type="text" name="balanceSheetSearch" ng-model="globalSearchData" placeholder="Search" ng-change="searchboxchangeAction()" autofocus>
+                <input  class="m-search-input-show" type="text" name="balanceSheetSearch" ng-model="globalSearchData" placeholder="Search" ng-keyup="$event.keyCode == 13 ? searchfunctionality() : null" autofocus>
                 <img class="pull-right m-search-seachbutton-show" ng-click="searchfunctionality()" src="images/search_mobile.png" alt="search"/>
         </div>
         <div class="col-md-12 no-padding-hr" style="margin-top:7px;">
@@ -11,7 +11,7 @@
                     {{item.display_name}}
                 </li>
             </ul>
-            <button class="button button-calm" style="width: 100%" ng-show="LoadMoreButton" ng-click="showMoreResults()">
+            <button class="button" style="width:100%;color:#1fa9cc;" ng-show="LoadMoreButton" ng-click="showMoreResults()">
                 Load More Results
                </button>
         </div>

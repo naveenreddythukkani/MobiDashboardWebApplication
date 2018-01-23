@@ -32,6 +32,8 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
     $rootScope.voucherstab = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = true;
+    $rootScope.moreIconShow= true;
+    $rootScope.mobilebreadcurmbs = true;
 
     $scope.ltype_amt = "";
     var screenwidth = $(window).width();
@@ -41,6 +43,13 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
     } else {
         $rootScope.showheader = false;
         $rootScope.mobileheader = true;
+    }
+    $rootScope.screenName = $rootScope.balnc;
+    if($rootScope.isSearched){
+       $('#mainpageContollerStart').addClass('balancesheetheader');
+       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    }else{
+      $('#mainpageContollerStart').addClass('balancesheetheadermove');
     }
     $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -372,9 +381,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
             $scope.passparameters.ledger_name = $scope.props.ledger_name;
             localStorageService.set("ledger_ltype", $scope.props.ledger_ltype)
             $rootScope.ledger_ltype = $scope.props.ledger_ltype;
+            $scope.passparameters.monthwise = true;
             dataMove.setmonthwiseData($scope.passparameters);
         }
-        $scope.passparameters.monthwise = true;
         $state.go("voucher");
 
         $rootScope.fromdate1 = monthyear + '-' + '01';

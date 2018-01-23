@@ -31,6 +31,8 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
     $rootScope.voucherControl = false;
     $rootScope.downloadstab = false;
     $rootScope.moreIconShow= true;
+    $rootScope.mobilebreadcurmbs = true;
+
 
     var config = {
         headers: {
@@ -52,6 +54,8 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
         $rootScope.showheader = false;
         $rootScope.mobileheader = true;
     }
+    $rootScope.screenName = $rootScope.balnc;
+
     $scope.savedates = function() {
         $scope.datesObj = {};
         $scope.datesObj.today1 = $rootScope.today1;

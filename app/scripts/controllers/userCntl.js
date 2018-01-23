@@ -20,6 +20,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     $rootScope.voucherstab = true;
     $rootScope.downloadstab = false;
     $rootScope.moreIconShow= false;
+    $rootScope.mobilebreadcurmbs = false;
 
     $rootScope.addloc = false;
     $rootScope.addclient = false;

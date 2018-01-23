@@ -368,7 +368,7 @@ body {
 }
 
 .load {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -653,12 +653,13 @@ user-icon-2x {
 }
 
 .listheightvalues-voucher {
-    height: 50px;
+    height: auto;
     background-color: #f9f9f9;
     padding-top: 5px;
     padding-left: 5px;
     padding-right: 5px;
     margin-top: -1px;
+    overflow: hidden;
 }
 
 .profile_block .dropdown {
@@ -885,15 +886,6 @@ td {
     font-weight: normal;
     font-size: 13px;
 }
-
-.displayrow {
-    display: table;
-    color: #000;
-    border: solid red 0px;
-    padding: 0px;
-    width: 100%;
-}
-
 .fixed-footer {
     position: fixed;
     bottom: 0;
@@ -901,7 +893,13 @@ td {
     width: 64%;
     margin: 0 auto;
 }
-
+.displayrow {
+    display: table;
+    color: #000;
+    border: solid red 0px;
+    padding: 0px;
+    width: 100%;
+}
 .displaycell {
     display: table-cell;
     vertical-align: middle;
@@ -1166,12 +1164,17 @@ td {
     /* <-- here is what is important*/
 }
 
-
 /* media query for mobile Ui */
 
 @media screen and (max-width:640px) {
     .table-container-width {
         width: 100% !important;
+    }
+    .balancesheetheadermove{
+      margin-top: 115px !important;
+    }
+    .balancesheetheader{
+      margin-top: 65px !important;
     }
     .down-up-arrows {
         font-size: 10px;
@@ -1193,6 +1196,16 @@ td {
     .table_container {
         margin-top: 50px;
     }
+
+    .alert-position-success {
+        position: fixed;
+        top: 20%;
+        z-index: 9999;
+        background: #454545;
+        color: #fff;
+        left: 10px;
+        right: 10px;
+    }
     /* side menu css */
     .sidenav {
         height: 100%;
@@ -1203,7 +1216,7 @@ td {
         left: 0;
         background-color: #eeeeee;
         overflow-x: hidden;
-        transition: 0.5s;
+        transition: 0.3s;
         padding-top: 60px;
         user-select: none;
         -webkit-user-select: none;
@@ -1232,6 +1245,9 @@ td {
     .sidenav a {
         font-size: 18px;
     }
+    .hambergurmenuload{
+      font-size: 23px !important;
+    }
     .transparentView {
         background: transparent;
         width: 0;
@@ -1243,6 +1259,13 @@ td {
         right: 0;
         left: 0;
         bottom: 0;
+    }
+    .fixed-footer {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    width: 100% !important;
+    margin: 0 auto;
     }
     .m-loggedinuser {
         font-style: italic;
@@ -1290,11 +1313,23 @@ td {
 
 .m-header-background {
     background-color: #1fa9cc;
-    height: 50px;
+    /* height: 50px; */
     margin-top: 0px !important;
     margin-bottom: 15px;
 }
-
+.m-sub-header-background{
+  background-color: #1fa9cc;
+position: fixed;
+margin-bottom: 5px;
+height: 50px;
+margin-top: 64px;
+border-top: 2px solid #fff;
+width: 100%;
+padding: 5px;
+display: table;
+color: #fff;
+z-index:10;
+}
 .m-header-text-color {
     color: #fff;
 }
@@ -1408,7 +1443,7 @@ td {
   margin: 0px 3px 0px 3px;
   outline: none;
   background: #1fa9cc;
-  width: 30%;
+  width: 65%;
   border: none;
   color: white;
   font-size: 17px;
@@ -1434,15 +1469,68 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
   #selectmobiledatedahboard .nav-pills > li > a {
     border-radius: 0;
   }
-  .mFromDateTab, .mToDateTab{
+  .mFromDateTab, .mToDateTab,
+  .mFromDateTabVou, .mToDateTabVou{
       width: 49.6%;
       text-align: center;
   }
-  #selectmobiledatedahboard ul>li.active a{
-background-color:#1fa9cc !important;
+  #selectmobiledatedahboard ul>li.active div,
+  #selectmobiledatevoucher ul>li.active div{
+  background-color:#1fa9cc !important;
+  height: 2px;
+  }
+
+  #selectmobiledatedahboard .datepicker table tr td.active,
+  #selectmobiledatedahboard .datepicker table tr td.active.highlighted,
+  #selectmobiledatevoucher .datepicker table tr td.active,
+  #selectmobiledatevoucher .datepicker table tr td.active.highlighted{
+     background-color:#1fa9cc !important;
+  }
+.mobile-breadcrumb{
+  list-style: none;
+}
+.mobile-breadcrumb-list{
+  color: #fff;
+  font-size: 12px;
+  padding: 5px;
+}
+.m-breadcrumb-arange{
+  float: left;
+}
+.m-displayrow {
+    display: table;
+    color: #000;
+    border: solid red 0px;
+    padding: 0px;
+    width: 100%;
+}
+.m-displaycell {
+    display: table-cell;
+    vertical-align: middle;
 }
 
-#selectmobiledatedahboard .datepicker table tr td.active,
-#selectmobiledatedahboard .datepicker table tr td.active.highlighted{
-   background-color:#1fa9cc !important;
+.m-displaycell:first-child {
+    width: 70%;
+    padding: 0px;
+    margin: 0px;
+    vertical-align: top;
+}
+
+.m-displaycell:nth-child(2) {
+    width: 30%;
+    padding: 5px;
+    font-size: 16px !important;
+    vertical-align: top;
+}
+
+.m-cashreceipttable {
+    /* width: 100%; */
+    color: #000 !important;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.m-cashreceipttable tbody tr td {
+    border: none;
 }
