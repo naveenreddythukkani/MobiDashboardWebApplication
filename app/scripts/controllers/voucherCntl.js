@@ -386,6 +386,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
+            if(month==="01" || month==="02"||month==="03"){
+                year = year - 1;
+              }
             if (day > 10) {
                 day = '0' + 1;
             } else {
