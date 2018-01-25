@@ -278,7 +278,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     }
     $scope.datemodelforfromandtodate = function () {
         $('#selectdatevoucher').modal('show');
-        $('#fromdateidvoucher').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
+        $('#fromdateidvoucher').val($filter('date')($rootScope.fromdate, "dd-MM-yyyy"));
         $('#todateidvoucher').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
     }
 
@@ -459,8 +459,8 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $('#datetimepickermobiledashboardto').datepicker("update", new Date());
             $('#datetimepickermobiledashboardfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
             $('#selectmobiledatedahboard').modal('show');
-            
-           
+
+
         }
     }
 
@@ -494,7 +494,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     });
 
     //   $(document).ready(function () {
-       
+
         //   $('#datetimepickermobiledashboardfrom').datepicker();
         //   $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
     //   });
