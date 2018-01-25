@@ -428,6 +428,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $scope.popoverhide();
         $(".mFromDateTab").addClass("active");
         $(".mToDateTab").removeClass("active");
+
         $(".mFromDateTabVou").addClass("active");
         $(".mToDateTabVou").removeClass("active");
         if ($rootScope.pandlreport === true) {
@@ -444,13 +445,22 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         if ($rootScope.voucherControl) {
             // $('#date').datepicker('option', 'minDate', new Date(startDate));
             // $('#date').datepicker('option', 'maxDate', new Date(endDate));
-            $('#datetimepickermobilevoucherto').datepicker("setDate", new Date());
-            $('#datetimepickermobilevoucherfrom').datepicker("setDate", new Date(new Date().getFullYear() - 1, 03, 01));
+            $('#datetimepickermobilevoucherfrom').on('changeDate',function(e){
+                $(".mToDateTabVou").trigger('click');
+            });
+            $('#datetimepickermobilevoucherto').datepicker("update", new Date());
+            $('#datetimepickermobilevoucherfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
             $('#selectmobiledatevoucher').modal('show');
         } else {
-            $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
-            $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear() - 1, 03, 01));
+            $('#datetimepickermobiledashboardfrom').on('changeDate',function(e){
+                $(".mToDateTab").trigger('click');
+
+            });
+            $('#datetimepickermobiledashboardto').datepicker("update", new Date());
+            $('#datetimepickermobiledashboardfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
             $('#selectmobiledatedahboard').modal('show');
+            
+           
         }
     }
 
@@ -458,16 +468,15 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $("#fromDateCal").show();
         $("#toDateCal").hide();
         $('#datetimepickermobiledashboardfrom').datepicker();
-        //  $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
 
      });
 
      $(".mToDateTab").on('click',function(){
+        $(".mFromDateTab").removeClass("active");
+        $(".mToDateTab").addClass("active");
         $("#toDateCal").show();
         $("#fromDateCal").hide();
         $('#datetimepickermobiledashboardto').datepicker();
-        //  $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
-
      });
 
      $(".mFromDateTabVou").on('click', function () {
@@ -477,19 +486,22 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     });
 
     $(".mToDateTabVou").on('click', function () {
+        $(".mFromDateTabVou").removeClass("active");
+        $(".mToDateTabVou").addClass("active");
         $("#toDateCalVou").show();
         $("#fromDateCalVou").hide();
         $('#datetimepickermobilevoucherto').datepicker();
     });
 
-      $(document).ready(function () {
-          $('#datetimepickermobiledashboardfrom').datepicker();
-          $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
-      });
-$(document).ready(function () {
-  $('#datetimepickermobiledashboardto').datepicker();
-  $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
-});
+    //   $(document).ready(function () {
+       
+        //   $('#datetimepickermobiledashboardfrom').datepicker();
+        //   $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
+    //   });
+    //     $(document).ready(function () {
+    //     $('#datetimepickermobiledashboardto').datepicker();
+    //     $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
+    //     });
 
 $('#saveformobiledashboard').on('click', function () {
         $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
