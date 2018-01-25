@@ -164,7 +164,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             $scope.passparameters.ledger_ltype = type;
             localStorageService.set("ledger_ltype", type)
             $rootScope.ledger_ltype = type;
-            dataMove.setsearchcontrolledgerData($scope.passparameters)
+            dataMove.setsearchledgerData($scope.passparameters)
             $state.go("voucher");
         }
     };

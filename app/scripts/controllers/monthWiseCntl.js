@@ -388,9 +388,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
 
         $rootScope.fromdate1 = monthyear + '-' + '01';
         $rootScope.today1 = monthyear + '-' + numberofdays;
-        if($rootScope.pandlreport=== true){
-          $rootScope.startdate1 = monthyear + '-' + '01';
-        }
+        // if($rootScope.pandlreport=== true){
+          // $rootScope.startdate1 = monthyear + '-' + '01';
+        // }
 
     }
     var sortByMonth = function(arr) {

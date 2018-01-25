@@ -7,8 +7,8 @@
         </div>
         <div class="col-md-12 no-padding-hr" style="margin-top:7px;">
             <ul class="custom-content list-styles no-padding-hr">
-                <li class="custom-content-border sub-listheightvalues" ng-repeat="item in searchdetails| orderBy: 'display_name'" ng-click="itemSearch(item.id, item.type, item.display_name, item.rootgroup_id)">
-                    {{item.display_name}}
+                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-repeat="item in searchdetails| orderBy: 'display_name'" ng-click="itemSearch(item.id, item.type, item.display_name, item.rootgroup_id)">
+                    <span>{{item.display_name}}</span>
                 </li>
             </ul>
             <button class="button" style="width:100%;color:#1fa9cc;" ng-show="LoadMoreButton" ng-click="showMoreResults()">

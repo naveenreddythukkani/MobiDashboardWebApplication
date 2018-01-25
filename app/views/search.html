@@ -6,14 +6,14 @@
             </div>
             <div class="input-group">
                 <!-- <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span> -->
-                <input type="text" name="balanceSheetSearch" class="form-control" ng-model="globalSearchData" placeholder="Search" ng-change="searchboxchangeAction()" autofocus>
+                <input type="text" name="balanceSheetSearch" class="form-control" ng-model="globalSearchData" placeholder="Search" ng-keyup="$event.keyCode == 13 ? searchfunctionality() : null" autofocus>
                 <span class=" input-group-btn "><button class="btn btn-default " ng-click="searchfunctionality()" type="button "><i class="glyphicon glyphicon glyphicon-search"></i></button></span>
             </div>
         </div>
         <div class="col-md-12 no-padding-hr" style="margin-top:7px;">
             <ul class="custom-content list-styles no-padding-hr">
-                <li class="custom-content-border sub-listheightvalues" ng-repeat="item in searchdetails| orderBy: 'display_name'" ng-click="itemSearch(item.id, item.type, item.display_name, item.rootgroup_id)">
-                    {{item.display_name}}
+                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-repeat="item in searchdetails| orderBy: 'display_name'" ng-click="itemSearch(item.id, item.type, item.display_name, item.rootgroup_id)">
+                  <span>{{item.display_name}}</span>
                 </li>
             </ul>
             <button class="button button-calm" style="width: 100%" ng-show="LoadMoreButton" ng-click="showMoreResults()">

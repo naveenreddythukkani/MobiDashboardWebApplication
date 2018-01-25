@@ -19,7 +19,7 @@
       <img ng-click="backButtonAction()" ng-show="moreIconShow"  style="margin:20px;float:left;"src="images/back_arrow_mobile.png" alt="logo" />
       <div id="headerTitleTextSize" class="m-header-text">
         <span style="display:block;" class="m-font-size-companyName m-header-text-color m-text-overflow-header">{{screenName}}</span>
-        <span style="display:block;margin-top: 2px;" class="m-header-text-color m-text-overflow-header"><span ng-if="pandlreport==true "><span>From {{startdate| date : 'dd-MM-yy'}}</span> to <span>{{today| date : 'dd-MM-yy'}}</span></span><span ng-if="pandlreport==false "> as on <span >{{today| date : 'dd-MM-yy'}}</span></span></label></span>
+        <span style="display:block;margin-top: 2px;" class="m-header-text-color m-text-overflow-header"><span ng-if="pandlreport==true "><span>From {{startdate| date : 'dd-MM-yy'}}</span> to <span>{{today| date : 'dd-MM-yy'}}</span></span><span ng-if="pandlreport==false "> as on <span >{{today| date : 'dd-MM-yy'}}</span></span></span>
         <span style="display:block;margin-top:-3px" class="m-header-text-color m-text-overflow-header">{{location_name}} | {{selected_company_name}}</span>
       </div>
       <div class="pull-right" style="margin-top:20px; margin-right:6px;" ng-show="moreIconShow">

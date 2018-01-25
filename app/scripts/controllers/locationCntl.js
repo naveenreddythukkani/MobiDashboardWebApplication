@@ -772,6 +772,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
                 $scope.msg = result.data.error.message;
                 $scope.deleteNoAction();
                 $scope.addremovealert();
+            }else{
+              $scope.msg = result.data.error.message;
+              $scope.addremovealert();
             }
         }
         var error = function(result) {
