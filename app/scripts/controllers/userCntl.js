@@ -99,6 +99,9 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if(result.data.length===0){
+              session.sessionexpried("No Data");
+            }
             console.log(result.data[0]);
             var obj = {};
             var array = [];

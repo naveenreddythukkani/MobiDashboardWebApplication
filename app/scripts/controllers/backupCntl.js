@@ -161,7 +161,7 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
             type: 'warning',
             showCancelButton: true,
             confirmButtonText: "Continue",
-            confirmButtonColor: '#e0a847',
+            confirmButtonColor: '#facea8',
             cancelButtonColor: '#1fa9cc',
             focusCancel: true
         }).then(function() {

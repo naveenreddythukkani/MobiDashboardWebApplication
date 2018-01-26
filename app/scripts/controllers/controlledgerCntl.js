@@ -199,7 +199,11 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
             dataMove.setcontrolledgerData($scope.passparameters);
         }
         $scope.savedates()
-        $state.go("monthWise");
+        // if($rootScope.location_id=== "All Locations"){
+        //     $state.go("locationwisebalances");
+        // }else{
+            $state.go("monthWise");
+        // }
         localStorageService.set("ledger_ltype", ledger_ltype)
         $rootScope.ledger_ltype = ledger_ltype;
 

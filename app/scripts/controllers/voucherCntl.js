@@ -105,7 +105,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         var dataset = $scope.voucherdetails[j].data;
                         var totalAmt = 0;
                         for (var k = 0; k < dataset.length; k++) {
-                            totalAmt = totalAmt + dataset[k].amount;
+                             if(dataset.isverified){
+                             totalAmt = totalAmt + dataset[k].amount;
+                          }
                         }
                         if ($scope.voucherdetails[j].ob_amount == null) {
                             $scope.voucherdetails[j].ob_amount = 0;
@@ -151,14 +153,11 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         $scope.voucherdetails.push(voucher_data.data[i]);
                     }
                     console.log(JSON.stringify($scope.voucherdetails));
-                    Array.prototype.sum = function(prop) {
-                        var total = 0;
-                        for (var i = 0, _len = this.length; i < _len; i++) {
-                            total += this[i][prop];
-                        }
-                        return total;
-                    };
-                    console.log(typeof($scope.voucherdetails.sum("amount")));
+                    var total = 0;
+                    for(var i=0; i< $scope.voucherdetails.length; i++){
+                      if($scope.voucherdetails[i].isverified ===1)
+                         total +=$scope.voucherdetails[i].amount;
+                    }
                     console.log(JSON.stringify(result.data.ob_amt));
                     if (result.data.ob_amt == null) {
                         console.log("Called");
@@ -168,13 +167,14 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         $scope.vouchershowindividualstatus = true;
                     }
                     if (voucher_data.length == 0 && result.data.ob_amt == 0) {
-                        $cordovaToast.show("No data found", "long", "bottom").then(function(success) {
-                            console.log("The toast was shown");
-                        }, function(error) {
-                            console.log("The toast was not shown due to " + error);
-                        });
+                        // $cordovaToast.show("No data found", "long", "bottom").then(function(success) {
+                        //     console.log("The toast was shown");
+                        // }, function(error) {
+                        //     console.log("The toast was not shown due to " + error);
+                        // });
                     }
-                    $scope.balanceamount = (result.data.ob_amt + $scope.voucherdetails.sum("amount")).toFixed(2);
+                    $scope.balanceamount=0.0;
+                    $scope.balanceamount = parseFloat(result.data.ob_amt) + parseFloat(total);
                     $scope.ledger_amt = $scope.balanceamount;
                 } else {
                     $scope.msg = result.data.error.message;
@@ -216,7 +216,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         var dataset = $scope.voucherdetails[j].data;
                         var totalAmt = 0;
                         for (var k = 0; k < dataset.length; k++) {
-                            totalAmt = totalAmt + dataset[k].amount;
+                            if(dataset.isverified===1){
+                             totalAmt = totalAmt + dataset[k].amount;
+                          }
                         }
                         if ($scope.voucherdetails[j].ob_amount == null) {
                             $scope.voucherdetails[j].ob_amount = 0;
@@ -264,14 +266,11 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         $scope.voucherdetails.push(voucher_data.data[i]);
                     }
                     console.log(JSON.stringify($scope.voucherdetails));
-                    Array.prototype.sum = function(prop) {
-                        var total = 0;
-                        for (var i = 0, _len = this.length; i < _len; i++) {
-                            total += this[i][prop];
-                        }
-                        return total;
-                    };
-                    console.log(typeof($scope.voucherdetails.sum("amount")));
+                    var total = 0;
+                    for(var i=0; i< $scope.voucherdetails.length; i++){
+                      if($scope.voucherdetails[i].isverified ===1)
+                         total +=$scope.voucherdetails[i].amount;
+                    }
                     console.log(JSON.stringify(result.data.ob_amt));
                     if (result.data.ob_amt == null) {
                         console.log("Called");
@@ -287,7 +286,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         //     console.log("The toast was not shown due to " + error);
                         // });
                     }
-                    $scope.balanceamount = (result.data.ob_amt + $scope.voucherdetails.sum("amount")).toFixed(2);
+                    $scope.balanceamount = parseFloat(result.data.ob_amt) + parseFloat(total);
                     $scope.ledger_amt = $scope.balanceamount;
                 } else {
                     $scope.msg = result.data.error.message;
@@ -329,7 +328,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     var dataset = $scope.voucherdetails[j].data;
                     var totalAmt = 0;
                     for (var k = 0; k < dataset.length; k++) {
-                        totalAmt = totalAmt + dataset[k].amount;
+                      if(dataset.isverified){
+                         totalAmt = totalAmt + dataset[k].amount;
+                      }
                     }
                     if ($scope.voucherdetails[j].ob_amount == null) {
                         $scope.voucherdetails[j].ob_amount = 0;

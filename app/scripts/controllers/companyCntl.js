@@ -165,6 +165,9 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if(result.data.length===0){
+              session.sessionexpried("No Data");
+            }
             $scope.tenants = result.data;
             $scope.multiclient = new NgTableParams({ count: $scope.tenants.length }, { dataset: $scope.tenants });
         }

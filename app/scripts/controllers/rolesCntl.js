@@ -343,6 +343,9 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if(result.data.length===0){
+              session.sessionexpried("No Data");
+            }
             $scope.roles = result.data;
             $scope.multiroletbl = new NgTableParams({ count: $scope.roles.length }, { dataset: $scope.roles });
         }
