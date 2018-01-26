@@ -98,10 +98,11 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         var error = function (result) {
             $scope.loading = false;
         }
-        if($rootScope.mobile){
-           $http.get(domain + api + "location/compact/", config)
-            .then(success, error);
-        }
+	if($rootScope.mobile){
+	$http.get(domain + api + "location/compact/", config)
+		    .then(success, error);
+	}
+        
     }
     $rootScope.getalllocationinheader();
     $scope.clientLogout = function () {
@@ -445,21 +446,21 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $("#toDateCalVou").show();
         }
         if ($rootScope.voucherControl) {
-            // $('#date').datepicker('option', 'minDate', new Date(startDate));
-            // $('#date').datepicker('option', 'maxDate', new Date(endDate));
-            $('#datetimepickermobilevoucherfrom').on('changeDate',function(e){
-                $(".mToDateTabVou").trigger('click');
-            });
-            $('#datetimepickermobilevoucherto').datepicker("update", new Date());
-            $('#datetimepickermobilevoucherfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
+            // var minDate = new Date('2017-03-01')
+        
+            // $('#datetimepickermobilevoucherfrom').datepicker({
+            //     minDate: new Date()
+            // })
+            // $('#datetimepickermobilevoucherfrom').on('changeDate',function(e){
+            //     $(".mToDateTabVou").trigger('click');
+            // });
+            
             $('#selectmobiledatevoucher').modal('show');
         } else {
             $('#datetimepickermobiledashboardfrom').on('changeDate',function(e){
                 $(".mToDateTab").trigger('click');
-
             });
-            $('#datetimepickermobiledashboardto').datepicker("update", new Date());
-            $('#datetimepickermobiledashboardfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
+            
             $('#selectmobiledatedahboard').modal('show');
 
 
@@ -495,15 +496,55 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $('#datetimepickermobilevoucherto').datepicker();
     });
 
-    //   $(document).ready(function () {
+      $(document).ready(function () {
+        // $('#datetimepickermobilevoucherto').datepicker("update", new Date());
+        // $('#datetimepickermobilevoucherfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
+        
+        $('#datetimepickermobiledashboardto').datetimepicker({
+            inline:true,
+            format: 'YYYY-MM-DD',
+            maxDate: new Date()
+        })
+        $('#datetimepickermobiledashboardfrom').datetimepicker({
+            inline:true,
+            format: 'YYYY-MM-DD',
+            defaultDate:new Date(new Date().getFullYear() - 1, 03, 01), 
+            minDate: new Date(new Date().getFullYear() - 1, 03, 01),
+            maxDate: new Date()
+        })
+        // $('#datetimepickermobiledashboardfrom').on('dp.change',function(){
+        //     $(".mToDateTab").trigger('click');
+        // })
 
         //   $('#datetimepickermobiledashboardfrom').datepicker();
         //   $('#datetimepickermobiledashboardfrom').datepicker("setDate", new Date(new Date().getFullYear()-1,03,01));
-    //   });
+      });
     //     $(document).ready(function () {
     //     $('#datetimepickermobiledashboardto').datepicker();
     //     $('#datetimepickermobiledashboardto').datepicker("setDate", new Date());
     //     });
+
+    function dateCal(params) {
+        var month
+        if(month==="01" || month==="02"||month==="03"){
+            year = year - 1;
+          }
+          if (day > 10) {
+              day = '0' + 1;
+          } else {
+              day = '0' + 1;
+              month = month - 1;
+              console.log(month.toString().length); 
+              if (month.toString().length == 1) {
+                  month = '0' + month;
+                  if (month == 00) {
+                      month = 12;
+                      year = year - 1;
+                  }
+              }
+          }
+          return new Date(year,month,day);
+    }
 
 $('#saveformobiledashboard').on('click', function () {
         $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datepicker("getDate")).format("YYYY-MM-DD");
@@ -561,8 +602,9 @@ $('#saveformobilevoucher').on('click', function () {
            }
      }
      window.addEventListener('popstate', function(event) {
+  
 
-    });
+ 	});
 });
 
 
