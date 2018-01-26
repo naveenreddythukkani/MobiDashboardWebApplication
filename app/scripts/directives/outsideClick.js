@@ -34,15 +34,31 @@ MobiDash.directive("messageAlert", function() {
     };
 });
 
-MobiDash.directive('mobileValidation', function() {
+MobiDash.directive('mobileValidation', function($window) {
     return {
         link: function(scope, el, attr) {
+            var ctrlDown = false;
+            var ctrlKey = 17; var vKey = 86; var cKey = 67;
+            var cmdKey = 91;
+            el.bind("keyup", function(event) {
+                 if ((event.keyCode == ctrlKey)|| (event.keyCode == cmdKey)){
+                     ctrlDown = false;
+                   }
+             });
             el.bind("keydown", function(event) {
-                //ignore all characters that are not numbers, except backspace, delete, left arrow and right arrow
-                if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && event.keyCode != 8 && event.keyCode != 46 && event.keyCode != 37 && event.keyCode != 39 && event.keyCode != 9 &&
-                    (event.keyCode != 17 && event.keyCode != 86) && (event.keyCode != 17 && event.keyCode != 88) && (event.keyCode != 17 && event.keyCode != 67) && (event.keyCode != 17 && event.keyCode != 82)) {
-                    event.preventDefault();
-                }
+                 if ((event.keyCode == ctrlKey) || (event.keyCode == cmdKey)){
+                     ctrlDown = true;
+                   }
+                   if ((event.keyCode < 48 || event.keyCode > 57)
+                    && (event.keyCode < 96 || event.keyCode > 105)
+                    && (event.keyCode != 8)
+                    && (event.keyCode != 46)
+                    && (event.keyCode != 37)
+                    && (event.keyCode != 39)
+                    &&(event.keyCode != 9)
+                    &&!(ctrlDown && (event.keyCode == 86 || event.keyCode == 88 || event.keyCode == 67 || event.keyCode == 82))) {
+                          event.preventDefault();
+                   }
             });
         }
     }

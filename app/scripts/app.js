@@ -162,13 +162,3 @@ MobiDash.constant("domain", "http://139.59.3.114/");
 MobiDash.constant("api", "act/api/");
 MobiDash.constant("core", "act/core/");
 MobiDash.constant("mobileWidth", 640);
-
-$(window).on("navigate", function(event, data) {
-  var direction = data.state.direction;
-  if (direction == 'back') {
-    alert('Going back');
-  }
-  if (direction == 'forward') {
-    alert('Going forward');
-  }
-});

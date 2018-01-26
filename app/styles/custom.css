@@ -1534,3 +1534,6 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 .m-cashreceipttable tbody tr td {
     border: none;
 }
+.actions-width{
+  width: 80px;
+}

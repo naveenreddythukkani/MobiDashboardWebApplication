@@ -98,8 +98,10 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         var error = function (result) {
             $scope.loading = false;
         }
-        $http.get(domain + api + "location/compact/", config)
+        if($rootScope.mobile){
+           $http.get(domain + api + "location/compact/", config)
             .then(success, error);
+        }
     }
     $rootScope.getalllocationinheader();
     $scope.clientLogout = function () {
@@ -558,9 +560,9 @@ $('#saveformobilevoucher').on('click', function () {
              $state.go("balancesheet");
            }
      }
-     $scope.naveen=function(){
+     window.addEventListener('popstate', function(event) {
 
-     }
+    });
 });
 
 
