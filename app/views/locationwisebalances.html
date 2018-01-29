@@ -1,0 +1,23 @@
+<div id="mainpageContollerStart" class="container table_container balancesheetheadermove table-container-width no-padding-hr" ng-class="{'isSearchHeaderSectionHeightInVocherScreen':!isSearched}">
+    <div class="row no-margin-hr">
+        <div class="col-md-12 no-padding-hr">
+            <ul class="list-styles no-padding-hr">
+                <li class="custom-content-border listheightvalues">
+                    <span class="text-name">Location Name&#58;</span>
+                    <span class="text-value">Amount</span>
+                </li>
+                <li class="custom-content-border sub-listheightvalues actionsmenu" ng-repeat="location in locationsData" ng-click="locationSelection(location.name,location.id)">
+                    <span class="sublist-text-name">{{location.name}}</span>
+                    <span class="sublist-text-value">{{location.amount > 0 ?((location.amount | INRCurrency) + " Dr") : (((-1 * location.amount) | INRCurrency) + " Cr")}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="alert  alert-position-success" id="success-alert" style="display:none;">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading" class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60" height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>

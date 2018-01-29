@@ -104,18 +104,26 @@ body {
 }
 
 .alert-position-success {
-    position: fixed;
-    top: 10%;
-    left: 40%;
-    z-index: 9999;
-    background: #454545;
-    color: #fff;
+   position: fixed;
+   top: 15%;
+   z-index: 9999;
+   background: #454545;
+   color: #fff;
+   text-align: center;
+   width: 70%;
+   left:15%;
+   height: auto;
 }
 
 .disablerow {
     cursor: not-allowed;
     pointer-events: none;
-    background: #d3d3d3;
+    color: #d3d3d3 !important;
+    display: block;
+    font-size: 18px;
+}
+.disable-color{
+  color: #d3d3d3 !important;
 }
 
 .disablerow-multiselect {
@@ -314,6 +322,7 @@ body {
     font-size: 20px;
     margin-left: 10px;
     margin-top: 3px;
+    cursor: pointer;
 }
 
 .no-border-bottom {

@@ -60,6 +60,9 @@ MobiDash.directive('mobileValidation', function($window) {
                           event.preventDefault();
                    }
             });
+            el.bind("paste", function(event) {
+              // var naveen=(event.currentTarget).val();
+            });
         }
     }
 });

@@ -218,7 +218,11 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
                 $scope.passparameters.ledgergroup_id = $scope.props.ledgergroup_id;
                 dataMove.setledgerData($scope.passparameters)
             }
-            $state.go("monthWise");
+            if($rootScope.location_id=== "All Locations"){
+                $state.go("locationwisebalances");
+            }else{
+                $state.go("monthWise");
+            }
         } else {
             ltypeledgerstatus = true;
             if ($rootScope.isSearched) {

@@ -86,6 +86,9 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if(result.data.length===0){
+              session.sessionexpried("No Data");
+            }
             $scope.vouchersdata = result.data;
             // console.log("AllVouchers",JSON.parse($scope.vouchersdata));
             $scope.multivouchertable = new NgTableParams({ count: $scope.vouchersdata.length }, { dataset: $scope.vouchersdata });

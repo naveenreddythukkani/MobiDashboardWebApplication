@@ -24,6 +24,12 @@ MobiDash.service('dataMove', function(localStorageService) {
     this.getcontrolledgerData = function() {
         return localStorageService.get("controlledger");
     };
+    this.setlocationwiseData = function(myData) {
+        localStorageService.set("locationwise", myData);
+    }
+    this.getlocationwiseData = function() {
+        return localStorageService.get("locationwise");
+    }
     this.setmonthwiseData = function(myData) {
         localStorageService.set("monthwise", myData);
     }
@@ -120,6 +126,17 @@ MobiDash.factory('session', function($state) {
                     confirmButtonColor: "red",
                     confirmButtonText: "Ok",
                 }).then(function() {});
+            }
+         if(status==="No Data"){
+           swal({
+              title: "",
+              text: "No data found.",
+              type: 'warning',
+              confirmButtonColor: '#facea8',
+              confirmButtonText: "Ok",
+             }).then(function() {
+              });
+
             }
         }
     };

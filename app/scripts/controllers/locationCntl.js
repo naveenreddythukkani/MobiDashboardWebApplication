@@ -251,6 +251,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if(result.data.length===0){
+              session.sessionexpried("No Data");
+            }
             $scope.locationsList = result.data;
             $scope.loctionstable = new NgTableParams({ count: $scope.locationsList.length }, { dataset: $scope.locationsList });
         }

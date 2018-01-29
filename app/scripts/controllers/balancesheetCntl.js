@@ -97,6 +97,9 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
                 $scope.loading = false;
                 console.log("Response Data =" + JSON.stringify(data));
                 var rootGroup = data.data;
+                if(data.data.length===0){
+                  session.sessionexpried("No Data");
+                }
                 $scope.resultsandsurplusstatus = false;
                 $scope.rgroupelements = [];
                 for (var i = 0; i < rootGroup.length; i++) {

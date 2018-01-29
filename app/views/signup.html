@@ -22,7 +22,7 @@
                                 <button type="submit" ng-disabled="validatetoGenrateOtp" ng-click="genarateOtp()" class="btn btn-default btn-block background-defalt color-onbackground">Genrate OTP {{timervalue}}</button>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" class="form-control req-field-color" id="otpfield" ng-readonly="readonlyafterverify" ng-model="props.otp" placeholder="Enter OTP" minlength="6" maxlength="6" ng-change="validationUptoGenrateOtp()" mobile-validation required>
+                                <input type="text" class="form-control req-field-color" id="otpfield" ng-readonly="readonlyafterverify" ng-model="props.otp" placeholder="Enter OTP"  maxlength="6" ng-change="validationUptoGenrateOtp()" mobile-validation required>
                             </div>
                             <div class="col-md-4">
                                 <button type="button" ng-disabled="verifyOtp" ng-click="verifyOtps()" class="btn btn-default background-defalt color-onbackground">Verify</button>
