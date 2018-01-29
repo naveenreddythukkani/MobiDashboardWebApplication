@@ -91,6 +91,10 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
         }
         // getting all data for vocher details
     $scope.getallvoucherdetails = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         var data = { "v_id": $scope.props.vocher_id };
         $scope.loading = true;
         var success = function(result) {

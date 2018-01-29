@@ -81,6 +81,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     };
     /* ltype='L' */
     $scope.getallltypevochers = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         $scope.ledgerAllLocationsStatus = false;
         $scope.ledgerIndividualLocationStatus = false;
         if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") {
@@ -193,6 +197,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
 
     /* ltype='C' or ltype='B' */
     $scope.getallCandBtypevoucher = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         $scope.corbltypeAllLocationsStatus = false;
         $scope.corbltypeIndividualLocationStatus = false;
         if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") {
@@ -308,6 +316,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     // voucher type is 'S'
 
     $scope.getallglwisesubledger = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") { // 'gl_id': $scope.props.ledger_id,
             var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'startdate': $rootScope.startdate, 'sl_id': $scope.props.sl_id };
         } else {

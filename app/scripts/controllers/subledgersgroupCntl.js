@@ -83,6 +83,10 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
     }
     $scope.clearlocalstorage();
     $scope.subledgerreport = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         var data = { 'startdate': $rootScope.startdate, 'todate': $rootScope.today, 'ledgergroup_id': $scope.props.ledgergroupid, 'diff': $scope.props.rootgroupdiff };
         if ($rootScope.location_id === undefined || $rootScope.location_id === "All Locations" || $rootScope.location_name === '') {
             $rootScope.location_name = "All Locations";

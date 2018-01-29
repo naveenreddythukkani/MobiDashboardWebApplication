@@ -78,6 +78,10 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
     }
     $scope.clearlocalstorage();
     $scope.controlledgerreport = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         var data = { 'transdate': $rootScope.today, 'ledger_id': $scope.props.ledger_id };
         if ($rootScope.location_id === undefined || $rootScope.location_id === "All Locations" || $rootScope.location_name === '') {
             $rootScope.location_name = "All Locations";

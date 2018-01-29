@@ -92,6 +92,10 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         }
     }
     $scope.getallglwisesubledger = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") {
             var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'gl_id': $scope.props.ledger_id, 'startdate': $rootScope.startdate, 'sl_id': $scope.props.sl_id };
         } else {
@@ -139,6 +143,10 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         then(success, error);
     }
     $scope.getallCandBandLtypevoucher = function() {
+        if($scope.props=== null || Object.keys($scope.props).length===0){
+            $state.go("location");
+            return;
+        }
         if ($rootScope.location_id == undefined || $rootScope.location_id == "All Locations") {
             var data = { 'fromdate': $rootScope.fromdate, 'todate': $rootScope.today, 'gl_id': $scope.props.ledger_id, 'startdate': $rootScope.startdate };
         } else {
