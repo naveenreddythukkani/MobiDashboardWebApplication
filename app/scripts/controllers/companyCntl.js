@@ -198,7 +198,11 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
                     $state.go('location');
                 }
             } else {
+              if(result.data.error.code=== 5053){
+                 $scope.msg= "You can not dirll down, your access denied you have a machine specific access due to restricted account (MAC address)"
+              }else{
                 $scope.msg = result.data.error.message;
+              }
                 $scope.addremovealert();
             }
         }
