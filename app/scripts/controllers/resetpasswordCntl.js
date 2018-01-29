@@ -26,6 +26,12 @@ MobiDash.controller('resetpasswordCntl', function($scope, $state, $rootScope, $s
             $("#success-alert").removeClass('in');
         });
     }
+    $timeout(function() {
+        $('[name="otp"]').focus();
+    }, 50);
+    $scope.validation= function() {
+      
+    }
     $scope.resetpasswords = function() {
         $scope.loading = true;
         $scope.resetdata.device_id = "00376DEA77FD";
