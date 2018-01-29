@@ -34,7 +34,7 @@ MobiDash.directive("messageAlert", function() {
     };
 });
 
-MobiDash.directive('mobileValidation', function($window) {
+MobiDash.directive('mobileValidation', function($window, $parse) {
     return {
         link: function(scope, el, attr) {
             var ctrlDown = false;
@@ -61,10 +61,14 @@ MobiDash.directive('mobileValidation', function($window) {
                    }
             });
             el.bind("paste", function(event) {
-              // var naveen=(event.currentTarget).val();
-            });
-        }
-    }
+              setTimeout(function(){
+                  var value=el.val();
+                  value=value.replace(/\D/g,'');
+                  el.val(value);
+              }, 4);
+              });
+            }
+            }
 });
 MobiDash.directive('fixedTableHeaders', ['$timeout', function($timeout) {
     return {
