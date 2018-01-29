@@ -595,7 +595,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     //     });
 
 
-    $('#saveformobiledashboard').on('click', function () {
+    $('#saveformobiledashboard').unbind().on('click', function () {
         // $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datetimepicker("getDate")).format("YYYY-MM-DD");
         // if ($rootScope.pandlreport === true) {
         // $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datetimepicker("getDate")).format("YYYY-MM-DD");
@@ -608,7 +608,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $rootScope.datescalculation();
     });
 
-    $('#saveformobilevoucher').on('click', function () {
+    $('#saveformobilevoucher').unbind().on('click', function () {
         // $rootScope.today1 = moment($('#datetimepickermobilevoucherto').datetimepicker("getDate")).format("YYYY-MM-DD");
         // if ($rootScope.pandlreport === true) {
         //     $rootScope.startdate1 = moment($('#datetimepickermobilevoucherfrom').datetimepicker("getDate")).format("YYYY-MM-DD");

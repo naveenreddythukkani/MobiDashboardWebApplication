@@ -927,7 +927,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.errormessage = "Please enter valid zip";
             return true;
         }
-        if (data.fax !== null && data.fax !== undefined && (data.fax.length > 0 && data.fax.length !== 15)) {
+        if (data.fax !== null && data.fax !== undefined && (data.fax.length > 0 && data.fax.length !== 11)) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.fax;
             $scope.errormessage = "Please enter valid fax";
@@ -939,13 +939,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.errormessage = "Please enter valid email address";
             return true;
         }
-        if (data.gstin !== null && data.gstin !== undefined && (data.gstin.length > 0 && data.gstin.length === 15 && !$scope.gstinValidations(data.gstin))) {
+        if (data.gstin !== null && data.gstin !== undefined && (data.gstin.length > 0 && data.gstin.length !== 15 && !$scope.gstinValidations(data.gstin))) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.gstin;
             $scope.errormessage = "Please enter valid gstin";
             return true;
         }
-        if (data.tan !== null && data.tan !== undefined && (data.tan.length > 0 && data.tan.length === 10 && !$scope.tanValidations(data.tan, data.gstin))) {
+        if (data.tan !== null && data.tan !== undefined && (data.tan.length > 0 && data.tan.length !== 10 && !$scope.tanValidations(data.tan, data.gstin))) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.tan;
             $scope.errormessage = "Please enter valid tan";
@@ -963,7 +963,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     }
     $scope.tanValidations = function(tanVal, gstinVal) {
         var reggst = /^([a-zA-Z]){4}([0-9]){5}([a-zA-Z]){1}?$/;
-        if (gstinVal !== null && gstinVal !== undefined && (gstinVal.length > 0 && gstinVal.length === 15 && !$scope.gstinValidations(gstinVal))) {
+        if (gstinVal !== null && gstinVal !== undefined && (gstinVal.length > 0 && gstinVal.length !== 15 && !$scope.gstinValidations(gstinVal))) {
             if (gstinVal.substr(5, 1) === tanVal.substr(3, 1)) {
                 return reggst.test(tanVal);
             } else {
