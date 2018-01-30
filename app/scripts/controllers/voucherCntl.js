@@ -94,10 +94,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                if (result.data.length === 0) {
-                    session.sessionexpried("No Data");
-                }
                 if (result.data.error === undefined) {
+                    if (result.data.length === 0) {
+                        session.sessionexpried("No Data");
+                    }
                     console.log(JSON.stringify(result));
                     $scope.obalance = result.data.obdata;
                     var voucher_data = result.data.obdata;
@@ -152,10 +152,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                if (result.data.length === 0) {
-                    session.sessionexpried("No Data");
-                }
                 if (result.data.error === undefined) {
+                    if (result.data.length === 0) {
+                        session.sessionexpried("No Data");
+                    }
                     $scope.obalance = result.data;
                     var voucher_data = result.data;
                     $scope.voucherdetails = [];
@@ -215,10 +215,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                if (result.data.length === 0) {
-                    session.sessionexpried("No Data");
-                }
                 if (result.data.error === undefined) {
+                    if (result.data.length === 0) {
+                        session.sessionexpried("No Data");
+                    }
                     console.log(JSON.stringify(result.data));
                     $scope.obalance = result.data.obdata;
                     var voucher_data = result.data.obdata;
@@ -275,10 +275,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
-                if (result.data.length === 0) {
-                    session.sessionexpried("No Data");
-                }
                 if (result.data.error === undefined) {
+                    if (result.data.length === 0) {
+                        session.sessionexpried("No Data");
+                    }
                     $scope.obalance = result.data;
                     var voucher_data = result.data;
                     $scope.voucherdetails = [];
@@ -340,10 +340,10 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if (result.data.length === 0) {
-                session.sessionexpried("No Data");
-            }
             if (result.data.error === undefined) {
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 console.log("date in obdata" + JSON.stringify(result.data));
                 $scope.obalance = result.data.obdata;
                 var voucher_data = result.data.obdata;
