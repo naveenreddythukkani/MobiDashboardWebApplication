@@ -7,11 +7,11 @@
         <div class="row">
             <div class="col-md-12">
                 <table ng-table=" multiclient" class="table table-bordered client-table " show-filter="searchEnable">
-                    <tr ng-repeat="user in $data" >
+                    <tr ng-repeat="user in $data">
                         <td class="accType " title=" 'Company Name' " filter="{name: 'text'}" sortable=" 'tenant_name' " class="sort-indicator ">
                             <div class="row ">
                                 <div class="col-md-11">
-                                    <a ng-hide="user.status==='N'" class="tbl-link main-field" ng-click="access(user)" >{{user.tenant_name}}<span ng-show="user.status=='I' " class="inactiveshow">(Inactive)</span></a>
+                                    <a ng-hide="user.status==='N'" class="tbl-link main-field-block" ng-click="access(user)"><span class="actionsmenu"><span>{{user.tenant_name}}</span></span><span ng-show="user.status=='I' " class="inactiveshow">(Inactive)</span></a>
                                     <a ng-show="user.status==='N'" class="tbl-link disablerow">{{user.tenant_name}}<span ng-show="user.status=='I' " class="inactiveshow">(Inactive)</span></a>
                                     <span class="subfield-text">{{user.email}}  {{user.mobile}}</span>
                                 </div>
@@ -20,7 +20,7 @@
                         <td class="accType vertical-center " title=" 'Locations' " filter="{locations: 'number'} " sortable=" 'locations' ">
                             <span ng-hide="user.status==='N'" ng-click="access(user) " class="colors pointer-cur">{{user.locations}}</span>
                             <span ng-show="user.status==='N'" class="disable-color">{{user.locations}}</span>
-                          </td>
+                        </td>
                         <td class="accType vertical-center " title=" 'Package' " filter="{ package_name: 'text'} " sortable=" 'package_name' ">
                             {{user.package_name}}</td>
                         <td class="accType vertical-center actions actions-width">
@@ -29,11 +29,11 @@
                 permissions(user)} ">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
                                 <ul class="dropdown-menu actions-view " aria-labelledby="dropdownMenuhideshow ">
                                     <li ng-show="user.status==='N'" class="actionsmenu "><a ng-click="deleteclient(user.id)">Discard</a></li>
-                                    <li ng-hide="user.status==='N'"class="actionsmenu "><a data-toggle="modal" data-target="#edit_client " ng-click="editClient(user)">Edit</a> </li>
-                                    <li ng-hide="user.status==='N'"class="actionsmenu "><a ng-click="backup(user)">Backup</a></li>
-                                    <li ng-hide="user.status==='N'"class="actionsmenu "><a ng-click="smssettingsclick(user)">SMS Settings</a></li>
-                                    <li ng-hide="user.status==='N'"class="actionsmenu "><a ng-click="upgradeClick(user, $index)">Upgrade</a></li>
-                                    <li ng-hide="user.status==='N'"class="actionsmenu "><a ng-click="historyDetails(user, $index)">History</a></li>
+                                    <li ng-hide="user.status==='N'" class="actionsmenu "><a data-toggle="modal" data-target="#edit_client " ng-click="editClient(user)">Edit</a> </li>
+                                    <li ng-hide="user.status==='N'" class="actionsmenu "><a ng-click="backup(user)">Backup</a></li>
+                                    <li ng-hide="user.status==='N'" class="actionsmenu "><a ng-click="smssettingsclick(user)">SMS Settings</a></li>
+                                    <li ng-hide="user.status==='N'" class="actionsmenu "><a ng-click="upgradeClick(user, $index)">Upgrade</a></li>
+                                    <li ng-hide="user.status==='N'" class="actionsmenu "><a ng-click="historyDetails(user, $index)">History</a></li>
                                 </ul>
                             </div>
                             <div class="row restoreshow " ng-show="pricing_index===$index " outside-click="hideSideMenu($index) ">
@@ -198,7 +198,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Company Phone<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                            <input type="text " ng-class="{ 'haserror':field===fields.companyphone} " class="form-control req-field-color " placeholder="10 digit mobile number " name="mobile " required="required " ng-model="props.mobile
+                                <input type="text " ng-class="{ 'haserror':field===fields.companyphone} " class="form-control req-field-color " placeholder="10 digit mobile number " name="mobile " required="required " ng-model="props.mobile
                 " ng-change="fieldschangeAction() " mobile-validation maxlength="10 ">
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Company Email<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk "></span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                           <input type="text " ng-class="{ 'haserror':field===fields.companyemail} " class="form-control req-field-color " placeholder="Enter the company email " name="email " required="required " ng-model="props.email
+                                <input type="text " ng-class="{ 'haserror':field===fields.companyemail} " class="form-control req-field-color " placeholder="Enter the company email " name="email " required="required " ng-model="props.email
                 " ng-change="fieldschangeAction() ">
                             </div>
                         </div>

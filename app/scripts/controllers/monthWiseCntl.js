@@ -32,7 +32,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
     $rootScope.voucherstab = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = true;
-    $rootScope.moreIconShow= true;
+    $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = true;
 
     $scope.ltype_amt = "";
@@ -45,11 +45,11 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $rootScope.mobileheader = true;
     }
     $rootScope.screenName = $rootScope.balnc;
-    if($rootScope.isSearched){
-       $('#mainpageContollerStart').addClass('balancesheetheader');
-       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
-    }else{
-      $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    if ($rootScope.isSearched) {
+        $('#mainpageContollerStart').addClass('balancesheetheader');
+        $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    } else {
+        $('#mainpageContollerStart').addClass('balancesheetheadermove');
     }
     $scope.months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -92,7 +92,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         }
     }
     $scope.getallglwisesubledger = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -105,6 +105,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
+            }
             if (result.data.error === undefined) {
                 $scope.realdata = [];
                 for (var i = 0; i < result.data.length; i++) {
@@ -143,7 +146,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         then(success, error);
     }
     $scope.getallCandBandLtypevoucher = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -156,6 +159,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
+            }
             if (result.data.error === undefined) {
                 $scope.realdata = [];
                 for (var i = 0; i < result.data.length; i++) {
@@ -205,8 +211,8 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
-            if(month==="01" || month==="02"||month==="03"){
-              year = year - 1;
+            if (month === "01" || month === "02" || month === "03") {
+                year = year - 1;
             }
             month = month - 1;
             console.log(month.toString().length);
@@ -397,7 +403,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $rootScope.fromdate1 = monthyear + '-' + '01';
         $rootScope.today1 = monthyear + '-' + numberofdays;
         // if($rootScope.pandlreport=== true){
-          // $rootScope.startdate1 = monthyear + '-' + '01';
+        // $rootScope.startdate1 = monthyear + '-' + '01';
         // }
 
     }

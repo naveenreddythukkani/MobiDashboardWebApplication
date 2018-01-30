@@ -104,15 +104,15 @@ body {
 }
 
 .alert-position-success {
-   position: fixed;
-   top: 15%;
-   z-index: 9999;
-   background: #454545;
-   color: #fff;
-   text-align: center;
-   width: 70%;
-   left:15%;
-   height: auto;
+    position: fixed;
+    top: 15%;
+    z-index: 9999;
+    background: #454545;
+    color: #fff;
+    text-align: center;
+    width: 70%;
+    left: 15%;
+    height: auto;
 }
 
 .disablerow {
@@ -122,8 +122,9 @@ body {
     display: block;
     font-size: 18px;
 }
-.disable-color{
-  color: #d3d3d3 !important;
+
+.disable-color {
+    color: #d3d3d3 !important;
 }
 
 .disablerow-multiselect {
@@ -625,7 +626,7 @@ body {
 .main-field-block {
     display: block;
     text-decoration: none !important;
-    color: #000 !important;
+    color: #333333 !important;
     font-size: 18px;
 }
 
@@ -853,6 +854,7 @@ user-icon-2x {
 
 .table-width {
     width: 100%;
+    margin: 0 auto;
 }
 
 .red {
@@ -895,6 +897,7 @@ td {
     font-weight: normal;
     font-size: 13px;
 }
+
 .fixed-footer {
     position: fixed;
     bottom: 0;
@@ -902,6 +905,7 @@ td {
     width: 64%;
     margin: 0 auto;
 }
+
 .displayrow {
     display: table;
     color: #000;
@@ -909,6 +913,7 @@ td {
     padding: 0px;
     width: 100%;
 }
+
 .displaycell {
     display: table-cell;
     vertical-align: middle;
@@ -1173,17 +1178,18 @@ td {
     /* <-- here is what is important*/
 }
 
+
 /* media query for mobile Ui */
 
 @media screen and (max-width:640px) {
     .table-container-width {
         width: 100% !important;
     }
-    .balancesheetheadermove{
-      margin-top: 115px !important;
+    .balancesheetheadermove {
+        margin-top: 115px !important;
     }
-    .balancesheetheader{
-      margin-top: 65px !important;
+    .balancesheetheader {
+        margin-top: 65px !important;
     }
     .down-up-arrows {
         font-size: 10px;
@@ -1205,15 +1211,20 @@ td {
     .table_container {
         margin-top: 50px;
     }
-
+    .table-width {
+        width: 100%;
+        margin: 0 auto;
+    }
     .alert-position-success {
         position: fixed;
         top: 20%;
         z-index: 9999;
         background: #454545;
         color: #fff;
-        left: 10px;
-        right: 10px;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+        height: auto;
     }
     /* side menu css */
     .sidenav {
@@ -1254,8 +1265,8 @@ td {
     .sidenav a {
         font-size: 18px;
     }
-    .hambergurmenuload{
-      font-size: 23px !important;
+    .hambergurmenuload {
+        font-size: 23px !important;
     }
     .transparentView {
         background: transparent;
@@ -1270,11 +1281,11 @@ td {
         bottom: 0;
     }
     .fixed-footer {
-    position: fixed;
-    bottom: 0;
-    z-index: 10;
-    width: 100% !important;
-    margin: 0 auto;
+        position: fixed;
+        bottom: 0;
+        z-index: 10;
+        width: 100% !important;
+        margin: 0 auto;
     }
     .m-loggedinuser {
         font-style: italic;
@@ -1304,9 +1315,9 @@ td {
 }
 
 .m-font-size-logo-name {
-  font-size: 25px;
-  margin: 13px !important;
-  line-height: 50px;
+    font-size: 25px;
+    margin: 13px !important;
+    line-height: 50px;
 }
 
 .m-font-size-companyName {
@@ -1316,8 +1327,9 @@ td {
     margin-top: 10px;
 }
 
-.m-list-align-left {
+.m-list-align-left-right {
     margin-left: 10px;
+    margin-right: 10px;
 }
 
 .m-header-background {
@@ -1326,19 +1338,21 @@ td {
     margin-top: 0px !important;
     margin-bottom: 15px;
 }
-.m-sub-header-background{
-  background-color: #1fa9cc;
-position: fixed;
-margin-bottom: 5px;
-height: 50px;
-margin-top: 64px;
-border-top: 2px solid #fff;
-width: 100%;
-padding: 5px;
-display: table;
-color: #fff;
-z-index:10;
+
+.m-sub-header-background {
+    background-color: #1fa9cc;
+    position: fixed;
+    margin-bottom: 5px;
+    height: 50px;
+    margin-top: 64px;
+    border-top: 2px solid #fff;
+    width: 100%;
+    padding: 5px;
+    display: table;
+    color: #fff;
+    z-index: 10;
 }
+
 .m-header-text-color {
     color: #fff;
 }
@@ -1348,7 +1362,7 @@ z-index:10;
     text-decoration: none !important;
     cursor: pointer;
     color: #1fa9cc !important;
-    font-size: 23px;
+    font-size: 18px;
 }
 
 .m-custom-content-border {
@@ -1366,10 +1380,7 @@ z-index:10;
 }
 
 .m-phoneNumber {
-    color: green;
-    right: 22px;
-    font-size: 25px;
-    margin-top: -22px;
+    margin-top: -25px;
     text-decoration: none;
 }
 
@@ -1386,28 +1397,34 @@ z-index:10;
     width: 100%;
     z-index: 100;
 }
-.m-header-text{
-  float:left;
-  width: 55%;
+
+.m-header-text {
+    float: left;
+    width: 55%;
 }
+
 .m.header-menu-icon {
     display: inline !important;
 }
+
+
 /*Pop Over*/
-.m-popOverView{
-  background: #fff;
-  position: fixed;
-  height: auto;
-  right: 4px;
-  top: 3px;
-  transition: right 0.7s ease-in;
-  width: 0;
-  user-select: none;
-  -webkit-user-select: none;
-  z-index: 100;
-  border-radius: 2px;
-  box-shadow: 3px 3px 3px #eeeeee;
+
+.m-popOverView {
+    background: #fff;
+    position: fixed;
+    height: auto;
+    right: 4px;
+    top: 3px;
+    transition: right 0.7s ease-in;
+    width: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    z-index: 100;
+    border-radius: 2px;
+    box-shadow: 3px 3px 3px #eeeeee;
 }
+
 .m-popOverView a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -1416,96 +1433,117 @@ z-index:10;
     display: block;
     transition: 0.3s;
 }
-.m-popOverText-Align{
-  font-size: 15px !important;
-  padding-left: 15px !important;
-  padding-top: 7px !important;
+
+.m-popOverText-Align {
+    font-size: 15px !important;
+    padding-left: 15px !important;
+    padding-top: 7px !important;
 }
-#selectmobiledatedahboard .mobile-modal-dailog{
-      margin-top: 25% !important;
+
+#selectmobiledatedahboard .mobile-modal-dailog {
+    margin-top: 25% !important;
 }
-#locationListInHeader .location-modal-size{
-  max-height: 60% !important;
-  top: 20% !important;
-  overflow-x: auto;
+
+#locationListInHeader .location-modal-size {
+    max-height: 60% !important;
+    top: 20% !important;
+    overflow-x: auto;
 }
-.m-location-list-text-dispaly{
-  display: block;
-  text-decoration: none !important;
-  cursor: pointer;
-  color: #1fa9cc !important;
-  font-size: 18px;
-  padding: 5px;
-  border-bottom: 1px solid #d3d3d3;
+
+.m-location-list-text-dispaly {
+    display: block;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #1fa9cc !important;
+    font-size: 18px;
+    padding: 5px;
+    border-bottom: 1px solid #d3d3d3;
 }
-.m-search-header-show{
-  height:50px;
-  background-color:#1fa9cc;
-  margin-top:-5px;
-  box-shadow: 5px #eeeeee
+
+.m-search-header-show {
+    height: 50px;
+    background-color: #1fa9cc;
+    margin-top: -5px;
+    box-shadow: 5px #eeeeee
 }
-.m-back-button-show{
-  margin: 13px 10px 0 5px
+
+.m-back-button-show {
+    margin: 13px 10px 0 5px
 }
-.m-search-input-show{
-  height: 50px;
-  margin: 0px 3px 0px 3px;
-  outline: none;
-  background: #1fa9cc;
-  width: 65%;
-  border: none;
-  color: white;
-  font-size: 17px;
+
+.m-search-input-show {
+    height: 50px;
+    margin: 0px 3px 0px 3px;
+    outline: none;
+    background: #1fa9cc;
+    width: 65%;
+    border: none;
+    color: white;
+    font-size: 17px;
 }
-.m-search-seachbutton-show{
+
+.m-search-seachbutton-show {
     margin: 13px;
 }
+
 input[type="text"].m-search-input-show::-webkit-input-placeholder {
-  color: #d3d3d3;
+    color: #d3d3d3;
 }
+
 .m-text-overflow-header {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 #selectmobiledatedahboard .tab-content {
-    color : black;
+    color: black;
     background-color: #fff;
     /* padding : 5px 15px; */
-  }
-  /* remove border radius for the tab */
+}
 
-  #selectmobiledatedahboard .nav-pills > li > a {
+
+/* remove border radius for the tab */
+
+#selectmobiledatedahboard .nav-pills>li>a {
     border-radius: 0;
-  }
-  .mFromDateTab, .mToDateTab,
-  .mFromDateTabVou, .mToDateTabVou{
-      width: 49.6%;
-      text-align: center;
-  }
-  #selectmobiledatedahboard ul>li.active div,
-  #selectmobiledatevoucher ul>li.active div{
-  background-color:#1fa9cc !important;
-  height: 2px;
-  }
+}
 
-  #selectmobiledatedahboard .datepicker table tr td.active,
-  #selectmobiledatedahboard .datepicker table tr td.active.highlighted,
-  #selectmobiledatevoucher .datepicker table tr td.active,
-  #selectmobiledatevoucher .datepicker table tr td.active.highlighted{
-     background-color:#1fa9cc !important;
-  }
-.mobile-breadcrumb{
-  list-style: none;
+.mFromDateTab,
+.mToDateTab,
+.mFromDateTabVou,
+.mToDateTabVou {
+    width: 49.6%;
+    text-align: center;
 }
-.mobile-breadcrumb-list{
-  color: #fff;
-  font-size: 12px;
-  padding: 5px;
+
+#selectmobiledatedahboard ul>li.active div,
+#selectmobiledatevoucher ul>li.active div {
+    background-color: #1fa9cc !important;
+    height: 2px;
 }
-.m-breadcrumb-arange{
-  float: left;
+
+#selectmobiledatedahboard .datepicker table tr td.active,
+#selectmobiledatedahboard .datepicker table tr td.active.highlighted,
+#selectmobiledatevoucher .datepicker table tr td.active,
+#selectmobiledatevoucher .datepicker table tr td.active.highlighted {
+    background-color: #1fa9cc !important;
 }
+
+.mobile-breadcrumb {
+    list-style: none;
+}
+
+.mobile-breadcrumb-list {
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+}
+
+.m-breadcrumb-arange {
+    float: left;
+}
+
 .m-displayrow {
     display: table;
     color: #000;
@@ -1513,6 +1551,7 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
     padding: 0px;
     width: 100%;
 }
+
 .m-displaycell {
     display: table-cell;
     vertical-align: middle;
@@ -1543,6 +1582,7 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 .m-cashreceipttable tbody tr td {
     border: none;
 }
-.actions-width{
-  width: 80px;
+
+.actions-width {
+    width: 80px;
 }

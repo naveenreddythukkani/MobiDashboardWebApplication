@@ -33,7 +33,7 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
 
     $rootScope.dateremove = true;
     $rootScope.voucherControl = false;
-    $rootScope.moreIconShow= true;
+    $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = true;
 
 
@@ -49,11 +49,11 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
         $rootScope.mobileheader = true;
     }
     $rootScope.screenName = $rootScope.balnc;
-    if($rootScope.isSearched){
-       $('#mainpageContollerStart').addClass('balancesheetheader');
-       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
-    }else{
-      $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    if ($rootScope.isSearched) {
+        $('#mainpageContollerStart').addClass('balancesheetheader');
+        $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    } else {
+        $('#mainpageContollerStart').addClass('balancesheetheadermove');
     }
     var config = {
         headers: {
@@ -91,14 +91,16 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
         }
         // getting all data for vocher details
     $scope.getallvoucherdetails = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
         var data = { "v_id": $scope.props.vocher_id };
         $scope.loading = true;
         var success = function(result) {
-
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
+            }
             console.log("date in obdata" + JSON.stringify(result.data));
             $scope.loading = false;
             if (result.data.error === undefined) {

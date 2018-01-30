@@ -32,7 +32,7 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
     $rootScope.voucherstab = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
-    $rootScope.moreIconShow= true;
+    $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = true;
 
     var screenwidth = $(window).width();
@@ -44,11 +44,11 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
         $rootScope.mobileheader = true;
     }
     $rootScope.screenName = $rootScope.balnc;
-    if($rootScope.isSearched){
-       $('#mainpageContollerStart').addClass('balancesheetheader');
-       $('#mainpageContollerStart').removeClass('balancesheetheadermove');
-    }else{
-      $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    if ($rootScope.isSearched) {
+        $('#mainpageContollerStart').addClass('balancesheetheader');
+        $('#mainpageContollerStart').removeClass('balancesheetheadermove');
+    } else {
+        $('#mainpageContollerStart').addClass('balancesheetheadermove');
     }
     var config = {
         headers: {
@@ -86,7 +86,7 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
     }
     $scope.clearlocalstorage();
     $scope.ledgerreport = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -101,6 +101,9 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
         var success = function(result) {
             $scope.loading = false;
             var ledgerGroup = result.data;
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
+            }
             console.log("ledger values........." + JSON.stringify(result.data));
             $scope.showprofitorloss = false;
             $scope.ledgerelements = [];
@@ -155,8 +158,8 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
-            if(month==="01" || month==="02"||month==="03"){
-              year = year - 1;
+            if (month === "01" || month === "02" || month === "03") {
+                year = year - 1;
             }
             if (day > 10) {
                 day = '0' + 1;
@@ -218,9 +221,9 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
                 $scope.passparameters.ledgergroup_id = $scope.props.ledgergroup_id;
                 dataMove.setledgerData($scope.passparameters)
             }
-            if($rootScope.location_id=== "All Locations"){
+            if ($rootScope.location_id === "All Locations") {
                 $state.go("locationwisebalances");
-            }else{
+            } else {
                 $state.go("monthWise");
             }
         } else {

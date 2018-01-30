@@ -90,13 +90,13 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
         })
         .state('voucher', {
             url: '/voucher',
-            templateUrl: screenwidth > mobileWidth ? 'views/voucher.html':'views/m.voucher.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/voucher.html' : 'views/m.voucher.html',
             controller: "voucherCntl",
             onEnter: changeOnEnter
         })
         .state('voucherdetails', {
             url: '/voucherdetails',
-            templateUrl:  screenwidth > mobileWidth ? 'views/voucherdetails.html':'views/m.voucherdetails.html',
+            templateUrl: screenwidth > mobileWidth ? 'views/voucherdetails.html' : 'views/m.voucherdetails.html',
             controller: "voucherdetailsCntl",
             onEnter: changeOnEnter
         })
@@ -112,11 +112,11 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
             controller: "monthWiseCntl",
             onEnter: changeOnEnter
         }).
-        state('locationwisebalances',{
-          url: '/locationwisebalances',
-          templateUrl:'views/locationwisebalances.html',
-          controller:'locationwisebalancesCntl',
-          onEnter:changeOnEnter
+    state('locationwisebalances', {
+            url: '/locationwisebalances',
+            templateUrl: 'views/locationwisebalances.html',
+            controller: 'locationwisebalancesCntl',
+            onEnter: changeOnEnter
         })
         .state('login', {
             url: '/login',
@@ -161,9 +161,9 @@ var changeOnEnter = function(localStorageService, $state) {
         $state.go('login');
     }
 };
-// Production
-// MobiDash.constant("domain", "https://api.mobibooks.in/");
-//dev
+// Production and Dev
+// MobiDash.constant("domain", "/");
+
 MobiDash.constant("domain", "http://139.59.3.114/");
 MobiDash.constant("api", "act/api/");
 MobiDash.constant("core", "act/core/");

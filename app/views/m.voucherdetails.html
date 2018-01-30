@@ -15,7 +15,7 @@
                                     <td style="padding-left:15px;">
                                         <span style="font-size:16px;">{{showsnameandglname(vocherdetailsdata)}}</span><br>
                                         <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span>
-                                        <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate}}</span>
+                                        <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate| date: "dd/MM/yy"}}</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -28,10 +28,10 @@
             </div>
             <ul class="list-styles no-padding-hr" style="margin-bottom:0;" ng-repeat="glinedata in vocherdetailsdata.GLines| orderBy:glinedata.seq">
                 <li style="margin-top:-1px;">
-                 <div style="display: block;clear:both;">
-                    <span class="sublist-text-name" style="padding:3px;">{{showglandsldata(glinedata)}}</span>
-                    <span class="sublist-text-value" style="padding:3px;">{{glinedata.amount | INRCurrency}}</span>
-                  </div>
+                    <div style="display: block;clear:both;">
+                        <span class="sublist-text-name" style="padding:3px;">{{showglandsldata(glinedata)}}</span>
+                        <span class="sublist-text-value" style="padding:3px;">{{glinedata.amount | INRCurrency}}</span>
+                    </div>
                     <p style="padding-left:8px;clear:both !important;" ng-show="glinedata.narration !== undefined" class="voucher-refname">{{glinedata.narration}}</p>
                     <ul class="list-styles no-padding-hr text-right" ng-repeat="ccdata in glinedata.ccLines| orderBy:ccdata.seq" style="margin-bottom:0;">
                         <li class="sub-listheightvalues" style="width:70%;padding-left:25px;">

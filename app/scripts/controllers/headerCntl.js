@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('headerCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window, mobileWidth) {
+QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window, mobileWidth) {
 
     $scope.logintabbottom = false;
     $scope.isPopOver = false;
@@ -9,7 +9,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     $scope.props = {};
     $scope.Object = Object;
     $scope.minimumDateSelect = new Date();
-    $rootScope.findingpndlreport = function () {
+    $rootScope.findingpndlreport = function() {
         $rootScope.balnc = localStorageService.get("balnc")
         if ($rootScope.balnc === "Balance sheet") {
             $rootScope.pandlreport = false
@@ -18,7 +18,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         }
     }
     $rootScope.findingpndlreport();
-    $rootScope.getlocalstoredata = function () {
+    $rootScope.getlocalstoredata = function() {
         console.log(dataMove.getgroupdata());
         console.log(dataMove.getsubgroupdata());
         console.log(dataMove.getledgerData());
@@ -49,27 +49,27 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     };
     $rootScope.headerheight = $('#bredcrumbelement').height();
     $rootScope.headerheight += 25;
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#datetimepickerdashboardfrom').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#datetimepickerdashboardto').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#datetimepickervoucherfrom').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#datetimepickervoucherto').datetimepicker({
             format: 'DD-MM-YYYY'
         });
     });
-    $('#savefordashboard').on('click', function () {
+    $('#savefordashboard').on('click', function() {
         $rootScope.today1 = moment($('#todatedashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         if ($rootScope.pandlreport === true) {
             $rootScope.startdate1 = moment($('#fromdatedashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
@@ -77,26 +77,26 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         $('#selectdatedahboard').modal('hide');
         $rootScope.datescalculation();
     });
-    $('#saveforvoucher').on('click', function () {
+    $('#saveforvoucher').on('click', function() {
         $rootScope.fromdate1 = moment($('#fromdateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.today1 = moment($('#todateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.datescalculation();
         $('#saveforvoucher').modal('hide');
     });
-    $scope.addremovealert = function () {
+    $scope.addremovealert = function() {
         $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
             $("#success-alert").removeClass('in');
         });
     }
-    $rootScope.getalllocationinheader = function () {
+    $rootScope.getalllocationinheader = function() {
         $scope.loading = true;
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             $rootScope.locationsListinheader = result.data;
             localStorageService.set("locations", $rootScope.locationsListinheader);
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
         }
         if ($rootScope.mobile) {
@@ -106,33 +106,33 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
 
     }
     $rootScope.getalllocationinheader();
-    $scope.clientLogout = function () {
+    $scope.clientLogout = function() {
         $scope.closeNav();
         $scope.popoverhide();
         $scope.loading = false;
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = true;
             $state.go("login");
             localStorageService.clearAll();
 
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
         $http.get(domain + api + 'logout/')
             .then(success, error)
     }
-    $scope.profilemouseover = function () {
+    $scope.profilemouseover = function() {
         $scope.showuserdata = true;
     }
-    $scope.profilemouseleave = function () {
+    $scope.profilemouseleave = function() {
         $scope.showuserdata = false;
     }
-    $scope.gotoCompanyPage = function () {
+    $scope.gotoCompanyPage = function() {
         $state.go("company");
     }
-    $rootScope.balancesheetValueChange = function (balnc) {
+    $rootScope.balancesheetValueChange = function(balnc) {
         localStorageService.set("balnc", balnc);
         if (balnc === "Profit & Loss") {
             $rootScope.pandlreport = true;
@@ -148,7 +148,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         }
         $rootScope.getlocalstoredata();
     }
-    $scope.locationValueChange = function (locat) {
+    $scope.locationValueChange = function(locat) {
         $rootScope.locat.display_name = locat.display_name;
         $rootScope.location_name = locat.display_name;
         $rootScope.location_id = locat.id;
@@ -173,7 +173,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         }
         $rootScope.getlocalstoredata();
     }
-    $scope.subledgerchange = function () {
+    $scope.subledgerchange = function() {
         if ($scope.subgroupData !== null && $scope.subgroupData.subgrouplevel === true) {
             localStorageService.remove("subgroupData");
             dataMove.setsubgroupdata({});
@@ -194,7 +194,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go('subledgersgroup')
         }
     }
-    $scope.subgroupchange = function () {
+    $scope.subgroupchange = function() {
         if ($scope.ledgerData !== null && $scope.ledgerData.ledgerlevel === true) {
             localStorageService.remove("ledger");
             dataMove.setledgerData({})
@@ -212,7 +212,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go('ledger')
         }
     }
-    $scope.ledgerchange = function () {
+    $scope.ledgerchange = function() {
         if ($scope.controlledgerData !== null && $scope.controlledgerData.controlledger === true) {
             localStorageService.remove("controlledger");
             dataMove.getcontrolledgerData({});
@@ -234,7 +234,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go('monthWise')
         }
     }
-    $scope.monthWisechange = function () {
+    $scope.monthWisechange = function() {
         if ($scope.monthwiseData !== null && $scope.monthwiseData.monthwise === true) {
             dataMove.setmonthwiseData({});
             localStorageService.remove("monthwise");
@@ -242,14 +242,14 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         }
 
     }
-    $scope.vocherchange = function () {
+    $scope.vocherchange = function() {
         if ($scope.voucherData !== null && $scope.voucherData.voucher === true) {
             dataMove.setvoucherData({});
             localStorageService.remove("voucherData");
             $state.go('voucher')
         }
     }
-    $scope.locationValueChangeforall = function () {
+    $scope.locationValueChangeforall = function() {
         $rootScope.locat.display_name = "All Locations";
         $rootScope.location_name = "All Locations";
         $rootScope.location_id = "All Locations";
@@ -274,20 +274,20 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         }
         $rootScope.getlocalstoredata();
     }
-    $scope.datemodelshow = function () {
+    $scope.datemodelshow = function() {
         $('#selectdatedahboard').modal('show');
         $('#todatedashboard').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
         if ($rootScope.pandlreport === true) {
             $('#fromdatedashboard').val($filter('date')($rootScope.startdate, "dd-MM-yyyy"));
         }
     }
-    $scope.datemodelforfromandtodate = function () {
+    $scope.datemodelforfromandtodate = function() {
         $('#selectdatevoucher').modal('show');
         $('#fromdateidvoucher').val($filter('date')($rootScope.fromdate, "dd-MM-yyyy"));
         $('#todateidvoucher').val($filter('date')($rootScope.today, "dd-MM-yyyy"));
     }
 
-    $scope.removealllocalstorage = function () {
+    $scope.removealllocalstorage = function() {
         localStorageService.remove("groupData");
         dataMove.setgroupdata({});
 
@@ -308,10 +308,11 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         localStorageService.remove("voucherData");
 
     }
-    $scope.ledgersearch = function () {
+    $scope.ledgersearch = function() {
+        localStorageService.set('globalSearchData', "");
         $state.go('search');
     }
-    $scope.backButtonAction = function () {
+    $scope.backButtonAction = function() {
         if (!$rootScope.isSearched) {
             if ($state.current.name === "balancesheet") {
                 $state.go('location');
@@ -336,17 +337,17 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $window.history.back();
         }
     }
-    $scope.openNav = function () {
+    $scope.openNav = function() {
         console.log($(window).width())
         document.getElementById("transparentView").style.width = '100%';
         document.getElementById("mySidenav").style.width = "75%";
     }
 
-    $scope.closeNav = function () {
+    $scope.closeNav = function() {
         document.getElementById("mySidenav").style.width = "0";
         document.getElementById("transparentView").style.width = "0";
     }
-    $scope.homeAction = function () {
+    $scope.homeAction = function() {
         $scope.closeNav();
         if ($state.current.name === "company") {
             $state.transitionTo($state.current, $stateParams, {
@@ -358,7 +359,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go("company");
         }
     }
-    $scope.usersPageAction = function () {
+    $scope.usersPageAction = function() {
         $scope.closeNav();
         if ($state.current.name === "user") {
             $state.transitionTo($state.current, $stateParams, {
@@ -370,7 +371,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go("user");
         }
     }
-    $scope.locationsPageAction = function () {
+    $scope.locationsPageAction = function() {
         $scope.closeNav();
         if ($state.current.name === "location") {
             $state.transitionTo($state.current, $stateParams, {
@@ -382,7 +383,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go("location");
         }
     }
-    $scope.balanceSheetAction = function () {
+    $scope.balanceSheetAction = function() {
         $scope.closeNav();
         $rootScope.balnc = "Balance sheet";
         localStorageService.set("balnc", $rootScope.balnc);
@@ -401,35 +402,35 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go("balancesheet");
         }
     }
-    $scope.profitAndLossAction = function () {
-        $scope.closeNav();
-        $rootScope.balnc = "Profit & Loss";
-        localStorageService.set("balnc", $rootScope.balnc);
-        $rootScope.location_name = "All Locations";
-        $rootScope.location_id = "All Locations";
-        localStorageService.set("location_id", "All Locations");
-        localStorageService.set("location_name", "All Locations");
-        $rootScope.findingpndlreport();
-        if ($state.current.name === "balancesheet") {
-            $state.transitionTo($state.current, $stateParams, {
-                reload: true,
-                inherit: false,
-                notify: true
-            });
-        } else {
-            $state.go("balancesheet");
+    $scope.profitAndLossAction = function() {
+            $scope.closeNav();
+            $rootScope.balnc = "Profit & Loss";
+            localStorageService.set("balnc", $rootScope.balnc);
+            $rootScope.location_name = "All Locations";
+            $rootScope.location_id = "All Locations";
+            localStorageService.set("location_id", "All Locations");
+            localStorageService.set("location_name", "All Locations");
+            $rootScope.findingpndlreport();
+            if ($state.current.name === "balancesheet") {
+                $state.transitionTo($state.current, $stateParams, {
+                    reload: true,
+                    inherit: false,
+                    notify: true
+                });
+            } else {
+                $state.go("balancesheet");
+            }
         }
-    }
-    // popover hide and showerror
-    $scope.popovershow = function () {
+        // popover hide and showerror
+    $scope.popovershow = function() {
         document.getElementById("popOverTransparentView").style.width = '100%';
         document.getElementById("popOverView").style.width = "40%";
     }
-    $scope.popoverhide = function () {
+    $scope.popoverhide = function() {
         document.getElementById("popOverTransparentView").style.width = '0';
         document.getElementById("popOverView").style.width = "0";
     }
-    $scope.datemodelmobileshow = function () {
+    $scope.datemodelmobileshow = function() {
         $scope.popoverhide();
         $(".mFromDateTab").addClass("active");
         $(".mToDateTab").removeClass("active");
@@ -469,9 +470,9 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
                 format: 'YYYY-MM-DD',
                 defaultDate: defaultFromDate
             });
-            $('#datetimepickermobilevoucherfrom').on('dp.change',function(e){
-            
-                $scope.minimumDateSelect= moment(e.date).format("YYYY-MM-DD");
+            $('#datetimepickermobilevoucherfrom').on('dp.change', function(e) {
+
+                $scope.minimumDateSelect = moment(e.date).format("YYYY-MM-DD");
                 // $(".mToDateTabVou").trigger('click');
                 $(".mFromDateTabVou").removeClass("active");
                 $(".mToDateTabVou").addClass("active");
@@ -495,7 +496,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
                 defaultDate: defaultFromDate
             });
 
-            $('#datetimepickermobiledashboardfrom').on('dp.change', function (e) {
+            $('#datetimepickermobiledashboardfrom').on('dp.change', function(e) {
 
                 console.log('$s', $scope, $scope.$parent);
                 $scope.$parent.minimumDateSelect = moment(e.date).format("YYYY-MM-DD");
@@ -521,17 +522,17 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     // $(document).off('click', '.mFromDateTab').on('click', '.mToDateTab',function(e) {
     //     $("#fromDateCal").show();
     //     $("#toDateCal").hide();
-    // }); 
+    // });
 
-    $(document).off('click', '.mToDateTab').on('click', '.mToDateTab',function(e) {
+    $(document).off('click', '.mToDateTab').on('click', '.mToDateTab', function(e) {
         $(".mFromDateTab").removeClass("active");
         $(".mToDateTab").addClass("active");
         $("#toDateCal").show();
         $("#fromDateCal").hide();
         console.log("minDate", $scope.minimumDateSelect);
-    }); 
+    });
 
-    $(".mFromDateTab").on('click', function () {
+    $(".mFromDateTab").on('click', function() {
         $("#fromDateCal").show();
         $("#toDateCal").hide();
         // $('#datetimepickermobiledashboardfrom').datetimepicker();
@@ -545,13 +546,13 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     //     // console.log("minDate", $scope.minimumDateSelect);
     // });
 
-    $(".mFromDateTabVou").on('click', function () {
+    $(".mFromDateTabVou").on('click', function() {
         $("#fromDateCalVou").show();
         $("#toDateCalVou").hide();
         // $('#datetimepickermobilevoucherfrom').datetimepicker();
     });
 
-    $(".mToDateTabVou").on('click', function () {
+    $(".mToDateTabVou").on('click', function() {
         $(".mFromDateTabVou").removeClass("active");
         $(".mToDateTabVou").addClass("active");
         $("#toDateCalVou").show();
@@ -559,7 +560,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
         // $('#datetimepickermobilevoucherto').datetimepicker();
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // $('#datetimepickermobilevoucherto').datepicker("update", new Date());
         // $('#datetimepickermobilevoucherfrom').datepicker("update", new Date(new Date().getFullYear() - 1, 03, 01));
 
@@ -595,50 +596,51 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
     //     });
 
 
-    $('#saveformobiledashboard').unbind().on('click', function () {
+    $('#saveformobiledashboard').unbind().on('click', function() {
         // $rootScope.today1 = moment($('#datetimepickermobiledashboardto').datetimepicker("getDate")).format("YYYY-MM-DD");
         // if ($rootScope.pandlreport === true) {
         // $rootScope.startdate1 =moment($('#datetimepickermobiledashboardfrom').datetimepicker("getDate")).format("YYYY-MM-DD");
         // }
         $rootScope.today1 = $('#datetimepickermobiledashboardto').data('date');
         if ($rootScope.pandlreport === true) {
-        $rootScope.startdate1 =$('#datetimepickermobiledashboardfrom').data('date');
+            $rootScope.startdate1 = $('#datetimepickermobiledashboardfrom').data('date');
         }
         $('#selectmobiledatedahboard').modal('hide');
         $rootScope.datescalculation();
     });
 
-    $('#saveformobilevoucher').unbind().on('click', function () {
+    $('#saveformobilevoucher').unbind().on('click', function() {
         // $rootScope.today1 = moment($('#datetimepickermobilevoucherto').datetimepicker("getDate")).format("YYYY-MM-DD");
         // if ($rootScope.pandlreport === true) {
         //     $rootScope.startdate1 = moment($('#datetimepickermobilevoucherfrom').datetimepicker("getDate")).format("YYYY-MM-DD");
         // }
         $rootScope.today1 = $('#datetimepickermobilevoucherto').data('date');
         if ($rootScope.pandlreport === true) {
-            $rootScope.startdate1 =  $('#datetimepickermobilevoucherfrom').data('date');
+            $rootScope.startdate1 = $('#datetimepickermobilevoucherfrom').data('date');
         }
         $('#selectmobiledatevoucher').modal('hide');
         $rootScope.datescalculation();
     });
 
-    $rootScope.getalllocationinmobileheader = function () {
+    $rootScope.getalllocationinmobileheader = function() {
         $scope.loading = true;
         $scope.popoverhide();
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             $rootScope.locationsMobileListInHeader = result.data;
             $("#locationListInHeader").modal('show');
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
         }
         $http.get(domain + api + "location/compact/", config)
             .then(success, error);
     }
-    $scope.searchAction = function () {
+    $scope.searchAction = function() {
+        localStorageService.set('globalSearchData', "");
         $state.go('search');
     }
-    $scope.balancesheetPopOverAction = function (text) {
+    $scope.balancesheetPopOverAction = function(text) {
         $scope.popoverhide();
         if (text === "balance") {
             $rootScope.pandlreport = false;
@@ -658,7 +660,7 @@ QTable.controller('headerCntl', function ($scope, $state, $rootScope, $statePara
             $state.go("balancesheet");
         }
     }
-    window.addEventListener('popstate', function (event) {
+    window.addEventListener('popstate', function(event) {
 
 
     });

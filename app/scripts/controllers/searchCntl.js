@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window,mobileWidth) {
+QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, $filter, $window, mobileWidth) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -34,7 +34,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
     $rootScope.isSearched = false;
     localStorageService.set("isSearched", false);
     $scope.searchdetails = [];
-    $scope.globalSearchData = "";
+    $scope.globalSearchData = localStorageService.get('globalSearchData');
 
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
@@ -64,11 +64,13 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
     $scope.searchtextchange = function() {
         if ($scope.globalSearchData === '') {
             $scope.searchdetails = [];
+            $scope.LoadMoreButton = false;
             return;
         } else {
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                localStorageService.set("globalSearchData", $scope.globalSearchData);
                 if (result.data.error === undefined) {
                     $scope.searchdetails = result.data.data;
                     if ($scope.searchdetails.length >= 20) {
@@ -90,6 +92,10 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
 
         }
     };
+
+    if ($scope.globalSearchData !== '') {
+        $scope.searchtextchange()
+    }
     $scope.searchboxchangeAction = function() {
         if ($scope.globalSearchData === '') {
             $scope.searchdetails = [];

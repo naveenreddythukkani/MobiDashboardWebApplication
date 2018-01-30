@@ -84,6 +84,9 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         }
     ];
     $scope.permissions = function(user) {
+        if (user.privilege[0] === 0) {
+            return;
+        }
         var canmanagecompany = user.privilege[0];
         var a = dcodeIO.Long.fromString(canmanagecompany, true);
         var b = dcodeIO.Long.fromString("8796093022208", true);
@@ -103,6 +106,12 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
     $scope.addremovealert = function() {
         $("#success-alert").addClass('in');
         $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-alert").removeClass('in');
+        });
+    }
+    $scope.companycreatingaddremovealert = function() {
+        $("#success-alert").addClass('in');
+        $("#success-alert").fadeTo(5000, 500).slideUp(500, function() {
             $("#success-alert").removeClass('in');
         });
     }
@@ -165,8 +174,8 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if(result.data.length===0){
-              session.sessionexpried("No Data");
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
             }
             $scope.tenants = result.data;
             $scope.multiclient = new NgTableParams({ count: $scope.tenants.length }, { dataset: $scope.tenants });
@@ -198,11 +207,11 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
                     $state.go('location');
                 }
             } else {
-              if(result.data.error.code=== 5053){
-                 $scope.msg= "You can not dirll down, your access denied you have a machine specific access due to restricted account (MAC address)"
-              }else{
-                $scope.msg = result.data.error.message;
-              }
+                if (result.data.error.code === 5053) {
+                    $scope.msg = "You can not dirll down, your access denied you have a machine specific access due to restricted account (MAC address)"
+                } else {
+                    $scope.msg = result.data.error.message;
+                }
                 $scope.addremovealert();
             }
         }
@@ -237,10 +246,11 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.loadmsg = true;
             if (result.data.error === undefined) {
                 $scope.msg = "Creating a company , Please click on refresh button after few minutes";
+                $scope.companycreatingaddremovealert();
             } else {
                 $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;

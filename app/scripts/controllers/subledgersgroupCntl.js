@@ -30,7 +30,7 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
     $rootScope.downloadstab = false;
-    $rootScope.moreIconShow= true;
+    $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = true;
 
 
@@ -83,7 +83,7 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
     }
     $scope.clearlocalstorage();
     $scope.subledgerreport = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -98,6 +98,9 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
         var success = function(result) {
             $scope.loading = false;
             var rootsubGroup = result.data;
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
+            }
             $scope.rsubgroupelements = [];
             var totalAmt = 0;
             for (var i = 0; i < rootsubGroup.length; i++) {
@@ -144,8 +147,8 @@ QTable.controller('subledgersgroupCntl', function($scope, $state, $rootScope, $s
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
-            if(month==="01" || month==="02"||month==="03"){
-              year = year - 1;
+            if (month === "01" || month === "02" || month === "03") {
+                year = year - 1;
             }
             if (day > 10) {
                 day = '0' + 1;

@@ -1,6 +1,6 @@
 <header class="m-header-fixed" ng-controller="headerCntl">
     <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
-        <img id="m-logo" style="margin-top:13px;float:left;" src="images/logo-white-44.png" alt="logo"/>
+        <img id="m-logo" style="margin-top:13px;float:left;" src="images/logo-white-44.png" alt="logo" />
         <span class="m-font-size-logo-name m-header-text-color">Companies</span>
         <img ng-click="clientLogout()" src="images/logout.png" class="pull-right" style="margin:13px"></img>
     </div>
@@ -8,7 +8,7 @@
 <div class="row no-margin-hr" style="margin-top:55px">
     <div class="col-sm-12 col-xs-12 no-padding-hr">
         <ul ng-repeat="tenant in tenants" class="list-styles no-padding-hr">
-            <li class="m-custom-content-border m-list-align-left actionsmenu" ng-click="access(tenant)">
+            <li class="m-custom-content-border m-list-align-left-right actionsmenu" ng-click="access(tenant)">
                 <span class="m-main-field">{{tenant.tenant_name}}</span>
                 <span ng-show="tenant.locations" class="m-sub-field">{{tenant.locations > 1? (tenant.locations) +" locations": (tenant.locations) + " location"}}</span>
             </li>

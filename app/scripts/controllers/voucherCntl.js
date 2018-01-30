@@ -32,7 +32,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     $rootScope.voucherstab = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = true;
-    $rootScope.moreIconShow= true;
+    $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = true;
 
     $scope.ltype_amt = "";
@@ -45,12 +45,12 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
         $rootScope.mobileheader = true;
     }
     $rootScope.screenName = $rootScope.balnc;
-     if($rootScope.isSearched){
+    if ($rootScope.isSearched) {
         $('#mainpageContollerStart').addClass('balancesheetheader');
         $('#mainpageContollerStart').removeClass('balancesheetheadermove');
-     }else{
-       $('#mainpageContollerStart').addClass('balancesheetheadermove');
-     }
+    } else {
+        $('#mainpageContollerStart').addClass('balancesheetheadermove');
+    }
     var config = {
         headers: {
             "X-CSRFToken": $rootScope.csrftoken,
@@ -81,7 +81,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     };
     /* ltype='L' */
     $scope.getallltypevochers = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -94,6 +94,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 if (result.data.error === undefined) {
                     console.log(JSON.stringify(result));
                     $scope.obalance = result.data.obdata;
@@ -109,9 +112,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         var dataset = $scope.voucherdetails[j].data;
                         var totalAmt = 0;
                         for (var k = 0; k < dataset.length; k++) {
-                             if(dataset.isverified){
-                             totalAmt = totalAmt + dataset[k].amount;
-                          }
+                            if (dataset.isverified) {
+                                totalAmt = totalAmt + dataset[k].amount;
+                            }
                         }
                         if ($scope.voucherdetails[j].ob_amount == null) {
                             $scope.voucherdetails[j].ob_amount = 0;
@@ -149,6 +152,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 if (result.data.error === undefined) {
                     $scope.obalance = result.data;
                     var voucher_data = result.data;
@@ -158,9 +164,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     }
                     console.log(JSON.stringify($scope.voucherdetails));
                     var total = 0;
-                    for(var i=0; i< $scope.voucherdetails.length; i++){
-                      if($scope.voucherdetails[i].isverified ===1)
-                         total +=$scope.voucherdetails[i].amount;
+                    for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                        if ($scope.voucherdetails[i].isverified === 1)
+                            total += $scope.voucherdetails[i].amount;
                     }
                     console.log(JSON.stringify(result.data.ob_amt));
                     if (result.data.ob_amt == null) {
@@ -177,9 +183,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         //     console.log("The toast was not shown due to " + error);
                         // });
                     }
-                    $scope.balanceamount=0.0;
+                    $scope.balanceamount = 0.0;
                     $scope.balanceamount = parseFloat(result.data.ob_amt) + parseFloat(total);
-                    $scope.ledger_amt = $scope.balanceamount;
+                    $scope.ledger_amt = $scope.balanceamount.toFixed(2);
                 } else {
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
@@ -197,7 +203,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
 
     /* ltype='C' or ltype='B' */
     $scope.getallCandBtypevoucher = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -209,6 +215,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 if (result.data.error === undefined) {
                     console.log(JSON.stringify(result.data));
                     $scope.obalance = result.data.obdata;
@@ -224,9 +233,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         var dataset = $scope.voucherdetails[j].data;
                         var totalAmt = 0;
                         for (var k = 0; k < dataset.length; k++) {
-                            if(dataset.isverified===1){
-                             totalAmt = totalAmt + dataset[k].amount;
-                          }
+                            if (dataset.isverified === 1) {
+                                totalAmt = totalAmt + dataset[k].amount;
+                            }
                         }
                         if ($scope.voucherdetails[j].ob_amount == null) {
                             $scope.voucherdetails[j].ob_amount = 0;
@@ -266,6 +275,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 if (result.data.error === undefined) {
                     $scope.obalance = result.data;
                     var voucher_data = result.data;
@@ -275,9 +287,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     }
                     console.log(JSON.stringify($scope.voucherdetails));
                     var total = 0;
-                    for(var i=0; i< $scope.voucherdetails.length; i++){
-                      if($scope.voucherdetails[i].isverified ===1)
-                         total +=$scope.voucherdetails[i].amount;
+                    for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                        if ($scope.voucherdetails[i].isverified === 1)
+                            total += $scope.voucherdetails[i].amount;
                     }
                     console.log(JSON.stringify(result.data.ob_amt));
                     if (result.data.ob_amt == null) {
@@ -295,7 +307,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         // });
                     }
                     $scope.balanceamount = parseFloat(result.data.ob_amt) + parseFloat(total);
-                    $scope.ledger_amt = $scope.balanceamount;
+                    $scope.ledger_amt = $scope.balanceamount.toFixed(2);
                 } else {
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
@@ -315,7 +327,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
     // voucher type is 'S'
 
     $scope.getallglwisesubledger = function() {
-        if($scope.props=== null || Object.keys($scope.props).length===0){
+        if ($scope.props === null || Object.keys($scope.props).length === 0) {
             $state.go("location");
             return;
         }
@@ -328,6 +340,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
+            if (result.data.length === 0) {
+                session.sessionexpried("No Data");
+            }
             if (result.data.error === undefined) {
                 console.log("date in obdata" + JSON.stringify(result.data));
                 $scope.obalance = result.data.obdata;
@@ -340,9 +355,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     var dataset = $scope.voucherdetails[j].data;
                     var totalAmt = 0;
                     for (var k = 0; k < dataset.length; k++) {
-                      if(dataset.isverified){
-                         totalAmt = totalAmt + dataset[k].amount;
-                      }
+                        if (dataset.isverified) {
+                            totalAmt = totalAmt + dataset[k].amount;
+                        }
                     }
                     if ($scope.voucherdetails[j].ob_amount == null) {
                         $scope.voucherdetails[j].ob_amount = 0;
@@ -416,8 +431,8 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
-            if(month==="01" || month==="02"||month==="03"){
-              year = year - 1;
+            if (month === "01" || month === "02" || month === "03") {
+                year = year - 1;
             }
             if (day > 10) {
                 day = '0' + 1;

@@ -3,21 +3,20 @@
         <div class="col-md-12 no-padding-hr">
 
             <div ng-if="(ledger_ltype == 'L' && ledgerIndividualLocationStatus == true) || (ledger_ltype == 'C' && corbltypeIndividualLocationStatus == true) || (ledger_ltype == 'B' && corbltypeIndividualLocationStatus == true)">
-                <ul class="list-styles no-padding-hr">
-                    <li class="listheightvalues-voucher">
+                <ul class="list-styles no-padding-hr" style="margin-bottom:2px;">
+                    <li class="listheightvalues-voucher" style="background:#d3d3d3;">
                         <span class="text-name">{{props.ledger_name}} &#58;</span>
                         <span class="text-name-small">(From {{fromdate| date :  "dd/MM/yyyy"}} To {{today| date :  "dd/MM/yyyy"}})</span>
                         <span class="text-value">{{ledger_amt >= 0 ? ((ledger_amt | INRCurrency) + " Dr") : (((-1 * ledger_amt) | INRCurrency) + " Cr")}}</span>
-                        <!-- <span class="text-value">{{ledger_amt >= 0 ? ((ledger_amt | INRCurrency) + " Dr") : (((-1 * ledger_amt) | INRCurrency) + " Cr")}}</span> -->
                     </li>
                 </ul>
-                <ul ng-hide="!voucherdetails.length && vouchershowindividualstatus == true" class="list-styles no-padding-hr">
+                <ul ng-hide="!voucherdetails.length && vouchershowindividualstatus == true" class="list-styles no-padding-hr" style="margin-bottom:2px;">
                     <table class="table-width">
                         <tr>
-                            <th row-span="1" class="border-right-none" style="width:130px;">
+                            <th row-span="1" class="border-right-none" style="width:100px !important;">
                                 <span col-span="1">&nbsp;Date</span>
-                                <span col-span="2" class="pull-right" style=" padding-right:20px">Type</span>
-                                <div style="display:block;text-align:right; font-weight:bold; padding-right:20px">VNo</div>
+                                <span col-span="1" class="pull-right" style=" padding-right:8px">Type</span>
+                                <div style="display:block;text-align:left; font-weight:bold; padding-right:8px">&nbsp;VNo</div>
                             </th>
                             <th class="border-right-none">
                                 <span row-span="1">&nbsp;Ledger</span><br>
@@ -29,24 +28,24 @@
                             <td class="border-right-none"></td>
                             <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</td>
                             <td align="right" class="td-padding-right">{{obalance.ob_amt >= 0 ? ((obalance.ob_amt | INRCurrency) + " Dr") : (((-1 * obalance.ob_amt) | INRCurrency) + " Cr")}}</td>
-                            <!-- <td align="right" class="td-padding-right">{{obalance.ob_amt >= 0 ? ((obalance.ob_amt | INRCurrency) + " Dr") : (((-1 * obalance.ob_amt) | INRCurrency) + " Cr")}}</td> -->
                         </tr>
                         <tr ng-repeat-start="voucher in voucherdetails| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" class="actionsmenu" ng-class=" {red:voucher.isverified==0 } " ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
-                            <td rowspan="2 " class="tx-type-main border-right-none ">
-                                <span col-span="1 " class="pull-right " style="padding-right:20px; ">{{voucher.tx_type}}</span>
-                                <span col-span="2 " style="padding-right:20px; ">{{voucher.trans_date| date : "dd/MM/yy"}}</span> <br>
-                                <div style="display:block;text-align:right; font-weight:bold; padding-right:20px "> {{voucher.doc_id}}</div>
+                            <td colspan="1" rowspan="2" valign="top" class="tx-type-main border-right-none " style="width:100px !important;">
+                                <span col-span="1">{{voucher.trans_date| date : "dd/MM/yy"}}</span>
+                                <span col-span="1" class="pull-right" style="padding-right:8px;">{{voucher.tx_type}}</span><br>
+                                <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{voucher.doc_id}}</div>
                             </td>
-                            <td colspan="2 " class="border-bottom-none ">{{voucher.gl_name}}</td>
+                            <td colspan="2" style="word-break: break-all !important;white-space:normal;" class="border-bottom-none ">{{voucher.gl_name}}</td>
                         </tr>
                         <tr ng-class="{red:voucher.isverified==0 } " class="border-right-none actionsmenu" ng-repeat-end ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
-                            <td class="border-right-none voucher-refname"><span ng-show="voucher.refno">Ref No:{{voucher.refno}}</span><span ng-show="voucher.refno && voucher.refdate"> | </span><span ng-show="voucher.refdate">Ref Date:{{voucher.refdate| date: "dd/MM/yyyy"}}</span></td>
-                            <td align="right " class="border-left-none " class="td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td>
-                            <!-- <td align="right" class="td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td> -->
+                            <td colspan="2">
+                                <span class="voucher-refname" style="display:block;" ng-show="voucher.refno">Ref No: {{voucher.refno}}</span>
+                                <span class="voucher-refname" style="display:block;" ng-show="voucher.refdate">Ref Date: {{voucher.refdate| date: "dd/MM/yyyy"}}</span>
+                                <p style="margin-bottom:5px !important;" colspan="2" align="right" class="border-left-none td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</p>
+                            </td>
                         </tr>
                         <tr class="border-right-none">
                             <td class="text-bold border-right-none">Total</td>
-                            <!-- <td colspan="2" align="right" class="td-padding-right">{{balanceamount >= 0 ? ((balanceamount | INRCurrency) + " Dr") : (((-1 * balanceamount) | INRCurrency) + " Cr")}}</td> -->
                             <td colspan="2" align="right" class="td-padding-right">{{balanceamount >= 0 ? ((balanceamount | INRCurrency) + " Dr") : (((-1 * balanceamount) | INRCurrency) + " Cr")}}</td>
                         </tr>
                     </table>
@@ -54,42 +53,40 @@
             </div>
 
             <div ng-if="ledger_ltype == 'S' || (ledger_ltype == 'L' && ledgerAllLocationsStatus == true) || (ledger_ltype == 'C' && corbltypeAllLocationsStatus == true) || (ledger_ltype == 'B' && corbltypeAllLocationsStatus == true)">
-                <ul ng-if="ledger_ltype == 'S'" class="list-styles no-padding-hr">
+                <ul ng-if="ledger_ltype == 'S'" class="list-styles no-padding-hr" style="margin-bottom:2px;">
                     <li class="listheightvalues-voucher" style="background:#d3d3d3;">
-                      <div>
-                        <span class="text-name" style="width:100% !important;">{{props.ltype_name}} &#58;</span>
-                        <span class="text-name-small">(From {{fromdate| date :  "dd/MM/yyyy"}} To {{today| date :  "dd/MM/yyyy"}})</span>
-                      </div>
+                        <div>
+                            <span class="text-name" style="width:100% !important;">{{props.ltype_name}} &#58;</span>
+                            <span class="text-name-small">(From {{fromdate| date :  "dd/MM/yyyy"}} To {{today| date :  "dd/MM/yyyy"}})</span>
+                        </div>
                         <span class="text-value">{{ltype_amt >= 0 ? ((ltype_amt | INRCurrency) + " Dr") : (((-1 * ltype_amt) | INRCurrency) + " Cr")}}</span>
-                        <!-- <span class="text-value">{{ltype_amt >= 0 ? ((ltype_amt | INRCurrency) + " Dr") : (((-1 * ltype_amt) | INRCurrency) + " Cr")}}</span> -->
                     </li>
                 </ul>
-                <ul ng-if="ledger_ltype == 'L' || ledger_ltype == 'C' || ledger_ltype == 'B'" class="list-styles no-padding-hr">
-                    <li class="listheightvalues-voucher">
+                <ul ng-if="ledger_ltype == 'L' || ledger_ltype == 'C' || ledger_ltype == 'B'" class="list-styles no-padding-hr" style="margin-bottom:2px;">
+                    <li class="listheightvalues-voucher" style="background:#d3d3d3;">
                         <span class="text-name">{{props.ledger_name}} &#58;</span>
                         <span class="text-name-small">(From {{fromdate| date :  "dd/MM/yyyy"}} To {{today| date :  "dd/MM/yyyy"}})</span>
                         <span class="text-value">{{ledger_amt >= 0 ? ((ledger_amt | INRCurrency) + " Dr") : (((-1 * ledger_amt) | INRCurrency) + " Cr")}}</span>
-                        <!-- <span class="text-value" >{{ledger_amt >= 0 ? ((ledger_amt | INRCurrency) + " Dr") : (((-1 * ledger_amt) | INRCurrency) + " Cr")}}</span> -->
                     </li>
                 </ul>
-                <ul ng-repeat="voucher in voucherdetails| orderBy:['location', 'gl_name']" class="list-styles no-padding-hr border-left-none border-right-none">
-                    <ul ng-if="ledger_ltype == 'S'" class="list-styles location-text-vocher-uls no-padding-hr border-left-none border-right-none">
-                        <li class="location-text-vocher border-left-none border-right-none">
-                            <span class="glname_text">{{props.ltype_name}} / {{voucher.gl_name}} / {{voucher.display_name}}</span>
+                <ul ng-repeat="voucher in voucherdetails| orderBy:['location', 'gl_name']" class="list-styles no-padding-hr border-left-none border-right-none" style="margin-bottom:2px;">
+                    <ul ng-if="ledger_ltype == 'S'" class="list-styles location-text-vocher-uls no-padding-hr" style="margin-bottom:2px;">
+                        <li class="location-text-vocher " style="background:#d3d3d3;">
+                            <span class="glname_text">{{props.ltype_name}} Under {{voucher.gl_name}} / {{voucher.display_name}}</span>
                         </li>
                     </ul>
-                    <ul ng-if="ledger_ltype == 'L' || ledger_ltype == 'C' || ledger_ltype == 'B'" class="list-styles no-padding-hr  location-text-vocher-uls  border-left-none border-right-none">
-                        <li class="location-text-vocher border-left-none border-right-none">
-                            <span class="glname_text">{{props.ledger_name}} / {{voucher.display_name}}</span>
+                    <ul ng-if="ledger_ltype == 'L' || ledger_ltype == 'C' || ledger_ltype == 'B'" class="list-styles no-padding-hr  location-text-vocher-uls  " style="margin-bottom:2px;">
+                        <li class="location-text-vocher " style="background:#d3d3d3;">
+                            <span class="glname_text">{{props.ledger_name}} Under {{voucher.display_name}}</span>
                         </li>
                     </ul>
-                    <ul class="list-styles no-padding-hr">
+                    <ul class="list-styles no-padding-hr" style="margin-bottom:2px;">
                         <table class="table-width table-border-voucher">
                             <tr class="default-background">
-                                <th row-span="1" class="border-right-none" style="width:130px;">
+                                <th row-span="1" class="border-right-none" style="width:100px !important;">
                                     <span col-span="1">&nbsp;Date</span>
-                                    <span col-span="2" class="pull-right" style=" padding-right:20px">Type</span>
-                                    <div style="display:block;text-align:right; font-weight:bold; padding-right:20px">VNo</div>
+                                    <span col-span="1" class="pull-right" style=" padding-right:8px">Type</span>
+                                    <div style="display:block;text-align:left; font-weight:bold; padding-right:8px">&nbsp;VNo</div>
                                 </th>
                                 <th class="border-right-none">
                                     <span row-span="1">&nbsp;Ledger</span><br>
@@ -101,25 +98,25 @@
                                 <td class="border-right-none"></td>
                                 <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</td>
                                 <td align="right" class="td-padding-right">{{voucher.ob_amount >= 0 ? ((voucher.ob_amount | INRCurrency) + " Dr") : (((-1 * voucher.ob_amount) | INRCurrency) + " Cr")}}</td>
-                                <!-- <td align="right"  class="td-padding-right">{{voucher.ob_amount >= 0 ? ((voucher.ob_amount | INRCurrency) + " Dr") : (((-1 * voucher.ob_amount) | INRCurrency) + " Cr")}}</td> -->
                             </tr>
                             <tr class="background actionsmenu" ng-repeat-start="vouchersubdetails in voucher.data| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" ng-class="{red:vouchersubdetails.isverified == 0}" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)">
-                                <td rowspan="2" class="tx-type-main border-right-none">
+                                <td colspan="1" rowspan="2" valign="top" class="tx-type-main border-right-none" style="width:100px !important;">
                                     <span col-span="1">{{vouchersubdetails.trans_date| date : "dd/MM/yy"}}</span>
-                                    <span col-span="2" class="pull-right" style="padding-right:20px;">{{vouchersubdetails.tx_type}}</span><br>
-                                    <div style="display:block;text-align:right; font-weight:bold; padding-right:20px"> {{vouchersubdetails.doc_id}}</div>
+                                    <span col-span="1" class="pull-right" style="padding-right:8px;">{{vouchersubdetails.tx_type}}</span><br>
+                                    <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{vouchersubdetails.doc_id}}</div>
                                 </td>
-                                <td colspan="2" class="border-bottom-none">{{vouchersubdetails.gl_name}}</td>
+                                <td colspan="2" style="word-break: break-all !important;white-space:normal;" class="border-bottom-none">{{vouchersubdetails.gl_name}}</td>
                             </tr>
                             <tr ng-class="{red:vouchersubdetails.isverified == 0}" class="border-right-none actionsmenu" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)" ng-repeat-end>
-                                <td class="border-right-none voucher-refname"><span ng-show="vouchersubdetails.refno">Ref No:{{vouchersubdetails.refno}}</span><span ng-show="vouchersubdetails.refno && vouchersubdetails.refdate"> | </span><span ng-show="vouchersubdetails.refdate">Ref Date:{{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span></td>
-                                <td align="right" class="td-padding-right border-left-none">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</td>
-                                <!-- <td align="right" ng-if="rootgroup_id === 2" class="td-padding-right">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</td> -->
+                                <td colspan="2">
+                                    <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refno">Ref No: {{vouchersubdetails.refno}}</span>
+                                    <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refdate">Ref Date: {{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span>
+                                    <p style="margin-bottom:5px !important;" align="right" class="td-padding-right border-left-none">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</p>
+                                </td>
                             </tr>
                             <tr class=" border-right-none ">
                                 <td class="text-bold border-right-none">Total</td>
                                 <td colspan="2" align="right" class="td-padding-right">{{voucher.totalAmount >= 0 ? ((voucher.totalAmount | INRCurrency) + " Dr") : (((-1 * voucher.totalAmount) | INRCurrency) + " Cr")}}</td>
-                                <!-- <td colspan="2" align="right" ng-if="rootgroup_id === 2" class="td-padding-right">{{voucher.totalAmount >= 0 ? ((voucher.totalAmount | INRCurrency) + " Dr") : (((-1 * voucher.totalAmount) | INRCurrency) + " Cr")}}</td> -->
                             </tr>
                         </table>
                     </ul>

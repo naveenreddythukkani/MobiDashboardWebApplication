@@ -7,11 +7,12 @@
         <div class="row">
             <div class="col-md-12">
                 <table ng-table="multiclientbackup" class="table table-bordered client-table" show-filter="searchEnable">
-                    <tr ng-repeat="user in $data" ng-class="{'disablerow': user.status==='N'}">
+                    <tr ng-repeat="user in $data">
                         <td class="accType" title="'Company Name'" filter="{ tenant_name: 'text'}" sortable="'tenant_name'" class="sort-indicator">
                             <div class="row">
                                 <div class="col-md-11">
-                                    <a class="tbl-link main-field-block" ng-click="access(user)">{{user.tenant_name}}</a>
+                                    <a ng-hide="user.status==='N'" class="tbl-link main-field-block">{{user.tenant_name}}</a>
+                                    <a ng-show="user.status==='N'" class="tbl-link disablerow">{{user.tenant_name}}</a>
                                     <span class="subfield-text">{{user.backup_on | date:'yyyy-MM-dd HH:mm'}}</span>
                                 </div>
                             </div>
@@ -24,7 +25,7 @@
                             <div class="dropdown">
                                 <a style="text-decoration: none; cursor:pointer;" class="tbl-link dropdown-toggle colors" id="dropdownMenuhideshow" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="glyphicon glyphicon-chevron-down down-up-arrows" aria-hidden="true"></span></a>
                                 <ul class="dropdown-menu actions-view" aria-labelledby="dropdownMenuhideshow">
-                                    <li class="actionsmenu"><a ng-click="restorebuttonclick($index, user.tenant_id)">Restore</a></li>
+                                    <li ng-hide="user.status==='N'" class="actionsmenu"><a ng-click="restorebuttonclick($index, user.tenant_id)">Restore</a></li>
                                     <li class="actionsmenu"><a data-toggle="modal" data-target="#deleteModal" ng-click="deletemodelshow(user)">Discard</a></li>
                                 </ul>
                             </div>

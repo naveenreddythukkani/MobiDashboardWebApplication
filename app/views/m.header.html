@@ -1,35 +1,38 @@
 <header class="m-header-fixed" ng-controller="headerCntl">
     <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
-    <div ng-hide="balancesheetbreadcurmbs" style="height:50 !important;">
-        <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:13px;float:left;"src="images/menu_mobile.png" alt="logo" />
-        <img ng-click="backButtonAction()" ng-show="moreIconShow"  style="margin:13px;float:left;"src="images/back_arrow_mobile.png" alt="logo" />
-        <div id="headerTitleTextSize" class="m-header-text">
-          <span style="display:block;" class="m-font-size-companyName m-header-text-color m-text-overflow-header">{{screenName}}</span>
-          <span style="display:block;" class="m-header-text-color m-text-overflow-header">{{selected_company_name}}</span>
+        <div ng-hide="balancesheetbreadcurmbs" style="height:50 !important;">
+            <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:13px;float:left;" src="images/menu_mobile.png" alt="logo" />
+            <img ng-click="backButtonAction()" ng-show="moreIconShow" style="margin:13px;float:left;" src="images/back_arrow_mobile.png" alt="logo" />
+            <div id="headerTitleTextSize" class="m-header-text">
+                <span style="display:block;" class="m-font-size-companyName m-header-text-color m-text-overflow-header">{{screenName}}</span>
+                <span style="display:block;" class="m-header-text-color m-text-overflow-header">{{selected_company_name}}</span>
+            </div>
+            <div class="pull-right" style="margin-top:13px; margin-right:6px;" ng-show="moreIconShow">
+                <a><img id="more-logo" src="images/ic_more_vert.png" alt="more" ng-click="popovershow()" /></a>
+            </div>
+            <div class="pull-right" style="margin:11px;">
+                <a><img id="more-logo" src="images/search_mobile.png" alt="more" ng-click="searchAction()" /></a>
+            </div>
         </div>
-        <div class="pull-right" style="margin-top:13px; margin-right:6px;" ng-show="moreIconShow">
-          <a><img id="more-logo" src="images/ic_more_vert.png" alt="more" ng-click="popovershow()" /></a>
+        <div ng-show="balancesheetbreadcurmbs" style="height:65 !important;">
+            <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:20px;float:left;" src="images/menu_mobile.png" alt="logo" />
+            <img ng-click="backButtonAction()" ng-show="moreIconShow" style="margin:20px;float:left;" src="images/back_arrow_mobile.png" alt="logo" />
+            <div id="headerTitleTextSize" class="m-header-text">
+                <span style="display:block;" class="m-font-size-companyName m-header-text-color m-text-overflow-header">{{screenName}}</span>
+                <span ng-show="!voucherControl" style="display:block;margin-top: 2px;" class="m-header-text-color m-text-overflow-header"><span ng-if="pandlreport==true "><span>From {{startdate| date : 'dd-MM-yy'}}</span> to <span>{{today| date : 'dd-MM-yy'}}</span></span>
+                <span ng-if="pandlreport==false "> as on <span>{{today| date : 'dd-MM-yy'}}</span></span>
+                </span>
+                <span ng-show="voucherControl" style="display:block;margin-top: 2px;" class="m-header-text-color m-text-overflow-header"><span><span>From {{fromdate| date : 'dd-MM-yy'}}</span> to <span>{{today| date : 'dd-MM-yy'}}</span></span>
+                </span>
+                <span style="display:block;margin-top:-3px" class="m-header-text-color m-text-overflow-header">{{location_name}} | {{selected_company_name}}</span>
+            </div>
+            <div class="pull-right" style="margin-top:20px; margin-right:6px;" ng-show="moreIconShow">
+                <a><img id="more-logo" src="images/ic_more_vert.png" alt="more" ng-click="popovershow()" /></a>
+            </div>
+            <div class="pull-right" style="margin:20px 6px;;">
+                <a><img id="more-logo" src="images/search_mobile.png" alt="more" ng-click="searchAction()" /></a>
+            </div>
         </div>
-        <div class="pull-right" style="margin:11px;">
-        <a><img id="more-logo" src="images/search_mobile.png" alt="more" ng-click="searchAction()" /></a>
-        </div>
-    </div>
-    <div ng-show="balancesheetbreadcurmbs" style="height:65 !important;">
-      <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:20px;float:left;"src="images/menu_mobile.png" alt="logo" />
-      <img ng-click="backButtonAction()" ng-show="moreIconShow"  style="margin:20px;float:left;"src="images/back_arrow_mobile.png" alt="logo" />
-      <div id="headerTitleTextSize" class="m-header-text">
-        <span style="display:block;" class="m-font-size-companyName m-header-text-color m-text-overflow-header">{{screenName}}</span>
-        <span ng-show="!voucherControl" style="display:block;margin-top: 2px;" class="m-header-text-color m-text-overflow-header"><span ng-if="pandlreport==true "><span>From {{startdate| date : 'dd-MM-yy'}}</span> to <span>{{today| date : 'dd-MM-yy'}}</span></span><span ng-if="pandlreport==false "> as on <span >{{today| date : 'dd-MM-yy'}}</span></span></span>
-        <span ng-show="voucherControl" style="display:block;margin-top: 2px;" class="m-header-text-color m-text-overflow-header"><span><span>From {{fromdate| date : 'dd-MM-yyyy'}}</span> to <span>{{today| date : 'dd-MM-yyyy'}}</span></span></span>
-        <span style="display:block;margin-top:-3px" class="m-header-text-color m-text-overflow-header">{{location_name}} | {{selected_company_name}}</span>
-      </div>
-      <div class="pull-right" style="margin-top:20px; margin-right:6px;" ng-show="moreIconShow">
-        <a><img id="more-logo" src="images/ic_more_vert.png" alt="more" ng-click="popovershow()" /></a>
-      </div>
-      <div class="pull-right" style="margin:20px 6px;;">
-      <a><img id="more-logo" src="images/search_mobile.png" alt="more" ng-click="searchAction()" /></a>
-      </div>
-  </div>
 
         <div id="transparentView" class="transparentView" ng-click="closeNav()">
         </div>
@@ -37,7 +40,7 @@
             <div class="m-usertabmenu">
                 <div style="padding:10px;">
                     <img id="m-logo" src="images/user-icon.png" height="70px" alt="logo" />
-                    <img class="pull-right" ng-click="closeNav()" src="images/ic_close_white.png"/>
+                    <img class="pull-right" ng-click="closeNav()" src="images/ic_close_white.png" />
                 </div>
                 <div style="text-align:left;padding-left:15px;">
                     <span class="m-loggedinuser">{{name}}</span>
@@ -54,27 +57,27 @@
         <div id="popOverTransparentView" class="transparentView" ng-click="popoverhide()">
         </div>
         <div id="popOverView" class="m-popOverView">
-          <a class="m-popOverText-Align" ng-show="!dateremove" ng-click="datemodelmobileshow()">Dates</a>
-          <a class="m-popOverText-Align" ng-click="getalllocationinmobileheader()">Locations</a>
-          <a class="m-popOverText-Align" ng-show="pandlreport" ng-click="balancesheetPopOverAction('balance')">Balance Sheet</a>
-          <a class="m-popOverText-Align" ng-show="!pandlreport" ng-click="balancesheetPopOverAction('profit')">Profit & Loss</a>
-          <a class="m-popOverText-Align" ng-click="clientLogout()">Logout</a>
+            <a class="m-popOverText-Align" ng-show="!dateremove" ng-click="datemodelmobileshow()">Dates</a>
+            <a class="m-popOverText-Align" ng-click="getalllocationinmobileheader()">Locations</a>
+            <a class="m-popOverText-Align" ng-show="pandlreport" ng-click="balancesheetPopOverAction('balance')">Balance Sheet</a>
+            <a class="m-popOverText-Align" ng-show="!pandlreport" ng-click="balancesheetPopOverAction('profit')">Profit & Loss</a>
+            <a class="m-popOverText-Align" ng-click="clientLogout()">Logout</a>
         </div>
     </div>
 </header>
 <div ng-controller="headerCntl" ng-show="mobilebreadcurmbs && !isSearched" class="no-padding-hr m-sub-header-background">
-<div style="display:table-cell; vertical-align: middle; width:100%; height:100%;">
-  <div style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
-<span ng-show="groupData!== null && groupData.grouplevel">{{groupData.rootgroupname}}</span>
-<span ng-show="subgroupData!==null && subgroupData.subgrouplevel">&#8594;&nbsp;{{subgroupData.subgroup_name}}</span>
-<span ng-show="ledgerData!==null && ledgerData.ledgerlevel">&#8594;&nbsp;{{ledgerData.ledger_name}}</span>
-<span ng-show="controlledgerData!==null && controlledgerData.controlledger">&#8594;&nbsp;{{controlledgerData.ltype_name}}</span>
-<span ng-show="monthwiseData!==null && monthwiseData.monthwise">
+    <div style="display:table-cell; vertical-align: middle; width:100%; height:100%;">
+        <div style="display: -webkit-box;-webkit-line-clamp: 2;-webkit-box-orient: vertical;overflow: hidden;text-overflow: ellipsis;">
+            <span ng-show="groupData!== null && groupData.grouplevel">{{groupData.rootgroupname}}</span>
+            <span ng-show="subgroupData!==null && subgroupData.subgrouplevel">&#8594;&nbsp;{{subgroupData.subgroup_name}}</span>
+            <span ng-show="ledgerData!==null && ledgerData.ledgerlevel">&#8594;&nbsp;{{ledgerData.ledger_name}}</span>
+            <span ng-show="controlledgerData!==null && controlledgerData.controlledger">&#8594;&nbsp;{{controlledgerData.ltype_name}}</span>
+            <span ng-show="monthwiseData!==null && monthwiseData.monthwise">
   <span ng-show="controlledgerData">&#8594;&nbsp;{{monthwiseData.ltype_name}} - MonthWise</span>
-  <span ng-hide="controlledgerData">&#8594;&nbsp;{{monthwiseData.ledger_name}} - MonthWise</span>
-</span>
-</div>
-</div >
+            <span ng-hide="controlledgerData">&#8594;&nbsp;{{monthwiseData.ledger_name}} - MonthWise</span>
+            </span>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade col-xs-12" id="selectmobiledatedahboard" role="dialog">
@@ -84,9 +87,9 @@
                 <span class="asOnDate">As on date ?</span>
             </div> -->
             <div class="modal-header no-padding">
-              <ul  class="nav nav-pills">
-                    <li class="mFromDateTab" >
-                        <a  style="color:black; background-color:white" data-target="#fromDateCal" data-toggle="tab">from</a>
+                <ul class="nav nav-pills">
+                    <li class="mFromDateTab">
+                        <a style="color:black; background-color:white" data-target="#fromDateCal" data-toggle="tab">from</a>
                         <div></div>
                     </li>
                     <li class="mToDateTab">
@@ -108,21 +111,21 @@
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                    <button id="saveformobiledashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
+                <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                <button id="saveformobiledashboard" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
             </div>
         </div>
 
     </div>
- </div>
+</div>
 
- <div class="modal fade col-xs-12" id="selectmobiledatevoucher" role="dialog">
+<div class="modal fade col-xs-12" id="selectmobiledatevoucher" role="dialog">
     <div class="modal-dialog" style="width:270px; margin:auto; top:20%">
         <div class="modal-content" style="border-radius:unset">
             <div class="modal-header no-padding">
-              <ul  class="nav nav-pills">
-                    <li class="mFromDateTabVou" >
-                        <a  style="color:black; background-color:white" data-target="#fromDateCalVou" data-toggle="tab">from</a>
+                <ul class="nav nav-pills">
+                    <li class="mFromDateTabVou">
+                        <a style="color:black; background-color:white" data-target="#fromDateCalVou" data-toggle="tab">from</a>
                         <div></div>
                     </li>
                     <li class="mToDateTabVou">
@@ -144,32 +147,32 @@
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                    <button id="saveformobilevoucher" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
+                <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                <button id="saveformobilevoucher" type="button" class="btn background-defalt save-cancel-button tabicon " ng-click="saveformobiledashboard()">Save</button>
             </div>
         </div>
     </div>
- </div>
+</div>
 
 <div id="locationListInHeader" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog" ng-controller="headerCntl">
-      <div class="modal-dialog location-modal-size">
-                  <div class="modal-content mdl-margin">
-                        <div class="modal-header no-padding-vr-bottom" >
-                            <button style="margin-top:0;" type="button" class="close pull-right" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
-                            <h3 style="margin:-5px 0 8px;" class="modal-title pull-left">Select Location</h3>
-                        </div>
-                        <div class="modal-body no-padding-vr-bottom">
-                            <div class="row no-margin-hr">
-                                <div class="col-md-12 form-group no-padding-hr">
-                                <ul class="locationlist">
-                                  <li class="actionsmenu" ng-click="locationValueChangeforall()"><a class="m-location-list-text-dispaly">All Locations</a></li>
-                                  <li ng-repeat="location in locationsMobileListInHeader" class="actionsmenu" ng-click="locationValueChange(location)">
-                                    <a class="m-location-list-text-dispaly">{{location.display_name}}</a>
-                                  </li>
-                                </ul>
-                                </div>
-                            </div>
-                       </div>
-                  </div>
-          </div>
-  </div>
+    <div class="modal-dialog location-modal-size">
+        <div class="modal-content mdl-margin">
+            <div class="modal-header no-padding-vr-bottom">
+                <button style="margin-top:0;" type="button" class="close pull-right" data-dismiss="modal" ng-click="cancelForm()">&times;</button>
+                <h3 style="margin:-5px 0 8px;" class="modal-title pull-left">Select Location</h3>
+            </div>
+            <div class="modal-body no-padding-vr-bottom">
+                <div class="row no-margin-hr">
+                    <div class="col-md-12 form-group no-padding-hr">
+                        <ul class="locationlist">
+                            <li class="actionsmenu" ng-click="locationValueChangeforall()"><a class="m-location-list-text-dispaly">All Locations</a></li>
+                            <li ng-repeat="location in locationsMobileListInHeader" class="actionsmenu" ng-click="locationValueChange(location)">
+                                <a class="m-location-list-text-dispaly">{{location.display_name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
