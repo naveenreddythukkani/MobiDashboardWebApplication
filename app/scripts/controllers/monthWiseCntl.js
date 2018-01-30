@@ -402,6 +402,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
 
         $rootScope.fromdate1 = monthyear + '-' + '01';
         $rootScope.today1 = monthyear + '-' + numberofdays;
+
+        localStorageService.set('monthwisefromdate', $rootScope.fromdate1);
+        localStorageService.set('monthwisetoday', $rootScope.today1);
         // if($rootScope.pandlreport=== true){
         // $rootScope.startdate1 = monthyear + '-' + '01';
         // }

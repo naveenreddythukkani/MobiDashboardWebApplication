@@ -80,6 +80,8 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     $('#saveforvoucher').on('click', function() {
         $rootScope.fromdate1 = moment($('#fromdateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.today1 = moment($('#todateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
+        localStorageService.set('monthwisefromdate', $rootScope.fromdate1);
+        localStorageService.set('monthwisetoday', $rootScope.today1);
         $rootScope.datescalculation();
         $('#saveforvoucher').modal('hide');
     });
@@ -619,8 +621,10 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         // }
         $rootScope.today1 = $('#datetimepickermobilevoucherto').data('date');
         if ($rootScope.pandlreport === true) {
-            $rootScope.startdate1 = $('#datetimepickermobilevoucherfrom').data('date');
+            $rootScope.fromdate1 = $('#datetimepickermobilevoucherfrom').data('date');
         }
+        localStorageService.set('monthwisefromdate', $rootScope.fromdate1);
+        localStorageService.set('monthwisetoday', $rootScope.today1);
         $('#selectmobiledatevoucher').modal('hide');
         $rootScope.datescalculation();
     });

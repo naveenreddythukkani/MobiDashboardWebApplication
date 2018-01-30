@@ -63,6 +63,8 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $("#success-alert").removeClass('in');
         });
     }
+    $rootScope.fromdate1 = localStorageService.get('monthwisefromdate');
+    $rootScope.today1 = localStorageService.get('monthwisetoday');
     $scope.clearlocalstorage = function() {
         dataMove.setvoucherData({});
         $rootScope.getlocalstoredata();
