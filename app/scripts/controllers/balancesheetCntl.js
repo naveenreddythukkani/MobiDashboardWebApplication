@@ -29,6 +29,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
     $rootScope.addvouchertype = false;
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
+    $rootScope.downloadstab = false;
 
 
     $scope.passparameters = {};

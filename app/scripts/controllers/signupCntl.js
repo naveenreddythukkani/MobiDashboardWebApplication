@@ -24,6 +24,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.usernametab = false;
     $rootScope.addrole = false;
     $rootScope.addvouchertype = false;
+    $rootScope.downloadstab = false;
 
 
 

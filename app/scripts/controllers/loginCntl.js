@@ -18,6 +18,7 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.showCompanyname = false;
     $rootScope.voucherstab = false;
+    $rootScope.downloadstab = false;
 
     $scope.passwordtext = "password";
 

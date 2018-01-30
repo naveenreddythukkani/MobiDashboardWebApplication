@@ -24,6 +24,7 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
     $rootScope.adduser = false;
     $rootScope.addrole = false;
     $rootScope.addvouchertype = true;
+    $rootScope.downloadstab = false;
 
     $scope.active = 'yearly';
     $scope.voucherFields = {};

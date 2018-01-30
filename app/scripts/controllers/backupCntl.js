@@ -19,6 +19,7 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
     $rootScope.addvouchertype = false;
+    $rootScope.downloadstab = true;
 
 
     $rootScope.addloc = false;

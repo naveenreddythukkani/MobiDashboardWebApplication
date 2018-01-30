@@ -25,6 +25,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     $rootScope.adduser = true;
     $rootScope.addrole = false;
     $rootScope.addvouchertype = false;
+    $rootScope.downloadstab = false;
 
     $scope.props = {};
     $scope.locationsList = [];

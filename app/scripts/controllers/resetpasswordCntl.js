@@ -13,6 +13,7 @@ MobiDash.controller('resetpasswordCntl', function($scope, $state, $rootScope, $s
     $rootScope.showCompanyname = false;
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = false;
+    $rootScope.downloadstab = false;
 
     $scope.showerror = false;
     $scope.errormessage = "";
