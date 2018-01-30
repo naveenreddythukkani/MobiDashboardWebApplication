@@ -1,5 +1,5 @@
 var MobiDash = angular.module('mobiDashBoardApp');
-MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
+MobiDash.controller('loginCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, dataMove, session, mobileWidth) {
 
     $rootScope.companytab = false;
     $rootScope.locationtab = false;
@@ -34,7 +34,13 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
     // $.getJSON('http://ip.jsontest.com/?callback=?', function(data) {
     //     console.log(JSON.stringify(data, null, 2));
     // });
-    $scope.showPassword = function() {
+    $scope.addremovealert = function () {
+        $("#success-alert").addClass('in');
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+            $("#success-alert").removeClass('in');
+        });
+    }
+    $scope.showPassword = function () {
         if ($scope.passwordtext === "password") {
             $scope.passwordtext = "text";
         } else {
@@ -46,20 +52,22 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
         $rootScope.fromlogin = false;
         $scope.user.mobile = $rootScope.mobile;
     }
-    $scope.raiseotpmethod = function() {
+    $scope.raiseotpmethod = function () {
         if ($scope.user.mobile === undefined || $scope.user.mobile === "") {
-            $scope.showerror = true;
-            $scope.errormessage = "Please enter mobile number";
+            $scope.mobilenumbererror = true;
+            $scope.mobileerrormessage = "Please enter mobile number";
             return;
         }
         $scope.logoutrequest("reset");
     }
-    $scope.clientLogin = function() {
+    $scope.clientLogin = function () {
         if ($scope.validations()) {
+            $scope.mobilenumbererror = false;
+            $scope.passworderror = false;
             $scope.logoutrequest("login");
         }
     }
-    $scope.logoutrequest = function(text) {
+    $scope.logoutrequest = function (text) {
         $scope.loading = true;
         $http.get(domain + api + 'logout/')
             .then(function success(result) {
@@ -74,27 +82,32 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
                 session.sessionexpried(data.status);
             });
     }
-    if(localStorageService.get("isRememberMe")){
+    if (localStorageService.get("isRememberMe")) {
         $('#login').addClass('ng-table-pager')
-        $scope.user.mobile=localStorageService.get("mobile");
-        $scope.user.password=localStorageService.get("password");
-        $scope.user.rememberCheck=localStorageService.get("isRememberMe");
+        $scope.user.mobile = localStorageService.get("mobile");
+        $scope.user.password = localStorageService.get("password");
+        $scope.user.rememberCheck = localStorageService.get("isRememberMe");
         $scope.logoutrequest("login");
     }
-    $scope.otprequest = function() {
+    $scope.otprequest = function () {
         $scope.loading = true;
         var data = { "mobile": $scope.user.mobile, "device_id": '00:37:6D:EA:77:FD', "is_browser": true, "reset_password": true };
 
-        var success = function(result) {
-            $scope.loading = false;
-            $state.go('resetpassword');
-            $rootScope.mobile = $scope.user.mobile;
-            localStorageService.set('mobile', $rootScope.mobile);
+        var success = function (result) {
+            if (result.data.error != undefined) {
+                $scope.msg = result.data.error.msg;
+                $scope.addremovealert();
+            } else {
+                $scope.loading = false;
+                $state.go('resetpassword');
+                $rootScope.mobile = $scope.user.mobile;
+                localStorageService.set('mobile', $rootScope.mobile);
+            }
         }
-        var error = function(result) {
+        var error = function (result) {
             $scope.loading = false;
             if (result.status === 401) {
-                $scope.showerror= true;
+                $scope.showerror = true;
                 $scope.errormessage = result.data.error.message;
             } else {
                 session.sessionexpried(result.status);
@@ -104,13 +117,18 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
         $http.post(domain + api + 'raiseotp/', data)
             .then(success, error)
     }
-    $scope.loginrequest = function() {
+    $scope.loginrequest = function () {
         $scope.loading = true;
-        var data = { "mobile": $scope.user.mobile, "password": $scope.user.password, "device_id": '00:37:6D:EA:77:FD',
-        "remember_me":$scope.user.rememberCheck };
+        var data = {
+            "mobile": $scope.user.mobile, "password": $scope.user.password, "device_id": '00:37:6D:EA:77:FD',
+            "remember_me": $scope.user.rememberCheck
+        };
         $http.post(domain + api + "login/", data)
             .then(function mysuccess(result) {
-                    // dataMove.setMyData(result.data.tenant);
+                // dataMove.setMyData(result.data.tenant);
+                if (result.data.error != undefined) {
+                    $scope.msg = result.data.error.msg;
+                } else {
                     $scope.loading = false;
                     $rootScope.session_key = result.data.session_key;
                     $rootScope.csrftoken = result.data.csrf;
@@ -122,34 +140,43 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
                     localStorageService.set('session_key', $rootScope.session_key);
                     localStorageService.set('csrftoken', $rootScope.csrftoken);
                     localStorageService.set('tenant_id', $rootScope.tenant_id);
-                    localStorageService.set('password',$scope.user.password);
-                    localStorageService.set("isRememberMe",$scope.user.rememberCheck)
-                    $state.go("company")
-                    $scope.loadmsg = true;
+                    localStorageService.set('password', $scope.user.password);
+                    localStorageService.set("isRememberMe", $scope.user.rememberCheck)
                     $scope.msg = "logged in user successfully done";
-                },
-                function myerror(result) {
-                    $scope.loading = false;
-                    $scope.showerror = true;
-                    session.sessionexpried(result.status);
-                    if (result.data.error !== undefined)
-                        $scope.errormessage = result.data.error.message;
-                });
+                    $state.go("company")
+                }
+                $scope.addremovealert();
+            },
+            function myerror(result) {
+                $scope.loading = false;
+                $scope.showerror = true;
+                session.sessionexpried(result.status);
+                if (result.data.error !== undefined)
+                    $scope.errormessage = result.data.error.message;
+            });
     }
-    $scope.validations = function() {
+    $scope.validations = function () {
         if ($scope.user.mobile === undefined || $scope.user.mobile === "") {
             $scope.mobilenumbererror = true;
-            $scope.mobileerrormessage = "Please enter valid mobile number";
+            $scope.passworderror = false;
+            $scope.mobileerrormessage = "Please enter mobile number";
             return false;
         }
+        // if($scope.user.mobile.length < 10){
+        //     $scope.mobilenumbererror = true;
+        //     $scope.passworderror = false;
+        //     $scope.mobileerrormessage = "Please enter valid mobile number";
+        //     return false;
+        // }
         if ($scope.user.password === undefined || $scope.user.password === "") {
+            $scope.mobilenumbererror = false;
             $scope.passworderror = true;
             $scope.passworderrormessage = "Please enter password";
             return false;
         }
         return true;
     }
-    $scope.validationsonblur = function(mobile) {
+    $scope.validationsonblur = function (mobile) {
         console.log(mobile);
         if (mobile === undefined) {
             $scope.mobilenumbererror = true;
@@ -162,7 +189,7 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
         }
         $scope.mobilenumbererror = false;
     }
-    $scope.validationpasswordblur = function(password) {
+    $scope.validationpasswordblur = function (password) {
         console.log(password);
         if (password === undefined) {
             $scope.passworderror = true;
@@ -171,10 +198,10 @@ MobiDash.controller('loginCntl', function($scope, $state, $rootScope, $statePara
         }
         $scope.passworderror = false;
     }
-    $scope.editingfields = function() {
+    $scope.editingfields = function () {
         $scope.showerror = false;
     }
-    $scope.gotosignup = function() {
+    $scope.gotosignup = function () {
         var result = { fromlogin: true };
         $state.go('signup', result);
     }

@@ -46,6 +46,12 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
     //     // $state.reload();
     //     $window.location.reload();
     // }
+    $scope.addremovealert = function() {
+        $("#success-alert").addClass('in');
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-alert").removeClass('in');
+        });
+    }
 
     $scope.validationUptoGenrateOtp = function() {
         if (($scope.props.company_name !== undefined && $scope.props.company_name !== "") && ($scope.props.contact_name !== undefined && $scope.props.contact_name !== "") && ($scope.props.mobile !== undefined && $scope.props.mobile !== "" && $scope.props.mobile.length === 10)) {
@@ -73,20 +79,22 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
                     $http.post(domain + api + 'raiseotp/', $scope.props)
                         .then(function mysuccess(result) {
                                 $scope.loading = false;
-                                if (result.data.error !== undefined && result.data.error.code === 402) {
-                                    localStorageService.set("mobile", $scope.props.mobile);
-                                    $rootScope.mobile = $scope.props.mobile;
-                                    swal({
-                                        title: "",
-                                        text: "You are already signed up Please login.",
-                                        type: 'success',
-                                        allowOutsideClick: false,
-                                        confirmButtonColor: '#1fa9cc ',
-                                        confirmButtonText: "Ok",
-                                    }).then(function() {
-                                        $state.go("login")
-                                    });
-                                    $rootScope.fromlogin = true;
+                                if (result.data.error !== undefined) {
+                                    if(result.data.error.code === 402){
+                                        localStorageService.set("mobile", $scope.props.mobile);
+                                        $rootScope.mobile = $scope.props.mobile;
+                                        swal({
+                                            title: "",
+                                            text: "You are already signed up Please login.",
+                                            type: 'success',
+                                            allowOutsideClick: false,
+                                            confirmButtonColor: '#1fa9cc ',
+                                            confirmButtonText: "Ok",
+                                        }).then(function() {
+                                            $state.go("login")
+                                        });
+                                        $rootScope.fromlogin = true;
+                                    }
                                 } else {
                                     for (key in result.data) {
                                         if (key === "resp") {
@@ -99,6 +107,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
                                         }
                                     }
                                 }
+                                $scope.addremovealert();
                             },
                             function myerror(data) {
                                 $scope.loading = false;
@@ -128,7 +137,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
         $scope.verify.otp = $scope.props.otp;
         var success = function(result) {
             $scope.loading = false;
-            if (result.data.error === undefined) {
+            if (result.data.error !== undefined) {
                 $scope.loadmsg = true;
                 $scope.msg = "Please enter valid Otp.";
             } else {
@@ -141,6 +150,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
                     }
                 }
             }
+            $scope.addremovealert();
 
         }
         var error = function(result) {
@@ -191,6 +201,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
             $state.go("company")
             $scope.loadmsg = true;
             $scope.msg = "You company is created successfully.";
+            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;

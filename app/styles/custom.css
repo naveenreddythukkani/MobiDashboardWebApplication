@@ -1586,3 +1586,7 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 .actions-width {
     width: 80px;
 }
+
+.resetpasswordAshtrick{
+    right:-15px !important
+    }
