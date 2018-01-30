@@ -89,8 +89,13 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.backuptenants = result.data;
-            result.data.length === 0 ? $scope.nobackups = true : $scope.multiclientbackup = new NgTableParams({ count: $scope.backuptenants.length }, { dataset: $scope.backuptenants });
+            if (result.data.error === undefined) {
+                $scope.backuptenants = result.data;
+                result.data.length === 0 ? $scope.nobackups = true : $scope.multiclientbackup = new NgTableParams({ count: $scope.backuptenants.length }, { dataset: $scope.backuptenants });
+            } else {
+                $scope.msg = result.data.error.message;
+            }
+            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -105,10 +110,14 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $("#deleteModal").modal('hide');
-            $scope.getallbackupcompanysdata();
             $scope.loading = false;
+            $scope.getallbackupcompanysdata();
             $scope.props = {};
-            $scope.msg = "Backup deleted successfully";
+            if (result.data.error === undefined) {
+                $scope.msg = "Backup deleted successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.addremovealert();
         }
         var error = function(result) {
@@ -131,11 +140,16 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
         var success = function(result) {
             $scope.loading = false;
             $scope.backup_index = index;
-            angular.forEach(result.data, function(value, key) {
-                if (tenant_id === value.id.toString()) {
-                    $scope.tenants.push(value);
-                }
-            });
+            if (result.data.error === undefined) {
+                angular.forEach(result.data, function(value, key) {
+                    if (tenant_id === value.id.toString()) {
+                        $scope.tenants.push(value);
+                    }
+                });
+            } else {
+                $scope.msg = result.data.error.message;
+            }
+            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -190,7 +204,6 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
                 $scope.msg = "Company Restored successfully";
             } else {
                 $scope.msg = result.data.error.message;
-
             }
             $scope.addremovealert();
         }
@@ -222,10 +235,14 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
         }
         var success = function(result) {
             $scope.loading = false;
-            $scope.restoringbackupfile(result.data, $scope.backupdata);
-            $scope.props = {};
+            if (result.data.error === undefined) {
+                $scope.restoringbackupfile(result.data, $scope.backupdata);
+                $scope.props = {};
+                $scope.msg = "New company created successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.cancelForm();
-            $scope.msg = "New company created successfully";
             $scope.addremovealert();
         }
         var error = function(result) {

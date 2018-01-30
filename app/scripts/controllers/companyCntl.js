@@ -136,8 +136,12 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.pricing_index = index;
-            $scope.pricings = result.data;
+            if (result.data.error === undefined) {
+                $scope.msg = result.data.error.message;
+            } else {
+                $scope.pricing_index = index;
+                $scope.pricings = result.data;
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -177,8 +181,12 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             if (result.data.length === 0) {
                 session.sessionexpried("No Data");
             }
-            $scope.tenants = result.data;
-            $scope.multiclient = new NgTableParams({ count: $scope.tenants.length }, { dataset: $scope.tenants });
+            if (result.data.error === undefined) {
+                $scope.msg = result.data.error.message;
+            } else {
+                $scope.tenants = result.data;
+                $scope.multiclient = new NgTableParams({ count: $scope.tenants.length }, { dataset: $scope.tenants });
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -330,11 +338,15 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $("#deleteModal").modal('hide');
-            $scope.getallcompanysdata();
-            $scope.loading = false;
-            $scope.props = {};
-            $scope.loadmsg = true;
-            $scope.msg = "Company deleted successfully";
+            if (result.data.error === undefined) {
+                $scope.getallcompanysdata();
+                $scope.loading = false;
+                $scope.props = {};
+                $scope.loadmsg = true;
+                $scope.msg = "Company deleted successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.addremovealert();
         }
         var error = function(result) {
@@ -355,7 +367,11 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         var success = function(result) {
             $scope.loading = false;
             $scope.loadmsg = true;
-            $scope.msg = "Backup created successfully";
+            if (result.data.error === undefined) {
+                $scope.msg = "Backup created successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.addremovealert();
         }
         var error = function(result) {
@@ -414,8 +430,13 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.smsHistoryList = result.data;
-            $scope.smshistorytable = new NgTableParams({ count: $scope.smsHistoryList.length }, { dataset: $scope.smsHistoryList });
+            if (result.data.error === undefined) {
+                $scope.smsHistoryList = result.data;
+                $scope.smshistorytable = new NgTableParams({ count: $scope.smsHistoryList.length }, { dataset: $scope.smsHistoryList });
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
             $('#smshistory').modal('show');
         }
         var error = function(result) {
@@ -479,9 +500,12 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = false;
         var success = function(result) {
             $scope.loading = true;
-            $state.go("login");
-            localStorageService.clearAll();
-
+            if (result.data.error === undefined) {
+                $state.go("login");
+                localStorageService.clearAll();
+            } else {
+                $scope.msg = result.data.error.message;
+            }
         }
         var error = function(result) {
             $scope.loading = false;
