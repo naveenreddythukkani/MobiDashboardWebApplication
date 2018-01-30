@@ -19,7 +19,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
     $rootScope.balancesheetbreadcurmbs = false;
     $rootScope.voucherstab = true;
     $rootScope.downloadstab = false;
-    $rootScope.moreIconShow= false;
+    $rootScope.moreIconShow = false;
     $rootScope.mobilebreadcurmbs = false;
 
     $rootScope.addloc = false;
@@ -99,37 +99,41 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if(result.data.length===0){
-              session.sessionexpried("No Data");
+            if (result.data.error === undefined) {
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
+                console.log(result.data[0]);
+                var obj = {};
+                var array = [];
+                angular.forEach(result.data, function(item) {
+                    obj.phonewithNameSearch = item.username + item.mobile;
+                    obj.username = item.username;
+                    obj.mobile = item.mobile;
+                    obj.email = item.email;
+                    obj.locations = item.locations;
+                    obj.roles = item.roles;
+                    obj.ip_addr = item.ip_addr;
+                    obj.is_active = item.is_active;
+                    obj.login_restriction = item.login_restriction;
+                    obj.mac_addr = item.mac_addr;
+                    obj.mobile_only = item.mobile_only;
+                    obj.status = item.status;
+                    obj.track_interval = item.track_interval;
+                    obj.track_user = item.track_user;
+                    obj.trackfrom_time = item.trackfrom_time;
+                    obj.trackto_time = item.trackto_time;
+                    obj.user_id = item.user_id;
+                    obj.userprofile_id = item.userprofile_id;
+                    obj.vouchermodifydays = item.vouchermodifydays;
+                    array.push(obj);
+                    obj = {};
+                });
+                $scope.users = array;
+                $scope.usertable = new NgTableParams({ count: $scope.users.length }, { dataset: $scope.users });
+            } else {
+                $scope.msg = result.data.error.message;
             }
-            console.log(result.data[0]);
-            var obj = {};
-            var array = [];
-            angular.forEach(result.data, function(item) {
-                obj.phonewithNameSearch = item.username + item.mobile;
-                obj.username = item.username;
-                obj.mobile = item.mobile;
-                obj.email = item.email;
-                obj.locations = item.locations;
-                obj.roles = item.roles;
-                obj.ip_addr = item.ip_addr;
-                obj.is_active = item.is_active;
-                obj.login_restriction = item.login_restriction;
-                obj.mac_addr = item.mac_addr;
-                obj.mobile_only = item.mobile_only;
-                obj.status = item.status;
-                obj.track_interval = item.track_interval;
-                obj.track_user = item.track_user;
-                obj.trackfrom_time = item.trackfrom_time;
-                obj.trackto_time = item.trackto_time;
-                obj.user_id = item.user_id;
-                obj.userprofile_id = item.userprofile_id;
-                obj.vouchermodifydays = item.vouchermodifydays;
-                array.push(obj);
-                obj = {};
-            });
-            $scope.users = array;
-            $scope.usertable = new NgTableParams({ count: $scope.users.length }, { dataset: $scope.users });
         }
         var error = function(result) {
             $scope.loading = false;
@@ -293,12 +297,12 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.userDetails.username = "";
         var success = function(result) {
             if (result.data.error === undefined) {
-                $scope.editcancelForm();
                 $scope.getAllUsers();
                 $scope.msg = "User Details edited successfully";
             } else {
                 $scope.msg = result.data.error.message;
             }
+            $scope.editcancelForm();
             $scope.addremovealert();
         }
         var error = function(result) {
@@ -324,7 +328,11 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         var success = function(result) {
             $scope.loading = false;
             $scope.getAllUsers();
-            $scope.msg = "User deleted successfully";
+            if (result.data.error === undefined) {
+                $scope.msg = "User deleted successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.addremovealert();
         }
         var error = function(result) {
@@ -353,19 +361,24 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.push = {}
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.push.id = item.id;
-                $scope.push.select = false;
-                $scope.push.name = item.name
-                $scope.push.display_name = item.display_name;
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            $scope.selectedLocations = arry;
-            arry = [];
-            $scope.getselectedLocations(user);
+            if (result.data.error === undefined) {
+                $scope.push = {}
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.push.id = item.id;
+                    $scope.push.select = false;
+                    $scope.push.name = item.name
+                    $scope.push.display_name = item.display_name;
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.selectedLocations = arry;
+                arry = [];
+                $scope.getselectedLocations(user);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -378,14 +391,19 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedLocations, function(item) {
-                angular.forEach(result.data, function(selectitem) {
-                    if (item.id === selectitem) {
-                        item.select = true;
-                    }
+            if (result.data.error === undefined) {
+                angular.forEach($scope.selectedLocations, function(item) {
+                    angular.forEach(result.data, function(selectitem) {
+                        if (item.id === selectitem) {
+                            item.select = true;
+                        }
+                    });
                 });
-            });
-            $scope.selectedLocations.length === 0 ? "" : $scope.locationselectchange($scope.selectedLocations);
+                $scope.selectedLocations.length === 0 ? "" : $scope.locationselectchange($scope.selectedLocations);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -458,18 +476,23 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.push = {}
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.push.id = item.id;
-                $scope.push.select = false;
-                $scope.push.display_name = item.display_name;
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            $scope.selectedRoles = arry;
-            arry = [];
-            $scope.getAssinedroles(user);
+            if (result.data.error === undefined) {
+                $scope.push = {}
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.push.id = item.id;
+                    $scope.push.select = false;
+                    $scope.push.display_name = item.display_name;
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.selectedRoles = arry;
+                arry = [];
+                $scope.getAssinedroles(user);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -482,14 +505,19 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedRoles, function(item) {
-                angular.forEach(result.data, function(selectitem) {
-                    if (item.id === selectitem) {
-                        item.select = true;
-                    }
+            if (result.data.error === undefined) {
+                angular.forEach($scope.selectedRoles, function(item) {
+                    angular.forEach(result.data, function(selectitem) {
+                        if (item.id === selectitem) {
+                            item.select = true;
+                        }
+                    });
                 });
-            });
-            $scope.selectedRoles.length === 0 ? "" : $scope.roleselectchange($scope.selectedRoles);
+                $scope.selectedRoles.length === 0 ? "" : $scope.roleselectchange($scope.selectedRoles);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -685,8 +713,13 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         var success = function(result) {
             $scope.loading = false;
             $('#userhistory').modal('show');
-            $scope.histroyList = result.data;
-            $scope.usershistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+            if (result.data.error) {
+                $scope.histroyList = result.data;
+                $scope.usershistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;

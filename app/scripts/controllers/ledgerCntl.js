@@ -100,29 +100,34 @@ QTable.controller('ledgerCntl', function($scope, $state, $rootScope, $stateParam
         console.log("Request Data ==" + JSON.stringify(data));
         var success = function(result) {
             $scope.loading = false;
-            var ledgerGroup = result.data;
-            if (result.data.length === 0) {
-                session.sessionexpried("No Data");
-            }
-            console.log("ledger values........." + JSON.stringify(result.data));
-            $scope.showprofitorloss = false;
-            $scope.ledgerelements = [];
-            var totalAmt = 0;
-            for (var i = 0; i < ledgerGroup.length; i++) {
-                if (ledgerGroup[i].subgroup_id === $scope.props.ledgergroup_id) {
-                    $scope.ledgerelements.push(ledgerGroup[i]);
-                    totalAmt += ledgerGroup[i].Amount;
-                    console.log("added amount", totalAmt);
+            if (result.data.error === undefined) {
+                var ledgerGroup = result.data;
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
                 }
-                if (ledgerGroup[i].subgroup_id === 1999) {
-                    $scope.showprofitorloss = true;
-                    $scope.rootgroupdiff = dataMove.getgroupdata().rootgroupdiff;
-                    totalAmt += dataMove.getgroupdata().rootgroupdiff;
+                console.log("ledger values........." + JSON.stringify(result.data));
+                $scope.showprofitorloss = false;
+                $scope.ledgerelements = [];
+                var totalAmt = 0;
+                for (var i = 0; i < ledgerGroup.length; i++) {
+                    if (ledgerGroup[i].subgroup_id === $scope.props.ledgergroup_id) {
+                        $scope.ledgerelements.push(ledgerGroup[i]);
+                        totalAmt += ledgerGroup[i].Amount;
+                        console.log("added amount", totalAmt);
+                    }
+                    if (ledgerGroup[i].subgroup_id === 1999) {
+                        $scope.showprofitorloss = true;
+                        $scope.rootgroupdiff = dataMove.getgroupdata().rootgroupdiff;
+                        totalAmt += dataMove.getgroupdata().rootgroupdiff;
+                    }
                 }
+                console.log("$scope.ledgerelements ===" + JSON.stringify($scope.ledgerelements));
+                console.log("Total Amount = " + totalAmt.toFixed(2));
+                $rootScope.subgroup_amount = totalAmt.toFixed(2);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            console.log("$scope.ledgerelements ===" + JSON.stringify($scope.ledgerelements));
-            console.log("Total Amount = " + totalAmt.toFixed(2));
-            $rootScope.subgroup_amount = totalAmt.toFixed(2);
         };
         var error = function(result) {
             $scope.loading = false;

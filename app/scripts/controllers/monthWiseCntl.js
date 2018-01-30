@@ -105,10 +105,10 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if (result.data.length === 0) {
-                session.sessionexpried("No Data");
-            }
             if (result.data.error === undefined) {
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 $scope.realdata = [];
                 for (var i = 0; i < result.data.length; i++) {
                     $scope.realdata.push(result.data[i])
@@ -159,10 +159,10 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if (result.data.length === 0) {
-                session.sessionexpried("No Data");
-            }
             if (result.data.error === undefined) {
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 $scope.realdata = [];
                 for (var i = 0; i < result.data.length; i++) {
                     $scope.realdata.push(result.data[i])

@@ -19,7 +19,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $rootScope.showCompanyname = false;
     $rootScope.voucherstab = true;
     $rootScope.downloadstab = false;
-    $rootScope.moreIconShow= false;
+    $rootScope.moreIconShow = false;
 
     $rootScope.addloc = true;
     $rootScope.addclient = false;
@@ -251,11 +251,16 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if(result.data.length===0){
-              session.sessionexpried("No Data");
+            if (result.data.error === undefined) {
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
+                $scope.locationsList = result.data;
+                $scope.loctionstable = new NgTableParams({ count: $scope.locationsList.length }, { dataset: $scope.locationsList });
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            $scope.locationsList = result.data;
-            $scope.loctionstable = new NgTableParams({ count: $scope.locationsList.length }, { dataset: $scope.locationsList });
         }
         var error = function(result) {
             $scope.loading = false;
@@ -411,9 +416,12 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.loading = false;
             $scope.getAllLoations();
             $("#deleteModal").modal('hide');
-            $scope.msg = "loaction deleted successfully";
+            if (result.data.error === undefined) {
+                $scope.msg = "loaction deleted successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
             $scope.addremovealert();
-
         }
         var error = function(result) {
             $scope.loading = false;
@@ -438,14 +446,19 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedUsers, function(item) {
-                angular.forEach(result.data, function(selectitem) {
-                    if (item.user_id === selectitem.user_id) {
-                        item.select = true;
-                    }
+            if (result.data.error === undefined) {
+                angular.forEach($scope.selectedUsers, function(item) {
+                    angular.forEach(result.data, function(selectitem) {
+                        if (item.user_id === selectitem.user_id) {
+                            item.select = true;
+                        }
+                    });
                 });
-            });
-            $scope.selectedUsers.length === 0 ? "" : $scope.userselectchange($scope.selectedUsers);
+                $scope.selectedUsers.length === 0 ? "" : $scope.userselectchange($scope.selectedUsers);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -460,17 +473,22 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.props.user_id = item.user_id;
-                $scope.props.username = item.username + ' (' + item.mobile + ')';
-                $scope.props.select = false;
-                arry.push($scope.props);
-                $scope.props = {};
-            });
-            $scope.selectedUsers = arry;
-            arry = [];
-            $scope.getAssinedusers(location);
+            if (result.data.error === undefined) {
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.props.user_id = item.user_id;
+                    $scope.props.username = item.username + ' (' + item.mobile + ')';
+                    $scope.props.select = false;
+                    arry.push($scope.props);
+                    $scope.props = {};
+                });
+                $scope.selectedUsers = arry;
+                arry = [];
+                $scope.getAssinedusers(location);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -548,18 +566,23 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.push = {}
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.push.id = item.id;
-                $scope.push.select = false;
-                $scope.push.name = item.name
-                $scope.push.display_name = item.display_name;
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            $scope.daybooks = arry;
-            $scope.getselectdaybooks(location);
+            if (result.data.error === undefined) {
+                $scope.push = {}
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.push.id = item.id;
+                    $scope.push.select = false;
+                    $scope.push.name = item.name
+                    $scope.push.display_name = item.display_name;
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.daybooks = arry;
+                $scope.getselectdaybooks(location);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -572,28 +595,33 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.push = {}
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.push.id = item.g_id;
-                $scope.push.select = true;
-                $scope.push.name = item.g_name
-                $scope.push.display_name = item.g_d_name;
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            var alldaybooksarray = arry;
-            alldaybooksarray = alldaybooksarray.concat($scope.daybooks);
-            $scope.selectedDaybooks = alldaybooksarray;
+            if (result.data.error === undefined) {
+                $scope.push = {}
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.push.id = item.g_id;
+                    $scope.push.select = true;
+                    $scope.push.name = item.g_name
+                    $scope.push.display_name = item.g_d_name;
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                var alldaybooksarray = arry;
+                alldaybooksarray = alldaybooksarray.concat($scope.daybooks);
+                $scope.selectedDaybooks = alldaybooksarray;
 
-            // angular.forEach($scope.selectedDaybooks, function(item) {
-            //     angular.forEach(result.data, function(selectitem) {
-            //         if (item.id === selectitem.id) {
-            //             item.select = true;
-            //         }
-            //     });
-            // });
-            $scope.selectedDaybooks.length === 0 ? "" : $scope.daybookselectchange($scope.selectedDaybooks);
+                // angular.forEach($scope.selectedDaybooks, function(item) {
+                //     angular.forEach(result.data, function(selectitem) {
+                //         if (item.id === selectitem.id) {
+                //             item.select = true;
+                //         }
+                //     });
+                // });
+                $scope.selectedDaybooks.length === 0 ? "" : $scope.daybookselectchange($scope.selectedDaybooks);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -669,18 +697,23 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.push = {}
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.push.id = item.id;
-                $scope.push.select = false;
-                $scope.push.name = item.name;
-                $scope.push.display_name = item.qualified_name;
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            $scope.selectedLedgers = arry;
-            $scope.getselectedleders(location);
+            if (result.data.error === undefined) {
+                $scope.push = {}
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.push.id = item.id;
+                    $scope.push.select = false;
+                    $scope.push.name = item.name;
+                    $scope.push.display_name = item.qualified_name;
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.selectedLedgers = arry;
+                $scope.getselectedleders(location);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -694,14 +727,19 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedLedgers, function(item) {
-                angular.forEach(result.data, function(selectitem) {
-                    if (item.id === selectitem.id) {
-                        item.select = true;
-                    }
+            if (result.data.error === undefined) {
+                angular.forEach($scope.selectedLedgers, function(item) {
+                    angular.forEach(result.data, function(selectitem) {
+                        if (item.id === selectitem.id) {
+                            item.select = true;
+                        }
+                    });
                 });
-            });
-            $scope.selectedLedgers.length === 0 ? "" : $scope.ledgerselectchange($scope.selectedLedgers);
+                $scope.selectedLedgers.length === 0 ? "" : $scope.ledgerselectchange($scope.selectedLedgers);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -764,20 +802,20 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             if (result.data.error === undefined) {
                 $scope.msg = "ledgers unassigned to location successfull";
                 $scope.addremovealert();
-            } else if (result.data.error.code === 1105) {
+            } else if (result.data.error !== undefined && result.data.error.code === 1105) {
                 var msgs = "";
                 angular.forEach(result.data.error.ledgers, function(item) {
                     msgs = item.display_name;
                 })
                 $scope.errMsg = msgs;
                 $('#deleteledger').modal('show');
-            } else if (result.data.error.code === 4006) {
+            } else if (result.data.error !== undefined && result.data.error.code === 4006) {
                 $scope.msg = result.data.error.message;
                 $scope.deleteNoAction();
                 $scope.addremovealert();
-            }else{
-              $scope.msg = result.data.error.message;
-              $scope.addremovealert();
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
         }
         var error = function(result) {
@@ -821,7 +859,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
                     $scope.msg = "ledgers unassigned to location successfull";
                 }
                 $scope.addremovealert();
-            } else if (result.data.error.code === 1105) {
+            } else if (result.data.error !== undefined && result.data.error.code === 1105) {
                 var msgs = "";
                 $scope.transcationledgers = result.data.error.ledgers;
                 angular.forEach(result.data.error.ledgers, function(item) {
@@ -829,7 +867,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
                 })
                 $scope.errMsg = msgs;
                 $('#deleteledger').modal('show');
-            } else if (result.data.error.code === 4006) {
+            } else if (result.data.error !== undefined && result.data.error.code === 4006) {
                 if ($scope.ledgerselectall) {
                     $scope.msg = result.data.error.message;
                 } else {
@@ -985,8 +1023,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         var success = function(result) {
             $scope.loading = false;
             $('#locationhistory').modal('show');
-            $scope.histroyList = result.data;
-            $scope.loctionshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+            if (result.data.error === undefined) {
+                $scope.histroyList = result.data;
+                $scope.loctionshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;

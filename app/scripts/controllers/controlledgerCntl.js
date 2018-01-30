@@ -92,21 +92,26 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
         console.log("Request Data ==" + JSON.stringify(data));
         var success = function(result) {
             $scope.loading = false;
-            var ltypesGroup = result.data;
-            if (result.data.length === 0) {
-                session.sessionexpried("No Data");
-            }
-            var totalAmt = 0;
-            $scope.ltypselements = [];
-            for (var i = 0; i < ltypesGroup.length; i++) {
-                if (ltypesGroup[i].ledgersubgroup_id == $scope.props.ledgergroup_id || $scope.props.isSearched) {
-                    $scope.ltypselements.push(ltypesGroup[i]);
-                    totalAmt += ltypesGroup[i].amount;
+            if (result.data.error === undefined) {
+                var ltypesGroup = result.data;
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
                 }
+                var totalAmt = 0;
+                $scope.ltypselements = [];
+                for (var i = 0; i < ltypesGroup.length; i++) {
+                    if (ltypesGroup[i].ledgersubgroup_id == $scope.props.ledgergroup_id || $scope.props.isSearched) {
+                        $scope.ltypselements.push(ltypesGroup[i]);
+                        totalAmt += ltypesGroup[i].amount;
+                    }
+                }
+                console.log("$scope.ltypselements ===" + JSON.stringify($scope.ltypselements));
+                console.log("Total Amount = " + totalAmt.toFixed(2));
+                $rootScope.ledger_amt = totalAmt.toFixed(2);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            console.log("$scope.ltypselements ===" + JSON.stringify($scope.ltypselements));
-            console.log("Total Amount = " + totalAmt.toFixed(2));
-            $rootScope.ledger_amt = totalAmt.toFixed(2);
         };
         var error = function(result) {
             $scope.loading = false;

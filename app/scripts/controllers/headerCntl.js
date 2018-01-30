@@ -112,9 +112,12 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $scope.loading = false;
         var success = function(result) {
             $scope.loading = true;
-            $state.go("login");
-            localStorageService.clearAll();
-
+            if (result.data.error === undefined) {
+                $state.go("login");
+                localStorageService.clearAll();
+            } else {
+                $scope.msg = result.data.error.message;
+            }
         }
         var error = function(result) {
             $scope.loading = false;

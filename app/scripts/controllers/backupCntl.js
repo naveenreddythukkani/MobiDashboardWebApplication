@@ -94,8 +94,8 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
                 result.data.length === 0 ? $scope.nobackups = true : $scope.multiclientbackup = new NgTableParams({ count: $scope.backuptenants.length }, { dataset: $scope.backuptenants });
             } else {
                 $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -148,8 +148,8 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
                 });
             } else {
                 $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;

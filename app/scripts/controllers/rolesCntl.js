@@ -82,14 +82,19 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            angular.forEach($scope.selectedUsers, function(item) {
-                angular.forEach(result.data.users, function(selectitem) {
-                    if (item.userprofile_id === selectitem) {
-                        item.select = true;
-                    }
+            if (result.data.error === undefined) {
+                angular.forEach($scope.selectedUsers, function(item) {
+                    angular.forEach(result.data.users, function(selectitem) {
+                        if (item.userprofile_id === selectitem) {
+                            item.select = true;
+                        }
+                    });
                 });
-            });
-            $scope.userselectchange($scope.selectedUsers);
+                $scope.userselectchange($scope.selectedUsers);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -121,18 +126,23 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.getAssinedusers();
-            var arry = [];
-            angular.forEach(result.data, function(item) {
-                $scope.props.userprofile_id = item.userprofile_id;
-                $scope.props.user_id = item.user_id;
-                $scope.props.username = item.username + ' (' + item.mobile + ')';
-                $scope.props.select = false;
-                arry.push($scope.props);
-                $scope.props = {};
-            });
-            $scope.selectedUsers = arry;
-            arry = [];
+            if (result.data.error === undefined) {
+                $scope.getAssinedusers();
+                var arry = [];
+                angular.forEach(result.data, function(item) {
+                    $scope.props.userprofile_id = item.userprofile_id;
+                    $scope.props.user_id = item.user_id;
+                    $scope.props.username = item.username + ' (' + item.mobile + ')';
+                    $scope.props.select = false;
+                    arry.push($scope.props);
+                    $scope.props = {};
+                });
+                $scope.selectedUsers = arry;
+                arry = [];
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -181,42 +191,47 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            $scope.privileges = result.data;
-            $scope.push = {};
-            var arry = [];
-            angular.forEach($scope.privileges[0], function(item) {
-                $scope.push.id = item[1];
-                $scope.push.seq = item[2];
-                $scope.push.select = item[3]
-                $scope.push.privilageName = item[4]
-                arry.push($scope.push);
+            if (result.data.error === undefined) {
+                $scope.privileges = result.data;
                 $scope.push = {};
-            });
-            $scope.selectedmasters = arry;
-            arry = [];
-            angular.forEach($scope.privileges[1], function(item) {
-                $scope.push.id = item[1];
-                $scope.push.select = item[3]
-                $scope.push.seq = item[2];
-                $scope.push.privilageName = item[4]
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            $scope.selectedaccounts = arry;
-            arry = [];
-            angular.forEach($scope.privileges[2], function(item) {
-                $scope.push.id = item[1];
-                $scope.push.select = item[3]
-                $scope.push.seq = item[2];
-                $scope.push.privilageName = item[4]
-                arry.push($scope.push);
-                $scope.push = {};
-            });
-            $scope.selectedinventorys = arry;
-            arry = [];
-            $scope.masterselectchange($scope.selectedmasters);
-            $scope.accountselectchange($scope.selectedaccounts);
-            $scope.inventoryselectchange($scope.selectedinventorys);
+                var arry = [];
+                angular.forEach($scope.privileges[0], function(item) {
+                    $scope.push.id = item[1];
+                    $scope.push.seq = item[2];
+                    $scope.push.select = item[3]
+                    $scope.push.privilageName = item[4]
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.selectedmasters = arry;
+                arry = [];
+                angular.forEach($scope.privileges[1], function(item) {
+                    $scope.push.id = item[1];
+                    $scope.push.select = item[3]
+                    $scope.push.seq = item[2];
+                    $scope.push.privilageName = item[4]
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.selectedaccounts = arry;
+                arry = [];
+                angular.forEach($scope.privileges[2], function(item) {
+                    $scope.push.id = item[1];
+                    $scope.push.select = item[3]
+                    $scope.push.seq = item[2];
+                    $scope.push.privilageName = item[4]
+                    arry.push($scope.push);
+                    $scope.push = {};
+                });
+                $scope.selectedinventorys = arry;
+                arry = [];
+                $scope.masterselectchange($scope.selectedmasters);
+                $scope.accountselectchange($scope.selectedaccounts);
+                $scope.inventoryselectchange($scope.selectedinventorys);
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;
@@ -282,6 +297,12 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
             $scope.loading = false;
             $scope.getAllroles();
             $scope.display_name = "";
+            if (result.data.error === undefined) {
+                $scope.msg = "role deleted successful";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
+            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -343,11 +364,16 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $scope.loading = true;
         var success = function(result) {
             $scope.loading = false;
-            if(result.data.length===0){
-              session.sessionexpried("No Data");
+            if (result.data.error === undefined) {
+                if (result.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
+                $scope.roles = result.data;
+                $scope.multiroletbl = new NgTableParams({ count: $scope.roles.length }, { dataset: $scope.roles });
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
             }
-            $scope.roles = result.data;
-            $scope.multiroletbl = new NgTableParams({ count: $scope.roles.length }, { dataset: $scope.roles });
         }
         var error = function(result) {
             $scope.loading = false;
@@ -422,7 +448,12 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         var success = function(result) {
             $scope.loading = false;
             $('#privileges').modal('hide');
-            $scope.msg = "Privileges added to role successfully";
+            if (result.data.error === undefined) {
+                $scope.msg = "Privileges added to role successfully";
+            } else {
+                $scope.msg = result.data.error.message;
+            }
+            $scope.addremovealert();
         }
         var error = function(result) {
             $scope.loading = false;
@@ -505,8 +536,13 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         var success = function(result) {
             $scope.loading = false;
             $('#rolehistory').modal('show');
-            $scope.histroyList = result.data;
-            $scope.roleshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+            if (result.data.error === undefined) {
+                $scope.histroyList = result.data;
+                $scope.roleshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(result) {
             $scope.loading = false;

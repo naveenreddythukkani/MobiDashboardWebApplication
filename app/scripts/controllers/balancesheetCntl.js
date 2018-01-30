@@ -30,7 +30,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
     $rootScope.dateremove = false;
     $rootScope.voucherControl = false;
     $rootScope.downloadstab = false;
-    $rootScope.moreIconShow= true;
+    $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = false;
 
 
@@ -93,27 +93,32 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
             }
             $scope.loading = true;
             console.log("Request Data ==" + JSON.stringify(data));
-            var success = function(data) {
+            var success = function(result) {
                 $scope.loading = false;
-                console.log("Response Data =" + JSON.stringify(data));
-                var rootGroup = data.data;
-                if(data.data.length===0){
-                  session.sessionexpried("No Data");
-                }
-                $scope.resultsandsurplusstatus = false;
-                $scope.rgroupelements = [];
-                for (var i = 0; i < rootGroup.length; i++) {
-                    $scope.rgroupelements.push(rootGroup[i]);
-                    $scope.rgroupelements = $scope.rgroupelements.reverse();
-                }
-                for (var i = 0; i < $scope.rgroupelements.length; i++) {
-                    if ($scope.rgroupelements[i].rootgroup_id === 4) {
-                        $scope.rgroupelements[i].sum_amt += $scope.rgroupelements[i].diff;
-                        $scope.rgroupelements[i].sum_amt = $scope.rgroupelements[i].sum_amt.toFixed(2);
+                console.log("Response Data =" + JSON.stringify(result));
+                if (result.data.error === undefined) {
+                    var rootGroup = result.data;
+                    if (result.data.length === 0) {
+                        session.sessionexpried("No Data");
                     }
+                    $scope.resultsandsurplusstatus = false;
+                    $scope.rgroupelements = [];
+                    for (var i = 0; i < rootGroup.length; i++) {
+                        $scope.rgroupelements.push(rootGroup[i]);
+                        $scope.rgroupelements = $scope.rgroupelements.reverse();
+                    }
+                    for (var i = 0; i < $scope.rgroupelements.length; i++) {
+                        if ($scope.rgroupelements[i].rootgroup_id === 4) {
+                            $scope.rgroupelements[i].sum_amt += $scope.rgroupelements[i].diff;
+                            $scope.rgroupelements[i].sum_amt = $scope.rgroupelements[i].sum_amt.toFixed(2);
+                        }
+                    }
+                    console.log("$scope.rgroupelements = " + JSON.stringify($scope.rgroupelements));
+                    if ($scope.rgroupelements.length == 0) {}
+                } else {
+                    $scope.msg = result.data.error.message;
+                    $scope.addremovealert();
                 }
-                console.log("$scope.rgroupelements = " + JSON.stringify($scope.rgroupelements));
-                if ($scope.rgroupelements.length == 0) {}
             };
             var error = function(result) {
                 $scope.loading = false;
@@ -136,8 +141,8 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
             var year = completedate[0];
             var month = completedate[1];
             var day = completedate[2];
-            if(month==="01" || month==="02"||month==="03"){
-              year = year - 1;
+            if (month === "01" || month === "02" || month === "03") {
+                year = year - 1;
             }
             if (day > 10) {
                 day = '0' + 1;

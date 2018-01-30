@@ -108,9 +108,14 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
         $scope.LoadMoreButton = false;
         $scope.loading = true;
         var success = function(result) {
-            $scope.searchdetails = result.data.data;
-            $scope.LoadMoreButton = false;
             $scope.loading = false;
+            if (result.data.error === undefined) {
+                $scope.searchdetails = result.data.data;
+                $scope.LoadMoreButton = false;
+            } else {
+                $scope.msg = result.data.error.message;
+                $scope.addremovealert();
+            }
         }
         var error = function(data) {
             $scope.loading = false;
