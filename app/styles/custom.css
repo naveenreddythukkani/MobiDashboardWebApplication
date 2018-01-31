@@ -1603,3 +1603,13 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
     table-layout: fixed;
     overflow: hidden;
 }
+
+.m-voucher-docid {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    padding-right: 8px;
+    white-space: normal;
+    overflow: hidden;
+    word-break: break-all;
+}
