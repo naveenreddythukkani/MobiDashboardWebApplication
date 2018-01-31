@@ -10,45 +10,48 @@
                         <span class="text-value">{{ledger_amt >= 0 ? ((ledger_amt | INRCurrency) + " Dr") : (((-1 * ledger_amt) | INRCurrency) + " Cr")}}</span>
                     </li>
                 </ul>
-                <ul ng-hide="!voucherdetails.length && vouchershowindividualstatus == true" class="list-styles no-padding-hr" style="margin-bottom:2px;">
-                    <table class="table-width">
-                        <tr>
-                            <th row-span="1" class="border-right-none" style="width:100px !important;">
-                                <span col-span="1">&nbsp;Date</span>
-                                <span col-span="1" class="pull-right" style=" padding-right:8px">Type</span>
-                                <div style="display:block;text-align:left; font-weight:bold; padding-right:8px">&nbsp;VNo</div>
-                            </th>
-                            <th class="border-right-none">
-                                <span row-span="1">&nbsp;Ledger</span><br>
-                                <span row-span="2">&nbsp;Ref No | Ref Date</span>
-                            </th>
-                            <th align="right" class="text-right border-left-none td-padding-right">Amount</th>
-                        </tr>
-                        <tr>
-                            <td class="border-right-none"></td>
-                            <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</td>
-                            <td align="right" class="td-padding-right">{{obalance.ob_amt >= 0 ? ((obalance.ob_amt | INRCurrency) + " Dr") : (((-1 * obalance.ob_amt) | INRCurrency) + " Cr")}}</td>
+                <ul ng-hide="!voucherdetails.length && vouchershowindividualstatus == true" class="list-styles no-padding-hr vouchertable" style="margin-bottom:2px;">
+                    <li>
+                        <table class="table-width">
+                            <tr>
+                                <th row-span="1" class="border-right-none" style="width:100px !important;">
+                                    <span col-span="1">&nbsp;Date</span>
+                                    <span col-span="1" class="pull-right" style=" padding-right:8px">Type</span>
+                                    <div style="display:block;text-align:left; font-weight:bold; padding-right:8px">&nbsp;VNo</div>
+                                </th>
+                                <th class="border-right-none">
+                                    <span row-span="1">&nbsp;Ledger</span><br>
+                                    <span row-span="2">&nbsp;Ref No | Ref Date</span>
+                                </th>
+                                <th align="right" class="text-right border-left-none td-padding-right">Amount</th>
+                            </tr>
+                            <tr>
+                                <td class="border-right-none"></td>
+                                <td colspan="2"><span>Opening Balance as on {{fromdate| date : "dd/MM/yy"}}<span>
+                                <p style="text-align:right;margin-right:5px;">{{obalance.ob_amt >= 0 ? ((obalance.ob_amt | INRCurrency) + " Dr") : (((-1 * obalance.ob_amt) | INRCurrency) + " Cr")}}</p>
+                            </td>
                         </tr>
                         <tr ng-repeat-start="voucher in voucherdetails| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" class="actionsmenu" ng-class=" {red:voucher.isverified==0 } " ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
-                            <td colspan="1" rowspan="2" valign="top" class="tx-type-main border-right-none " style="width:100px !important;">
+                            <td colspan="1" rowspan="2" valign="top" class="tx-type-main border-right-none " style="max-width:100px !important;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
                                 <span col-span="1">{{voucher.trans_date| date : "dd/MM/yy"}}</span>
-                                <span col-span="1" class="pull-right" style="padding-right:8px;">{{voucher.tx_type}}</span><br>
-                                <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{voucher.doc_id}}</div>
-                            </td>
-                            <td colspan="2" style="word-break: break-all !important;white-space:normal;" class="border-bottom-none ">{{voucher.gl_name}}</td>
-                        </tr>
-                        <tr ng-class="{red:voucher.isverified==0 } " class="border-right-none actionsmenu" ng-repeat-end ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
-                            <td colspan="2">
-                                <span class="voucher-refname" style="display:block;" ng-show="voucher.refno">Ref No: {{voucher.refno}}</span>
-                                <span class="voucher-refname" style="display:block;" ng-show="voucher.refdate">Ref Date: {{voucher.refdate| date: "dd/MM/yyyy"}}</span>
-                                <p style="margin-bottom:5px !important;" colspan="2" align="right" class="border-left-none td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</p>
-                            </td>
-                        </tr>
-                        <tr class="border-right-none">
-                            <td class="text-bold border-right-none">Total</td>
-                            <td colspan="2" align="right" class="td-padding-right">{{balanceamount >= 0 ? ((balanceamount | INRCurrency) + " Dr") : (((-1 * balanceamount) | INRCurrency) + " Cr")}}</td>
-                        </tr>
-                    </table>
+                                    <span col-span="1" class="pull-right" style="padding-right:8px;">{{voucher.tx_type}}</span><br>
+                                    <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{voucher.doc_id}}</div>
+                                </td>
+                                <td colspan="2" style="max-width:calc(100% - 110px) !important;" class="border-bottom-none ">{{voucher.gl_name}}</td>
+                            </tr>
+                            <tr ng-class="{red:voucher.isverified==0 } " class="border-right-none actionsmenu" ng-repeat-end ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
+                                <td colspan="2" style="max-width:calc(100% - 110px) !important;">
+                                    <span class="voucher-refname" style="display:block;" ng-show="voucher.refno">Ref No: {{voucher.refno}}</span>
+                                    <span class="voucher-refname" style="display:block;" ng-show="voucher.refdate">Ref Date: {{voucher.refdate| date: "dd/MM/yyyy"}}</span>
+                                    <p style="margin-bottom:5px !important;" colspan="2" align="right" class="border-left-none td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</p>
+                                </td>
+                            </tr>
+                            <tr class="border-right-none">
+                                <td class="text-bold border-right-none">Total</td>
+                                <td colspan="2" align="right" class="td-padding-right">{{balanceamount >= 0 ? ((balanceamount | INRCurrency) + " Dr") : (((-1 * balanceamount) | INRCurrency) + " Cr")}}</td>
+                            </tr>
+                        </table>
+                    </li>
                 </ul>
             </div>
 
@@ -80,45 +83,49 @@
                             <span class="glname_text">{{props.ledger_name}} Under {{voucher.display_name}}</span>
                         </li>
                     </ul>
-                    <ul class="list-styles no-padding-hr" style="margin-bottom:2px;">
-                        <table class="table-width table-border-voucher">
-                            <tr class="default-background">
-                                <th row-span="1" class="border-right-none" style="width:100px !important;">
-                                    <span col-span="1">&nbsp;Date</span>
-                                    <span col-span="1" class="pull-right" style=" padding-right:8px">Type</span>
-                                    <div style="display:block;text-align:left; font-weight:bold; padding-right:8px">&nbsp;VNo</div>
-                                </th>
-                                <th class="border-right-none">
-                                    <span row-span="1">&nbsp;Ledger</span><br>
-                                    <span row-span="2">&nbsp;Ref No | Ref Date</span>
-                                </th>
-                                <th align="right" class="text-right border-left-none td-padding-right">Amount</th>
-                            </tr>
-                            <tr>
-                                <td class="border-right-none"></td>
-                                <td class="border-right-none">Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</td>
-                                <td align="right" class="td-padding-right">{{voucher.ob_amount >= 0 ? ((voucher.ob_amount | INRCurrency) + " Dr") : (((-1 * voucher.ob_amount) | INRCurrency) + " Cr")}}</td>
-                            </tr>
-                            <tr class="background actionsmenu" ng-repeat-start="vouchersubdetails in voucher.data| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" ng-class="{red:vouchersubdetails.isverified == 0}" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)">
-                                <td colspan="1" rowspan="2" valign="top" class="tx-type-main border-right-none" style="width:100px !important;">
-                                    <span col-span="1">{{vouchersubdetails.trans_date| date : "dd/MM/yy"}}</span>
-                                    <span col-span="1" class="pull-right" style="padding-right:8px;">{{vouchersubdetails.tx_type}}</span><br>
-                                    <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{vouchersubdetails.doc_id}}</div>
-                                </td>
-                                <td colspan="2" style="word-break: break-all !important;white-space:normal;" class="border-bottom-none">{{vouchersubdetails.gl_name}}</td>
-                            </tr>
-                            <tr ng-class="{red:vouchersubdetails.isverified == 0}" class="border-right-none actionsmenu" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)" ng-repeat-end>
-                                <td colspan="2">
-                                    <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refno">Ref No: {{vouchersubdetails.refno}}</span>
-                                    <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refdate">Ref Date: {{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span>
-                                    <p style="margin-bottom:5px !important;" align="right" class="td-padding-right border-left-none">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</p>
-                                </td>
-                            </tr>
-                            <tr class=" border-right-none ">
-                                <td class="text-bold border-right-none">Total</td>
-                                <td colspan="2" align="right" class="td-padding-right">{{voucher.totalAmount >= 0 ? ((voucher.totalAmount | INRCurrency) + " Dr") : (((-1 * voucher.totalAmount) | INRCurrency) + " Cr")}}</td>
-                            </tr>
-                        </table>
+                    <ul class="list-styles no-padding-hr vouchertable" style="margin-bottom:2px;">
+                        <li>
+                            <table class="table-width table-border-voucher">
+                                <tr class="default-background">
+                                    <th row-span="1" class="border-right-none" style="width:100px !important;">
+                                        <span col-span="1">&nbsp;Date</span>
+                                        <span col-span="1" class="pull-right" style=" padding-right:8px">Type</span>
+                                        <div style="display:block;text-align:left; font-weight:bold; padding-right:8px">&nbsp;VNo</div>
+                                    </th>
+                                    <th class="border-right-none">
+                                        <span row-span="1">&nbsp;Ledger</span><br>
+                                        <span row-span="2">&nbsp;Ref No | Ref Date</span>
+                                    </th>
+                                    <th align="right" class="text-right border-left-none td-padding-right">Amount</th>
+                                </tr>
+                                <tr>
+                                    <td class="border-right-none"></td>
+                                    <td colspan="2">
+                                        <span>Opening Balance as on {{fromdate| date : "dd/MM/yy"}}</span>
+                                        <p style="text-align:right;margin-right:5px;">{{voucher.ob_amount >= 0 ? ((voucher.ob_amount | INRCurrency) + " Dr") : (((-1 * voucher.ob_amount) | INRCurrency) + " Cr")}}</p>
+                                    </td>
+                                </tr>
+                                <tr class="background actionsmenu" ng-repeat-start="vouchersubdetails in voucher.data| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" ng-class="{red:vouchersubdetails.isverified == 0}" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)">
+                                    <td colspan="1" rowspan="2" valign="top" class="tx-type-main border-right-none" style="max-width:100px !important;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;">
+                                        <span col-span="1">{{vouchersubdetails.trans_date| date : "dd/MM/yy"}}</span>
+                                        <span col-span="1" class="pull-right" style="padding-right:8px;">{{vouchersubdetails.tx_type}}</span><br>
+                                        <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{vouchersubdetails.doc_id}}</div>
+                                    </td>
+                                    <td colspan="2" style="max-width:calc(100% - 110px) !important;" class="border-bottom-none">{{vouchersubdetails.gl_name}}</td>
+                                </tr>
+                                <tr ng-class="{red:vouchersubdetails.isverified == 0}" class="border-right-none actionsmenu" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)" ng-repeat-end>
+                                    <td colspan="2" style="max-width:calc(100% - 110px) !important;">
+                                        <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refno">Ref No: {{vouchersubdetails.refno}}</span>
+                                        <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refdate">Ref Date: {{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span>
+                                        <p style="margin-bottom:5px !important;" align="right" class="td-padding-right border-left-none">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</p>
+                                    </td>
+                                </tr>
+                                <tr class=" border-right-none ">
+                                    <td class="text-bold border-right-none">Total</td>
+                                    <td colspan="2" align="right" class="td-padding-right">{{voucher.totalAmount >= 0 ? ((voucher.totalAmount | INRCurrency) + " Dr") : (((-1 * voucher.totalAmount) | INRCurrency) + " Cr")}}</td>
+                                </tr>
+                            </table>
+                        </li>
                     </ul>
                 </ul>
             </div>

@@ -32,7 +32,7 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
     $rootScope.controlledger = true;
 
     $rootScope.dateremove = true;
-    $rootScope.voucherControl = false;
+    $rootScope.voucherControl = true;
     $rootScope.moreIconShow = true;
     $rootScope.mobilebreadcurmbs = true;
 
@@ -258,5 +258,59 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
         var test = $('#voucheraudio');
         test[0].pause();
     }
-
+    $rootScope.datescalculation = function() {
+        if ($rootScope.today == undefined || $rootScope.today != $rootScope.today1) {
+            $rootScope.today = $filter('date')(new Date(), 'yyyy-MM-dd');
+        }
+        if ($rootScope.today1 != undefined) {
+            $rootScope.today = $rootScope.today1;
+        }
+        if ($rootScope.fromdate == undefined && $rootScope.fromdate1 == undefined && $rootScope.startdate == undefined && $rootScope.startdate1 == undefined) {
+            var completedate = ($rootScope.today).split('-');
+            var year = completedate[0];
+            var month = completedate[1];
+            var day = completedate[2];
+            if (month === "01" || month === "02" || month === "03") {
+                year = year - 1;
+            }
+            if (day > 10) {
+                day = '0' + 1;
+            } else {
+                day = '0' + 1;
+                month = month - 1;
+                console.log(month.toString().length);
+                if (month.toString().length == 1) {
+                    month = '0' + month;
+                    if (month == 00) {
+                        month = 12;
+                        year = year - 1;
+                    }
+                }
+            }
+            $rootScope.fromdate = year + '-' + month + '-' + day;
+            $rootScope.startdate = year + '-' + '04' + '-' + '01';
+            console.log("$rootScope.todate = " + $rootScope.today);
+            console.log("$rootScope.fromdate = " + $rootScope.fromdate);
+            console.log("$rootScope.startdate = " + $rootScope.startdate);
+        }
+        if ($rootScope.fromdate1 != undefined) {
+            var completedate1 = ($rootScope.fromdate1).split('-');
+            var year1 = completedate1[0];
+            var month1 = completedate1[1];
+            var day1 = completedate1[2];
+            $rootScope.fromdate = year1 + '-' + month1 + '-' + day1;
+            console.log("$rootScope.fromdate = " + $rootScope.fromdate);
+        }
+        if ($rootScope.startdate1 != undefined) {
+            var completedate2 = ($rootScope.startdate1).split('-');
+            var year2 = completedate2[0];
+            var month2 = completedate2[1];
+            var day2 = completedate2[2];
+            $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
+            console.log("$rootScope.startdate = " + $rootScope.startdate);
+        }
+        $rootScope.fromdate = localStorageService.get('monthwisefromdate');
+        $rootScope.today = localStorageService.get('monthwisetoday');
+    }
+    $rootScope.datescalculation();
 });

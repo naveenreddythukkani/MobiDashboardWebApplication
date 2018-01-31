@@ -1,6 +1,6 @@
 <header class="m-header-fixed" ng-controller="headerCntl">
     <div class="col-sm-12 col-xs-12 no-padding-hr m-header-background ">
-        <div ng-hide="balancesheetbreadcurmbs" style="height:50 !important;">
+        <div ng-show="!balancesheetbreadcurmbs" style="height:50 !important;">
             <img ng-click="openNav()" ng-show="!moreIconShow" style="margin:13px;float:left;" src="images/menu_mobile.png" alt="logo" />
             <img ng-click="backButtonAction()" ng-show="moreIconShow" style="margin:13px;float:left;" src="images/back_arrow_mobile.png" alt="logo" />
             <div id="headerTitleTextSize" class="m-header-text">

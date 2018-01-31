@@ -63,8 +63,6 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $("#success-alert").removeClass('in');
         });
     }
-    $rootScope.fromdate1 = localStorageService.get('monthwisefromdate');
-    $rootScope.today1 = localStorageService.get('monthwisetoday');
     $scope.clearlocalstorage = function() {
         dataMove.setvoucherData({});
         $rootScope.getlocalstoredata();
@@ -187,7 +185,8 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     }
                     $scope.balanceamount = 0.0;
                     $scope.balanceamount = parseFloat(result.data.ob_amt) + parseFloat(total);
-                    $scope.ledger_amt = $scope.balanceamount.toFixed(2);
+                    $scope.balanceamount = $scope.balanceamount.toFixed(2);
+                    $scope.ledger_amt = $scope.balanceamount;
                 } else {
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
@@ -309,7 +308,8 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         // });
                     }
                     $scope.balanceamount = parseFloat(result.data.ob_amt) + parseFloat(total);
-                    $scope.ledger_amt = $scope.balanceamount.toFixed(2);
+                    $scope.balanceamount = $scope.balanceamount.toFixed(2);
+                    $scope.ledger_amt = $scope.balanceamount;
                 } else {
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
@@ -472,6 +472,8 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
             console.log("$rootScope.startdate = " + $rootScope.startdate);
         }
+        $rootScope.fromdate = localStorageService.get('monthwisefromdate');
+        $rootScope.today = localStorageService.get('monthwisetoday');
         $scope.getallcontrolandledgerData();
     }
     $rootScope.datescalculation();

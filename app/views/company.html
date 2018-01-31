@@ -18,7 +18,7 @@
                             </div>
                         </td>
                         <td class="accType vertical-center " title=" 'Locations' " filter="{locations: 'number'} " sortable=" 'locations' ">
-                            <span ng-hide="user.status==='N'" ng-click="access(user) " class="colors pointer-cur">{{user.locations}}</span>
+                            <span ng-hide="user.status==='N'" ng-click="access(user) " class="pointer-cur actionsmenu"><span>{{user.locations}}</span></span>
                             <span ng-show="user.status==='N'" class="disable-color">{{user.locations}}</span>
                         </td>
                         <td class="accType vertical-center " title=" 'Package' " filter="{ package_name: 'text'} " sortable=" 'package_name' ">

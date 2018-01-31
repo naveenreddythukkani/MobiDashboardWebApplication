@@ -164,6 +164,7 @@ var changeOnEnter = function(localStorageService, $state) {
 // Production and Dev
 // MobiDash.constant("domain", "/");
 
+// MobiDash.constant("domain", "https://api.mobibooks.in/");
 MobiDash.constant("domain", "http://139.59.3.114/");
 MobiDash.constant("api", "act/api/");
 MobiDash.constant("core", "act/core/");

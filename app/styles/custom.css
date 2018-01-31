@@ -110,8 +110,8 @@ body {
     background: #454545;
     color: #fff;
     text-align: center;
-    width: 70%;
-    left: 15%;
+    width: 60%;
+    left: 20%;
     height: auto;
 }
 
@@ -1191,6 +1191,9 @@ td {
     .balancesheetheader {
         margin-top: 65px !important;
     }
+    .balancesheetheadervoucherdetail {
+        margin-top: 100px !important;
+    }
     .down-up-arrows {
         font-size: 10px;
         padding-left: 3px;
@@ -1547,9 +1550,13 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 .m-displayrow {
     display: table;
     color: #000;
-    border: solid red 0px;
     padding: 0px;
     width: 100%;
+    table-layout: fixed;
+}
+
+.m-display-rowcell {
+    display: table-row;
 }
 
 .m-displaycell {
@@ -1572,11 +1579,11 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 }
 
 .m-cashreceipttable {
-    /* width: 100%; */
     color: #000 !important;
     border: none;
     padding: 0px;
     margin: 0px;
+    table-layout: fixed;
 }
 
 .m-cashreceipttable tbody tr td {
@@ -1589,4 +1596,10 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 
 .resetpasswordAshtrick {
     right: -15px !important
+}
+
+.vouchertable li table {
+    width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
 }

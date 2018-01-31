@@ -4,25 +4,27 @@
             <h4 class="no-margin-hr text-center">{{findingtranstype(props.tx_type)}} VOUCHER</h4>
             <div class="row no-marign-allsides no-margin-hr voucher-box">
                 <div class='m-displayrow'>
-                    <div class='m-displaycell'>
-                        <table class="m-cashreceipttable">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span style="font-size:30px;display: block;" ng-class="{'red':vocherdetailsdata.isverified == 0}">{{vocherdetailsdata.manualid}}</span>
-                                        <span class="pull-left">{{vocherdetailsdata.transdate}}</span>
-                                    </td>
-                                    <td style="padding-left:15px;">
-                                        <span style="font-size:16px;">{{showsnameandglname(vocherdetailsdata)}}</span><br>
-                                        <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span>
-                                        <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate| date: "dd/MM/yy"}}</span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class='m-displaycell m-seqs0howing'>
-                        <span class="pull-right">{{vocherdetailsdata.totalAmount | INRCurrency}}</span>
+                    <div class="m-display-rowcell">
+                        <div class='m-displaycell'>
+                            <table class="m-cashreceipttable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <span style="font-size:30px;display: block;" ng-class="{'red':vocherdetailsdata.isverified == 0}">{{vocherdetailsdata.manualid}}</span>
+                                            <span class="pull-left">{{vocherdetailsdata.transdate}}</span>
+                                        </td>
+                                        <td style="padding-left:15px;">
+                                            <span style="font-size:16px;word-break:break-all;">{{showsnameandglname(vocherdetailsdata)}}</span><br>
+                                            <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span>
+                                            <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate| date: "dd/MM/yy"}}</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class='m-displaycell m-seqs0howing'>
+                            <span class="pull-right">{{vocherdetailsdata.totalAmount | INRCurrency}}</span>
+                        </div>
                     </div>
                 </div>
             </div>

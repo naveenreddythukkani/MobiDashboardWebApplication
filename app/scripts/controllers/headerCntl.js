@@ -437,12 +437,38 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     }
     $scope.datemodelmobileshow = function() {
         $scope.popoverhide();
+        $scope.vouCleared = false;
+        $scope.mobCleared = false;
+        //Destroy evry time and preparing model again for updating dates.
+        if ($('#datetimepickermobilevoucherto').data("DateTimePicker")) {
+            $scope.vouCleared = true
+            $('#datetimepickermobilevoucherto').data("DateTimePicker").date($rootScope.today);
+        }
+        if ($('#datetimepickermobilevoucherfrom').data("DateTimePicker")) {
+            $scope.vouCleared = true
+            $('#datetimepickermobilevoucherfrom').data("DateTimePicker").date($rootScope.fromdate);
+        }
+
+        if ($('#datetimepickermobiledashboardto').data("DateTimePicker")) {
+            $scope.mobCleared = true;
+            $('#datetimepickermobiledashboardto').data("DateTimePicker").date($rootScope.today);
+        }
+
+        if ($('#datetimepickermobiledashboardfrom').data("DateTimePicker")) {
+            $scope.mobCleared = true;
+            $('#datetimepickermobiledashboardfrom').data("DateTimePicker").date($rootScope.startdate);
+        }
+
+        // $('#datetimepickermobiledashboardto').data("DateTimePicker").destroy();
+        // $('#datetimepickermobiledashboardfrom').data("DateTimePicker").destroy();
+
         $(".mFromDateTab").addClass("active");
         $(".mToDateTab").removeClass("active");
 
         $(".mFromDateTabVou").addClass("active");
         $(".mToDateTabVou").removeClass("active");
         if ($rootScope.pandlreport === true) {
+            // $scope.vouCleared = true;
             $("#fromDateCal").show();
             $("#toDateCal").hide();
             $("#fromDateCalVou").show();
@@ -465,6 +491,8 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             // });
             var defaultFromDate = $rootScope.fromdate;
             var defaultToDate = $rootScope.today;
+            console.log("voucherControl from", defaultFromDate);
+            console.log("voucherControl to", defaultToDate);
             $('#datetimepickermobilevoucherto').datetimepicker({
                 inline: true,
                 format: 'YYYY-MM-DD',
@@ -476,19 +504,24 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
                 defaultDate: defaultFromDate
             });
             $('#datetimepickermobilevoucherfrom').on('dp.change', function(e) {
-
-                $scope.minimumDateSelect = moment(e.date).format("YYYY-MM-DD");
-                // $(".mToDateTabVou").trigger('click');
-                $(".mFromDateTabVou").removeClass("active");
-                $(".mToDateTabVou").addClass("active");
-                $("#toDateCalVou").show();
-                $("#fromDateCalVou").hide();
+                console.log("vouCleared", $scope.vouCleared);
+                if (!$scope.vouCleared) {
+                    $scope.minimumDateSelect = moment(e.date).format("YYYY-MM-DD");
+                    // $(".mToDateTabVou").trigger('click');
+                    $(".mFromDateTabVou").removeClass("active");
+                    $(".mToDateTabVou").addClass("active");
+                    $("#toDateCalVou").show();
+                    $("#fromDateCalVou").hide();
+                }
+                $scope.vouCleared = false;
             });
 
             $('#selectmobiledatevoucher').modal('show');
         } else {
             var defaultFromDate = $rootScope.startdate;
             var defaultToDate = $rootScope.today;
+            console.log("monthwise from", defaultFromDate);
+            console.log("monthwise to", defaultToDate);
 
             $('#datetimepickermobiledashboardto').datetimepicker({
                 inline: true,
@@ -502,16 +535,18 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             });
 
             $('#datetimepickermobiledashboardfrom').on('dp.change', function(e) {
-
-                console.log('$s', $scope, $scope.$parent);
-                $scope.$parent.minimumDateSelect = moment(e.date).format("YYYY-MM-DD");
-                console.log('trigger')
-                $(".mToDateTab").show()
-                $(".mFromDateTab").removeClass("active");
-                $(".mToDateTab").addClass("active");
-                $("#toDateCal").show();
-                $("#fromDateCal").hide();
-                console.log("minDate", $scope.$parent.minimumDateSelect);
+                if (!$scope.mobCleared) {
+                    console.log('$s', $scope, $scope.$parent);
+                    $scope.$parent.minimumDateSelect = moment(e.date).format("YYYY-MM-DD");
+                    console.log('trigger')
+                    $(".mToDateTab").show()
+                    $(".mFromDateTab").removeClass("active");
+                    $(".mToDateTab").addClass("active");
+                    $("#toDateCal").show();
+                    $("#fromDateCal").hide();
+                    console.log("minDate", $scope.$parent.minimumDateSelect);
+                }
+                $scope.mobCleared = false;
 
             });
 
@@ -620,9 +655,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         //     $rootScope.startdate1 = moment($('#datetimepickermobilevoucherfrom').datetimepicker("getDate")).format("YYYY-MM-DD");
         // }
         $rootScope.today1 = $('#datetimepickermobilevoucherto').data('date');
-        if ($rootScope.pandlreport === true) {
-            $rootScope.fromdate1 = $('#datetimepickermobilevoucherfrom').data('date');
-        }
+        $rootScope.fromdate1 = $('#datetimepickermobilevoucherfrom').data('date');
         localStorageService.set('monthwisefromdate', $rootScope.fromdate1);
         localStorageService.set('monthwisetoday', $rootScope.today1);
         $('#selectmobiledatevoucher').modal('hide');
