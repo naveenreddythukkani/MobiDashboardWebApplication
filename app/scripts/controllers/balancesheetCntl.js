@@ -158,7 +158,7 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
                     }
                 }
             }
-            $rootScope.fromdate = year + '-' + month + '-' + day;
+            $rootScope.fromdate = year + '-' + '04' + '-' + day;
             $rootScope.startdate = year + '-' + '04' + '-' + '01';
             console.log("$rootScope.todate = " + $rootScope.today);
             console.log("$rootScope.fromdate = " + $rootScope.fromdate);

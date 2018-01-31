@@ -287,7 +287,7 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
                     }
                 }
             }
-            $rootScope.fromdate = year + '-' + month + '-' + day;
+            $rootScope.fromdate = year + '-' + '04' + '-' + day;
             $rootScope.startdate = year + '-' + '04' + '-' + '01';
             console.log("$rootScope.todate = " + $rootScope.today);
             console.log("$rootScope.fromdate = " + $rootScope.fromdate);
@@ -309,8 +309,10 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
             $rootScope.startdate = year2 + '-' + month2 + '-' + day2;
             console.log("$rootScope.startdate = " + $rootScope.startdate);
         }
-        $rootScope.fromdate = localStorageService.get('monthwisefromdate');
-        $rootScope.today = localStorageService.get('monthwisetoday');
+        if (!$rootScope.isSearched) {
+            $rootScope.fromdate = localStorageService.get('monthwisefromdate');
+            $rootScope.today = localStorageService.get('monthwisetoday');
+        }
     }
     $rootScope.datescalculation();
 });
