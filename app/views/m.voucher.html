@@ -37,12 +37,12 @@
                                     <span col-span="1" class="pull-right" style="padding-right:8px;">{{voucher.tx_type}}</span><br>
                                     <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{voucher.doc_id}}</div>
                                 </td>
-                                <td colspan="2" style="max-width:calc(100% - 110px) !important;" class="border-bottom-none ">{{voucher.gl_name}}</td>
+                                <td colspan="2" style="max-width:calc(100% - 110px) !important;" class="border-bottom-none td-padding-right">{{voucher.gl_name}}</td>
                             </tr>
                             <tr ng-class="{red:voucher.isverified==0 } " class="border-right-none actionsmenu" ng-repeat-end ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
                                 <td colspan="2" style="max-width:calc(100% - 110px) !important;">
-                                    <span class="voucher-refname" style="display:block;" ng-show="voucher.refno">Ref No: {{voucher.refno}}</span>
-                                    <span class="voucher-refname" style="display:block;" ng-show="voucher.refdate">Ref Date: {{voucher.refdate| date: "dd/MM/yyyy"}}</span>
+                                    <span class="voucher-refname td-padding-right" style="display:block;" ng-show="voucher.refno">Ref No: {{voucher.refno}}</span>
+                                    <span class="voucher-refname td-padding-right" style="display:block;" ng-show="voucher.refdate">Ref Date: {{voucher.refdate| date: "dd/MM/yyyy"}}</span>
                                     <p style="margin-bottom:5px !important;" colspan="2" align="right" class="border-left-none td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</p>
                                 </td>
                             </tr>
@@ -111,12 +111,12 @@
                                         <span col-span="1" class="pull-right" style="padding-right:8px;">{{vouchersubdetails.tx_type}}</span><br>
                                         <div style="display:block;text-align:left; font-weight:bold; padding-right:8px"> {{vouchersubdetails.doc_id}}</div>
                                     </td>
-                                    <td colspan="2" style="max-width:calc(100% - 110px) !important;" class="border-bottom-none">{{vouchersubdetails.gl_name}}</td>
+                                    <td colspan="2" style="max-width:calc(100% - 110px) !important;" class="border-bottom-none td-padding-right">{{vouchersubdetails.gl_name}}</td>
                                 </tr>
                                 <tr ng-class="{red:vouchersubdetails.isverified == 0}" class="border-right-none actionsmenu" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)" ng-repeat-end>
                                     <td colspan="2" style="max-width:calc(100% - 110px) !important;">
-                                        <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refno">Ref No: {{vouchersubdetails.refno}}</span>
-                                        <span class="voucher-refname" style="display:block;" ng-show="vouchersubdetails.refdate">Ref Date: {{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span>
+                                        <span class="voucher-refname td-padding-right" style="display:block;" ng-show="vouchersubdetails.refno">Ref No: {{vouchersubdetails.refno}}</span>
+                                        <span class="voucher-refname td-padding-right" style="display:block;" ng-show="vouchersubdetails.refdate">Ref Date: {{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span>
                                         <p style="margin-bottom:5px !important;" align="right" class="td-padding-right border-left-none">{{vouchersubdetails.amount >= 0 ? ((vouchersubdetails.amount | INRCurrency) + " Dr") : (((-1 * vouchersubdetails.amount) | INRCurrency) + " Cr")}}</p>
                                     </td>
                                 </tr>

@@ -72,6 +72,9 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
                 $scope.loading = false;
                 localStorageService.set("globalSearchData", $scope.globalSearchData);
                 if (result.data.error === undefined) {
+                    if (result.data.data.length === 0) {
+                        session.sessionexpried("No Data");
+                    }
                     $scope.searchdetails = result.data.data;
                     if ($scope.searchdetails.length >= 20) {
                         $scope.LoadMoreButton = true;
@@ -110,6 +113,9 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
+                if (result.data.data.length === 0) {
+                    session.sessionexpried("No Data");
+                }
                 $scope.searchdetails = result.data.data;
                 $scope.LoadMoreButton = false;
             } else {
