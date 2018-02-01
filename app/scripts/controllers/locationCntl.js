@@ -980,13 +980,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.errormessage = "Please enter valid email address";
             return true;
         }
-        if (data.gstin !== null && data.gstin !== undefined && (data.gstin.length > 0 && data.gstin.length !== 15 && !$scope.gstinValidations(data.gstin))) {
+        if (data.gstin !== null && data.gstin !== undefined && data.gstin.length > 0 && !$scope.gstinValidations(data.gstin)) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.gstin;
             $scope.errormessage = "Please enter valid gstin";
             return true;
         }
-        if (data.tan !== null && data.tan !== undefined && (data.tan.length > 0 && data.tan.length !== 10 && !$scope.tanValidations(data.tan, data.gstin))) {
+        if (data.tan !== null && data.tan !== undefined && data.tan.length > 0 && !$scope.tanValidations(data.tan, data.gstin)) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.tan;
             $scope.errormessage = "Please enter valid tan";
@@ -999,12 +999,12 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         return re.test(email);
     }
     $scope.gstinValidations = function(gstinVal) {
-        var reggst = /^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([0-9]){1}?$/;
+        var reggst = /^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}(Z)([0-9A-Z]){1}?$/;
         return reggst.test(gstinVal);
     }
     $scope.tanValidations = function(tanVal, gstinVal) {
         var reggst = /^([a-zA-Z]){4}([0-9]){5}([a-zA-Z]){1}?$/;
-        if (gstinVal !== null && gstinVal !== undefined && (gstinVal.length > 0 && gstinVal.length !== 15 && !$scope.gstinValidations(gstinVal))) {
+        if (gstinVal !== null && gstinVal !== undefined && gstinVal.length > 0 && !$scope.gstinValidations(gstinVal)) {
             if (gstinVal.substr(5, 1) === tanVal.substr(3, 1)) {
                 return reggst.test(tanVal);
             } else {

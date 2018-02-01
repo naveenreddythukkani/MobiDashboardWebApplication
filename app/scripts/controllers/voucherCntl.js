@@ -112,7 +112,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         var dataset = $scope.voucherdetails[j].data;
                         var totalAmt = 0;
                         for (var k = 0; k < dataset.length; k++) {
-                            if (dataset.isverified) {
+                            if (dataset[k].isverified) {
                                 totalAmt = totalAmt + dataset[k].amount;
                             }
                         }
@@ -234,7 +234,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         var dataset = $scope.voucherdetails[j].data;
                         var totalAmt = 0;
                         for (var k = 0; k < dataset.length; k++) {
-                            if (dataset.isverified === 1) {
+                            if (dataset[k].isverified === 1) {
                                 totalAmt = totalAmt + dataset[k].amount;
                             }
                         }
@@ -357,7 +357,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     var dataset = $scope.voucherdetails[j].data;
                     var totalAmt = 0;
                     for (var k = 0; k < dataset.length; k++) {
-                        if (dataset.isverified) {
+                        if (dataset[k].isverified) {
                             totalAmt = totalAmt + dataset[k].amount;
                         }
                     }

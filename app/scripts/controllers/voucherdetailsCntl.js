@@ -251,7 +251,7 @@ QTable.controller('voucherdetailsCntl', function($scope, $state, $rootScope, $st
             return "images/voice.png";
         }
     }
-    $('.modalbody').on('hidden.bs.modal', '.modal', function() {
+    $('#imagePreview').on('hide.bs.modal', function(e) {
         $(this).removeData('bs.modal');
     });
     $scope.cancelaudioForm = function() {

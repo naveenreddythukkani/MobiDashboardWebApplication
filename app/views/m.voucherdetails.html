@@ -15,8 +15,8 @@
                                         </td>
                                         <td style="padding-left:15px;">
                                             <span style="font-size:16px;word-break:break-all;">{{showsnameandglname(vocherdetailsdata)}}</span><br>
-                                            <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span>
-                                            <span style="display:block;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate| date: "dd/MM/yy"}}</span>
+                                            <span style="display:block;word-break:break-all;" class="voucher-refname" ng-show="vocherdetailsdata.refno">Ref No:{{vocherdetailsdata.refno}}</span>
+                                            <span style="display:block;word-break:break-all;" class="voucher-refname" ng-show="vocherdetailsdata.refdate">Ref Date:{{vocherdetailsdata.refdate| date: "dd/MM/yy"}}</span>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -71,7 +71,7 @@
     <div class="modal-dialog">
         <div class="modal-content mdl-margin">
             <div class="modal-header no-padding-vr-bottom">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelForm()">&times;</button>
+                <button type="button" class="close close-button-voucherscreen" data-dismiss="modal" aria-hidden="true" ng-click="cancelForm()">&times;</button>
                 <h1 class="modal-title">Image Preview</h1>
             </div>
             <div class="modal-body no-padding-vr-bottom">
@@ -92,7 +92,7 @@
     <div class="modal-dialog">
         <div class="modal-content mdl-margin">
             <div class="modal-header no-padding-vr-bottom">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelaudioForm()">&times;</button>
+                <button type="button" class="close close-button-voucherscreen" data-dismiss="modal" aria-hidden="true" ng-click="cancelaudioForm()">&times;</button>
                 <h1 class="modal-title">Audio Play</h1>
             </div>
             <div class="modal-body no-padding-vr-bottom text-center">
@@ -111,7 +111,7 @@
     <div class="modal-dialog">
         <div class="modal-content mdl-margin">
             <div class="modal-header no-padding-vr-bottom">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancelForm()">&times;</button>
+                <button type="button" class="close close-button-voucherscreen" data-dismiss="modal" aria-hidden="true" ng-click="cancelForm()">&times;</button>
                 <h1 class="modal-title">File Preview</h1>
             </div>
             <div class="modal-body no-padding-vr-bottom text-center">

@@ -1613,3 +1613,38 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
     overflow: hidden;
     word-break: break-all;
 }
+
+.m-text-name-voucher {
+    white-space: normal;
+    text-align: left;
+    font-weight: bold;
+    font-size: 16px;
+    display: block;
+}
+
+.m-text-name-small-voucher {
+    white-space: normal;
+    text-align: left;
+    font-weight: normal;
+    font-size: 9px;
+    display: block;
+}
+
+.m-text-value-voucher {
+    white-space: normal;
+    text-align: right;
+    font-weight: normal;
+    font-size: 16px;
+    display: block;
+}
+
+.loadmorebutton {
+    color: #1fa9cc;
+    border: none;
+    outline: none;
+}
+
+.close-button-voucherscreen {
+    font-size: 43px;
+    margin-top: -9px !important;
+}
