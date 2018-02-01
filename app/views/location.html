@@ -21,7 +21,7 @@
                                     <label class="mdl_label control-label" autofocus="none">Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr">
-                                    <input type="text" ng-class="{'haserror':field===fields.name}" class="form-control req-field-color" placeholder="Enter the Location name" name="name " required="required " ng-model="props.display_name" ng-change="validations() ">
+                                    <input type="text" ng-class="{'haserror':field===fields.name}" class="form-control req-field-color" placeholder="Enter the Location name" name="name " required="required " ng-model="props.display_name" ng-change="validations()" maxlength="45">
                                 </div>
                             </div>
                             <div class="col-md-6 form-group no-padding-hr ">
@@ -37,7 +37,7 @@
                                     <label class="mdl_label control-label " autofocus="none ">Addr.1<span>:</span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr">
-                                    <input type="text " class="form-control " placeholder="Enter the Address line1 " name="name " required="required " ng-model="props.address_line_1 " ng-change="dnsName() ">
+                                    <input type="text " class="form-control " placeholder="Enter the Address line1 " name="name " required="required " ng-model="props.address_line_1 " ng-change="dnsName()" maxlength="255">
                                 </div>
                             </div>
                             <div class="col-md-6 form-group no-padding-hr ">
@@ -45,7 +45,7 @@
                                     <label class="mdl_label control-label " autofocus="none ">Addr.2<span>:</span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr ">
-                                    <input type="text " class="form-control " placeholder="Enter the Address line2 " name="name " required="required " ng-model="props.address_line_2 " ng-change="dnsName()">
+                                    <input type="text " class="form-control " placeholder="Enter the Address line2 " name="name " required="required " ng-model="props.address_line_2 " ng-change="dnsName()" maxlength="255">
                                 </div>
                             </div>
                             <div class="col-md-6 form-group no-padding-hr ">
@@ -53,7 +53,7 @@
                                     <label class="mdl_label control-label " autofocus="none ">City<span>:</span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr">
-                                    <input type="text " class="form-control " placeholder="Enter the City " name="name " required="required " ng-model="props.city " ng-change="dnsName() ">
+                                    <input type="text " class="form-control " placeholder="Enter the City " name="name " required="required " ng-model="props.city " ng-change="dnsName()" maxlength="45">
                                 </div>
                             </div>
                             <div class="col-md-6 form-group no-padding-hr ">
@@ -61,7 +61,7 @@
                                     <label class="mdl_label control-label " autofocus="none ">State<span>:</span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr ">
-                                    <select name="stateselection" class="form-control" placeholder="Select State " id="stateselection " ng-model="props.state " ng-change="dnsName()">
+                                    <select name="stateselection" class="form-control" placeholder="Select State " id="stateselection " ng-model="props.state " ng-change="dnsName()" maxlength="45">
                                      <option value="" disabled selected>Select State</option>
                                      <option ng-repeat=" state in states"  value="{{state.name}}">{{state.name}}</option>
                                      </select>
@@ -88,7 +88,7 @@
                                     <label class="mdl_label control-label" autofocus="none ">Email<span>:</span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr">
-                                    <input type="text " class="form-control" ng-class="{'haserror':field===fields.email}" placeholder="Enter the Email" name="email" required="required" ng-model="props.email" ng-change="validations()">
+                                    <input type="text " class="form-control" ng-class="{'haserror':field===fields.email}" placeholder="Enter the Email" name="email" required="required" ng-model="props.email" ng-change="validations()" maxlength="45">
                                 </div>
                             </div>
                             <div class="col-md-6 form-group no-padding-hr ">
@@ -96,7 +96,7 @@
                                     <label class="mdl_label control-label " autofocus="none ">WebURL<span>:</span></label>
                                 </div>
                                 <div class="col-md-8 no-padding-hr ">
-                                    <input type="text " class="form-control " placeholder="Enter the Weburl" name="weburl " required="required " ng-model="props.web " ngburl-change="dnsName()">
+                                    <input type="text " class="form-control " placeholder="Enter the Weburl" name="weburl " required="required " ng-model="props.web " ngburl-change="dnsName()" maxlength="45">
                                 </div>
                             </div>
                             <div class="col-md-6 form-group no-padding-hr ">
@@ -259,7 +259,7 @@
                                 <label class="mdl_label control-label" autofocus="none">Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr">
-                                <input type="text" ng-class="{'haserror':field===fields.name}" class="form-control req-field-color" placeholder="Enter the Location name " name="name " required="required " ng-model="props.display_name" ng-change="validations() ">
+                                <input type="text" ng-class="{'haserror':field===fields.name}" class="form-control req-field-color" placeholder="Enter the Location name " name="name " required="required " ng-model="props.display_name" ng-change="validations()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-6 form-group no-padding-hr ">
@@ -275,7 +275,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Addr.1<span>:</span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr">
-                                <input type="text " class="form-control " placeholder="Enter the Address line1 " name="name " required="required " ng-model="props.address_line_1" ng-change="dnsName() ">
+                                <input type="text " class="form-control " placeholder="Enter the Address line1 " name="name " required="required " ng-model="props.address_line_1" ng-change="dnsName()" maxlength="255">
                             </div>
                         </div>
                         <div class="col-md-6 form-group no-padding-hr ">
@@ -283,7 +283,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Addr.2<span>:</span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text " class="form-control " placeholder="Enter the Address line2 " name="name " required="required " ng-model="props.address_line_2" ng-change="dnsName()">
+                                <input type="text " class="form-control " placeholder="Enter the Address line2 " name="name " required="required " ng-model="props.address_line_2" ng-change="dnsName()" maxlength="255">
                             </div>
                         </div>
                         <div class="col-md-6 form-group no-padding-hr ">
@@ -291,7 +291,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">City<span>:</span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr">
-                                <input type="text " class="form-control " placeholder="Enter the City " name="name " required="required " ng-model="props.city" ng-change="dnsName() ">
+                                <input type="text " class="form-control " placeholder="Enter the City " name="name " required="required " ng-model="props.city" ng-change="dnsName()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-6 form-group no-padding-hr ">
@@ -299,7 +299,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">State<span>:</span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <select name="stateselection" class="form-control" placeholder="Select State " id="stateselection" ng-model="props.state" ng-change="dnsName()">
+                                <select name="stateselection" class="form-control" placeholder="Select State " id="stateselection" ng-model="props.state" ng-change="dnsName()" maxlength="45">
                                      <option value="" disabled selected>Select State</option>
                                      <option ng-repeat="state in states" ng-selected="state.name===props.state" value="{{state.name}}">{{state.name}}</option>
                                      </select>
@@ -326,7 +326,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Email<span>:</span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr">
-                                <input type="text " class="form-control " ng-class="{'haserror':field===fields.email}" placeholder="Enter the Email" name="email " required="required " ng-model="props.email" ng-change="validations()">
+                                <input type="text " class="form-control " ng-class="{'haserror':field===fields.email}" placeholder="Enter the Email" name="email " required="required " ng-model="props.email" ng-change="validations()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-6 form-group no-padding-hr ">
@@ -334,7 +334,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">WebURL<span>:</span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text " class="form-control " placeholder="Enter the Weburl " name="weburl " required="required " ng-model="props.web" ngburl-change="dnsName()">
+                                <input type="text " class="form-control " placeholder="Enter the Weburl " name="weburl " required="required " ng-model="props.web" ngburl-change="dnsName()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-6 form-group no-padding-hr ">

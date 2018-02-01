@@ -92,7 +92,7 @@
                                 <label class="mdl_label control-label" autofocus="none ">Company Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text" ng-class="{'haserror':field===fields.companyname}" class="form-control req-field-color" placeholder="Enter the Company name" name="companyname " required="required " ng-model="props.company_name " ng-change="fieldschangeAction() ">
+                                <input type="text" ng-class="{'haserror':field===fields.companyname}" class="form-control req-field-color" placeholder="Enter the Company name" name="companyname " required="required " ng-model="props.company_name " ng-change="fieldschangeAction()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
@@ -100,7 +100,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Contact Name<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text" ng-class="{'haserror':field===fields.contactname}" class="form-control req-field-color" placeholder="Enter the Contact Name " name="contactname " required="required " ng-model="props.contact_name" ng-change="fieldschangeAction() ">
+                                <input type="text" ng-class="{'haserror':field===fields.contactname}" class="form-control req-field-color" placeholder="Enter the Contact Name " name="contactname " required="required " ng-model="props.contact_name" ng-change="fieldschangeAction()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
@@ -117,7 +117,7 @@
                                 <label class="mdl_label control-label " autofocus="none ">Contact Email<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-8 no-padding-hr ">
-                                <input type="text" ng-class="{'haserror':field===fields.companyemail}" class="form-control req-field-color" placeholder="Enter the contact email " name="email" required="required " ng-model="props.email" ng-change="fieldschangeAction() ">
+                                <input type="text" ng-class="{'haserror':field===fields.companyemail}" class="form-control req-field-color" placeholder="Enter the contact email " name="email" required="required " ng-model="props.email" ng-change="fieldschangeAction()" maxlength="45">
                             </div>
                         </div>
                         <div ng-show="showerrormessage" class="col-md-12 no-padding-hr form-group">

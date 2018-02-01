@@ -1,5 +1,5 @@
 var QTable = angular.module('mobiDashBoardApp');
-QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, session, $filter, $timeout) {
+QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $stateParams, $http, domain, api, $timeout, core, localStorageService, NgTableParams, session, $filter, $timeout) {
     $rootScope.companytab = true;
     $rootScope.rolestab = true;
     $rootScope.locationtab = true;
@@ -63,12 +63,12 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    $scope.search = function () {
+    $scope.search = function() {
         if ($scope.searchEnable) {
             $scope.searchEnable = false;
         } else {
             $scope.searchEnable = true;
-            $timeout(function () {
+            $timeout(function() {
                 $('[name="vou_type"]').focus();
             }, 50);
         }
@@ -81,15 +81,15 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         }
     };
 
-    $scope.addremovealert = function () {
+    $scope.addremovealert = function() {
         $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
             $("#success-alert").removeClass('in');
         });
     }
-    $scope.getAllVoucherTypes = function () {
+    $scope.getAllVoucherTypes = function() {
         $scope.loading = true;
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             if (result.data.error !== undefined) {
                 $scope.msg = result.data.error.message;
@@ -103,7 +103,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 $scope.multivouchertable = new NgTableParams({ count: $scope.vouchersdata.length }, { dataset: $scope.vouchersdata });
             }
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -111,7 +111,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             .then(success, error);
     }
     $scope.getAllVoucherTypes();
-    $scope.showpreifixOptions = function (change) {
+    $scope.showpreifixOptions = function(change) {
         if (change === 'Y') {
             return "Yearly"
         } else if (change === 'M') {
@@ -122,20 +122,20 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    $scope.addremovealert = function () {
+    $scope.addremovealert = function() {
         $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function () {
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
             $("#success-alert").removeClass('in');
         });
     }
 
-    $rootScope.addvouchertype = function () {
+    $rootScope.addvouchertype = function() {
         editPosition = -1; //To tell it is add voucher
         $("#addvochertype").modal('show');
         $scope.getVoucherTypes('add');
     }
 
-    $rootScope.editVoucherModel = function (position) {
+    $rootScope.editVoucherModel = function(position) {
         editPosition = position;
         console.log("editVoucherModel", "fire", position);
         $("#editvochertype").modal('show');
@@ -143,7 +143,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    var editFunction = function () {
+    var editFunction = function() {
         var saveData = $scope.vouchersdata[editPosition];
         console.log("SaveData", saveData);
 
@@ -197,7 +197,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         $scope.prefixValidation();
     }
 
-    $scope.cancelForm = function () {
+    $scope.cancelForm = function() {
         $scope.clearScopeData();
         $("#editvochertype").modal('hide');
         $("#addvochertype").modal('hide');
@@ -205,13 +205,13 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         $scope.showerrormessage = false;
     }
 
-    $scope.voucherHistoryShow = function (voucher) {
+    $scope.voucherHistoryShow = function(voucher) {
         $scope.voucherId = {};
         $scope.histroyList = [];
         $scope.voucherId.id = voucher.id
         $scope.display_name = voucher.display_name;
         $scope.loading = true;
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             if (result.data.error !== undefined) {
                 $scope.msg = result.data.error.message;
@@ -222,7 +222,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 $scope.loctionshistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
             }
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -230,10 +230,10 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             .then(success, error);
     }
 
-    $scope.getVoucherTypes = function (arg) {
+    $scope.getVoucherTypes = function(arg) {
         $scope.loading = true;
 
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             if (result.data.error !== undefined) {
                 $scope.msg = result.data.error.message;
@@ -251,7 +251,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
             }
         }
 
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -260,7 +260,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     }
 
-    $scope.typeDataSelect = function (data) {
+    $scope.typeDataSelect = function(data) {
         console.log("typeDataSelect", data);
         $scope.validations();
         if ($scope.selectedTypes && data) {
@@ -319,9 +319,9 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         }
     }
 
-    $scope.getAllLoations = function (arg) {
+    $scope.getAllLoations = function(arg) {
         $scope.loading = true;
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             if (result.data.error !== undefined) {
                 $scope.msg = result.data.error.message;
@@ -333,7 +333,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 }
             }
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -342,7 +342,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    $scope.showDetails = function (location) {
+    $scope.showDetails = function(location) {
         $scope.validations();
         if (location) {
             $scope.voucherFields.isLocationSelected = true;
@@ -361,12 +361,12 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    $scope.getdaybooks = function (location) {
+    $scope.getdaybooks = function(location) {
         if (location) {
             console.log("LocationId", location);
             $scope.loading = true;
             $scope.isLocationSelected = true;
-            var success = function (result) {
+            var success = function(result) {
                 $scope.loading = false;
                 if (result.data.error !== undefined) {
                     $scope.msg = result.data.error.message;
@@ -384,7 +384,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 }
 
             }
-            var error = function (result) {
+            var error = function(result) {
                 $scope.loading = false;
                 session.sessionexpried(result.status);
             }
@@ -395,10 +395,10 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    $scope.getAllStores = function (location) {
+    $scope.getAllStores = function(location) {
         $scope.loading = true;
         var obj = { "location_id": location }
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             if (result.data.error !== undefined) {
                 $scope.msg = result.data.error.message;
@@ -412,9 +412,9 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
                 }
                 $scope.selectedStores = filterData;
             }
-           
+
         }
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -423,17 +423,17 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     }
 
-    $scope.setActive = function (type) {
+    $scope.setActive = function(type) {
         $scope.active = type;
     };
     $scope.setActive("Yearly");
 
-    $scope.isActive = function (type) {
+    $scope.isActive = function(type) {
         // console.log("isActive", type);
         return type === $scope.active;
     };
 
-    $scope.sepratorValid = function (eve) {
+    $scope.sepratorValid = function(eve) {
         console.log("keycode", eve.keyCode, eve.target.value);
         console.log("keycodeValue", eve.key);
         var key = eve.keyCode;
@@ -452,13 +452,13 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
 
 
-    $scope.validations = function () {
+    $scope.validations = function() {
         $scope.field[0] = "";
         $scope.showerrormessage = false;
     }
 
 
-    $scope.AllVoucherValidations = function () {
+    $scope.AllVoucherValidations = function() {
 
         $scope.showerrormessage = false;
         var data = $scope.voucherSubmit;
@@ -567,11 +567,15 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         submitObj.renumber = $scope.voucherSubmit.reNumber;
         submitObj.print_voucher = $scope.voucherSubmit.printVoucher;
 
-        var success = function (result) {
+        var success = function(result) {
             $scope.loading = false;
             console.log("voucherprefix", JSON.stringify(result));
             if (result.data.error === undefined) {
-                $scope.msg = "Voucher added successfully";
+                if (editPosition != -1) {
+                    $scope.msg = "Voucher edited successfully";
+                } else {
+                    $scope.msg = "Voucher added successfully";
+                }
                 $scope.cancelForm();
                 $scope.addremovealert();
                 $scope.clearScopeData();
@@ -587,7 +591,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         }
 
 
-        var error = function (result) {
+        var error = function(result) {
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
@@ -597,7 +601,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
     }
 
 
-    $scope.restrictData = function () {
+    $scope.restrictData = function() {
         $scope.field = [];
         $scope.showerrormessage = false;
         var prefix = $scope.voucherSubmit.prefix;
@@ -754,7 +758,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
 
     }
 
-    $scope.prefixValidation = function () {
+    $scope.prefixValidation = function() {
         var mainPrefix = "Preview   : ";
         var prefix = $scope.voucherSubmit.prefix;
         var sep1 = $scope.voucherSubmit.sep1;
@@ -847,7 +851,7 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         $scope.restrictData();
     }
 
-    $scope.clearScopeData = function () {
+    $scope.clearScopeData = function() {
         $scope.voucherSubmit = {}; //Clearing scope data.
         $scope.voucherFields = {};
         // $scope.voucherSubmit.sep1 = '';
@@ -880,14 +884,14 @@ QTable.controller('vouchersettingsCntl', function ($scope, $state, $rootScope, $
         "name": "TO"
     }]
     $scope.vouchermodifcationsdata = [{
-        "name": "Allow user to specify voucher id manually"
-    },
-    {
-        "name": "Re number subsequent vouchers, if a new voucher is inserted in between vouchers"
-    },
-    {
-        "name": "Allow user to print voucher after creation"
-    }
+            "name": "Allow user to specify voucher id manually"
+        },
+        {
+            "name": "Re number subsequent vouchers, if a new voucher is inserted in between vouchers"
+        },
+        {
+            "name": "Allow user to print voucher after creation"
+        }
     ]
     $scope.rotationPolicy = [{
         "name": "None"
