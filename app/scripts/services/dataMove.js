@@ -90,6 +90,13 @@ MobiDash.service('dataMove', function(localStorageService) {
     this.getsearchvoucherData = function() {
         return localStorageService.get("searchvoucherData");
     };
+
+    this.setusersearchData = function(myData) {
+        localStorageService.set("usersearchData", myData);
+    };
+    this.getusersearchData = function() {
+        return localStorageService.get("usersearchData");
+    };
 });
 
 
@@ -127,15 +134,14 @@ MobiDash.factory('session', function($state) {
                     confirmButtonText: "Ok",
                 }).then(function() {});
             }
-         if(status==="No Data"){
-           swal({
-              title: "",
-              text: "No data found.",
-              type: 'warning',
-              confirmButtonColor: '#facea8',
-              confirmButtonText: "Ok",
-             }).then(function() {
-              });
+            if (status === "No Data") {
+                swal({
+                    title: "",
+                    text: "No data found.",
+                    type: 'warning',
+                    confirmButtonColor: '#facea8',
+                    confirmButtonText: "Ok",
+                }).then(function() {});
 
             }
         }

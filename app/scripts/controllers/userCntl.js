@@ -130,6 +130,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
                     obj = {};
                 });
                 $scope.users = array;
+                dataMove.getusersearchData($scope.users);
                 $scope.usertable = new NgTableParams({ count: $scope.users.length }, { dataset: $scope.users });
             } else {
                 $scope.msg = result.data.error.message;

@@ -1,0 +1,25 @@
+<div class="container table-container-width no-padding-hr">
+    <div class="row no-margin-hr">
+        <div class="row no-margin-hr m-search-header-show">
+            <img class="pull-left m-back-button-show" src="images/back_arrow_mobile.png" ng-click="backButtonAction()">
+            <input class="m-search-input-show" type="text" name="balanceSheetSearch" ng-model="globalSearchData" placeholder="Search" ng-keyup="$event.keyCode == 13 ? searchfunctionality() : null" autofocus>
+            <img class="pull-right m-search-seachbutton-show" ng-click="searchfunctionality()" src="images/search_mobile.png" alt="search" />
+        </div>
+        <div class="col-sm-12 col-xs-12 no-padding-hr">
+            <ul ng-repeat="user in userslist" class="list-styles no-padding-hr">
+                <li class="m-custom-content-border m-list-align-left-right">
+                    <span class="m-main-field" style="width:calc(100% - 70px);">{{user.username}}</span>
+                    <a class="pull-right m-phoneNumber" ng-show="user.mobile" href="tel:{{user.mobile}}"><img width="32" height="32" src="images/call-icon.png" /></a>
+                    <span class="m-sub-field">{{user.mobile}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="alert alert-position-success " id="success-alert " style="display:none; ">
+    <strong>{{msg}}</strong>
+</div>
+<div ng-show="loading " class="load text-center ">
+    <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
+    <h4 class="loading_msg ">Loading Please Wait...</h4>
+</div>

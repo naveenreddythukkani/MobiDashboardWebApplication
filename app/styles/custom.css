@@ -1269,7 +1269,7 @@ td {
         font-size: 18px;
     }
     .hambergurmenuload {
-        font-size: 23px !important;
+        font-size: 20px !important;
     }
     .transparentView {
         background: transparent;
@@ -1383,7 +1383,8 @@ td {
 }
 
 .m-phoneNumber {
-    margin-top: -25px;
+    margin-top: -21px;
+    margin-right: 10px;
     text-decoration: none;
 }
 
@@ -1450,7 +1451,6 @@ td {
 #locationListInHeader .location-modal-size {
     max-height: 60% !important;
     top: 20% !important;
-    overflow-x: auto;
 }
 
 .m-location-list-text-dispaly {
@@ -1647,4 +1647,27 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 .close-button-voucherscreen {
     font-size: 43px;
     margin-top: -9px !important;
+}
+
+#imagePreview .modal-dialog,
+#audioplay .modal-dialog,
+#fileshow .modal-dialog {
+    width: 90%;
+    height: 80%;
+    margin: 5% auto;
+}
+
+.voucher-modal-close {
+    text-align: center;
+    width: 50%;
+}
+
+.m-location-footer-size {
+    height: 20px;
+    width: 100%;
+}
+
+#locationListInHeader .location-modal-size .modal-body {
+    max-height: 290px;
+    overflow-y: auto;
 }

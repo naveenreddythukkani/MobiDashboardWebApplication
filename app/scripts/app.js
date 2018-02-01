@@ -111,8 +111,14 @@ MobiDash.config(function($routeProvider, $stateProvider, $urlRouterProvider, $ht
             templateUrl: 'views/monthWise.html',
             controller: "monthWiseCntl",
             onEnter: changeOnEnter
-        }).
-    state('locationwisebalances', {
+        })
+        .state('usersearch', {
+            url: '/usersearchCntl',
+            templateUrl: 'views/m.usersearch.html',
+            controller: "usersearchCntl",
+            onEnter: changeOnEnter
+        })
+        .state('locationwisebalances', {
             url: '/locationwisebalances',
             templateUrl: 'views/locationwisebalances.html',
             controller: 'locationwisebalancesCntl',
