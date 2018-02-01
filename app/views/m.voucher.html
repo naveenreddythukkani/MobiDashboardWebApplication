@@ -75,12 +75,12 @@
                 <ul ng-repeat="voucher in voucherdetails| orderBy:['location', 'gl_name']" class="list-styles no-padding-hr border-left-none border-right-none" style="margin-bottom:2px;">
                     <ul ng-if="ledger_ltype == 'S'" class="list-styles location-text-vocher-uls no-padding-hr" style="margin-bottom:2px;">
                         <li class="location-text-vocher " style="background:#d3d3d3;">
-                            <span class="glname_text">{{props.ltype_name}} Under {{voucher.gl_name}} / {{voucher.display_name}}</span>
+                            <span class="glname_text">Under {{voucher.gl_name}} - {{voucher.display_name}}</span>
                         </li>
                     </ul>
                     <ul ng-if="ledger_ltype == 'L' || ledger_ltype == 'C' || ledger_ltype == 'B'" class="list-styles no-padding-hr  location-text-vocher-uls  " style="margin-bottom:2px;">
                         <li class="location-text-vocher " style="background:#d3d3d3;">
-                            <span class="glname_text">{{props.ledger_name}} Under {{voucher.display_name}}</span>
+                            <span class="glname_text">Under {{voucher.display_name}}</span>
                         </li>
                     </ul>
                     <ul class="list-styles no-padding-hr vouchertable" style="margin-bottom:2px;">

@@ -253,8 +253,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         var year = completedate[0];
         var month = completedate[1];
         var day = completedate[2];
-        console.log(month.toString().length);
-        month = month - 1;
+        if (month === "01" || month === "02" || month === "03") {
+            year = year - 1;
+        }
         if (month.toString().length == 1) {
             month = '0' + month;
             if (month == 00) {

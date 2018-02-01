@@ -12,7 +12,7 @@
         <ul ng-repeat="location in locationsList" class="list-styles no-padding-hr">
             <li class="m-custom-content-border m-list-align-left-right">
                 <span class="m-main-field" style="width:calc(100% - 45px);" ng-click="dashboardAction(location)">{{location.display_name}}</span>
-                <a class="pull-right m-phoneNumber" ng-show="location.mobile" href="tel:{{location.mobile}}"><img src="images/call-icon.png" /></a>
+                <a class="pull-right m-phoneNumber" ng-show="location.mobile" href="tel:{{location.mobile}}"><img width="32" height="32" src="images/call-icon.png" /></a>
                 <span class="m-sub-field">{{location.mobile}}</span>
             </li>
         </ul>
