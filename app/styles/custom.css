@@ -1653,8 +1653,14 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 #audioplay .modal-dialog,
 #fileshow .modal-dialog {
     width: 90%;
-    height: 80%;
-    margin: 5% auto;
+    margin: 5vh auto;
+}
+
+#imagePreview .modal-body,
+#audioplay .modal-body,
+#fileshow .modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .voucher-modal-close {

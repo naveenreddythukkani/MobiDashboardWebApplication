@@ -12,7 +12,7 @@
                 <form name="loginForm" role="form" ng-submit="loginForm.$valid && false" novalidate class="login_container">
                     <div class="row form-group">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                            <input type="text" class="form-control" name="mobile" placeholder="Enter Mobile Number" autofocus ng-model="user.mobile" required="required" ng-change="editingfields()"  maxlength="10" mobile-validation>
+                            <input type="tel" class="form-control" name="mobile" placeholder="Enter Mobile Number" autofocus ng-model="user.mobile" required="required" ng-change="editingfields()" maxlength="10" mobile-validation>
                         </div>
                     </div>
                     <div ng-show="mobilenumbererror" class="col-md-12 no-padding-hr form-group">
@@ -20,7 +20,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12 col-xs-12 col-sm-12">
-                            <input type="{{passwordtext}}" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Enter password" required="required" ng-minlength="4" ng-change="editingfields()">
+                            <input type="{{passwordtext}}" class="form-control" ng-model="user.password" name="password" id="password" placeholder="Enter password" required="required" ng-minlength="4" ng-change="editingfields()" autocomplete="off" autocorrect="off" autocapitalize="off">
                             <span class="glyphicon glyphicon-eye-open pull-right eye-icon-position-login" ng-click="showPassword()" ng-if="passwordtext==='password'"></span>
                             <span class="glyphicon glyphicon-eye-close pull-right eye-icon-position-login" ng-click="showPassword()" ng-if="passwordtext==='text'"></span>
                         </div>
@@ -28,9 +28,9 @@
                     <div ng-show="passworderror" class="col-md-12 col-xs-12 col-sm-12 no-padding-hr form-group">
                         <span style="color:#EF5F5F">{{passworderrormessage}}</span>
                     </div>
-                    <div class="row form-group col-md-12 col-xs-12 col-sm-12">
+                    <!-- <div class="row form-group col-md-12 col-xs-12 col-sm-12">
                         <input type="checkbox" name="remember" ng-model="user.rememberCheck" ng-checked="user.rememberCheck"> Remember Me<br>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-12 col-xs-12 col-sm-12 text-center">
                             <button type="submit" class="btn login-button background-defalt" ng-click="clientLogin()">Login</button>

@@ -64,7 +64,7 @@
                                 <a class="normaltabs" data-toggle="tab">Voucher Settings</a>
                             </li>
                             <li ng-show="downloadstab" ui-sref="download" ng-class="{'active': activeTab == 11}">
-                                    <a class="normaltabs" data-toggle="tab">Downloads</a>
+                                <a class="normaltabs" data-toggle="tab">Downloads</a>
                             </li>
 
                             <li class="pull-right">
@@ -173,7 +173,7 @@
                     </div>
                 </div>
             </div>
-            <div class=" row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove && !isSearched">
+            <div class=" row no-margin-hr " ng-show="balancesheetbreadcurmbs && !dateremove">
                 <div style="width:70%;margin:0 auto; ">
                     <label ng-show="!voucherControl " class="dateshow "><span ng-if="pandlreport==true "><span class="colors actionsmenu " ng-click="datemodelshow() ">{{startdate| date : 'dd-MM-yyyy'}}</span> to <span class="colors actionsmenu
                                     " ng-click="datemodelshow() ">{{today| date : 'dd-MM-yyyy'}}</span></span><span ng-if="pandlreport==false "> as on <span ng-click="datemodelshow() " class="colors actionsmenu ">{{today| date : 'dd-MM-yyyy'}}</span></span></label>

@@ -675,12 +675,11 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
     }
     $scope.searchAction = function() {
         localStorageService.set('globalSearchData', "");
-        // if ($state.current.name === "user") {
-        //     $state.go('usersearch');
-        // } else {
-        $state.go('search');
-
-        // }
+        if ($state.current.name === "user") {
+            $state.go('usersearch');
+        } else {
+            $state.go('search');
+        }
     }
     $scope.balancesheetPopOverAction = function(text) {
         $scope.popoverhide();

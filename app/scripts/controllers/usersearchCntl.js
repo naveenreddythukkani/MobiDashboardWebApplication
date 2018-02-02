@@ -3,6 +3,7 @@ QTable.controller('usersearchCntl', function($scope, $state, $rootScope, $stateP
 
     $rootScope.balancesheetbreadcurmbs = false;
     $scope.userslist = [];
+    $scope.userSearchData = "";
     var screenwidth = $(window).width();
     if (screenwidth > mobileWidth) {
         $rootScope.showheader = true;
@@ -27,8 +28,23 @@ QTable.controller('usersearchCntl', function($scope, $state, $rootScope, $stateP
     $timeout(function() {
         $('[name="balanceSheetSearch"]').focus();
     }, 50);
-    $scope.userslist = dataMove.getusersearchData();
+
     $scope.backButtonAction = function() {
         $window.history.back();
     }
+
+    $scope.userslist = dataMove.getusersearchData();
+
+    // $scope.searchfunctionality = function() {
+    //     if ($scope.userSearchData === "") {
+    //         $scope.userslist = [];
+    //         return;
+    //     } else {
+    //         $scope.users = $scope.userslist;
+    //         $scope.users = $scope.users.filter(function() {
+
+    //         });
+
+    //     }
+    // }
 });

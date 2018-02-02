@@ -68,6 +68,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             return;
         } else {
             $scope.loading = true;
+            var strings = $scope.globalSearchData.replace(/[^a-zA-Z0-9 ]/g, "");
             var success = function(result) {
                 $scope.loading = false;
                 localStorageService.set("globalSearchData", $scope.globalSearchData);
@@ -90,7 +91,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
                 $scope.loading = false;
                 session.sessionexpried(data.status);
             };
-            $http.get(domain + api + 'list/findalldata/?q=' + $scope.globalSearchData + '&sendall=0', config).
+            $http.get(domain + api + 'list/findalldata/?q=' + strings + '&sendall=0', config).
             then(success, error);
 
         }
@@ -110,6 +111,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
     $scope.showMoreResults = function() {
         $scope.LoadMoreButton = false;
         $scope.loading = true;
+        var strings = $scope.globalSearchData.replace(/[^a-zA-Z0-9 ]/g, "");
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
@@ -127,7 +129,7 @@ QTable.controller('searchCntl', function($scope, $state, $rootScope, $stateParam
             $scope.loading = false;
             session.sessionexpried(result.status);
         }
-        $http.get(domain + api + 'list/findalldata?q=' + $scope.globalSearchData + '&sendall=1', config).
+        $http.get(domain + api + 'list/findalldata?q=' + strings + '&sendall=1', config).
         then(success, error);
     };
 

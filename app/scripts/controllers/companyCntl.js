@@ -183,6 +183,12 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
                 if (result.data.length === 0) {
                     session.sessionexpried("No Data");
                 }
+                if (result.data.length === 1) {
+                    if (result.data[0].status === 'N') {
+                        $scope.msg = "Creating a company , Please click on refresh button after few minutes";
+                        $scope.companycreatingaddremovealert();
+                    }
+                }
                 $scope.tenants = result.data;
                 $scope.multiclient = new NgTableParams({ count: $scope.tenants.length }, { dataset: $scope.tenants });
             } else {

@@ -106,6 +106,8 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
                 console.log(result.data[0]);
                 var obj = {};
                 var array = [];
+                var mobileObj = {};
+                var mobilearry = []
                 angular.forEach(result.data, function(item) {
                     obj.phonewithNameSearch = item.username + item.mobile;
                     obj.username = item.username;
@@ -126,11 +128,15 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
                     obj.user_id = item.user_id;
                     obj.userprofile_id = item.userprofile_id;
                     obj.vouchermodifydays = item.vouchermodifydays;
+                    mobileObj.mobile = item.mobile;
+                    mobileObj.username = item.username;
                     array.push(obj);
+                    mobilearry.push(mobileObj)
                     obj = {};
+                    mobileObj = {};
                 });
                 $scope.users = array;
-                dataMove.getusersearchData($scope.users);
+                dataMove.setusersearchData(mobilearry);
                 $scope.usertable = new NgTableParams({ count: $scope.users.length }, { dataset: $scope.users });
             } else {
                 $scope.msg = result.data.error.message;
