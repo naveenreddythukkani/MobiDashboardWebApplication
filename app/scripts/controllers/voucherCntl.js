@@ -95,55 +95,89 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             var success = function(result) {
                 $scope.loading = false;
                 if (result.data.error === undefined) {
-                    if (result.data.length === 0) {
+                    if (result.data.data.length === 0) {
                         session.sessionexpried("No Data");
                     }
-                    console.log(JSON.stringify(result));
-                    $scope.obalance = result.data.obdata;
-                    var voucher_data = result.data.obdata;
-                    console.log(JSON.stringify(voucher_data));
-                    console.log(voucher_data.length);
+                    // $scope.obalance = result.data.obdata;
+                    // var voucher_data = result.data.obdata;
+                    // console.log(JSON.stringify(voucher_data));
+                    // console.log(voucher_data.length);
+                    // $scope.voucherdetails = [];
+                    // for (var i = 0; i < voucher_data.length; i++) {
+                    //     $scope.voucherdetails.push(voucher_data[i]);
+                    // }
+                    // console.log(JSON.stringify($scope.voucherdetails));
+                    // for (var j = 0; j < $scope.voucherdetails.length; j++) {
+                    //     var dataset = $scope.voucherdetails[j].data;
+                    //     var totalAmt = 0;
+                    //     for (var k = 0; k < dataset.length; k++) {
+                    //         if (dataset[k].isverified) {
+                    //             totalAmt = totalAmt + dataset[k].amount;
+                    //         }
+                    //     }
+                    //     if ($scope.voucherdetails[j].ob_amount == null) {
+                    //         $scope.voucherdetails[j].ob_amount = 0;
+                    //     }
+                    //     if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
+                    //         $scope.voucherdetails.splice(j, 1);
+                    //         j--;
+                    //         continue;
+                    //     }
+                    //     totalAmt += $scope.voucherdetails[j].ob_amount;
+                    //     $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
+                    //     console.log('totalAmt == ' + totalAmt);
+                    // }
+                    // var amount = 0.0;
+                    // for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                    //     amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
+                    // }
+                    // $scope.ledger_amt = parseFloat(amount).toFixed(2);
+                    // console.log(JSON.stringify($scope.voucherdetails));
+
                     $scope.voucherdetails = [];
-                    for (var i = 0; i < voucher_data.length; i++) {
-                        $scope.voucherdetails.push(voucher_data[i]);
-                    }
-                    console.log(JSON.stringify($scope.voucherdetails));
-                    for (var j = 0; j < $scope.voucherdetails.length; j++) {
-                        var dataset = $scope.voucherdetails[j].data;
-                        var totalAmt = 0;
-                        for (var k = 0; k < dataset.length; k++) {
-                            if (dataset[k].isverified) {
-                                totalAmt = totalAmt + dataset[k].amount;
+                    $scope.locationwise = {};
+                    $rootScope.locationsListinheader.forEach(function(location) {
+                        $scope.locationwise.display_name = location.display_name;
+                        $scope.locationwise.loc_id = location.id
+                        $scope.locationwise.data = result.data.data.filter(function(voucher) {
+                            if (location.id === voucher.loc_id) {
+                                $scope.locationwise.ob_amount = voucher.ob_amt;
+                                return location.id === voucher.loc_id;
                             }
-                        }
-                        if ($scope.voucherdetails[j].ob_amount == null) {
-                            $scope.voucherdetails[j].ob_amount = 0;
-                        }
-                        if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
-                            $scope.voucherdetails.splice(j, 1);
-                            j--;
-                            continue;
-                        }
-                        totalAmt += $scope.voucherdetails[j].ob_amount;
-                        $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
-                        console.log('totalAmt == ' + totalAmt);
-                    }
+                        });
+                        var totalAmt = 0.0;
+                        $scope.locationwise.data.forEach(function(voucher) {
+                            if (voucher.isverified) {
+                                totalAmt += voucher.amount;
+                            }
+                        });
+                        totalAmt += $scope.locationwise.ob_amount !== undefined ? parseFloat($scope.locationwise.ob_amount) : 0.0;
+                        $scope.locationwise.totalAmount = parseFloat(totalAmt).toFixed(2);
+                        $scope.locationwise.data.length > 0 ? $scope.voucherdetails.push($scope.locationwise) : '';
+                        $scope.locationwise = {};
+                    });
                     var amount = 0.0;
-                    for (var i = 0; i < $scope.voucherdetails.length; i++) {
-                        amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
-                    }
+                    $scope.voucherdetails.forEach(function(locationWiseTotal) {
+                        amount += parseFloat(locationWiseTotal.totalAmount);
+                    });
                     $scope.ledger_amt = parseFloat(amount).toFixed(2);
-                    console.log(JSON.stringify($scope.voucherdetails));
+                    console.log($scope.voucherdetails);
                 } else {
+                    if (result.data.error.code === 5056) {
+                        $scope.voucherdetails = [];
+                        setTimeout(function() {
+                            $state.go('balancesheet');
+                        }, 3000);
+                    }
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
                 }
             }
-            var error = function(data) {
+            var error = function(result) {
                 $scope.loading = false;
                 session.sessionexpried(result.status);
             }
-            $http.post(domain + api + "report/generalledger/alllocation/", data, config).
+            $http.post(domain + api + "report/generalledger/", data, config).
             then(success, error);
         } else {
             $scope.ledgerIndividualLocationStatus = true;
@@ -153,7 +187,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             var success = function(result) {
                 $scope.loading = false;
                 if (result.data.error === undefined) {
-                    if (result.data.length === 0) {
+                    if (result.data.data.length === 0) {
                         session.sessionexpried("No Data");
                     }
                     $scope.obalance = result.data;
@@ -188,6 +222,12 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     $scope.balanceamount = $scope.balanceamount.toFixed(2);
                     $scope.ledger_amt = $scope.balanceamount;
                 } else {
+                    if (result.data.error.code === 5056) {
+                        $scope.voucherdetails = [];
+                        setTimeout(function() {
+                            $state.go('balancesheet');
+                        }, 3000);
+                    }
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
                 }
@@ -217,7 +257,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             var success = function(result) {
                 $scope.loading = false;
                 if (result.data.error === undefined) {
-                    if (result.data.length === 0) {
+                    if (result.data.data.length === 0) {
                         session.sessionexpried("No Data");
                     }
                     console.log(JSON.stringify(result.data));
@@ -229,34 +269,69 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     for (var i = 0; i < voucher_data.length; i++) {
                         $scope.voucherdetails.push(voucher_data[i]);
                     }
-                    console.log(JSON.stringify($scope.voucherdetails));
-                    for (var j = 0; j < $scope.voucherdetails.length; j++) {
-                        var dataset = $scope.voucherdetails[j].data;
-                        var totalAmt = 0;
-                        for (var k = 0; k < dataset.length; k++) {
-                            if (dataset[k].isverified === 1) {
-                                totalAmt = totalAmt + dataset[k].amount;
+                    // console.log(JSON.stringify($scope.voucherdetails));
+                    // for (var j = 0; j < $scope.voucherdetails.length; j++) {
+                    //     var dataset = $scope.voucherdetails[j].data;
+                    //     var totalAmt = 0;
+                    //     for (var k = 0; k < dataset.length; k++) {
+                    //         if (dataset[k].isverified === 1) {
+                    //             totalAmt = totalAmt + dataset[k].amount;
+                    //         }
+                    //     }
+                    //     if ($scope.voucherdetails[j].ob_amount == null) {
+                    //         $scope.voucherdetails[j].ob_amount = 0;
+                    //     }
+                    //     if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
+                    //         $scope.voucherdetails.splice(j, 1);
+                    //         j--;
+                    //         continue;
+                    //     }
+                    //     totalAmt += $scope.voucherdetails[j].ob_amount;
+                    //     $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
+                    //     console.log('totalAmt == ' + totalAmt);
+                    // }
+                    // var amount = 0.0;
+                    // for (var i = 0; i < $scope.voucherdetails.length; i++) {
+                    //     amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
+                    // }
+                    // $scope.ledger_amt = parseFloat(amount).toFixed(2);
+                    // console.log(JSON.stringify($scope.voucherdetails));
+                    $scope.voucherdetails = [];
+                    $scope.locationwise = {};
+                    $rootScope.locationsListinheader.forEach(function(location) {
+                        $scope.locationwise.display_name = location.display_name;
+                        $scope.locationwise.loc_id = location.id
+                        $scope.locationwise.data = result.data.data.filter(function(voucher) {
+                            if (location.id === voucher.loc_id) {
+                                $scope.locationwise.ob_amount = voucher.ob_amt;
+                                return location.id === voucher.loc_id;
                             }
-                        }
-                        if ($scope.voucherdetails[j].ob_amount == null) {
-                            $scope.voucherdetails[j].ob_amount = 0;
-                        }
-                        if ($scope.voucherdetails[j].ob_amount == 0 && dataset.length == 0) {
-                            $scope.voucherdetails.splice(j, 1);
-                            j--;
-                            continue;
-                        }
-                        totalAmt += $scope.voucherdetails[j].ob_amount;
-                        $scope.voucherdetails[j].totalAmount = totalAmt.toFixed(2);
-                        console.log('totalAmt == ' + totalAmt);
-                    }
+
+                        });
+                        var totalAmt = 0.0;
+                        $scope.locationwise.data.forEach(function(voucher) {
+                            if (voucher.isverified) {
+                                totalAmt += voucher.amount;
+                            }
+                        });
+                        totalAmt += $scope.locationwise.ob_amount !== undefined ? parseFloat($scope.locationwise.ob_amount) : 0.0;;
+                        $scope.locationwise.totalAmount = parseFloat(totalAmt).toFixed(2);
+                        $scope.locationwise.data.length > 0 ? $scope.voucherdetails.push($scope.locationwise) : '';
+                        $scope.locationwise = {};
+                    });
                     var amount = 0.0;
-                    for (var i = 0; i < $scope.voucherdetails.length; i++) {
-                        amount = amount + parseFloat($scope.voucherdetails[i].totalAmount);
-                    }
+                    $scope.voucherdetails.forEach(function(locationWiseTotal) {
+                        amount += parseFloat(locationWiseTotal.totalAmount);
+                    });
                     $scope.ledger_amt = parseFloat(amount).toFixed(2);
-                    console.log(JSON.stringify($scope.voucherdetails));
+                    console.log($scope.voucherdetails);
                 } else {
+                    if (result.data.error.code === 5056) {
+                        $scope.voucherdetails = [];
+                        setTimeout(function() {
+                            $state.go('balancesheet');
+                        }, 3000);
+                    }
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
                 }
@@ -265,7 +340,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                 $scope.loading = false;
                 session.sessionexpried(result.status);
             };
-            $http.post(domain + api + "report/generalledger/alllocation/", data, config).
+            $http.post(domain + api + "report/generalledger/", data, config).
             then(success, error);
 
         } else {
@@ -277,7 +352,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             var success = function(result) {
                 $scope.loading = false;
                 if (result.data.error === undefined) {
-                    if (result.data.length === 0) {
+                    if (result.data.data.length === 0) {
                         session.sessionexpried("No Data");
                     }
                     $scope.obalance = result.data;
@@ -311,6 +386,12 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                     $scope.balanceamount = $scope.balanceamount.toFixed(2);
                     $scope.ledger_amt = $scope.balanceamount;
                 } else {
+                    if (result.data.error.code === 5056) {
+                        $scope.voucherdetails = [];
+                        setTimeout(function() {
+                            $state.go('balancesheet');
+                        }, 3000);
+                    }
                     $scope.msg = result.data.error.message;
                     $scope.addremovealert();
                 }
@@ -343,7 +424,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
-                if (result.data.length === 0) {
+                if (result.data.obdata.length === 0) {
                     session.sessionexpried("No Data");
                 }
                 console.log("date in obdata" + JSON.stringify(result.data));
@@ -378,6 +459,12 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                 }
                 $scope.ltype_amt = parseFloat(amount).toFixed(2);
             } else {
+                if (result.data.error.code === 5056) {
+                    $scope.voucherdetails = [];
+                    setTimeout(function() {
+                        $state.go('balancesheet');
+                    }, 3000);
+                }
                 $scope.msg = result.data.error.message;
                 $scope.addremovealert();
             }

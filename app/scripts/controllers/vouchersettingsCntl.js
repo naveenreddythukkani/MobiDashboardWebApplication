@@ -910,7 +910,7 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
     $scope.separators = [{
         "name": ""
     }, {
-        "name": "\\"
+        "name": "\/"
     }, {
         "name": "-"
     }]

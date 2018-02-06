@@ -34,14 +34,14 @@
                         <tr ng-repeat-start="voucher in voucherdetails| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" class="actionsmenu" ng-class=" {red:voucher.isverified==0 } " ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
                             <td rowspan="2 " class="tx-type-main border-right-none ">
                                 <span col-span="1 " class="pull-right " style="padding-right:20px; ">{{voucher.tx_type}}</span>
-                                <span col-span="2 " style="padding-right:20px; ">{{voucher.trans_date| date : "dd/MM/yy"}}</span> <br>
+                                <span col-span="2 " style="padding-right:20px; ">{{voucher.trans_date| date : "dd/MM/yyyy"}}</span> <br>
                                 <div style="display:block;text-align:right; font-weight:bold; padding-right:20px "> {{voucher.doc_id}}</div>
                             </td>
-                            <td colspan="2 " class="border-bottom-none ">{{voucher.gl_name}}</td>
+                            <td colspan="2 " class="border-bottom-none td-padding-right">{{voucher.gl_name}}</td>
                         </tr>
                         <tr ng-class="{red:voucher.isverified==0 } " class="border-right-none actionsmenu" ng-repeat-end ng-click="vocherdetailsPageNavigation(voucher.v_id,voucher.tx_type) ">
                             <td class="border-right-none voucher-refname"><span ng-show="voucher.refno">Ref No:{{voucher.refno}}</span><span ng-show="voucher.refno && voucher.refdate"> | </span><span ng-show="voucher.refdate">Ref Date:{{voucher.refdate| date: "dd/MM/yyyy"}}</span></td>
-                            <td align="right " class="border-left-none " class="td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td>
+                            <td align="right" class="border-left-none td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td>
                             <!-- <td align="right" class="td-padding-right">{{voucher.amount >= 0 ? ((voucher.amount | INRCurrency) + " Dr") : (((-1 * voucher.amount) | INRCurrency) + " Cr")}}</td> -->
                         </tr>
                         <tr class="border-right-none">
@@ -103,11 +103,11 @@
                             </tr>
                             <tr class="background actionsmenu" ng-repeat-start="vouchersubdetails in voucher.data| orderBy:['trans_date', 'tx_type', 'doc_id', 'seq']" ng-class="{red:vouchersubdetails.isverified == 0}" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)">
                                 <td rowspan="2" class="tx-type-main border-right-none">
-                                    <span col-span="1">{{vouchersubdetails.trans_date| date : "dd/MM/yy"}}</span>
+                                    <span col-span="1">{{vouchersubdetails.trans_date| date : "dd/MM/yyyy"}}</span>
                                     <span col-span="2" class="pull-right" style="padding-right:20px;">{{vouchersubdetails.tx_type}}</span><br>
                                     <div style="display:block;text-align:right; font-weight:bold; padding-right:20px"> {{vouchersubdetails.doc_id}}</div>
                                 </td>
-                                <td colspan="2" class="border-bottom-none">{{vouchersubdetails.gl_name}}</td>
+                                <td colspan="2" class="border-bottom-none td-padding-right">{{vouchersubdetails.gl_name}}</td>
                             </tr>
                             <tr ng-class="{red:vouchersubdetails.isverified == 0}" class="border-right-none actionsmenu" ng-click="vocherdetailsPageNavigation(vouchersubdetails.v_id,vouchersubdetails.tx_type)" ng-repeat-end>
                                 <td class="border-right-none voucher-refname"><span ng-show="vouchersubdetails.refno">Ref No:{{vouchersubdetails.refno}}</span><span ng-show="vouchersubdetails.refno && vouchersubdetails.refdate"> | </span><span ng-show="vouchersubdetails.refdate">Ref Date:{{vouchersubdetails.refdate| date: "dd/MM/yyyy"}}</span></td>

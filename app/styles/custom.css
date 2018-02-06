@@ -1307,6 +1307,18 @@ td {
         right: 15px;
         margin-top: 11px;
     }
+    #imagePreview .modal-dialog,
+    #audioplay .modal-dialog,
+    #fileshow .modal-dialog {
+        width: 90%;
+        margin: 5vh auto;
+    }
+    #imagePreview .modal-body,
+    #audioplay .modal-body,
+    #fileshow .modal-body {
+        max-height: 60vh;
+        overflow-y: auto;
+    }
 }
 
 
@@ -1652,14 +1664,15 @@ input[type="text"].m-search-input-show::-webkit-input-placeholder {
 #imagePreview .modal-dialog,
 #audioplay .modal-dialog,
 #fileshow .modal-dialog {
-    width: 90%;
+    width: 50%;
+    height: 70%;
     margin: 5vh auto;
 }
 
 #imagePreview .modal-body,
 #audioplay .modal-body,
 #fileshow .modal-body {
-    max-height: 60vh;
+    max-height: 70vh;
     overflow-y: auto;
 }
 

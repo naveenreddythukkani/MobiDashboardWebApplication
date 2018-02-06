@@ -425,7 +425,19 @@ module.exports = function(grunt) {
                 configFile: 'test/karma.conf.js',
                 singleRun: true
             }
+        },
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['env']
+            },
+            dist: {
+                files: {
+                    'dist/app.js': 'src/app.js'
+                }
+            }
         }
+
     });
 
 
@@ -480,6 +492,7 @@ module.exports = function(grunt) {
         'newer:jshint',
         'newer:jscs',
         'test',
-        'build'
+        'build',
+        'babel'
     ]);
 };

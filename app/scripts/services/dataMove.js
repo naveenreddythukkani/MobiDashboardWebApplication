@@ -102,7 +102,7 @@ MobiDash.service('dataMove', function(localStorageService) {
 
 
 
-MobiDash.factory('session', function($state) {
+MobiDash.factory('session', function($state, localStorageService) {
     return {
         sessionexpried: function(status) {
             if (status === 403) {
@@ -113,6 +113,7 @@ MobiDash.factory('session', function($state) {
                     confirmButtonColor: "red",
                     confirmButtonText: "Ok",
                 }).then(function() {
+                    localStorageService.clearAll();
                     $state.go("login")
                 });
             }

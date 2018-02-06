@@ -66,6 +66,9 @@ MobiDash.controller('backupCntl', function($scope, $state, $rootScope, $statePar
             $("#success-alert").removeClass('in');
         });
     }
+    $('#add_client').on('shown.bs.modal', function() {
+        $('[name="addcompanyname"]').focus();
+    })
 
     // $scope.tenants = [{
     //         "tenant_name": "mobigesture",

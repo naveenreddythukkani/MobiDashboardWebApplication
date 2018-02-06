@@ -65,7 +65,7 @@
                                 <label class="mdl_label control-label" autofocus="none">Mobile Number<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-8  no-padding-hr">
-                                <input type="text" ng-class="{'haserror':field===fields.mobile}" class="form-control req-field-color" placeholder="10 digit mobile number" name="mobile" ng-model="props.mobile" maxlength="10" ng-change="validations()" mobile-validation>
+                                <input type="text" ng-class="{'haserror':field===fields.mobile}" class="form-control req-field-color" placeholder="10 digit mobile number" name="addmobilefield" ng-model="props.mobile" maxlength="10" ng-change="validations()" mobile-validation>
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
@@ -178,8 +178,8 @@
                                 <label class="mdl_label control-label" autofocus="none">Mobile Number<span>:</span><span class="astrick-label glyphicon glyphicon-asterisk"></span></label>
                             </div>
                             <div class="col-md-8  no-padding-hr">
-                                <input type="text" ng-class="{'haserror':field===fields.mobile}" ng-disabled="props.user_id.toString() === owner_id" class="form-control req-field-color" placeholder="10 digit mobile number" name="mobile" required="required" ng-model="props.mobile" maxlength="10"
-                                    ng-change="validations()" mobile-validation>
+                                <input type="text" ng-class="{'haserror':field===fields.mobile}" ng-disabled="props.user_id.toString() === owner_id" class="form-control req-field-color" placeholder="10 digit mobile number" name="editmobilefield" required="required" ng-model="props.mobile"
+                                    maxlength="10" ng-change="validations()" mobile-validation>
                             </div>
                         </div>
                         <div class=" col-md-12 form-group no-padding-hr ">

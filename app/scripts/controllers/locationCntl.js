@@ -226,6 +226,12 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             "$cookie": "csrftoken=" + $rootScope.csrftoken + '; ' + "sessionid=" + $rootScope.session_key
         }
     };
+    $('#add_location').on('shown.bs.modal', function() {
+        $('[name="addnamefield"]').focus();
+    })
+    $('#edit_location').on('shown.bs.modal', function() {
+        $('[name="editnamefield"]').focus();
+    })
     $scope.addremovealert = function() {
             $("#success-alert").addClass('in');
             $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {

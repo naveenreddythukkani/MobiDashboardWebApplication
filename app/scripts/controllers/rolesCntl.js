@@ -66,6 +66,12 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $("#addrole").modal('show');
         $scope.display_name = "";
     }
+    $('#addrole').on('shown.bs.modal', function() {
+        $('[name="addrolefield"]').focus();
+    })
+    $('#editrole').on('shown.bs.modal', function() {
+        $('[name="editrolefield"]').focus();
+    })
     $scope.addingRole = function() {
 
     }

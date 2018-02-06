@@ -66,6 +66,13 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             "Cookie": "csrftoken=" + $rootScope.csrftoken + '; ' + "sessionid=" + $rootScope.session_key
         }
     };
+    $('#add_client').on('shown.bs.modal', function() {
+        $('[name="addcompanyname"]').focus();
+    })
+    $('#edit_client').on('shown.bs.modal', function() {
+        $('[name="editcompanyname"]').focus();
+    })
+
     $scope.smssettings = [{
             "name": "Send SMS for new/modified receipts"
         },

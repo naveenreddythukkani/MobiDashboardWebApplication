@@ -88,6 +88,12 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
 
         }
     }
+    $('#add_user').on('shown.bs.modal', function() {
+        $('[name="addmobilefield"]').focus();
+    })
+    $('#edit_user').on('shown.bs.modal', function() {
+        $('[name="editmobilefield"]').focus();
+    })
     $rootScope.addUser = function() {
         $("#add_user").modal('show');
         $scope.props.is_active = true;

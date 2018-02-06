@@ -169,12 +169,13 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             }
             $scope.removealllocalstorage();
         } else {
-            if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
-                $scope.removealllocalstorage();
-                $state.go('balancesheet')
-            } else {
-                $rootScope.datescalculation()
-            }
+            // if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
+            //     $scope.removealllocalstorage();
+            //     $state.go('balancesheet')
+            // } else {
+            //     $rootScope.datescalculation()
+            // }
+            $scope.locationchange();
         }
         $rootScope.getlocalstoredata();
     }
@@ -270,14 +271,33 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             }
             $scope.removealllocalstorage();
         } else {
-            if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
-                $scope.removealllocalstorage();
-                $state.go('balancesheet')
-            } else {
-                $rootScope.datescalculation()
-            }
+            // if ($scope.groupData !== null && $scope.groupData.grouplevel === true) {
+            //     $scope.removealllocalstorage();
+            //     $state.go('balancesheet')
+            // } else {
+            //     $rootScope.datescalculation()
+            // }
+            $scope.locationchange();
         }
         $rootScope.getlocalstoredata();
+    }
+    $scope.locationchange = function() {
+        if ($state.current.name === "balancesheet") {
+            $rootScope.datescalculation()
+        } else if ($state.current.name === "subledgersgroup") {
+            $rootScope.datescalculation();
+        } else if ($state.current.name === "ledger") {
+            $rootScope.datescalculation();
+        } else if ($state.current.name === "controlledger") {
+            $rootScope.datescalculation();
+        } else if ($state.current.name === "monthWise") {
+            $rootScope.totalyeardatashow()
+        } else if ($state.current.name === "voucher") {
+            $rootScope.datescalculation();
+        } else if ($state.current.name === "voucherdetails") {
+            $scope.removealllocalstorage();
+            $state.go('balancesheet')
+        }
     }
     $scope.datemodelshow = function() {
         $('#selectdatedahboard').modal('show');
@@ -306,7 +326,7 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         localStorageService.remove("controlledger");
 
         dataMove.setmonthwiseData({})
-        localStorageService.remove("monthwise");
+        localStorageService.remove("monthWise");
 
 
         dataMove.setvoucherData({});

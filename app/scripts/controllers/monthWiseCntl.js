@@ -134,6 +134,12 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 }
                 $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
             } else {
+                if (result.data.error.code === 5056) {
+                    $scope.mothwisedata = [];
+                    setTimeout(function() {
+                        $state.go('balancesheet');
+                    }, 3000);
+                }
                 $scope.msg = result.data.error.message;
                 $scope.addremovealert();
             }
@@ -188,6 +194,12 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 }
                 $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
             } else {
+                if (result.data.error.code === 5056) {
+                    $scope.mothwisedata = [];
+                    setTimeout(function() {
+                        $state.go('balancesheet');
+                    }, 3000);
+                }
                 $scope.msg = result.data.error.message;
                 $scope.addremovealert();
             }
@@ -247,7 +259,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         }
         $scope.getallcontrolandledgerData();
     }
-    $scope.totalyeardatashow = function() {
+    $rootScope.totalyeardatashow = function() {
         var date = $filter('date')(new Date(), 'yyyy-MM-dd');
         var completedate = (date).split('-');
         var year = completedate[0];
@@ -271,7 +283,7 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $rootScope.today1 = datesfornow[0] + '-' + datesfornow[1] + '-' + numberofdays;
         $rootScope.datescalculation();
     }
-    $scope.totalyeardatashow();
+    $rootScope.totalyeardatashow();
     $scope.datesplitandconvertmonth = function(months, i) {
         var str = months.split('-');
         var mon = parseInt(str[0]);
