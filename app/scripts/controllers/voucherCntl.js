@@ -94,6 +94,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                console.log(JSON.stringify(result.data));
                 if (result.data.error === undefined) {
                     if (result.data.data.length === 0) {
                         session.sessionexpried("No Data");
@@ -140,8 +141,11 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         $scope.locationwise.display_name = location.display_name;
                         $scope.locationwise.loc_id = location.id
                         $scope.locationwise.data = result.data.data.filter(function(voucher) {
+                            return location.id === voucher.loc_id;
+                        });
+                        $scope.locationwise.ob_data = result.data.ob_data.filter(function(voucher) {
                             if (location.id === voucher.loc_id) {
-                                $scope.locationwise.ob_amount = voucher.ob_amt;
+                                $scope.locationwise.ob_amount = voucher.amount;
                                 return location.id === voucher.loc_id;
                             }
                         });
@@ -153,7 +157,9 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         });
                         totalAmt += $scope.locationwise.ob_amount !== undefined ? parseFloat($scope.locationwise.ob_amount) : 0.0;
                         $scope.locationwise.totalAmount = parseFloat(totalAmt).toFixed(2);
-                        $scope.locationwise.data.length > 0 ? $scope.voucherdetails.push($scope.locationwise) : '';
+                        if (($scope.locationwise.data.length > 0 || $scope.locationwise.ob_amount)) {
+                            $scope.voucherdetails.push($scope.locationwise);
+                        }
                         $scope.locationwise = {};
                     });
                     var amount = 0.0;
@@ -186,6 +192,7 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
             $scope.loading = true;
             var success = function(result) {
                 $scope.loading = false;
+                console.log(JSON.stringify(result.data));
                 if (result.data.error === undefined) {
                     if (result.data.data.length === 0) {
                         session.sessionexpried("No Data");
@@ -302,11 +309,13 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         $scope.locationwise.display_name = location.display_name;
                         $scope.locationwise.loc_id = location.id
                         $scope.locationwise.data = result.data.data.filter(function(voucher) {
+                            return location.id === voucher.loc_id;
+                        });
+                        $scope.locationwise.ob_data = result.data.ob_data.filter(function(voucher) {
                             if (location.id === voucher.loc_id) {
-                                $scope.locationwise.ob_amount = voucher.ob_amt;
+                                $scope.locationwise.ob_amount = voucher.amount;
                                 return location.id === voucher.loc_id;
                             }
-
                         });
                         var totalAmt = 0.0;
                         $scope.locationwise.data.forEach(function(voucher) {
@@ -314,9 +323,11 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                                 totalAmt += voucher.amount;
                             }
                         });
-                        totalAmt += $scope.locationwise.ob_amount !== undefined ? parseFloat($scope.locationwise.ob_amount) : 0.0;;
+                        totalAmt += $scope.locationwise.ob_amount !== undefined ? parseFloat($scope.locationwise.ob_amount) : 0.0;
                         $scope.locationwise.totalAmount = parseFloat(totalAmt).toFixed(2);
-                        $scope.locationwise.data.length > 0 ? $scope.voucherdetails.push($scope.locationwise) : '';
+                        if (($scope.locationwise.data.length > 0 || $scope.locationwise.ob_amount)) {
+                            $scope.voucherdetails.push($scope.locationwise);
+                        }
                         $scope.locationwise = {};
                     });
                     var amount = 0.0;

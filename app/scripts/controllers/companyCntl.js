@@ -166,7 +166,7 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
             $scope.loading = false;
             $scope.loadmsg = true;
             if (result.data.error === undefined) {
-                $scope.msg = "package upgraded successfully";
+                $scope.msg = "Package upgraded successfully";
             } else {
                 $scope.msg = result.data.error.message;
             }
@@ -336,11 +336,13 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $("#add_client").modal('hide');
         $scope.field = "";
         $scope.showerrormessage = false;
+        $scope.getallcompanysdata();
     }
     $scope.editcancelForm = function() {
         $scope.resetForm();
         $("#edit_client").modal('hide');
         $scope.field = "";
+        $scope.getallcompanysdata();
         $scope.showerrormessage = false;
     }
     $scope.resetForm = function() {
@@ -530,4 +532,9 @@ MobiDash.controller('companyCntl', function($scope, $state, $rootScope, $statePa
         $http.get(domain + api + 'logout/')
             .then(success, error)
     }
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $('#smshistory').modal('hide');
+        }
+    });
 });

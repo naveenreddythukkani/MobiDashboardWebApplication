@@ -1011,13 +1011,13 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $scope.tanValidations = function(tanVal, gstinVal) {
         var reggst = /^([a-zA-Z]){4}([0-9]){5}([a-zA-Z]){1}?$/;
         if (gstinVal !== null && gstinVal !== undefined && gstinVal.length > 0 && !$scope.gstinValidations(gstinVal)) {
+            return reggst.test(tanVal);
+        } else {
             if (gstinVal.substr(5, 1) === tanVal.substr(3, 1)) {
                 return reggst.test(tanVal);
             } else {
                 return false;
             }
-        } else {
-            return reggst.test(tanVal);
         }
     }
     $scope.locationhistoryshow = function(location) {
@@ -1073,5 +1073,10 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $scope.mobilebackButtonAction = function() {
         $state.go('company');
     }
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $('#locationhistory').modal('hide');
+        }
+    });
 
 });

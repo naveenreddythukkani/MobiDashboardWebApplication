@@ -21,14 +21,16 @@ body {
 #userhistory .modal-dialog,
 #ledgers .modal-dialog,
 #rolehistory .modal-dialog,
-#smshistory .modal-dialog {
+#smshistory .modal-dialog,
+#voucherhistory .modal-dialog {
     width: 70%;
 }
 
 #locationhistory .modal-body,
 #userhistory .modal-body,
 #rolehistory .modal-body,
-#smshistory .modal-body {
+#smshistory .modal-body,
+#voucherhistory .modal-body {
     max-height: 350px;
     overflow-y: auto;
 }
@@ -36,7 +38,8 @@ body {
 .usershistorytable tbody tr td:first-child,
 .roleshistorytable tbody tr td:first-child,
 .locationshistorytable tbody tr td:first-child,
-.smshistorytable tbody tr td:first-child {
+.smshistorytable tbody tr td:first-child,
+.vouchersettingshistorytable tbody tr td:first-child {
     white-space: nowrap;
 }
 
@@ -766,7 +769,7 @@ user-icon-2x {
 
 .restoreshow {
     position: absolute;
-    width: 300px;
+    width: 165px;
     height: auto;
     top: 80%;
     background: #f6f6f6;

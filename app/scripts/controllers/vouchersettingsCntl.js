@@ -884,10 +884,9 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
         "name": "TO"
     }]
     $scope.vouchermodifcationsdata = [{
-            "name": "Allow user to specify voucher id manually"
-        },
-        {
             "name": "Re number subsequent vouchers, if a new voucher is inserted in between vouchers"
+        }, {
+            "name": "Allow user to specify voucher id manually"
         },
         {
             "name": "Allow user to print voucher after creation"
@@ -914,4 +913,9 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
     }, {
         "name": "-"
     }]
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $('#voucherhistory').modal('hide');
+        }
+    });
 });

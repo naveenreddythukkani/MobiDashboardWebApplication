@@ -66,13 +66,13 @@
                 <form class="form-horizontal " role="form" name="addClientForm" id="addClientForm">
                     <div class="row no-margin-hr ">
                         <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none ">Type
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
 
                                 <select name="typeselection" ng-class="{'haserror':field[0]===fields.type}" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
                                     <option value="" disabled selected>Select Type</option>
@@ -81,23 +81,23 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required">
+                            <div class="col-md-3 required">
                                 <label class="mdl_label control-label" autofocus="none ">Name
                                     <span>:</span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <input type="text" class="form-control" placeholder="Enter voucher name" name="companyname " required="required " ng-model="voucherSubmit.name" ng-change="fieldschangeAction()" maxlength="45">
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isTypeselected">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none ">Location
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)">
                                     <option value="" disabled selected>Select Location</option>
                                     <option ng-repeat="x in selectedLocations" value="{{x.id}}">{{x.display_name}}</option>
@@ -106,13 +106,13 @@
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isDayBookShow">
 
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none">Day Book
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <select name="daybookselection" ng-class="{'haserror':field[0]===fields.daybook}" class="form-control req-field-color" placeholder="Select Type" ng-model="voucherSubmit.dayBookId" ng-change="validations()">
                                     <option value="" disabled selected>Select Daybook</option>
                                     <option ng-repeat="x in selectedDaybooks" value="{{x.g_id}}">{{x.g_d_name}}</option>
@@ -120,13 +120,13 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isStoresShow">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none">Store
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <select name="storeselection" ng-class="{'haserror':field[0]===fields.store}" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
                                     <option value="" disabled selected>Select Store</option>
                                     <option ng-repeat="x in selectedStores" value="{{x.id}}">{{x.display_name}}</option>
@@ -137,18 +137,18 @@
                             <label class="devider-line"></label>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none">Prefix :
 
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <div class="col-md-3 prefixPadding">
                                     <span>Prefix</span>
                                     <input type="text " ng-class="{'haserror':field[0]===fields.prefix}" class="form-control" placeholder=" " name="email" maxlength="10" ng-change="prefixValidation()" ng-model="voucherSubmit.prefix">
                                 </div>
                                 <div class="col-md-2 prefixPadding">
-                                    <span>Sep</span>
+                                    <span>Separator</span>
                                     <select name="separator1" ng-class="{'haserror':field[1]===fields.sep1}" class="form-control" placeholder="Select separator1" id="separator1Selection" ng-change="prefixValidation()" ng-model="voucherSubmit.sep1">
                                         <option ng-repeat="x in separators" value="{{x.name}}">{{x.name}}</option>
                                     </select>
@@ -162,7 +162,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 no-padding-hr">
-                                    <span>Sep</span>
+                                    <span>Separator</span>
                                     <select name="separator1" ng-class="{'haserror':field[3]===fields.sep2}" class="form-control" placeholder="Select separator1" id="separator1Selection" ng-change="prefixValidation()" ng-model="voucherSubmit.sep2">
                                         <option ng-repeat="x in separators" value="{{x.name}}">{{x.name}}</option>
                                     </select>
@@ -171,13 +171,13 @@
                             </div>
                         </div>
 
-                        <div class="row col-md-offset-4 no-padding-hr col-md-8" ng-show="samplePrefix">
+                        <div class="row col-md-offset-3 no-padding-hr col-md-9" ng-show="samplePrefix">
                             <div class="row no-margin-hr">
                                 <span style="color:#787878"><i>{{mainPrefix}}</i></span>
                             </div>
                         </div>
 
-                        <div class="row col-md-offset-4 no-padding-hr col-md-8">
+                        <div class="row col-md-offset-3 no-padding-hr col-md-9">
                             <div class="row">
                                 <div class="col-md-7 no-padding-right calBtnGrp">
                                     <div class="btn-group">
@@ -202,15 +202,15 @@
                             </div>
                         </div>
                         <div class="col-md-12 no-padding-hr" style="margin-top:15px;">
-                            <label class="col-md-offset-4 col-md-8 no-padding-hr">
-                                <input id="allowUserCheck" type="checkbox" ng-model="voucherSubmit.allowId" class="checkboxspace">{{vouchermodifcationsdata[0].name}}</label>
-                            <label class="col-md-offset-4 col-md-8 no-padding-hr" style="display:flex;">
-                                <input id="reNumberCheck" type="checkbox" ng-model="voucherSubmit.reNumber" ng-checked="voucherSubmit.allowId?false:''" ng-disabled="voucherSubmit.allowId ? false : true" class="checkboxspace">{{vouchermodifcationsdata[1].name}}</label>
-                            <label class="col-md-offset-4 col-md-8 no-padding-hr">
+                            <label class="col-md-offset-3 col-md-9 no-padding-hr" style="display:flex;">
+                                <input id="allowUserCheck" type="checkbox" ng-model="voucherSubmit.reNumber" ng-disabled="voucherSubmit.allowId" class="checkboxspace">{{vouchermodifcationsdata[0].name}}</label>
+                            <label class="col-md-offset-3 col-md-9 no-padding-hr" style="display:flex;">
+                                <input id="reNumberCheck" type="checkbox" ng-model="voucherSubmit.allowId"  ng-disabled="voucherSubmit.reNumber" class="checkboxspace">{{vouchermodifcationsdata[1].name}}</label>
+                            <label class="col-md-offset-3 col-md-9 no-padding-hr" style="display:flex;">
                                 <input id="allowUserPrint" type="checkbox" ng-model="voucherSubmit.printVoucher" class="checkboxspace">{{vouchermodifcationsdata[2].name}}</label>
                         </div>
                         <div ng-show="showerrormessage " class="col-md-12 no-padding-hr form-group ">
-                            <div class="no-padding-hr col-md-offset-4 col-md-8 ">
+                            <div class="no-padding-hr col-md-offset-3 col-md-9 ">
                                 <span style="color:#EF5F5F ">{{errormessage}}</span>
                             </div>
                         </div>
@@ -244,13 +244,13 @@
                 <form class="form-horizontal " role="form" name="addClientForm" id="addClientForm">
                     <div class="row no-margin-hr ">
                         <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none ">Type
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
 
                                 <select name="typeselection" ng-class="{'haserror':field[0]===fields.type}" class="form-control req-field-color" placeholder="Select Type" id="typeselection" ng-model="voucherSubmit.typeData" ng-change="typeDataSelect(voucherSubmit.typeData)">
                                     <option value="" disabled selected>Select Type</option>
@@ -259,23 +259,23 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required">
+                            <div class="col-md-3 required">
                                 <label class="mdl_label control-label" autofocus="none ">Name
                                     <span>:</span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <input type="text" class="form-control" placeholder="Enter voucher name" name="companyname " required="required " ng-model="voucherSubmit.name" ng-change="fieldschangeAction()">
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isTypeselected">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none ">Location
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <select name="locationselection" ng-class="{'haserror':field[0]===fields.location}" class="form-control req-field-color" placeholder="Select Location" id="locationselection" ng-model="voucherSubmit.locationData" ng-change="showDetails(voucherSubmit.locationData)">
                                     <option value="" disabled selected>Select Location</option>
                                     <option ng-repeat="x in selectedLocations" value="{{x.id}}">{{x.display_name}}</option>
@@ -284,13 +284,13 @@
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isDayBookShow">
 
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none">Day Book
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <select name="daybookselection" ng-class="{'haserror':field[0]===fields.daybook}" class="form-control req-field-color" placeholder="Select Type" ng-model="voucherSubmit.dayBookId" ng-change="validations()">
                                     <option value="" disabled selected>Select Daybook</option>
                                     <option ng-repeat="x in selectedDaybooks" value="{{x.g_id}}">{{x.g_d_name}}</option>
@@ -298,13 +298,13 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group no-padding-hr" ng-show="voucherFields.isStoresShow">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none">Store
                                     <span>:</span>
                                     <span class="astrick-label glyphicon glyphicon-asterisk"></span>
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <select name="storeselection" ng-class="{'haserror':field[0]===fields.store}" class="form-control req-field-color" placeholder="Select Store" id="storeselection" ng-model="voucherSubmit.storeSelect" ng-change="validations()">
                                     <option value="" disabled selected>Select Store</option>
                                     <option ng-repeat="x in selectedStores" value="{{x.id}}">{{x.display_name}}</option>
@@ -316,18 +316,18 @@
                         </div>
 
                         <div class="col-md-12 form-group no-padding-hr">
-                            <div class="col-md-4 required ">
+                            <div class="col-md-3 required ">
                                 <label class="mdl_label control-label " autofocus="none">Prefix :
 
                                 </label>
                             </div>
-                            <div class="col-md-8 no-padding-hr ">
+                            <div class="col-md-9 no-padding-hr ">
                                 <div class="col-md-3 prefixPadding">
                                     <span>Prefix</span>
                                     <input type="text " ng-class="{'haserror':field[0]===fields.prefix}" class="form-control" placeholder=" " name="email" maxlength="10" ng-change="prefixValidation()" ng-model="voucherSubmit.prefix">
                                 </div>
                                 <div class="col-md-2 prefixPadding">
-                                    <span>Sep</span>
+                                    <span>Separator</span>
                                     <select name="separator1" ng-class="{'haserror':field[1]===fields.sep1}" class="form-control" placeholder="Select separator1" id="separator1Selection" ng-change="prefixValidation()" ng-model="voucherSubmit.sep1">
                                         <option ng-repeat="x in separators" value="{{x.name}}">{{x.name}}</option>
                                     </select>
@@ -341,7 +341,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-2 no-padding-hr">
-                                    <span>Sep</span>
+                                    <span>Separator</span>
                                     <select name="separator1" ng-class="{'haserror':field[3]===fields.sep2}" class="form-control" placeholder="Select separator1" id="separator1Selection" ng-change="prefixValidation()" ng-model="voucherSubmit.sep2">
                                         <option ng-repeat="x in separators" value="{{x.name}}">{{x.name}}</option>
                                     </select>
@@ -350,13 +350,13 @@
                             </div>
                         </div>
 
-                        <div class="row col-md-offset-4 no-padding-hr col-md-8" ng-show="samplePrefix">
+                        <div class="row col-md-offset-3 no-padding-hr col-md-9" ng-show="samplePrefix">
                             <div class="row no-margin-hr">
                                 <span style="color:#787878"><i>{{mainPrefix}}</i></span>
                             </div>
                         </div>
 
-                        <div class="row col-md-offset-4 no-padding-hr col-md-8">
+                        <div class="row col-md-offset-3 no-padding-hr col-md-9">
                             <div class="row">
                                 <div class="col-md-7 no-padding-right calBtnGrp">
                                     <div class="btn-group">
@@ -381,15 +381,15 @@
                             </div>
                         </div>
                         <div class="col-md-12 no-padding-hr" style="margin-top:15px;">
-                            <label class="col-md-offset-4 col-md-8 no-padding-hr">
-                                <input id="allowUserCheck" type="checkbox" ng-model="voucherSubmit.allowId" class="checkboxspace">{{vouchermodifcationsdata[0].name}}</label>
-                            <label class="col-md-offset-4 col-md-8 no-padding-hr" style="display:flex;">
-                                <input id="reNumberCheck" type="checkbox" ng-model="voucherSubmit.reNumber" ng-checked="voucherSubmit.allowId?false:''" ng-disabled="voucherSubmit.allowId ? false : true" class="checkboxspace">{{vouchermodifcationsdata[1].name}}</label>
-                            <label class="col-md-offset-4 col-md-8 no-padding-hr">
+                            <label class="col-md-offset-3 col-md-9 no-padding-hr" style="display:flex;">
+                                <input id="allowUserCheck" type="checkbox" ng-model="voucherSubmit.reNumber" ng-disabled="voucherSubmit.allowId" class="checkboxspace">{{vouchermodifcationsdata[0].name}}</label>
+                            <label class="col-md-offset-3 col-md-9 no-padding-hr" style="display:flex;">
+                                <input id="reNumberCheck" type="checkbox"  class="checkboxspace" ng-model="voucherSubmit.allowId" ng-disabled="voucherSubmit.reNumber">{{vouchermodifcationsdata[1].name}}</label>
+                            <label class="col-md-offset-3 col-md-9 no-padding-hr" style="display:flex;">
                                 <input id="allowUserPrint" type="checkbox" ng-model="voucherSubmit.printVoucher" class="checkboxspace">{{vouchermodifcationsdata[2].name}}</label>
                         </div>
                         <div ng-show="showerrormessage " class="col-md-12 no-padding-hr form-group ">
-                            <div class="no-padding-hr col-md-offset-4 col-md-8 ">
+                            <div class="no-padding-hr col-md-offset-3 col-md-9 ">
                                 <span style="color:#EF5F5F ">{{errormessage}}</span>
                             </div>
                         </div>
@@ -418,8 +418,8 @@
             </div>
             <div class="modal-body no-padding-vr-bottom">
                 <div class="row no-margin-hr">
-                    <div class="col-md-12">
-                        <table ng-table="loctionshistorytable" class="table table-bordered locationshistorytable">
+                    <div class="col-md-12 no-padding-hr">
+                        <table ng-table="loctionshistorytable" class="table table-bordered vouchersettingshistorytable">
                             <tr ng-repeat="user in $data ">
                                 <td class="vertical-center" title=" 'Date' " sortable=" 'date' ">
                                     {{user.date}}</td>
@@ -434,6 +434,9 @@
             </div>
             <div class="modal-footer">
                 <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
 

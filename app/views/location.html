@@ -527,7 +527,7 @@
             <div class="modal-footer">
                 <div class="row no-margin-hr">
                     <div class="col-md-5 pull-right no-padding-hr">
-                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal" ng-click="cancelForm()">Close</button>
                         <!-- <button type="button" class="btn background-defalt save-cancel-button tabicon" ng-click="addingLedgerToLocation()">Save</button> -->
                     </div>
                 </div>
@@ -545,7 +545,7 @@
             </div>
             <div class="modal-body no-padding-vr-bottom">
                 <div class="row no-margin-hr">
-                    <div class="col-md-12">
+                    <div class="col-md-12 no-padding-hr">
                         <table ng-table="loctionshistorytable" class="table table-bordered locationshistorytable">
                             <tr ng-repeat="user in $data ">
                                 <td class="vertical-center" title=" 'Date' " sortable=" 'date' ">
@@ -561,6 +561,9 @@
             </div>
             <div class="modal-footer">
                 <div class="row no-margin-hr">
+                    <div class="col-md-5 pull-right no-padding-hr">
+                        <button type="button" class="btn background-defalt save-cancel-button" data-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
 

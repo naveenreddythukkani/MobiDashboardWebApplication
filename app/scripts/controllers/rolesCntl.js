@@ -557,6 +557,11 @@ QTable.controller('rolesCntl', function($scope, $state, $rootScope, $stateParams
         $http.post(domain + api + "role/history/", $scope.roleid, config)
             .then(success, error);
     }
+    $(document).keyup(function(e) {
+        if (e.keyCode == 27) { // escape key maps to keycode `27`
+            $('#rolehistory').modal('hide');
+        }
+    });
 });
 
 
