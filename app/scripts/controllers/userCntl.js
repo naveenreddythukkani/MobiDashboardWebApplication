@@ -726,7 +726,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         var success = function(result) {
             $scope.loading = false;
             $('#userhistory').modal('show');
-            if (result.data.error) {
+            if (result.data.error === undefined) {
                 $scope.histroyList = result.data;
                 $scope.usershistorytable = new NgTableParams({ count: $scope.histroyList.length }, { dataset: $scope.histroyList });
             } else {

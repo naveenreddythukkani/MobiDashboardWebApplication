@@ -126,13 +126,15 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 }
                 sortByMonth($scope.mothwisedata);
                 var obamount = $scope.obdata[0].amount ? parseFloat($scope.obdata[0].amount) : 0;
-                var firstindexdata = parseFloat($scope.mothwisedata[0].amount);
-                $scope.mothwisedata[0].amount = firstindexdata + obamount;
+                var firstindexdata = $scope.mothwisedata.length > 0 ? parseFloat($scope.mothwisedata[0].amount) : 0.0;
+                $scope.mothwisedata.length > 0 ? $scope.mothwisedata[0].amount = firstindexdata + obamount : 0.0;
                 for (var i = 1; i < $scope.mothwisedata.length; i++) {
                     var amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
                     $scope.mothwisedata[i].amount = parseFloat(amount).toFixed(2);
                 }
-                $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
+                if ($scope.mothwisedata.length > 0) {
+                    $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
+                }
             } else {
                 if (result.data.error.code === 5056) {
                     $scope.mothwisedata = [];
@@ -186,13 +188,15 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
                 }
                 sortByMonth($scope.mothwisedata);
                 var obamount = $scope.obdata[0].amount ? parseFloat($scope.obdata[0].amount) : 0;
-                var firstindexdata = parseFloat($scope.mothwisedata[0].amount);
-                $scope.mothwisedata[0].amount = firstindexdata + obamount;
+                var firstindexdata = $scope.mothwisedata.length > 0 ? parseFloat($scope.mothwisedata[0].amount) : 0.0;
+                $scope.mothwisedata.length > 0 ? $scope.mothwisedata[0].amount = firstindexdata + obamount : 0.0;
                 for (var i = 1; i < $scope.mothwisedata.length; i++) {
                     var amount = parseFloat($scope.mothwisedata[i].amount) + parseFloat($scope.mothwisedata[i - 1].amount);
                     $scope.mothwisedata[i].amount = parseFloat(amount).toFixed(2);
                 }
-                $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
+                if ($scope.mothwisedata.length > 0) {
+                    $scope.mothwisedata[$scope.mothwisedata.length - 1].amount = parseFloat($scope.mothwisedata[$scope.mothwisedata.length - 1].amount).toFixed(2);
+                }
             } else {
                 if (result.data.error.code === 5056) {
                     $scope.mothwisedata = [];
@@ -260,8 +264,9 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         $scope.getallcontrolandledgerData();
     }
     $rootScope.totalyeardatashow = function() {
-        var date = $filter('date')(new Date(), 'yyyy-MM-dd');
-        var completedate = (date).split('-');
+        console.log(dataMove.getdatesData());
+        $rootScope.today = dataMove.getdatesData().today;
+        var completedate = ($rootScope.today).split('-');
         var year = completedate[0];
         var month = completedate[1];
         var day = completedate[2];
@@ -277,10 +282,11 @@ QTable.controller('monthWiseCntl', function($scope, $state, $rootScope, $statePa
         }
         $rootScope.fromdate1 = year + '-' + '04' + '-' + '01';
         $rootScope.startdate1 = year + '-' + '04' + '-' + '01';
-        $rootScope.today1 = $filter('date')(new Date(), 'yyyy-MM-dd');
-        var datesfornow = (date).split('-');
-        var numberofdays = new Date(year, datesfornow[1], 0).getDate();
+        $rootScope.today1 = $rootScope.today;
+        var datesfornow = ($rootScope.today1).split('-');
+        var numberofdays = new Date(datesfornow[0], datesfornow[1], 0).getDate();
         $rootScope.today1 = datesfornow[0] + '-' + datesfornow[1] + '-' + numberofdays;
+        $rootScope.today = $rootScope.today1;
         $rootScope.datescalculation();
     }
     $rootScope.totalyeardatashow();

@@ -66,6 +66,9 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
         $scope.datesObj.today1 = $rootScope.today1;
         $scope.datesObj.fromdate1 = $rootScope.fromdate1;
         $scope.datesObj.startdate1 = $rootScope.startdate1;
+        $scope.datesObj.today = $rootScope.today;
+        $scope.datesObj.fromdate = $rootScope.fromdate;
+        $scope.datesObj.startdate = $rootScope.startdate;
         dataMove.setdatesData($scope.datesObj);
     }
     $scope.clearlocalstorage = function() {
@@ -133,6 +136,9 @@ QTable.controller('controlledgerCntl', function($scope, $state, $rootScope, $sta
         $rootScope.today1 = $scope.datesObj.today1;
         $rootScope.fromdate1 = $scope.datesObj.fromdate1;
         $rootScope.startdate1 = $scope.datesObj.startdate1;
+        $rootScope.today = $scope.datesObj.today;
+        $rootScope.fromdate = $scope.datesObj.fromdate;
+        $rootScope.startdate = $scope.datesObj.startdate;
         $rootScope.datescalculation();
 
     }

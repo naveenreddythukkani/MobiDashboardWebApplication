@@ -143,12 +143,14 @@ QTable.controller('voucherCntl', function($scope, $state, $rootScope, $statePara
                         $scope.locationwise.data = result.data.data.filter(function(voucher) {
                             return location.id === voucher.loc_id;
                         });
-                        $scope.locationwise.ob_data = result.data.ob_data.filter(function(voucher) {
-                            if (location.id === voucher.loc_id) {
-                                $scope.locationwise.ob_amount = voucher.amount;
-                                return location.id === voucher.loc_id;
-                            }
-                        });
+                        if (result.data.ob_data !== undefined) {
+                            $scope.locationwise.ob_data = result.data.ob_data.filter(function(voucher) {
+                                if (location.id === voucher.loc_id) {
+                                    $scope.locationwise.ob_amount = voucher.amount;
+                                    return location.id === voucher.loc_id;
+                                }
+                            });
+                        }
                         var totalAmt = 0.0;
                         $scope.locationwise.data.forEach(function(voucher) {
                             if (voucher.isverified) {

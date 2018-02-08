@@ -995,7 +995,15 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         if (data.tan !== null && data.tan !== undefined && data.tan.length > 0 && !$scope.tanValidations(data.tan, data.gstin)) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.tan;
-            $scope.errormessage = "Please enter valid tan";
+            if ((data.gstin === null || data.gstin === undefined || data.gstin === "")) {
+                $scope.errormessage = "Please enter valid tan or clear tan";
+            } else if (data.tan.length !== 10) {
+                $scope.errormessage = "Please enter valid tan or clear tan";
+            } else {
+                if (data.gstin.substr(5, 1) !== data.tan.substr(3, 1)) {
+                    $scope.errormessage = "gstin 6th letter and tan 4th letter must be equal";
+                }
+            }
             return true;
         }
         return false;
@@ -1010,7 +1018,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     }
     $scope.tanValidations = function(tanVal, gstinVal) {
         var reggst = /^([a-zA-Z]){4}([0-9]){5}([a-zA-Z]){1}?$/;
-        if (gstinVal !== null && gstinVal !== undefined && gstinVal.length > 0 && !$scope.gstinValidations(gstinVal)) {
+        if (gstinVal === null || gstinVal === undefined || gstinVal === "") {
             return reggst.test(tanVal);
         } else {
             if (gstinVal.substr(5, 1) === tanVal.substr(3, 1)) {

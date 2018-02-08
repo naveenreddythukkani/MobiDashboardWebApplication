@@ -63,6 +63,9 @@ QTable.controller('balancesheetCntl', function($scope, $state, $rootScope, $stat
         $scope.datesObj.today1 = $rootScope.today1;
         $scope.datesObj.fromdate1 = $rootScope.fromdate1;
         $scope.datesObj.startdate1 = $rootScope.startdate1;
+        $scope.datesObj.today = $rootScope.today;
+        $scope.datesObj.fromdate = $rootScope.fromdate;
+        $scope.datesObj.startdate = $rootScope.startdate;
         dataMove.setdatesData($scope.datesObj);
     }
     $scope.clearlocalstorage = function() {

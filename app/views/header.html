@@ -183,12 +183,15 @@
             </div>
         </div>
     </nav>
+    <div class="alert alert-position-success" id="success-alert-header" style="display:none;">
+        <strong>{{headerMesg}}</strong>
+    </div>
 </header>
 <div ng-show="loading " class="load text-center ">
     <img class="spinner " src="images/ajax-loader.gif " width="60 " height="60 ">
     <h4 class="loading_msg ">Loading Please Wait...</h4>
 </div>
-<div id="selectdatedahboard" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog ">
+<div id="selectdatedahboard" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog">
     <div class="modal-dialog ">
         <div class="modal-content mdl-margin ">
             <div class="modal-header no-padding-vr-bottom ">
@@ -216,7 +219,7 @@
                         </div>
                         <div class="col-md-9 no-padding-hr ">
                             <div class="input-group date " id="datetimepickerdashboardto">
-                                <input type="text " class="form-control " id="todatedashboard">
+                                <input type="text " class="form-control" id="todatedashboard">
                                 <div class="input-group-addon ">
                                     <span class="glyphicon glyphicon-calendar "></span>
                                 </div>
@@ -237,7 +240,7 @@
     </div>
 </div>
 
-<div id="selectdatevoucher" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog ">
+<div id="selectdatevoucher" class="modal fade " data-backdrop="static " data-keyboard="false " role="dialog">
     <div class="modal-dialog ">
         <div class="modal-content mdl-margin ">
             <div class="modal-header no-padding-vr-bottom ">
@@ -277,7 +280,7 @@
                     <div class="row no-margin-hr ">
                         <div class="col-md-5 pull-right no-padding-hr ">
                             <button type="button " class="btn background-defalt save-cancel-button " data-dismiss="modal" ng-click="cancelForm()">Cancel</button>
-                            <button type="button " id="saveforvoucher" class="btn background-defalt save-cancel-button tabicon " data-dismiss="modal" ng-click="saveforvoucher()">Show</button>
+                            <button type="button " id="saveforvoucher" class="btn background-defalt save-cancel-button tabicon " ng-click="saveforvoucher()">Show</button>
                         </div>
                     </div>
                 </div>

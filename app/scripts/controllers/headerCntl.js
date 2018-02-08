@@ -47,6 +47,12 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             "Cookie": "csrftoken=" + $rootScope.csrftoken + '; ' + "sessionid=" + $rootScope.session_key
         }
     };
+    $scope.addremovealert = function() {
+        $("#success-alert-header").addClass('in');
+        $("#success-alert-header").fadeTo(2000, 500).slideUp(500, function() {
+            $("#success-alert-header").removeClass('in');
+        });
+    }
     $rootScope.headerheight = $('#bredcrumbelement').height();
     $rootScope.headerheight += 25;
     $(document).ready(function() {
@@ -69,7 +75,24 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
             format: 'DD-MM-YYYY'
         });
     });
+
+    function parseDate(str) {
+        var mdy = str.split('-');
+        return new Date(mdy[2], mdy[1] - 1, mdy[0]);
+    }
+
+    function daydiff(first, second) {
+        return Math.round((first - second) / (1000 * 60 * 60 * 24));
+    }
     $('#savefordashboard').on('click', function() {
+        var todates = parseDate($('#todatedashboard').val());
+        var end = parseDate($('#fromdatedashboard').val());
+        var days = daydiff(todates, end);
+        if (days < 0) {
+            $scope.headerMesg = "Todate must be greater than fromdate";
+            $scope.addremovealert();
+            return;
+        }
         $rootScope.today1 = moment($('#todatedashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         if ($rootScope.pandlreport === true) {
             $rootScope.startdate1 = moment($('#fromdatedashboard').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
@@ -78,19 +101,25 @@ QTable.controller('headerCntl', function($scope, $state, $rootScope, $stateParam
         $rootScope.datescalculation();
     });
     $('#saveforvoucher').on('click', function() {
+        var todates = parseDate($('#todateidvoucher').val());
+        var end = parseDate($('#fromdateidvoucher').val());
+        var days = daydiff(todates, end);
+        if (days < 0) {
+            $scope.headerMesg = "Todate must be greater than fromdate";
+            $scope.addremovealert();
+            return;
+        }
         $rootScope.fromdate1 = moment($('#fromdateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         $rootScope.today1 = moment($('#todateidvoucher').val(), "DD-MM-YYYY").format("YYYY-MM-DD");
         localStorageService.set('monthwisefromdate', $rootScope.fromdate1);
         localStorageService.set('monthwisetoday', $rootScope.today1);
-        $rootScope.datescalculation();
-        $('#saveforvoucher').modal('hide');
+        $('#selectdatevoucher').modal('hide');
+        if ($state.current.name === "monthWise") {
+            $rootScope.datescalculation();
+        } else {
+            $rootScope.datescalculation();
+        }
     });
-    $scope.addremovealert = function() {
-        $("#success-alert").addClass('in');
-        $("#success-alert").fadeTo(2000, 500).slideUp(500, function() {
-            $("#success-alert").removeClass('in');
-        });
-    }
     $rootScope.getalllocationinheader = function() {
         $scope.loading = true;
         var success = function(result) {

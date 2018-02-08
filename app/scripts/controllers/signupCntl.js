@@ -80,7 +80,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
                         .then(function mysuccess(result) {
                                 $scope.loading = false;
                                 if (result.data.error !== undefined) {
-                                    if(result.data.error.code === 402){
+                                    if (result.data.error.code === 402) {
                                         localStorageService.set("mobile", $scope.props.mobile);
                                         $rootScope.mobile = $scope.props.mobile;
                                         swal({
@@ -102,12 +102,12 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
                                             $scope.timerintilaization();
                                             $('#otpfield').focus();
                                             $scope.readonlyaftergenarateOtp = true;
-                                            $scope.loadmsg = true;
+                                            // $scope.loadmsg = true;
                                             $scope.msg = "Otp has been sent to the entered mobile number";
+                                            $scope.addremovealert();
                                         }
                                     }
                                 }
-                                $scope.addremovealert();
                             },
                             function myerror(data) {
                                 $scope.loading = false;
@@ -138,20 +138,19 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error !== undefined) {
-                $scope.loadmsg = true;
+                // $scope.loadmsg = true;
                 $scope.msg = "Please enter valid Otp.";
             } else {
                 for (key in result.data) {
                     if (key === "resp") {
                         $scope.showingpassword = true;
                         $scope.readonlyafterverify = true;
-                        $scope.loadmsg = true;
+                        // $scope.loadmsg = true;
                         $scope.msg = "Otp verification is successful.";
                     }
                 }
             }
             $scope.addremovealert();
-
         }
         var error = function(result) {
             $scope.loading = false;
@@ -199,7 +198,7 @@ MobiDash.controller('signupCntl', function($scope, $state, $rootScope, $statePar
             localStorageService.set('mobile', $rootScope.mobile);
             localStorageService.set('name', $rootScope.name);
             $state.go("company")
-            $scope.loadmsg = true;
+                // $scope.loadmsg = true;
             $scope.msg = "You company is created successfully.";
             $scope.addremovealert();
         }
