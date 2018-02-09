@@ -329,7 +329,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.loading = false;
             $scope.cancelForm();
             if (result.data.error === undefined) {
-                $scope.msg = "loaction added successfully";
+                $scope.msg = "Loaction added successfully";
             } else {
                 $scope.msg = result.data.error.message;
             }
@@ -423,7 +423,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.getAllLoations();
             $("#deleteModal").modal('hide');
             if (result.data.error === undefined) {
-                $scope.msg = "loaction deleted successfully";
+                $scope.msg = "Loaction deleted successfully";
             } else {
                 $scope.msg = result.data.error.message;
             }
@@ -765,7 +765,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             var success = function(result) {
                 $scope.loading = false;
                 if (result.data.error === undefined) {
-                    $scope.msg = "ledger assinged to location is successful";
+                    $scope.msg = "Ledger assinged to location is successful";
                 } else {
                     item.select = false;
                     $scope.msg = result.data.error.message;
@@ -806,7 +806,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         var success = function(result) {
             $scope.loading = false;
             if (result.data.error === undefined) {
-                $scope.msg = "ledgers unassigned to location successfull";
+                $scope.msg = "Ledgers unassigned to location successfull";
                 $scope.addremovealert();
             } else if (result.data.error !== undefined && result.data.error.code === 1105) {
                 var msgs = "";
@@ -860,9 +860,9 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
             $scope.loading = false;
             if (result.data.error === undefined) {
                 if ($scope.ledgerselectall) {
-                    $scope.msg = "ledgers assigned to location successfull";
+                    $scope.msg = "Ledgers assigned to location successfull";
                 } else {
-                    $scope.msg = "ledgers unassigned to location successfull";
+                    $scope.msg = "Ledgers unassigned to location successfull";
                 }
                 $scope.addremovealert();
             } else if (result.data.error !== undefined && result.data.error.code === 1105) {
@@ -989,7 +989,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
         if (data.gstin !== null && data.gstin !== undefined && data.gstin.length > 0 && !$scope.gstinValidations(data.gstin)) {
             $scope.showerrormessage = true;
             $scope.field = $scope.fields.gstin;
-            $scope.errormessage = "Please enter valid gstin";
+            $scope.errormessage = "Please enter valid GSTIN";
             return true;
         }
         if (data.tan !== null && data.tan !== undefined && data.tan.length > 0 && !$scope.tanValidations(data.tan, data.gstin)) {
@@ -999,10 +999,10 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
                 $scope.errormessage = "Please enter valid tan or clear tan";
             } else if (data.tan.length !== 10) {
                 $scope.errormessage = "Please enter valid tan or clear tan";
+            } else if ((data.gstin.substr(5, 1) !== data.tan.substr(3, 1))) {
+                $scope.errormessage = "GSTIN 6th letter and tan 4th letter must be equal";
             } else {
-                if (data.gstin.substr(5, 1) !== data.tan.substr(3, 1)) {
-                    $scope.errormessage = "gstin 6th letter and tan 4th letter must be equal";
-                }
+                $scope.errormessage = "Please enter valid tan or clear tan";
             }
             return true;
         }
@@ -1081,7 +1081,7 @@ QTable.controller('locationCntl', function($scope, $state, $rootScope, $statePar
     $scope.mobilebackButtonAction = function() {
         $state.go('company');
     }
-    $(document).keyup(function(e) {
+    $(document).keydown(function(e) {
         if (e.keyCode == 27) { // escape key maps to keycode `27`
             $('#locationhistory').modal('hide');
         }

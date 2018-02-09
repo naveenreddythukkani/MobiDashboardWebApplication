@@ -913,7 +913,7 @@ QTable.controller('vouchersettingsCntl', function($scope, $state, $rootScope, $s
     }, {
         "name": "-"
     }]
-    $(document).keyup(function(e) {
+    $(document).keydown(function(e) {
         if (e.keyCode == 27) { // escape key maps to keycode `27`
             $('#voucherhistory').modal('hide');
         }

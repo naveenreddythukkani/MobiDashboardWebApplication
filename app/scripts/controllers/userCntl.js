@@ -310,11 +310,11 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $scope.userDetails.username = "";
         var success = function(result) {
             if (result.data.error === undefined) {
-                $scope.getAllUsers();
                 $scope.msg = "User Details edited successfully";
             } else {
                 $scope.msg = result.data.error.message;
             }
+            $scope.getAllUsers();
             $scope.editcancelForm();
             $scope.addremovealert();
         }
@@ -741,7 +741,7 @@ QTable.controller('userCntl', function($scope, $state, $rootScope, $stateParams,
         $http.post(domain + api + "user/history/", $scope.usersid, config)
             .then(success, error);
     }
-    $(document).keyup(function(e) {
+    $(document).keydown(function(e) {
         if (e.keyCode == 27) { // escape key maps to keycode `27`
             $('#userhistory').modal('hide');
         }
